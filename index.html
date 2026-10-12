@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>梦想显化器</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif}
+body{background:#f5f7fa;color:#1f2937}
+.header{background:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#3b82f6,#60a5fa);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px}
+.logo-text h1{font-size:18px;font-weight:600}
+.logo-text p{font-size:12px;color:#6b7280;margin-top:2px}
+.header-right{display:flex;gap:12px;align-items:center;font-size:14px}
+.btn{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-size:13px;font-weight:500}
+.btn-primary{background:#2563eb;color:#fff}
+.btn-outline{background:#fff;border:1px solid #d1d5db;color:#374151}
+.btn-danger{background:#ef4444;color:#fff}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-edit{background:#f59e0b;color:#fff;margin-left:4px}
+.btn-del{background:#ef4444;color:#fff;margin-left:4px}
+.btn-warn{background:#f59e0b;color:#fff}
+.btn-savior{background:#10b981;color:#fff;margin-left:4px}
+.btn-caishen{background:#8b5cf6;color:#fff;margin-left:4px}
+.user-info{display:flex;align-items:center;gap:8px}
+.role-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff}
+.role-jinzhu{background:#f59e0b}.role-ai{background:#eab308}.role-admin{background:#7c3aed}.role-kefu{background:#10b981}.role-shenhe{background:#6366f1}
+.container{display:flex;height:calc(100vh - 65px)}
+.sidebar{width:200px;background:#fff;border-right:1px solid #e5e7eb;padding:12px 0;flex-shrink:0;overflow-y:auto}
+.menu-item{padding:11px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#4b5563;font-size:13px}
+.menu-item.active{background:#eff6ff;color:#2563eb;border-right:3px solid #2563eb;font-weight:500}
+.menu-item:hover{background:#f9fafb}
+.menu-item.admin-only{display:none}
+.main{flex:1;padding:16px;overflow:auto}
+.panel{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:16px}
+.panel-header{padding:14px 18px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.panel-header h2{font-size:15px;font-weight:600}
+.card-list{padding:12px}
+.card{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
+.avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0}
+.avatar-jinzhu{background:#f59e0b}.avatar-dashi{background:#eab308}
+.card-content{flex:1;min-width:0}
+.card-title{font-weight:600;font-size:14px;margin-bottom:4px;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.card-desc{font-size:13px;color:#6b7280;line-height:1.45;margin-bottom:6px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{background:#f3f4f6;color:#4b5563;font-size:11px;padding:2px 8px;border-radius:4px}
+.match-score{background:#dbeafe;color:#1e40af;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600}
+.match-score.zero{background:#f3f4f6;color:#6b7280}
+.biz-card{margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;display:flex;gap:14px;align-items:center}
+.biz-info{flex:1;font-size:12px;line-height:1.6}
+.biz-info b{color:#1e293b}
+.qr-box{width:72px;height:72px;background:#fff;border:1px solid #e2e8f0;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qr-box img{width:64px;height:64px}
+.modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:200}
+.modal{background:#fff;border-radius:12px;width:560px;max-width:94%;padding:24px;max-height:92vh;overflow:auto}
+.modal h3{margin-bottom:16px;font-size:18px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:13px;margin-bottom:4px;color:#374151}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px}
+.form-group textarea{min-height:56px;resize:vertical}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.dynamic-item{border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-bottom:10px;background:#fafafa;position:relative}
+.dynamic-item .remove-btn{position:absolute;top:8px;right:8px}
+.view{display:none}.view.active{display:block}
+.home-grid{display:flex;gap:16px;height:calc(100vh - 100px)}
+.home-panel{flex:1;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);display:flex;flex-direction:column}
+.home-panel .card-list{overflow-y:auto;flex:1}
+.section-title{font-size:20px;font-weight:600;margin-bottom:8px}
+.section-desc{color:#6b7280;margin-bottom:20px;font-size:14px}
+.coop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
+.coop-card{border:1px solid #e5e7eb;border-radius:10px;padding:20px;text-align:center}
+.chat-box{border:1px solid #e5e7eb;border-radius:10px;height:360px;display:flex;flex-direction:column}
+.chat-messages{flex:1;padding:16px;overflow-y:auto;background:#f9fafb}
+.chat-input{display:flex;border-top:1px solid #e5e7eb}
+.chat-input input{flex:1;border:none;padding:12px;outline:none}
+.chat-input button{padding:0 16px;background:#2563eb;color:#fff;border:none;cursor:pointer}
+.msg{margin-bottom:10px;max-width:80%}
+.msg.bot{background:#e0e7ff;padding:8px 12px;border-radius:8px}
+.msg.user{background:#dbeafe;padding:8px 12px;border-radius:8px;margin-left:auto}
+.empty-tip{padding:40px 20px;text-align:center;color:#9ca3af;font-size:14px;line-height:1.6}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th,.table td{padding:10px 12px;border-bottom:1px solid #e5e7eb;text-align:left}
+.table th{background:#f9fafb;font-weight:600}
+.badge-black{background:#fecaca;color:#991b1b;font-size:11px;padding:2px 6px;border-radius:4px}
+.badge-ok{background:#d1fae5;color:#065f46;font-size:11px;padding:2px 6px;border-radius:4px}
+.match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:13px}
+.cloud-tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;padding:8px 14px;font-size:12px;text-align:center}
+.loading{padding:40px;text-align:center;color:#6b7280}
+.msg-item{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;background:#fff}
+.msg-type{font-size:11px;padding:2px 8px;border-radius:4px;background:#e0e7ff;color:#3730a3;margin-right:6px}
+.x-actions{display:flex;align-items:center;gap:4px;margin-top:10px;padding-top:8px;border-top:1px solid #f3f4f6;flex-wrap:wrap}
+.x-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:none;border-radius:999px;background:transparent;cursor:pointer;color:#536471;font-size:16px;transition:background .15s,color .15s;padding:0}
+.x-icon:hover{background:#f1f5f9}
+.x-icon.greet:hover{color:#1d9bf0;background:#e8f5fd}
+.x-icon.progress:hover{color:#00ba7c;background:#e6f8f1}
+.x-icon.event:hover{color:#f91880;background:#fce7f3}
+.x-icon.case:hover{color:#7856ff;background:#f0edff}
+.x-icon.trial:hover{color:#ff7a00;background:#fff4e8}
+.x-icon.report:hover{color:#f4212e;background:#fef2f2}
+@media (max-width:768px){
+  .container{flex-direction:column;height:auto;min-height:calc(100vh - 65px)}
+  .sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e7eb;padding:8px 6px;display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:4px;flex-shrink:0}
+  .menu-item{padding:8px 12px;white-space:nowrap;flex-shrink:0;border-radius:8px;font-size:12px}
+  .menu-item.active{border-right:none;background:#eff6ff;color:#2563eb;font-weight:600}
+  .main{padding:12px;overflow:visible}
+  .home-grid{flex-direction:column;height:auto;gap:12px}
+  .home-panel{min-height:280px}
+  .header{padding:10px 12px;flex-wrap:wrap;gap:8px}
+  .logo-text p{display:none}
+  .cloud-tip{font-size:11px;padding:6px 10px}
+}
+</style>
+</head>
+<body>
+<div class="cloud-tip">☁️ 数据已接入云端（Supabase）· 所有用户共享同一份数据</div>
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">梦</div>
+    <div class="logo-text">
+      <h1>梦想显化器</h1>
+      <p>免费给所有企业和个人提供销售业绩AI解决方案和AI工具。人生如打怪，你需要好的装备。</p>
+    </div>
+  </div>
+  <div class="header-right" id="userArea"></div>
+</div>
+
+<div class="container">
+  <div class="sidebar">
+    <div class="menu-item active" data-view="home">🏠 首页</div>
+    <div class="menu-item" data-view="jinzhu">📋 金主需求中心</div>
+    <div class="menu-item" data-view="dashi">🧰 超级智能工具箱</div>
+    <div class="menu-item" data-view="inbox">📩 收到的信息</div>
+    <div class="menu-item" data-view="coop">🤝 商务合作</div>
+    <div class="menu-item" data-view="kefu">🎧 在线客服</div>
+    <div class="menu-item admin-only" data-view="users">👥 用户管理</div>
+    <div class="menu-item admin-only" data-view="coop-list">📊 商务合作汇总</div>
+    <div class="menu-item admin-only" data-view="chat-list">💬 在线客服汇总</div>
+    <div class="menu-item" data-view="setting">⚙️ 设置</div>
+  </div>
+
+  <div class="main">
+    <div class="view active" id="view-home">
+      <div class="home-grid">
+        <div class="home-panel">
+          <div class="panel-header"><h2>👥 用户需求列表</h2><span style="color:#10b981;font-size:12px">● 云端同步</span></div>
+          <div class="card-list" id="home-jinzhu-list"><div class="loading">加载中…</div></div>
+        </div>
+        <div class="home-panel">
+          <div class="panel-header"><h2>✨ 免费方案与工具</h2><span style="color:#10b981;font-size:12px">AI驱动 · 免费使用</span></div>
+          <div class="card-list" id="home-dashi-list"><div class="loading">加载中…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-jinzhu">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>金主需求中心</h2>
+          <button class="btn btn-primary" id="btn-add-jinzhu" onclick="openAddJinZhu()" style="display:none">+ 发布需求</button>
+        </div>
+        <div id="jinzhu-match-banner"></div>
+        <div class="card-list" id="jinzhu-list"></div>
+      </div>
+    </div>
+
+    <div class="view" id="view-dashi">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>超级智能工具箱</h2>
+          <button class="btn btn-primary" id="btn-add-dashi" onclick="openAddDaShi()" style="display:none">+ 发布超级智能工具</button>
+        </div>
+        <div id="dashi-match-banner"></div>
+        <div class="card-list" id="dashi-list"></div>
+      </div>
+    </div>
+
+    <div class="view" id="view-inbox">
+      <div class="panel">
+        <div class="panel-header"><h2>收到的信息</h2></div>
+        <div class="card-list" id="inbox-list"><div class="empty-tip">请先登录后查看</div></div>
+      </div>
+    </div>
+
+    <div class="view" id="view-coop">
+      <div class="section-title">商务合作</div>
+      <div class="section-desc">与梦想显化器共建销售AI生态。</div>
+      <div class="coop-grid">
+        <div class="coop-card"><h4>战略合作</h4><p style="font-size:13px;color:#6b7280">共同打造行业解决方案</p></div>
+        <div class="coop-card"><h4>渠道合作</h4><p style="font-size:13px;color:#6b7280">推荐伙伴，持续导流分成</p></div>
+        <div class="coop-card"><h4>技术合作</h4><p style="font-size:13px;color:#6b7280">API对接、私有化部署</p></div>
+        <div class="coop-card"><h4>内容培训</h4><p style="font-size:13px;color:#6b7280">联合课程与案例输出</p></div>
+      </div>
+      <div class="panel" style="padding:20px">
+        <h3 style="margin-bottom:12px">提交合作意向</h3>
+        <div class="form-group"><label>公司 / 个人名称 *</label><input id="coop-name"></div>
+        <div class="form-group"><label>联系人 + 微信/电话 *</label><input id="coop-contact"></div>
+        <div class="form-group"><label>合作类型</label>
+          <select id="coop-type"><option>战略合作</option><option>渠道合作</option><option>技术合作</option><option>内容培训合作</option></select>
+        </div>
+        <div class="form-group"><label>合作说明</label><textarea id="coop-desc"></textarea></div>
+        <button class="btn btn-primary" onclick="submitCoop()">提交意向</button>
+      </div>
+    </div>
+
+    <div class="view" id="view-kefu">
+      <div class="section-title">在线客服</div>
+      <div class="section-desc">演示版（消息写入云端）</div>
+      <div class="chat-box">
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg bot">您好！我是梦想显化器智能客服，有什么可以帮您？</div>
+        </div>
+        <div class="chat-input">
+          <input id="chatInput" placeholder="输入消息..." onkeypress="if(event.key==='Enter')sendChat()">
+          <button onclick="sendChat()">发送</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-users">
+      <div class="panel">
+        <div class="panel-header"><h2>用户管理</h2></div>
+        <div style="padding:12px;overflow-x:auto">
+          <table class="table">
+            <thead><tr><th>手机号</th><th>角色</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody id="users-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-coop-list">
+      <div class="panel">
+        <div class="panel-header"><h2>商务合作汇总</h2></div>
+        <div class="card-list" id="coop-list"></div>
+      </div>
+    </div>
+
+    <div class="view" id="view-chat-list">
+      <div class="panel">
+        <div class="panel-header"><h2>在线客服汇总</h2></div>
+        <div class="card-list" id="chat-list"></div>
+      </div>
+    </div>
+
+    <div class="view" id="view-setting">
+      <div class="panel" style="padding:24px">
+        <h2 style="margin-bottom:12px">设置</h2>
+        <p style="color:#6b7280;font-size:14px;line-height:1.6">
+          数据存储在 <b>Supabase</b> 云端。<br>
+          注册角色仅限：金主、AI公司。管理员请在数据库中配置。<br><br>
+          演示账号（密码均为 <b>123456</b>）：<br>
+          金主：13800001111 / 13900002222<br>
+          AI公司：13700003333 / 13600004444<br>
+          管理员：10000000000
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
+
+<script>
+/* ========== 必填：换成你的 Supabase 配置 ========== */
+const SUPABASE_URL = 'https://jvtjsiixvthvjoqjcdft.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
+/* ================================================ */
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+let matchContext = null;
+let editingJinZhuId = null;
+let editingDaShiId = null;
+
+const MSG_TYPE_LABEL = {
+  greeting: '美好的问候',
+  progress: '成功进展报告',
+  event: '活动邀请',
+  case_request: '索取成功案例',
+  trial_request: '请求试用'
+};
+
+function getUser(){ const u = localStorage.getItem('user'); return u ? JSON.parse(u) : null; }
+function setUser(u){
+  if(u) localStorage.setItem('user', JSON.stringify(u));
+  else localStorage.removeItem('user');
+  matchContext = null;
+  renderUserArea();
+  updateButtons();
+  updateAdminMenus();
+  renderAll();
+}
+function isAdmin(){ const u = getUser(); return u && u.role === 'admin'; }
+function canEdit(item){
+  const user = getUser();
+  if(!user) return false;
+  if(user.role === 'admin') return true;
+  return String(item.phone) === String(user.phone);
+}
+function escapeAttr(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function linkify(text){
+  if(!text) return '';
+  const escaped = String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return escaped
+    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color:#2563eb;text-decoration:underline;word-break:break-all">$1</a>')
+    .replace(/\n/g, '<br>');
+}
+
+function accumulatePains(jin){ return (jin.pains||[]).map(p => (p.title||'')+' '+(p.desc||'')).join(' '); }
+function accumulateTools(dashi){ return (dashi.tools||[]).map(t => (t.title||'')+' '+(t.desc||'')).join(' '); }
+function textMatch(text1, text2){
+  if(!text1 || !text2) return 0;
+  const t1 = (text1+'').toLowerCase(), t2 = (text2+'').toLowerCase();
+  const keywords = ['销售','预测','跟进','自动化','客户','画像','话术','方案','转化','获客','私域','复购','流量','数据','ai','智能','客流','会员','选品','排班'];
+  let score = 0;
+  keywords.forEach(k => { if(t1.includes(k) && t2.includes(k)) score += 2; });
+  if(t1.includes(t2) || t2.includes(t1)) score += 3;
+  const words1 = t1.split(/[\s,，。、；;]+/).filter(w => w.length > 1);
+  const words2 = t2.split(/[\s,，。、；;]+/).filter(w => w.length > 1);
+  words1.forEach(w => { if(words2.some(w2 => w2.includes(w) || w.includes(w2))) score += 1; });
+  return score;
+}
+
+async function fetchJinZhu(){ const { data, error } = await sb.from('jinzhu').select('*').order('id'); if(error){ console.error(error); return []; } return data || []; }
+async function fetchDaShi(){ const { data, error } = await sb.from('dashi').select('*').order('id'); if(error){ console.error(error); return []; } return data || []; }
+async function fetchUsers(){ const { data, error } = await sb.from('app_users').select('*').order('phone'); if(error){ console.error(error); return []; } return data || []; }
+async function fetchCoop(){ const { data, error } = await sb.from('coop_records').select('*').order('id',{ascending:false}); if(error) return []; return data || []; }
+async function fetchChat(){ const { data, error } = await sb.from('chat_records').select('*').order('id',{ascending:false}); if(error) return []; return data || []; }
+async function fetchMessagesToMe(){
+  const user = getUser();
+  if(!user) return [];
+  const { data, error } = await sb.from('messages').select('*').eq('to_phone', user.phone).order('id',{ascending:false});
+  if(error){ console.error(error); return []; }
+  return data || [];
+}
+
+function goSavior(jinId){
+  fetchJinZhu().then(list => {
+    const jin = list.find(j => j.id === jinId);
+    if(!jin) return alert('未找到');
+    matchContext = { type:'jinzhu', id:jin.id, name:jin.name, text:accumulatePains(jin) };
+    switchView('dashi');
+  });
+}
+function goCaishen(dashiId){
+  fetchDaShi().then(list => {
+    const d = list.find(x => x.id === dashiId);
+    if(!d) return alert('未找到');
+    matchContext = { type:'dashi', id:d.id, name:d.name, text:accumulateTools(d) };
+    switchView('jinzhu');
+  });
+}
+function clearMatchContext(){ matchContext = null; renderJinZhu(); renderDaShi(); }
+
+function switchView(view){
+  document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.view === view));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  if(view==='home') renderHome();
+  if(view==='jinzhu') renderJinZhu();
+  if(view==='dashi') renderDaShi();
+  if(view==='inbox') renderInbox();
+  if(view==='users') renderUsers();
+  if(view==='coop-list') renderCoopList();
+  if(view==='chat-list') renderChatList();
+}
+
+function renderUserArea(){
+  const area = document.getElementById('userArea');
+  const user = getUser();
+  if(!user){
+    area.innerHTML = `<button class="btn btn-outline" onclick="openModal('login')">登录</button>
+      <button class="btn btn-primary" onclick="openModal('register')">注册</button>`;
+  } else {
+    const roleMap = {jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员'};
+    const clsMap = {jinzhu:'role-jinzhu',ai:'role-ai',admin:'role-admin',kefu:'role-kefu',shenhe:'role-shenhe'};
+    area.innerHTML = `<div class="user-info">
+      <span class="role-badge ${clsMap[user.role]||'role-jinzhu'}">${roleMap[user.role]||user.role}</span>
+      <span>${user.phone}</span>
+      <button class="btn btn-outline" onclick="setUser(null)">退出</button>
+    </div>`;
+  }
+}
+function updateButtons(){
+  const user = getUser();
+  document.getElementById('btn-add-jinzhu').style.display = (user && (user.role==='jinzhu'||user.role==='admin')) ? 'inline-block' : 'none';
+  document.getElementById('btn-add-dashi').style.display = (user && (user.role==='ai'||user.role==='admin')) ? 'inline-block' : 'none';
+}
+function updateAdminMenus(){
+  document.querySelectorAll('.menu-item.admin-only').forEach(el => el.style.display = isAdmin() ? 'flex' : 'none');
+}
+
+function openModal(type){
+  const box = document.getElementById('modalBox');
+  if(type==='login'){
+    box.innerHTML = `<h3>手机号登录</h3>
+      <div class="form-group"><label>手机号 *</label><input id="login-phone"></div>
+      <div class="form-group"><label>密码 *</label><input type="password" id="login-pwd"></div>
+      <div class="form-actions">
+        <button class="btn btn-outline" onclick="closeModal()">取消</button>
+        <button class="btn btn-primary" onclick="doLogin()">登录</button>
+      </div>`;
+  } else {
+    box.innerHTML = `<h3>手机号注册</h3>
+      <div class="form-group"><label>手机号 *</label><input id="reg-phone"></div>
+      <div class="form-group"><label>密码 *</label><input type="password" id="reg-pwd"></div>
+      <div class="form-group"><label>确认密码 *</label><input type="password" id="reg-pwd2"></div>
+      <div class="form-group"><label>角色</label>
+        <select id="reg-role">
+          <option value="jinzhu">金主</option>
+          <option value="ai">AI公司</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-outline" onclick="closeModal()">取消</button>
+        <button class="btn btn-primary" onclick="doRegister()">注册并登录</button>
+      </div>`;
+  }
+  document.getElementById('modalMask').style.display = 'flex';
+}
+function closeModal(){ document.getElementById('modalMask').style.display = 'none'; }
+
+async function doLogin(){
+  const phone = (document.getElementById('login-phone').value||'').trim();
+  const pwd = (document.getElementById('login-pwd').value||'').trim();
+  if(!phone||!pwd) return alert('请输入手机号和密码');
+  const { data, error } = await sb.from('app_users').select('*').eq('phone', phone).maybeSingle();
+  if(error) return alert('登录失败：'+error.message);
+  if(!data) return alert('用户不存在，请先注册');
+  if(data.blacklisted) return alert('该账号已被列入黑名单');
+  if(data.pwd !== pwd) return alert('密码错误');
+  setUser({ phone: data.phone, role: data.role });
+  closeModal();
+  alert('登录成功');
+}
+
+async function doRegister(){
+  const phone = (document.getElementById('reg-phone').value||'').trim();
+  const pwd = (document.getElementById('reg-pwd').value||'').trim();
+  const pwd2 = (document.getElementById('reg-pwd2').value||'').trim();
+  const role = document.getElementById('reg-role').value;
+  if(!phone||!pwd) return alert('请输入手机号和密码');
+  if(pwd!==pwd2) return alert('两次密码不一致');
+  if(pwd.length<4) return alert('密码至少4位');
+  if(role!=='jinzhu' && role!=='ai') return alert('仅支持金主或AI公司注册');
+  const { data:exist } = await sb.from('app_users').select('phone').eq('phone', phone).maybeSingle();
+  if(exist) return alert('该手机号已注册');
+  const { error } = await sb.from('app_users').insert({ phone, role, pwd, blacklisted:false });
+  if(error) return alert('注册失败：'+error.message);
+  setUser({ phone, role });
+  closeModal();
+  alert('注册成功');
+}
+
+function renderBizCard(card){
+  if(!card) return '';
+  const site = (card.website || '').trim();
+  let siteHtml = '-';
+  if(site){
+    let href = site;
+    if(!/^https?:\/\//i.test(href)) href = 'https://' + href;
+    siteHtml = `<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener noreferrer" style="color:#2563eb;text-decoration:underline;word-break:break-all">${site.replace(/</g,'&lt;')}</a>`;
+  }
+  return `<div class="biz-card"><div class="biz-info">
+    <div><b>${card.person||'-'}</b> · ${card.title||''}</div>
+    <div>📱 ${card.phone||'-'}</div>
+    <div>✉️ ${card.email||'-'}</div>
+    <div>💬 微信：${card.wechat||'-'}</div>
+    <div>🟢 WhatsApp：${card.whatsapp||'-'}</div>
+    <div>🌐 公司网址：${siteHtml}</div>
+  </div>
+  <div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;
+}
+
+async function openSendMsgDirect(msgType, toPhone, toName){
+  const user = getUser();
+  if(!user) return alert('请先登录');
+  if(!toPhone) return alert('对方手机号未知');
+  const defaults = {
+    greeting: { title: '美好的问候', content: '您好！看到您的信息，特来打个招呼，期待有机会交流。' },
+    progress: { title: '成功进展报告', content: '向您同步一下我们这边的进展，欢迎一起探讨合作。' },
+    event: { title: '活动邀请', content: '诚邀您参加我们的交流/活动，详情可回复本消息沟通。' },
+    case_request: { title: '索取成功案例资料', content: '您好，希望了解贵司相关成功案例资料，便于评估合作。' },
+    trial_request: { title: '请求试用', content: '您好，希望试用贵司的方案/工具，请告知试用方式与对接人。' }
+  };
+  const d0 = defaults[msgType] || { title: '', content: '' };
+  const safePhone = escapeAttr(toPhone);
+  const safeName = escapeAttr(toName);
+  let extraFieldHtml = '';
+  if(msgType === 'greeting'){
+    extraFieldHtml = `<div class="form-group"><label>公司活动近照链接：</label><input id="msg-extra" placeholder="请粘贴近照或活动相册链接（可选）"></div>`;
+  } else if(msgType === 'progress'){
+    extraFieldHtml = `<div class="form-group"><label>成功进展报告链接：</label><input id="msg-extra" placeholder="请粘贴进展报告链接（可选）"></div>`;
+  } else if(msgType === 'event'){
+    extraFieldHtml = `<div class="form-group"><label>活动链接：</label><input id="msg-extra" placeholder="请粘贴活动报名/详情链接（可选）"></div>`;
+  } else if(msgType === 'case_request' || msgType === 'trial_request'){
+    extraFieldHtml = `<div class="form-group"><label>我的联系方式：</label><input id="msg-extra" placeholder="微信 / 手机 / 邮箱，便于对方联系您"></div>`;
+  }
+  document.getElementById('modalBox').innerHTML = `
+    <h3>${MSG_TYPE_LABEL[msgType]||msgType}</h3>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:12px">发送给：<b>${toName||''}</b>（${toPhone}）</p>
+    <div class="form-group"><label>标题</label><input id="msg-title" value="${d0.title}"></div>
+    <div class="form-group"><label>内容</label><textarea id="msg-content">${d0.content}</textarea></div>
+    ${extraFieldHtml}
+    <div class="form-actions">
+      <button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="submitMsgDirect('${msgType}','${safePhone}','${safeName}')">发送</button>
+    </div>`;
+  document.getElementById('modalMask').style.display = 'flex';
+}
+
+async function submitMsgDirect(msgType, toPhone, toName){
+  const user = getUser();
+  if(!user) return;
+  const title = document.getElementById('msg-title').value.trim();
+  let content = document.getElementById('msg-content').value.trim();
+  if(!content) return alert('请填写内容');
+  const extraEl = document.getElementById('msg-extra');
+  const extra = extraEl ? extraEl.value.trim() : '';
+  if(extra){
+    if(msgType === 'greeting') content += '\n\n公司活动近照链接：' + extra;
+    else if(msgType === 'progress') content += '\n\n成功进展报告链接：' + extra;
+    else if(msgType === 'event') content += '\n\n活动链接：' + extra;
+    else if(msgType === 'case_request' || msgType === 'trial_request') content += '\n\n我的联系方式：' + extra;
+  }
+  const { error } = await sb.from('messages').insert({
+    id: Date.now(), from_phone: user.phone, from_name: user.phone, from_role: user.role,
+    to_phone: toPhone, msg_type: msgType, title: title || (MSG_TYPE_LABEL[msgType]||''), content, related_name: toName || ''
+  });
+  if(error) return alert('发送失败：'+error.message);
+  closeModal();
+  alert('已发送！对方可在「收到的信息」中查看');
+}
+
+async function canUserReport(){
+  const user = getUser();
+  if(!user) return false;
+  const { data } = await sb.from('app_users').select('created_at').eq('phone', user.phone).maybeSingle();
+  if(!data || !data.created_at) return false;
+  const days = (Date.now() - new Date(data.created_at).getTime()) / (1000*60*60*24);
+  return days >= 30;
+}
+
+/** 举报：仅通知管理员站内信，不拉黑、不另建表 */
+async function reportTarget(reportedPhone, reportedName, reportedType){
+  const user = getUser();
+  if(!user) return alert('请先登录');
+  if(!(await canUserReport())) return alert('注册满 30 天后才能使用举报功能。');
+  if(String(reportedPhone) === String(user.phone)) return alert('不能举报自己');
+  const reason = prompt('请简要说明举报原因（将通知管理员）：');
+  if(reason === null) return;
+  if(!reason.trim()) return alert('请填写举报原因');
+  const { data: admins, error } = await sb.from('app_users').select('phone').eq('role', 'admin');
+  if(error) return alert('获取管理员失败：'+error.message);
+  if(!admins || !admins.length) return alert('暂无管理员账号，无法送达举报。');
+  const typeLabel = reportedType === 'jinzhu' ? '金主' : 'AI公司';
+  const content = `【用户举报】\n举报人：${user.phone}\n被举报：${reportedName||''}（${reportedPhone}）\n类型：${typeLabel}\n原因：${reason.trim()}\n请管理员尽快联系核实处理。`;
+  for(const a of admins){
+    await sb.from('messages').insert({
+      id: Date.now() + Math.floor(Math.random()*10000),
+      from_phone: user.phone, from_name: user.phone, from_role: user.role,
+      to_phone: a.phone, msg_type: 'greeting', title: '用户举报', content, related_name: reportedName || ''
+    });
+  }
+  alert('举报已提交，管理员将在「收到的信息」中查看。');
+}
+
+async function renderInbox(){
+  const user = getUser();
+  const box = document.getElementById('inbox-list');
+  if(!user){ box.innerHTML = '<div class="empty-tip">请先登录后查看收到的信息</div>'; return; }
+  const list = await fetchMessagesToMe();
+  box.innerHTML = list.length ? list.map(m => `
+    <div class="msg-item">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap">
+        <div><span class="msg-type">${m.title==='用户举报'?'用户举报':(MSG_TYPE_LABEL[m.msg_type]||m.msg_type)}</span><b>${m.title||''}</b></div>
+        <button class="btn btn-del btn-sm" onclick="deleteMsg(${m.id})">删除</button>
+      </div>
+      <div class="card-desc" style="margin-top:8px;line-height:1.6">${linkify(m.content||'')}</div>
+      <div class="card-desc" style="font-size:12px;color:#9ca3af">来自：${m.from_phone}（${m.from_role||''}）· ${m.created_at||''}</div>
+    </div>`).join('') : '<div class="empty-tip">暂无收到的信息</div>';
+}
+async function deleteMsg(id){ if(!confirm('确定删除？')) return; await sb.from('messages').delete().eq('id', id); renderInbox(); }
+
+async function renderAll(){ await renderHome(); await renderJinZhu(); await renderDaShi(); }
+
+async function renderHome(){
+  const jinzhu = await fetchJinZhu();
+  const dashi = await fetchDaShi();
+  const admin = isAdmin();
+  document.getElementById('home-jinzhu-list').innerHTML = jinzhu.length ? jinzhu.map(j => `
+    <div class="card"><div class="avatar avatar-jinzhu">金主</div><div class="card-content">
+      <div class="card-title">${j.name}${admin?` <button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">删除</button>`:''}</div>
+      <div class="card-desc">${j.intro||''}</div>
+      <div class="tags">${(j.pains||[]).map(p=>`<span class="tag">${p.title}</span>`).join('')}</div>
+      ${admin?renderBizCard(j.card):''}
+    </div></div>`).join('') : '<div class="empty-tip">暂无数据</div>';
+  document.getElementById('home-dashi-list').innerHTML = dashi.length ? dashi.map(d => `
+    <div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content">
+      <div class="card-title">${d.name}${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div>
+      <div class="card-desc">${d.intro||''}</div>
+      <div class="tags">${(d.tools||[]).map(t=>`<span class="tag">${t.title}</span>`).join('')}</div>
+      ${admin?renderBizCard(d.card):''}
+    </div></div>`).join('') : '<div class="empty-tip">暂无数据</div>';
+}
+
+async function renderJinZhu(){
+  const user = getUser();
+  let list = await fetchJinZhu();
+  let emptyMsg = '';
+  const banner = document.getElementById('jinzhu-match-banner');
+  if(matchContext && matchContext.type==='dashi'){
+    banner.innerHTML = `<div class="match-banner">匹配来源：超级智能「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669;font-weight:600">清除匹配</a></div>`;
+    list = list.map(j => ({...j, _matchScore: textMatch(matchContext.text, accumulatePains(j))})).sort((a,b)=>b._matchScore-a._matchScore);
+  } else {
+    banner.innerHTML = '';
+    if(!user){ emptyMsg='<div class="empty-tip">请先登录后查看</div>'; list=[]; }
+    else if(user.role==='jinzhu'){
+      list = list.filter(j => String(j.phone)===String(user.phone));
+      if(!list.length) emptyMsg=`<div class="empty-tip">您还没有发布需求，请点击「+ 发布需求」</div>`;
+    }
+  }
+  document.getElementById('jinzhu-list').innerHTML = list.length ? list.map(j => {
+    const showInteract = user && (user.role === 'ai' || user.role === 'admin');
+    const pn = escapeAttr(j.phone), nm = escapeAttr(j.name);
+    return `
+    <div class="card"><div class="avatar avatar-jinzhu">金主</div><div class="card-content">
+      <div class="card-title">${j.name}
+        ${j._matchScore!==undefined?`<span class="match-score ${j._matchScore===0?'zero':''}">匹配度 ${j._matchScore}</span>`:''}
+        ${canEdit(j)?`
+          <button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">编辑需求</button>
+          <button class="btn btn-savior btn-sm" onclick="goSavior(${j.id})">我的救世主</button>
+        `:''}
+      </div>
+      <div class="card-desc"><b>简介：</b>${j.intro||''}</div>
+      <div class="card-desc"><b>梦想：</b>${j.dream||'-'}</div>
+      <div class="card-desc"><b>痛点（${(j.pains||[]).length}个）：</b></div>
+      ${(j.pains||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}
+      ${(isAdmin() || canEdit(j)) ? renderBizCard(j.card) : ''}
+      ${showInteract ? `
+      <div class="x-actions">
+        <button type="button" class="x-icon greet" title="发送美好的问候" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>
+        <button type="button" class="x-icon progress" title="发送成功进展报告" onclick="openSendMsgDirect('progress','${pn}','${nm}')">📈</button>
+        <button type="button" class="x-icon event" title="活动邀请" onclick="openSendMsgDirect('event','${pn}','${nm}')">📅</button>
+        <button type="button" class="x-icon report" title="举报" onclick="reportTarget('${pn}','${nm}','jinzhu')">🚩</button>
+      </div>` : ''}
+    </div></div>`;
+  }).join('') : emptyMsg;
+}
+
+async function renderDaShi(){
+  const user = getUser();
+  let list = await fetchDaShi();
+  let emptyMsg = '';
+  const banner = document.getElementById('dashi-match-banner');
+  if(matchContext && matchContext.type==='jinzhu'){
+    banner.innerHTML = `<div class="match-banner">匹配来源：金主「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669;font-weight:600">清除匹配</a></div>`;
+    list = list.map(d => ({...d, _matchScore: textMatch(matchContext.text, accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);
+  } else {
+    banner.innerHTML = '';
+    if(!user){ emptyMsg='<div class="empty-tip">请先登录后查看</div>'; list=[]; }
+    else if(user.role==='ai'){
+      list = list.filter(d => String(d.phone)===String(user.phone));
+      if(!list.length) emptyMsg=`<div class="empty-tip">您还没有发布工具，请点击「+ 发布超级智能工具」</div>`;
+    }
+  }
+  document.getElementById('dashi-list').innerHTML = list.length ? list.map(d => {
+    const showInteract = user && (user.role === 'jinzhu' || user.role === 'admin');
+    const pn = escapeAttr(d.phone), nm = escapeAttr(d.name);
+    return `
+    <div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content">
+      <div class="card-title">${d.name}
+        ${d._matchScore!==undefined?`<span class="match-score ${d._matchScore===0?'zero':''}">匹配度 ${d._matchScore}</span>`:''}
+        ${canEdit(d)?`
+          <button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">编辑超级智能工具</button>
+          <button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">我的财神</button>
+        `:''}
+      </div>
+      <div class="card-desc"><b>简介：</b>${d.intro||''}</div>
+      <div class="card-desc"><b>座右铭：</b>${d.motto||'-'}</div>
+      <div class="card-desc"><b>工具装备（${(d.tools||[]).length}个）：</b></div>
+      ${(d.tools||[]).map(t=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${t.title}</b>：${t.desc}</div>`).join('')}
+      ${renderBizCard(d.card)}
+      ${showInteract ? `
+      <div class="x-actions">
+        <button type="button" class="x-icon greet" title="发送美好的问候" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>
+        <button type="button" class="x-icon case" title="索取成功案例资料" onclick="openSendMsgDirect('case_request','${pn}','${nm}')">📄</button>
+        <button type="button" class="x-icon trial" title="请求试用" onclick="openSendMsgDirect('trial_request','${pn}','${nm}')">🚀</button>
+        <button type="button" class="x-icon report" title="举报" onclick="reportTarget('${pn}','${nm}','ai')">🚩</button>
+      </div>` : ''}
+    </div></div>`;
+  }).join('') : emptyMsg;
+}
+
+async function deleteJinZhu(id){ if(!isAdmin()) return alert('仅管理员可删除'); if(!confirm('确定删除？')) return; await sb.from('jinzhu').delete().eq('id', id); renderAll(); }
+async function deleteDaShi(id){ if(!isAdmin()) return alert('仅管理员可删除'); if(!confirm('确定删除？')) return; await sb.from('dashi').delete().eq('id', id); renderAll(); }
+
+function addPainItem(title='', desc=''){
+  const box = document.getElementById('pain-list'); if(!box) return;
+  const div = document.createElement('div'); div.className='dynamic-item';
+  div.innerHTML = `<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button>
+    <div class="form-group"><label>痛点标题</label><input class="pain-title" value="${(title||'').replace(/"/g,'&quot;')}"></div>
+    <div class="form-group"><label>详细描述</label><textarea class="pain-desc">${desc||''}</textarea></div>`;
+  box.appendChild(div);
+}
+function addToolItem(title='', desc=''){
+  const box = document.getElementById('tool-list'); if(!box) return;
+  const div = document.createElement('div'); div.className='dynamic-item';
+  div.innerHTML = `<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button>
+    <div class="form-group"><label>工具标题</label><input class="tool-title" value="${(title||'').replace(/"/g,'&quot;')}"></div>
+    <div class="form-group"><label>详细描述</label><textarea class="tool-desc">${desc||''}</textarea></div>`;
+  box.appendChild(div);
+}
+
+function openAddJinZhu(){ editingJinZhuId=null; showJinZhuForm(); }
+async function editJinZhu(id){
+  const list = await fetchJinZhu();
+  const item = list.find(j=>j.id===id);
+  if(!item||!canEdit(item)) return alert('无权限');
+  editingJinZhuId=id; showJinZhuForm(item);
+}
+function showJinZhuForm(item=null){
+  const user=getUser();
+  const phoneVal=item?item.phone:(user?user.phone:'');
+  document.getElementById('modalBox').innerHTML=`<h3>${item?'编辑需求':'发布需求'}</h3>
+    <div class="form-group"><label>公司名/姓名 *</label><input id="jz-name" value="${item?item.name:''}"></div>
+    <div class="form-group"><label>简介</label><textarea id="jz-intro">${item?item.intro:''}</textarea></div>
+    <div class="form-group"><label>梦想</label><input id="jz-dream" value="${item?(item.dream||''):''}"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><b>痛点列表</b>
+      <button type="button" class="btn btn-outline btn-sm" onclick="addPainItem()">+ 添加痛点</button></div>
+    <div id="pain-list"></div>
+    <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb">
+    <div style="font-weight:600;margin-bottom:8px">名片</div>
+    <div class="form-group"><label>名片姓名 *</label><input id="jz-person" value="${item&&item.card?item.card.person:''}"></div>
+    <div class="form-group"><label>职位</label><input id="jz-title" value="${item&&item.card?(item.card.title||''):''}"></div>
+    <div class="form-group"><label>手机号 *</label><input id="jz-phone" value="${phoneVal}" readonly style="background:#f3f4f6"></div>
+    <div class="form-group"><label>邮箱</label><input id="jz-email" value="${item&&item.card?(item.card.email||''):''}"></div>
+    <div class="form-group"><label>微信ID *</label><input id="jz-wechat" value="${item&&item.card?(item.card.wechat||''):''}"></div>
+    <div class="form-group"><label>WhatsApp</label><input id="jz-whatsapp" value="${item&&item.card?(item.card.whatsapp||''):''}"></div>
+    <div class="form-group"><label>公司网址</label><input id="jz-website" placeholder="https://www.example.com" value="${item&&item.card?(item.card.website||''):''}"></div>
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveJinZhu()">保存</button></div>`;
+  document.getElementById('modalMask').style.display='flex';
+  if(item&&item.pains&&item.pains.length) item.pains.forEach(p=>addPainItem(p.title,p.desc)); else addPainItem();
+}
+async function saveJinZhu(){
+  const name=document.getElementById('jz-name').value.trim();
+  const person=document.getElementById('jz-person').value.trim();
+  const phone=document.getElementById('jz-phone').value.trim();
+  const wechat=document.getElementById('jz-wechat').value.trim();
+  if(!name||!person||!phone||!wechat) return alert('必填项不能为空');
+  const pains=[];
+  document.querySelectorAll('#pain-list .dynamic-item').forEach(item=>{
+    const t=item.querySelector('.pain-title').value.trim();
+    const d=item.querySelector('.pain-desc').value.trim();
+    if(t) pains.push({title:t,desc:d});
+  });
+  const row={
+    id: editingJinZhuId || Date.now(),
+    name, intro:document.getElementById('jz-intro').value, dream:document.getElementById('jz-dream').value, phone, pains,
+    card:{ person, title:document.getElementById('jz-title').value, phone, email:document.getElementById('jz-email').value, wechat,
+      whatsapp:document.getElementById('jz-whatsapp').value, website:document.getElementById('jz-website').value.trim(),
+      qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}` }
+  };
+  let error;
+  if(editingJinZhuId) ({error}=await sb.from('jinzhu').update(row).eq('id', editingJinZhuId));
+  else ({error}=await sb.from('jinzhu').insert(row));
+  if(error) return alert('保存失败：'+error.message);
+  closeModal(); renderAll(); alert('保存成功（已同步云端）');
+}
+
+function openAddDaShi(){ editingDaShiId=null; showDaShiForm(); }
+async function editDaShi(id){
+  const list=await fetchDaShi();
+  const item=list.find(d=>d.id===id);
+  if(!item||!canEdit(item)) return alert('无权限');
+  editingDaShiId=id; showDaShiForm(item);
+}
+function showDaShiForm(item=null){
+  const user=getUser();
+  const phoneVal=item?item.phone:(user?user.phone:'');
+  document.getElementById('modalBox').innerHTML=`<h3>${item?'编辑超级智能工具':'发布超级智能工具'}</h3>
+    <div class="form-group"><label>AI公司名/姓名 *</label><input id="ds-name" value="${item?item.name:''}"></div>
+    <div class="form-group"><label>简介</label><textarea id="ds-intro">${item?item.intro:''}</textarea></div>
+    <div class="form-group"><label>座右铭</label><input id="ds-motto" value="${item?(item.motto||''):''}"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><b>工具装备</b>
+      <button type="button" class="btn btn-outline btn-sm" onclick="addToolItem()">+ 添加工具</button></div>
+    <div id="tool-list"></div>
+    <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb">
+    <div style="font-weight:600;margin-bottom:8px">名片</div>
+    <div class="form-group"><label>名片姓名 *</label><input id="ds-person" value="${item&&item.card?item.card.person:''}"></div>
+    <div class="form-group"><label>职位</label><input id="ds-title" value="${item&&item.card?(item.card.title||''):''}"></div>
+    <div class="form-group"><label>手机号 *</label><input id="ds-phone" value="${phoneVal}" readonly style="background:#f3f4f6"></div>
+    <div class="form-group"><label>邮箱</label><input id="ds-email" value="${item&&item.card?(item.card.email||''):''}"></div>
+    <div class="form-group"><label>微信ID *</label><input id="ds-wechat" value="${item&&item.card?(item.card.wechat||''):''}"></div>
+    <div class="form-group"><label>WhatsApp</label><input id="ds-whatsapp" value="${item&&item.card?(item.card.whatsapp||''):''}"></div>
+    <div class="form-group"><label>公司网址</label><input id="ds-website" placeholder="https://www.example.com" value="${item&&item.card?(item.card.website||''):''}"></div>
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveDaShi()">保存</button></div>`;
+  document.getElementById('modalMask').style.display='flex';
+  if(item&&item.tools&&item.tools.length) item.tools.forEach(t=>addToolItem(t.title,t.desc)); else addToolItem();
+}
+async function saveDaShi(){
+  const name=document.getElementById('ds-name').value.trim();
+  const person=document.getElementById('ds-person').value.trim();
+  const phone=document.getElementById('ds-phone').value.trim();
+  const wechat=document.getElementById('ds-wechat').value.trim();
+  if(!name||!person||!phone||!wechat) return alert('必填项不能为空');
+  const tools=[];
+  document.querySelectorAll('#tool-list .dynamic-item').forEach(item=>{
+    const t=item.querySelector('.tool-title').value.trim();
+    const d=item.querySelector('.tool-desc').value.trim();
+    if(t) tools.push({title:t,desc:d});
+  });
+  const row={
+    id: editingDaShiId || Date.now(),
+    name, intro:document.getElementById('ds-intro').value, motto:document.getElementById('ds-motto').value, phone, tools,
+    card:{ person, title:document.getElementById('ds-title').value, phone, email:document.getElementById('ds-email').value, wechat,
+      whatsapp:document.getElementById('ds-whatsapp').value, website:document.getElementById('ds-website').value.trim(),
+      qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}` }
+  };
+  let error;
+  if(editingDaShiId) ({error}=await sb.from('dashi').update(row).eq('id', editingDaShiId));
+  else ({error}=await sb.from('dashi').insert(row));
+  if(error) return alert('保存失败：'+error.message);
+  closeModal(); renderAll(); alert('保存成功（已同步云端）');
+}
+
+async function renderUsers(){
+  if(!isAdmin()) return;
+  const users = await fetchUsers();
+  const roleMap={jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员'};
+  document.getElementById('users-tbody').innerHTML = users.filter(u=>u.phone).map(u=>`
+    <tr>
+      <td>${u.phone}</td><td>${roleMap[u.role]||u.role}</td>
+      <td>${u.blacklisted?'<span class="badge-black">黑名单</span>':'<span class="badge-ok">正常</span>'}</td>
+      <td>
+        <button class="btn btn-sm btn-outline" onclick="changePwd('${u.phone}')">改密码</button>
+        <button class="btn btn-sm btn-warn" onclick="setBlacklist('${u.phone}',true)">设置黑名单</button>
+        <button class="btn btn-sm btn-primary" onclick="setBlacklist('${u.phone}',false)">取消黑名单</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteUser('${u.phone}')">删除</button>
+      </td>
+    </tr>`).join('') || '<tr><td colspan="4" style="text-align:center;color:#9ca3af">暂无用户</td></tr>';
+}
+async function changePwd(phone){
+  const newPwd=prompt('新密码（至少4位）：');
+  if(!newPwd||newPwd.length<4) return alert('无效');
+  const {error}=await sb.from('app_users').update({pwd:newPwd}).eq('phone',phone);
+  if(error) return alert(error.message);
+  alert('已修改'); renderUsers();
+}
+async function setBlacklist(phone, flag){
+  const {error}=await sb.from('app_users').update({blacklisted:!!flag}).eq('phone',phone);
+  if(error) return alert(error.message);
+  const cur=getUser(); if(cur&&cur.phone===phone&&flag) setUser(null);
+  renderUsers(); alert(flag?'已拉黑':'已取消黑名单');
+}
+async function deleteUser(phone){
+  if(!confirm('确定删除？')) return;
+  await sb.from('app_users').delete().eq('phone',phone);
+  const cur=getUser(); if(cur&&cur.phone===phone) setUser(null);
+  renderUsers();
+}
+
+async function submitCoop(){
+  const name=document.getElementById('coop-name').value.trim();
+  const contact=document.getElementById('coop-contact').value.trim();
+  if(!name||!contact) return alert('请填写名称和联系方式');
+  const {error}=await sb.from('coop_records').insert({
+    id:Date.now(), name, contact, type:document.getElementById('coop-type').value,
+    description:document.getElementById('coop-desc').value, user_phone:getUser()?getUser().phone:'游客'
+  });
+  if(error) return alert(error.message);
+  alert('已提交到云端');
+  document.getElementById('coop-name').value=''; document.getElementById('coop-contact').value=''; document.getElementById('coop-desc').value='';
+}
+async function renderCoopList(){
+  if(!isAdmin()) return;
+  const records=await fetchCoop();
+  document.getElementById('coop-list').innerHTML=records.length?records.map(r=>`
+    <div class="card"><div class="card-content">
+      <div class="card-title">${r.name} <span class="tag">${r.type||''}</span>
+        <button class="btn btn-del btn-sm" onclick="deleteCoop(${r.id})">删除</button></div>
+      <div class="card-desc">联系：${r.contact||''}</div>
+      <div class="card-desc">${r.description||'-'}</div>
+      <div class="card-desc" style="font-size:12px;color:#9ca3af">${r.user_phone||''} · ${r.created_at||''}</div>
+    </div></div>`).join(''):'<div class="empty-tip">暂无</div>';
+}
+async function deleteCoop(id){ if(!confirm('删除？'))return; await sb.from('coop_records').delete().eq('id',id); renderCoopList(); }
+
+async function sendChat(){
+  const input=document.getElementById('chatInput');
+  const msg=input.value.trim(); if(!msg) return;
+  const box=document.getElementById('chatMessages');
+  box.innerHTML+=`<div class="msg user">${msg}</div>`; input.value='';
+  await sb.from('chat_records').insert({ id:Date.now(), msg, user_phone:getUser()?getUser().phone:'游客' });
+  setTimeout(()=>{ box.innerHTML+=`<div class="msg bot">收到：「${msg}」。我们会尽快处理。</div>`; box.scrollTop=box.scrollHeight; },400);
+  box.scrollTop=box.scrollHeight;
+}
+async function renderChatList(){
+  if(!isAdmin()) return;
+  const records=await fetchChat();
+  document.getElementById('chat-list').innerHTML=records.length?records.map(r=>`
+    <div class="card"><div class="card-content">
+      <div class="card-title">用户：${r.user_phone||''}
+        <button class="btn btn-del btn-sm" onclick="deleteChat(${r.id})">删除</button></div>
+      <div class="card-desc">${r.msg||''}</div>
+      <div class="card-desc" style="font-size:12px;color:#9ca3af">${r.created_at||''}</div>
+    </div></div>`).join(''):'<div class="empty-tip">暂无</div>';
+}
+async function deleteChat(id){ if(!confirm('删除？'))return; await sb.from('chat_records').delete().eq('id',id); renderChatList(); }
+
+document.querySelectorAll('.menu-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    if(item.dataset.view!=='jinzhu'&&item.dataset.view!=='dashi') matchContext=null;
+    switchView(item.dataset.view);
+  });
+});
+
+renderUserArea();
+updateButtons();
+updateAdminMenus();
+renderAll();
+</script>
+</body>
+</html>
