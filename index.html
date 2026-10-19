@@ -482,13 +482,13 @@ function renderPager(elId, page, pages, onPage){
   el.innerHTML = html;
 }
 
-/* 生成团队名称：团队 + 手机号 + 时分秒 */
+/* 84：团队名 = 团队 + 手机号 + — + 时分秒 */
 function generateTeamName(phone){
   const now = new Date();
   const h = String(now.getHours()).padStart(2,'0');
   const m = String(now.getMinutes()).padStart(2,'0');
   const s = String(now.getSeconds()).padStart(2,'0');
-  return `团队${phone||''}${h}${m}${s}`;
+  return `团队${phone||''}—${h}${m}${s}`;
 }
 
 async function fetchJinZhu(){ const { data, error } = await sb.from('jinzhu').select('*').order('id'); if(error){ console.error(error); return []; } return data || []; }
@@ -934,7 +934,7 @@ async function renderJinZhu(){
 }
 function goJzPage(p){ jzPage=p; renderJinZhu(); }
 
-/* ========== 超级智能工具箱 ========== */
+/* ========== 超级智能工具箱（85：标题旁不显示战力） ========== */
 async function renderDaShi(){
   const user = getUser();
   let list = await fetchDaShi();
@@ -966,7 +966,6 @@ async function renderDaShi(){
     <div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content">
       <div class="card-title">${d.name}
         ${d.category?`<span class="tag">${d.category}</span>`:''}
-        <span class="tag tag-power">战力:${power}</span>
         ${d._matchScore!==undefined?`<span class="match-score ${d._matchScore===0?'zero':''}">匹配度 ${d._matchScore}</span>`:''}
         ${canEdit(d)?`
           <button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">编辑超级智能工具</button>
@@ -993,7 +992,7 @@ async function renderDaShi(){
 }
 function goDsPage(p){ dsPage=p; renderDaShi(); }
 
-/* ========== 超级精英 ========== */
+/* ========== 超级精英（85：标题旁不显示战力） ========== */
 async function renderHero(){
   const user = getUser();
   let list = await fetchHero();
@@ -1017,7 +1016,6 @@ async function renderHero(){
     return `
     <div class="card"><div class="avatar avatar-hero">精英</div><div class="card-content">
       <div class="card-title">${t.name}
-        <span class="tag tag-power">战力:${power}</span>
         ${canEdit(t)?`
           <button class="btn btn-edit btn-sm" onclick="editHero(${t.id})">编辑</button>
           <button class="btn btn-del btn-sm" onclick="deleteHero(${t.id})">删除</button>
@@ -1042,7 +1040,7 @@ async function renderHero(){
 }
 function goHeroPage(p){ heroPage=p; renderHero(); }
 
-/* ========== 我的超级团队（83 完整优化） ========== */
+/* ========== 我的超级团队（86～88） ========== */
 async function renderTeam(){
   const user = getUser();
   let list = await fetchTeam();
