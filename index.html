@@ -105,7 +105,6 @@ body{background:#f5f7fa;color:#1f2937}
 .x-icon.trial{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff}
 .x-icon.report{background:linear-gradient(135deg,#f87171,#ef4444);color:#fff}
 .x-icon.pull{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff}
-
 .g-search-wrap{display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;max-width:320px}
 .g-search{display:flex;align-items:center;width:100%;height:40px;border:1px solid #dfe1e5;border-radius:24px;padding:0 14px;background:#fff}
 .g-search:hover,.g-search:focus-within{box-shadow:0 1px 6px rgba(32,33,36,.28);border-color:transparent}
@@ -117,16 +116,6 @@ body{background:#f5f7fa;color:#1f2937}
 .g-pager .cur{color:#202124;font-weight:500;border-bottom:3px solid #4285f4;border-radius:0}
 .g-pager .disabled{color:#bdc1c6;cursor:default;pointer-events:none}
 .g-pager .next{margin-left:8px;font-weight:500}
-
-.qgen-editor{max-width:860px;margin:0 auto}
-.qgen-section-box{border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin-bottom:14px;background:#fafbfc;position:relative}
-.qgen-section-box h4{font-size:14px;color:#1e3a5f;margin-bottom:12px}
-.qgen-q-row{border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-bottom:10px;background:#fff;position:relative}
-.qgen-q-row .remove-btn{position:absolute;top:8px;right:8px}
-.qgen-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.status-draft{background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:4px}
-.status-published{background:#d1fae5;color:#065f46;font-size:11px;padding:2px 8px;border-radius:4px}
-
 .team-box{margin-top:12px;padding:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px}
 .member-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .member-chip{background:#e0f2fe;color:#0c4a6e;font-size:12px;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:4px}
@@ -188,7 +177,6 @@ body{background:#f5f7fa;color:#1f2937}
     <div class="menu-item" data-view="hero">🌟 超级精英</div>
     <div class="menu-item" data-view="team">👥 我的超级团队</div>
     <div class="menu-item" data-view="diagnosis">📊 需求诊断</div>
-    <div class="menu-item" data-view="qgen">📝 问卷生成系统</div>
     <div class="menu-item" data-view="inbox">📩 收到的信息</div>
     <div class="menu-item" data-view="coop">🤝 商务合作</div>
     <div class="menu-item" data-view="kefu">🎧 在线客服</div>
@@ -262,7 +250,6 @@ body{background:#f5f7fa;color:#1f2937}
         <div class="g-pager" id="team-pager"></div>
       </div>
     </div>
-
     <div class="view" id="view-diagnosis">
       <div class="panel">
         <div class="panel-header"><h2>需求诊断</h2>
@@ -272,27 +259,6 @@ body{background:#f5f7fa;color:#1f2937}
         <div class="g-pager" id="diag-pager"></div>
       </div>
     </div>
-
-<div class="view" id="view-qgen">
-  <div class="panel">
-    <div class="panel-header">
-      <h2>问卷生成系统</h2>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <div class="g-search-wrap" style="max-width:260px">
-          <div class="g-search">
-            <span class="g-icon">🔍</span>
-            <input id="qgen-q" placeholder="搜索问卷名、行业" oninput="qgenPage=1;renderQgen()">
-          </div>
-        </div>
-        <button class="btn btn-primary" id="btn-add-qgen" onclick="openAddQgen()" style="display:none">+ 新建问卷</button>
-      </div>
-    </div>
-    <div class="card-list" id="qgen-list"><div class="empty-tip">加载中…</div></div>
-    <div class="g-pager" id="qgen-pager"></div>
-  </div>
-</div>
-
-
     <div class="view" id="view-inbox"><div class="panel"><div class="panel-header"><h2>收到的信息</h2></div><div class="card-list" id="inbox-list"><div class="empty-tip">请先登录后查看</div></div></div></div>
     <div class="view" id="view-coop">
       <div class="section-title">商务合作</div><div class="section-desc">与梦想显化器共建销售AI生态。</div>
@@ -440,248 +406,6 @@ async function renderChatList(){if(!isAdmin())return;const records=await fetchCh
 async function deleteChat(id){if(!confirm('删除？'))return;await sb.from('chat_records').delete().eq('id',id);renderChatList();}
 document.querySelectorAll('.menu-item').forEach(item=>{item.addEventListener('click',()=>{if(item.dataset.view!=='jinzhu'&&item.dataset.view!=='dashi')matchContext=null;switchView(item.dataset.view);});});
 renderUserArea();updateButtons();updateAdminMenus();renderAll();
-
-let qgenPage=1, editingQgenId=null;
-
-async function fetchQgen(){
-  const {data,error}=await sb.from('questionnaire_templates').select('*').order('id',{ascending:false});
-  if(error){console.error(error);return[];}
-  return data||[];
-}
-
-function switchView(view){
-  // …原有逻辑保持…
-  if(view==='qgen') renderQgen();
-}
-
-function updateButtons(){
-  // …原有逻辑…
-  const btnQ=document.getElementById('btn-add-qgen');
-  if(btnQ){
-    const user=getUser();
-    btnQ.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'))?'inline-block':'none';
-  }
-}
-
-async function renderQgen(){
-  const user=getUser();
-  const box=document.getElementById('qgen-list');
-  if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}
-  let list=await fetchQgen();
-  if(user.role!=='admin') list=list.filter(t=>String(t.phone)===String(user.phone));
-  list=filterByQ(list.map(t=>({...t,name:t.name,industry:t.industry,intro:t.description})),(document.getElementById('qgen-q')||{}).value||'');
-  const pg=paginate(list,qgenPage,PAGE_SIZE); qgenPage=pg.page;
-  box.innerHTML=pg.slice.length?pg.slice.map(t=>{
-    const sections=Array.isArray(t.sections)?t.sections:[];
-    const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
-    const st=t.status==='published'?'status-published':'status-draft';
-    const stLabel=t.status==='published'?'已发布':'草稿';
-    const can=canEdit({phone:t.phone});
-    return `<div class="card">
-      <div class="avatar avatar-jinzhu">卷</div>
-      <div class="card-content">
-        <div class="card-title">${t.name||'未命名'} <span class="${st}">${stLabel}</span>
-          ${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${t.id})">编辑</button>
-          <button class="btn btn-primary btn-sm" onclick="previewQgen(${t.id})">预览</button>
-          ${t.status!=='published'?`<button class="btn btn-savior btn-sm" onclick="publishQgen(${t.id})">发布</button>`:''}
-          <button class="btn btn-del btn-sm" onclick="deleteQgen(${t.id})">删除</button>`:''}
-        </div>
-        <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${t.industry||'-'}</span>　<b>题数：</b>${qCount}　<b>节数：</b>${sections.length}</div>
-        <div class="card-desc">${t.description||''}</div>
-      </div>
-    </div>`;
-  }).join(''):'<div class="empty-tip">暂无问卷模板。点击「+ 新建问卷」开始设计。</div>';
-  renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');
-}
-function goQgenPage(p){qgenPage=p;renderQgen();}
-
-function openAddQgen(){editingQgenId=null;showQgenForm();}
-async function editQgen(id){
-  const list=await fetchQgen();
-  const item=list.find(t=>t.id===id);
-  if(!item||!canEdit({phone:item.phone})) return alert('无权限');
-  editingQgenId=id; showQgenForm(item);
-}
-
-function showQgenForm(item=null){
-  const user=getUser();
-  const box=document.getElementById('modalBox');
-  box.className='modal wide';
-  const sections=item&&Array.isArray(item.sections)?item.sections:[{title:'第一节',questions:[{type:'text',label:'示例问题',options:[],required:true}]}];
-  box.innerHTML=`
-  <div class="qgen-editor">
-    <h3>${item?'编辑问卷':'新建问卷'}</h3>
-    <p style="font-size:13px;color:#6b7280;margin-bottom:14px">参考世界领先企业问卷生成框架：分节设计 · 多题型 · 即时预览</p>
-    <div class="form-group"><label>问卷名称 *</label><input id="qg-name" value="${item?(item.name||''):''}" placeholder="例如：艺术培训招生诊断问卷"></div>
-    <div class="form-group"><label>适用行业</label><input id="qg-industry" value="${item?(item.industry||''):''}" placeholder="例如：艺术培训"></div>
-    <div class="form-group"><label>说明</label><textarea id="qg-desc">${item?(item.description||''):''}</textarea></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 0 8px">
-      <b>问卷结构</b>
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenSection()">+ 添加章节</button>
-    </div>
-    <div id="qg-sections"></div>
-    <div class="form-actions">
-      <button class="btn btn-outline" onclick="closeModal()">取消</button>
-      <button class="btn btn-primary" onclick="saveQgen()">保存</button>
-    </div>
-  </div>`;
-  document.getElementById('modalMask').style.display='flex';
-  const wrap=document.getElementById('qg-sections');
-  wrap.innerHTML='';
-  sections.forEach((sec,si)=>renderQgenSectionDOM(wrap,sec,si));
-}
-
-function renderQgenSectionDOM(wrap,sec,si){
-  const div=document.createElement('div');
-  div.className='qgen-section-box';
-  div.dataset.si=si;
-  div.innerHTML=`
-    <button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除章节</button>
-    <div class="form-group"><label>章节标题</label><input class="qg-sec-title" value="${(sec.title||'').replace(/"/g,'&quot;')}"></div>
-    <div class="qg-qs"></div>
-    <div class="qgen-toolbar">
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'text')">+ 单行文本</button>
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'textarea')">+ 多行文本</button>
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'radio')">+ 单选</button>
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'checkbox')">+ 多选</button>
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'scale')">+ 量表1-5</button>
-    </div>`;
-  wrap.appendChild(div);
-  const qsBox=div.querySelector('.qg-qs');
-  (sec.questions||[]).forEach(q=>appendQgenQuestion(qsBox,q));
-}
-
-function addQgenSection(){
-  const wrap=document.getElementById('qg-sections');
-  renderQgenSectionDOM(wrap,{title:'新章节',questions:[]},wrap.children.length);
-}
-
-function addQgenQuestion(btn,type){
-  const qsBox=btn.closest('.qgen-section-box').querySelector('.qg-qs');
-  const defaults={
-    text:{type:'text',label:'请输入问题',options:[],required:false},
-    textarea:{type:'textarea',label:'请描述',options:[],required:false},
-    radio:{type:'radio',label:'请选择一项',options:['选项A','选项B','选项C'],required:true},
-    checkbox:{type:'checkbox',label:'可多选',options:['选项1','选项2','选项3'],required:false},
-    scale:{type:'scale',label:'请评分（1低～5高）',options:['1','2','3','4','5'],required:true}
-  };
-  appendQgenQuestion(qsBox,defaults[type]||defaults.text);
-}
-
-function appendQgenQuestion(qsBox,q){
-  const row=document.createElement('div');
-  row.className='qgen-q-row';
-  row.dataset.type=q.type||'text';
-  const opts=(q.options||[]).join('\n');
-  row.innerHTML=`
-    <button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button>
-    <div class="form-group"><label>题型：${q.type||'text'}</label></div>
-    <div class="form-group"><label>题干</label><input class="qg-q-label" value="${(q.label||'').replace(/"/g,'&quot;')}"></div>
-    <div class="form-group"><label>选项（每行一个，单行/多行可留空）</label><textarea class="qg-q-opts" style="min-height:60px">${opts}</textarea></div>
-    <label style="font-size:13px"><input type="checkbox" class="qg-q-req" ${q.required?'checked':''}> 必填</label>`;
-  qsBox.appendChild(row);
-}
-
-function collectQgenSections(){
-  const sections=[];
-  document.querySelectorAll('#qg-sections .qgen-section-box').forEach(box=>{
-    const title=(box.querySelector('.qg-sec-title').value||'').trim()||'未命名章节';
-    const questions=[];
-    box.querySelectorAll('.qg-q-row').forEach(row=>{
-      const type=row.dataset.type||'text';
-      const label=(row.querySelector('.qg-q-label').value||'').trim();
-      if(!label) return;
-      const options=(row.querySelector('.qg-q-opts').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-      const required=!!row.querySelector('.qg-q-req').checked;
-      questions.push({type,label,options,required});
-    });
-    sections.push({title,questions});
-  });
-  return sections;
-}
-
-async function saveQgen(){
-  const user=getUser(); if(!user) return alert('请先登录');
-  const name=(document.getElementById('qg-name').value||'').trim();
-  if(!name) return alert('请填写问卷名称');
-  const industry=(document.getElementById('qg-industry').value||'').trim();
-  const description=(document.getElementById('qg-desc').value||'').trim();
-  const sections=collectQgenSections();
-  if(!sections.length) return alert('请至少添加一个章节');
-  const row={
-    id:editingQgenId||Date.now(),
-    name,industry,description,sections,
-    status:editingQgenId?(await fetchQgen()).find(t=>t.id===editingQgenId)?.status||'draft':'draft',
-    phone:user.phone
-  };
-  let error;
-  if(editingQgenId) ({error}=await sb.from('questionnaire_templates').update(row).eq('id',editingQgenId));
-  else ({error}=await sb.from('questionnaire_templates').insert(row));
-  if(error) return alert('保存失败：'+error.message);
-  closeModal(); renderQgen(); alert('保存成功');
-}
-
-async function publishQgen(id){
-  if(!confirm('发布后可供需求问卷调用，确定？')) return;
-  const {error}=await sb.from('questionnaire_templates').update({status:'published'}).eq('id',id);
-  if(error) return alert(error.message);
-  renderQgen(); alert('已发布');
-}
-
-async function deleteQgen(id){
-  if(!confirm('确定删除该问卷模板？')) return;
-  await sb.from('questionnaire_templates').delete().eq('id',id);
-  renderQgen();
-}
-
-async function previewQgen(id){
-  const list=await fetchQgen();
-  const t=list.find(x=>x.id===id);
-  if(!t) return;
-  const sections=Array.isArray(t.sections)?t.sections:[];
-  let body='';
-  sections.forEach((sec,si)=>{
-    body+=`<div class="survey-section"><h4><span class="num">${si+1}</span> ${sec.title||''}</h4>`;
-    (sec.questions||[]).forEach((q,qi)=>{
-      body+=`<div class="survey-q"><label class="q-label">${qi+1}. ${q.label||''}${q.required?' *':''}</label>`;
-      if(q.type==='text') body+=`<input placeholder="请输入">`;
-      else if(q.type==='textarea') body+=`<textarea style="min-height:60px" placeholder="请描述"></textarea>`;
-      else if(q.type==='radio'||q.type==='checkbox'){
-        body+=`<div class="survey-options">`;
-        (q.options||[]).forEach(o=>{
-          body+=`<label><input type="${q.type==='checkbox'?'checkbox':'radio'}" name="pq${si}_${qi}"> ${o}</label>`;
-        });
-        body+=`</div>`;
-      } else if(q.type==='scale'){
-        body+=`<div class="survey-scale">`;
-        (q.options||['1','2','3','4','5']).forEach(o=>{
-          body+=`<label><input type="radio" name="pq${si}_${qi}"> ${o}</label>`;
-        });
-        body+=`</div>`;
-      }
-      body+=`</div>`;
-    });
-    body+=`</div>`;
-  });
-  const box=document.getElementById('modalBox');
-  box.className='modal wide';
-  box.innerHTML=`
-  <div class="survey-wrap">
-    <div class="survey-header">
-      <h2>${t.name||'问卷预览'}</h2>
-      <p>${t.description||''}　行业：${t.industry||'-'}</p>
-    </div>
-    <div class="survey-body">
-      <div class="survey-progress"><div class="survey-progress-bar" style="width:30%"></div></div>
-      ${body||'<p class="empty-tip">暂无题目</p>'}
-      <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">关闭预览</button></div>
-    </div>
-  </div>`;
-  document.getElementById('modalMask').style.display='flex';
-}
-
-// 菜单点击里已有 switchView，确保 data-view="qgen" 的 menu-item 已绑定
-
 </script>
 </body>
 </html>
