@@ -117,12 +117,16 @@ body{background:#f5f7fa;color:#1f2937}
 .g-pager .disabled{color:#bdc1c6;cursor:default;pointer-events:none}
 .g-pager .next{margin-left:8px;font-weight:500}
 .team-box{margin-top:12px;padding:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px}
-.team-box h4{font-size:13px;margin-bottom:6px;color:#0369a1}
+.team-box h4{font-size:13px;margin-bottom:6px;color:#0369a1;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .member-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .member-chip{background:#e0f2fe;color:#0c4a6e;font-size:12px;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:4px;position:relative}
 .member-chip .power-icon{color:#b45309;font-size:12px}
-.member-chip .member-x{opacity:0;transition:opacity .2s;background:#ef4444;color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:2px}
-.member-chip:hover .member-x,.member-chip:active .member-x{opacity:1}
+.member-x,.team-x,.clear-x{opacity:0;transition:opacity .2s;background:#ef4444;color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:4px}
+.member-chip:hover .member-x,.member-chip:active .member-x,
+.team-title:hover .team-x,.team-title:active .team-x,
+.member-header:hover .clear-x,.member-header:active .clear-x{opacity:1}
+.team-title{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.member-header{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;color:#6b7280}
 @media (max-width:768px){
   .container{flex-direction:column;height:auto;min-height:calc(100vh - 65px)}
   .sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e7eb;padding:8px 6px;display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:4px;flex-shrink:0}
@@ -135,7 +139,7 @@ body{background:#f5f7fa;color:#1f2937}
   .logo-text p{display:none}
   .cloud-tip{font-size:11px;padding:6px 10px}
   .g-search-wrap{max-width:100%;margin-top:6px}
-  .member-chip .member-x{opacity:0.6} /* 移动端稍微可见 */
+  .member-x,.team-x,.clear-x{opacity:0.55}
 }
 </style>
 </head>
@@ -478,6 +482,15 @@ function renderPager(elId, page, pages, onPage){
   el.innerHTML = html;
 }
 
+/* 生成团队名称：团队 + 手机号 + 时分秒 */
+function generateTeamName(phone){
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  return `团队${phone||''}${h}${m}${s}`;
+}
+
 async function fetchJinZhu(){ const { data, error } = await sb.from('jinzhu').select('*').order('id'); if(error){ console.error(error); return []; } return data || []; }
 async function fetchDaShi(){ const { data, error } = await sb.from('dashi').select('*').order('id'); if(error){ console.error(error); return []; } return data || []; }
 async function fetchUsers(){ const { data, error } = await sb.from('app_users').select('*').order('phone'); if(error){ console.error(error); return []; } return data || []; }
@@ -637,7 +650,7 @@ function renderBizCard(card){
   <div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;
 }
 
-/* ========== 拉入团队（78：用 id + type 存储） ========== */
+/* ========== 拉入团队（用 id + type） ========== */
 async function pullIntoTeam(targetId, targetName, targetType, targetPower = 0){
   const user = getUser();
   if(!user) return alert('请先登录');
@@ -653,13 +666,12 @@ async function pullIntoTeam(targetId, targetName, targetType, targetPower = 0){
   let addedCount = 0;
   for(const team of targetTeams){
     let members = Array.isArray(team.members) ? [...team.members] : [];
-    // 用 id + type 判断是否已存在（支持同手机号多个）
     if(members.some(m => String(m.id) === String(targetId) && m.type === targetType)) continue;
     members.push({
       id: targetId,
-      type: targetType,          // 'hero' | 'dashi' | 'member'
+      type: targetType,
       name: targetName || String(targetId),
-      power: targetPower || 0
+      power: Number(targetPower) || 0
     });
     const { error } = await sb.from('team').update({ members }).eq('id', team.id);
     if(!error) addedCount++;
@@ -803,7 +815,7 @@ async function renderHome(){
       <div class="card-title">${j.name}${admin?` <button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">删除</button>`:''}</div>
       <div class="card-desc">${j.intro||''}</div>
       <div class="tags">
-        ${j.difficulty?`<span class="tag tag-diff">难度:${j.difficulty}</span>`:''}
+        <span class="tag tag-diff">难度:${Number(j.difficulty)||0}</span>
         ${j.reward?`<span class="tag tag-reward">重奖:${j.reward}</span>`:''}
         ${(j.pains||[]).map(p=>`<span class="tag">${p.title}</span>`).join('')}
       </div>
@@ -815,7 +827,7 @@ async function renderHome(){
     <div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content">
       <div class="card-title">${d.name}
         ${d.category?` <span class="tag">${d.category}</span>`:''}
-        ${d.power?` <span class="tag tag-power">战力:${d.power}</span>`:''}
+        <span class="tag tag-power">战力:${Number(d.power)||0}</span>
         ${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}
       </div>
       <div class="card-desc">${d.intro||''}</div>
@@ -859,23 +871,29 @@ async function renderJinZhu(){
       const members = team.members || [];
       const isOwner = user && (String(team.phone)===String(user.phone) || isAdmin());
       const isMember = user && members.some(m => m.type === 'member' && String(m.id) === String(user.phone));
+      const memberPowerSum = members.reduce((s,m) => s + (Number(m.power)||0), 0);
       teamHtml = `<div class="team-box">
-        <h4>👥 超级团队：${team.name||''} 
-          ${team.power?`<span class="tag tag-power">战力:${team.power}</span>`:''}
-          ${j.difficulty?`<span class="tag tag-diff">难度:${j.difficulty}</span>`:''}
-        </h4>
-        <div class="card-desc"><b>需求说明：</b>${team.demand||j.detail||j.intro||'-'}</div>
+        <div class="team-title">
+          <h4 style="margin:0">👥 ${team.name||''}</h4>
+          <span class="tag tag-power">⚡${memberPowerSum}</span>
+          ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${team.id})">×</button>`:''}
+        </div>
+        <div class="card-desc" style="margin-top:6px">
+          需求 <span class="tag tag-diff">⚡${Number(j.difficulty)||0}</span>：${team.demand||j.detail||j.intro||'-'}
+        </div>
         <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
-          ${isOwner?`<button class="btn btn-danger btn-sm" onclick="disbandTeam(${team.id})">解散团队</button>`:''}
           ${user && !isMember && !isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">加入团队</button>`:''}
         </div>
-        <div class="card-desc" style="margin-top:8px"><b>队员清单：</b></div>
+        <div class="member-header">
+          <b>队员清单</b>
+          ${isOwner?`<button class="clear-x" title="清空成员" onclick="clearMembers(${team.id})">×</button>`:''}
+        </div>
         <div class="member-list">
           ${members.length ? members.map(m => `
             <span class="member-chip">
               ${m.name||m.id}
               ${m.type && m.type !== 'member' ? `<small>(${m.type==='hero'?'精英':'SI'})</small>` : ''}
-              ${m.power ? `<span class="power-icon">⚡${m.power}</span>` : ''}
+              <span class="power-icon">⚡${Number(m.power)||0}</span>
               ${isOwner ? `<button class="member-x" title="分手" onclick="kickMember(${team.id},'${escapeAttr(m.id)}','${m.type||'member'}')">×</button>` : ''}
             </span>
           `).join('') : '<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}
@@ -896,7 +914,7 @@ async function renderJinZhu(){
       <div class="card-desc"><b>详情：</b>${j.detail||'-'}</div>
       <div class="card-desc"><b>梦想：</b>${j.dream||'-'}</div>
       <div class="card-desc">
-        <span class="tag tag-diff">难度：${j.difficulty||'待填'}</span>
+        <span class="tag tag-diff">难度：${Number(j.difficulty)||0}</span>
         <span class="tag tag-reward">重奖：${j.reward||'待填'}</span>
       </div>
       <div class="card-desc"><b>痛点（${(j.pains||[]).length}个）：</b></div>
@@ -943,7 +961,7 @@ async function renderDaShi(){
   document.getElementById('dashi-list').innerHTML = pg.slice.length ? pg.slice.map(d => {
     const showInteract = user && (user.role === 'jinzhu' || user.role === 'admin' || user.role === 'yingxiao');
     const pn = escapeAttr(d.phone), nm = escapeAttr(d.name);
-    const power = d.power ?? 0;
+    const power = Number(d.power) || 0;
     return `
     <div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content">
       <div class="card-title">${d.name}
@@ -994,7 +1012,7 @@ async function renderHero(){
 
   document.getElementById('hero-list').innerHTML = pg.slice.length ? pg.slice.map(t => {
     const pn = escapeAttr(t.phone), nm = escapeAttr(t.name);
-    const power = t.power ?? 0;
+    const power = Number(t.power) || 0;
     const showInteract = user && (user.role === 'jinzhu' || user.role === 'admin' || user.role === 'ai');
     return `
     <div class="card"><div class="avatar avatar-hero">精英</div><div class="card-content">
@@ -1024,7 +1042,7 @@ async function renderHero(){
 }
 function goHeroPage(p){ heroPage=p; renderHero(); }
 
-/* ========== 我的超级团队 ========== */
+/* ========== 我的超级团队（83 完整优化） ========== */
 async function renderTeam(){
   const user = getUser();
   let list = await fetchTeam();
@@ -1035,7 +1053,6 @@ async function renderTeam(){
   const pg = paginate(list, teamPage, PAGE_SIZE);
   teamPage = pg.page;
 
-  // 为了显示难度，需要关联 jinzhu
   const allJinZhu = await fetchJinZhu();
 
   document.getElementById('team-list').innerHTML = pg.slice.length ? pg.slice.map(t => {
@@ -1043,35 +1060,35 @@ async function renderTeam(){
     const isOwner = user && (String(t.phone)===String(user.phone) || isAdmin());
     const isMember = user && members.some(m => m.type === 'member' && String(m.id) === String(user.phone));
     const linkedJin = allJinZhu.find(j => String(j.id) === String(t.jinzhu_id));
-    const difficulty = linkedJin ? (linkedJin.difficulty || '待填') : '-';
+    const difficulty = linkedJin ? (Number(linkedJin.difficulty) || 0) : 0;
+    const memberPowerSum = members.reduce((s, m) => s + (Number(m.power) || 0), 0);
 
     return `
     <div class="card"><div class="avatar avatar-team">团队</div><div class="card-content">
-      <div class="card-title">${t.name||'超级团队'}
-        ${t.power!==undefined && t.power!==null?`<span class="tag tag-power">战力:${t.power}</span>`:''}
-        <span class="tag tag-diff">难度:${difficulty}</span>
-        ${canEdit(t)?`
-          <button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>
-          <button class="btn btn-del btn-sm" onclick="disbandTeam(${t.id})">解散</button>
-        `:''}
+      <div class="card-title team-title">
+        ${t.name||'超级团队'}
+        <span class="tag tag-power">⚡${memberPowerSum}</span>
+        ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${t.id})">×</button>`:''}
+        ${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>`:''}
       </div>
-      <div class="card-desc"><b>需求：</b>${t.demand||'-'}</div>
-      <div class="card-desc"><b>梦想：</b>${t.dream||'-'}　<b>战力：</b>${t.power??0}</div>
-      <div class="card-desc"><b>业绩记录（${(t.performances||[]).length}条）：</b></div>
-      ${(t.performances||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}
+      <div class="card-desc">
+        需求 <span class="tag tag-diff">⚡${difficulty}</span>：${t.demand||'-'}
+      </div>
       ${(isAdmin() || canEdit(t)) ? renderBizCard(t.card) : ''}
       <div class="team-box">
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
           ${user && !isMember && !isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${t.id})">加入团队</button>`:''}
-          ${isOwner?`<button class="btn btn-danger btn-sm" onclick="disbandTeam(${t.id})">解散团队</button>`:''}
         </div>
-        <div class="card-desc"><b>队员清单：</b></div>
+        <div class="member-header">
+          <b>队员清单</b>
+          ${isOwner?`<button class="clear-x" title="清空成员" onclick="clearMembers(${t.id})">×</button>`:''}
+        </div>
         <div class="member-list">
           ${members.length ? members.map(m => `
             <span class="member-chip">
               ${m.name||m.id}
               ${m.type && m.type !== 'member' ? `<small>(${m.type==='hero'?'精英':'SI'})</small>` : ''}
-              ${m.power ? `<span class="power-icon">⚡${m.power}</span>` : ''}
+              <span class="power-icon">⚡${Number(m.power)||0}</span>
               ${isOwner ? `<button class="member-x" title="分手" onclick="kickMember(${t.id},'${escapeAttr(m.id)}','${m.type||'member'}')">×</button>` : ''}
             </span>
           `).join('') : '<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}
@@ -1126,7 +1143,7 @@ function showJinZhuForm(item=null){
     document.getElementById('modalBox').innerHTML=`
       <h3>发布需求</h3>
       <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.5">
-        只需填写<strong>详情</strong>即可快速发布。其它信息将自动填为「待填」，保存后可随时点「编辑需求」完善。
+        只需填写<strong>详情</strong>即可快速发布。其它信息将自动填为默认值，保存后可随时点「编辑需求」完善。
       </p>
       <div class="form-group">
         <label>详情 *</label>
@@ -1146,7 +1163,7 @@ function showJinZhuForm(item=null){
     <div class="form-group"><label>简介</label><textarea id="jz-intro">${item.intro||''}</textarea></div>
     <div class="form-group"><label>详情</label><textarea id="jz-detail">${item.detail||''}</textarea></div>
     <div class="form-group"><label>梦想</label><input id="jz-dream" value="${item.dream||''}"></div>
-    <div class="form-group"><label>难度</label><input id="jz-difficulty" value="${item.difficulty||'待填'}" placeholder="例如：高 / 中 / 低 或 数字"></div>
+    <div class="form-group"><label>难度（数字）</label><input id="jz-difficulty" type="number" value="${Number(item.difficulty)||0}" placeholder="数字，越高越难"></div>
     <div class="form-group"><label>重奖</label><input id="jz-reward" value="${item.reward||'待填'}" placeholder="例如：10万现金 / 股权 / 分成"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><b>痛点列表</b>
       <button type="button" class="btn btn-outline btn-sm" onclick="addPainItem()">+ 添加痛点</button></div>
@@ -1190,7 +1207,7 @@ async function saveJinZhu(convene=false){
     whatsapp = '0';
     website = '待填';
     pains = [{title:'待填', desc:'待填'}];
-    difficulty = '待填';
+    difficulty = 0;
     reward = '待填';
   } else {
     name = document.getElementById('jz-name').value.trim();
@@ -1201,7 +1218,7 @@ async function saveJinZhu(convene=false){
     intro = document.getElementById('jz-intro').value;
     detail = document.getElementById('jz-detail').value;
     dream = document.getElementById('jz-dream').value;
-    difficulty = document.getElementById('jz-difficulty').value || '待填';
+    difficulty = parseInt(document.getElementById('jz-difficulty').value) || 0;
     reward = document.getElementById('jz-reward').value || '待填';
     title = document.getElementById('jz-title').value;
     email = document.getElementById('jz-email').value;
@@ -1246,7 +1263,7 @@ async function autoCreateTeamForJinZhu(jin){
   if(teams.some(t => String(t.jinzhu_id)===String(jin.id))) return;
   const teamRow = {
     id: Date.now()+1,
-    name: '超级团队' + (jin.phone||''),
+    name: generateTeamName(jin.phone),
     demand: jin.detail || jin.intro || jin.name || '',
     dream: jin.dream || '待填',
     power: 0,
@@ -1287,7 +1304,7 @@ function showDaShiForm(item=null){
     <div class="form-group"><label>AI公司名/姓名 *</label><input id="ds-name" value="${item?item.name:''}"></div>
     <div class="form-group"><label>简介</label><textarea id="ds-intro">${item?item.intro:''}</textarea></div>
     <div class="form-group"><label>分类</label><input id="ds-category" placeholder="例如：销售获客 / 客户画像 / 自动化" value="${item?(item.category||''):''}"></div>
-    <div class="form-group"><label>战力</label><input id="ds-power" type="number" value="${item?(item.power??0):0}" placeholder="数字，越高越强"></div>
+    <div class="form-group"><label>战力（数字）</label><input id="ds-power" type="number" value="${Number(item?.power)||0}" placeholder="数字，越高越强"></div>
     <div class="form-group"><label>座右铭</label><input id="ds-motto" value="${item?(item.motto||''):''}"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><b>工具装备</b>
       <button type="button" class="btn btn-outline btn-sm" onclick="addToolItem()">+ 添加工具</button></div>
@@ -1356,7 +1373,7 @@ function showHeroForm(item=null){
     <div class="form-group"><label>简介</label><textarea id="hr-intro">${item?item.intro:(isNew?'待填':'')}</textarea></div>
     <div class="form-group"><label>技能标题 *</label><input id="hr-skill-title" value="${item?(item.skill_title||''):(isNew?'待填':'')}"></div>
     <div class="form-group"><label>技能详情</label><textarea id="hr-skill-desc">${item?(item.skill_desc||''):(isNew?'待填':'')}</textarea></div>
-    <div class="form-group"><label>战力</label><input id="hr-power" type="number" value="${item?(item.power??0):0}" placeholder="数字，越高越强"></div>
+    <div class="form-group"><label>战力（数字）</label><input id="hr-power" type="number" value="${Number(item?.power)||0}" placeholder="数字，越高越强"></div>
     <div class="form-group"><label>梦想</label><input id="hr-dream" value="${item?(item.dream||''):(isNew?'待填':'')}"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><b>业绩记录</b>
       <button type="button" class="btn btn-outline btn-sm" onclick="addPerfItem()">+ 添加业绩</button></div>
@@ -1422,12 +1439,12 @@ function showTeamForm(item=null){
   const user=getUser();
   const phoneVal=item?item.phone:(user?user.phone:'');
   const isNew=!item;
-  const defaultName = isNew ? ('超级团队'+(user?user.phone:'')) : (item.name||'');
+  const defaultName = isNew ? generateTeamName(user?user.phone:'') : (item.name||'');
   document.getElementById('modalBox').innerHTML=`<h3>${item?'编辑超级团队':'创建超级团队'}</h3>
     <div class="form-group"><label>团队名</label><input id="tm-name" value="${defaultName}"></div>
     <div class="form-group"><label>需求</label><textarea id="tm-demand">${item?(item.demand||''):(isNew?'待填':'')}</textarea></div>
     <div class="form-group"><label>梦想</label><input id="tm-dream" value="${item?(item.dream||''):(isNew?'待填':'')}"></div>
-    <div class="form-group"><label>战力</label><input id="tm-power" type="number" value="${item?(item.power??0):0}" placeholder="数字，越高越强"></div>
+    <div class="form-group"><label>战力（数字）</label><input id="tm-power" type="number" value="${Number(item?.power)||0}" placeholder="数字，越高越强"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><b>业绩记录</b>
       <button type="button" class="btn btn-outline btn-sm" onclick="addPerfItem()">+ 添加业绩</button></div>
     <div id="perf-list"></div>
@@ -1446,7 +1463,7 @@ function showTeamForm(item=null){
   if(item&&item.performances&&item.performances.length) item.performances.forEach(p=>addPerfItem(p.title,p.desc)); else addPerfItem(isNew?'待填':'',isNew?'待填':'');
 }
 async function saveTeam(){
-  const name=document.getElementById('tm-name').value.trim() || ('超级团队'+document.getElementById('tm-phone').value);
+  const name=document.getElementById('tm-name').value.trim() || generateTeamName(document.getElementById('tm-phone').value);
   const person=document.getElementById('tm-person').value.trim();
   const phone=document.getElementById('tm-phone').value.trim();
   const wechat=document.getElementById('tm-wechat').value.trim();
@@ -1497,8 +1514,13 @@ async function kickMember(teamId, memberId, memberType){
   await sb.from('team').update({ members }).eq('id', teamId);
   renderTeam(); renderJinZhu();
 }
+async function clearMembers(teamId){
+  if(!confirm('确定清空所有成员？团队本身会保留。')) return;
+  await sb.from('team').update({ members: [] }).eq('id', teamId);
+  renderTeam(); renderJinZhu();
+}
 async function disbandTeam(teamId){
-  if(!confirm('确定解散该超级团队？')) return;
+  if(!confirm('确定解散整个团队？此操作不可恢复。')) return;
   await sb.from('team').delete().eq('id', teamId);
   renderTeam(); renderJinZhu();
 }
