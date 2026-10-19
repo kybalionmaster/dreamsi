@@ -25,7 +25,6 @@ body{background:#f5f7fa;color:#1f2937}
 .btn-savior{background:#10b981;color:#fff;margin-left:4px}
 .btn-caishen{background:#8b5cf6;color:#fff;margin-left:4px}
 .btn-team{background:#0ea5e9;color:#fff;margin-left:4px}
-.btn-pull{background:#f97316;color:#fff;margin-left:4px}
 .user-info{display:flex;align-items:center;gap:8px}
 .role-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff}
 .role-jinzhu{background:#f59e0b}.role-ai{background:#eab308}.role-admin{background:#7c3aed}.role-kefu{background:#10b981}.role-shenhe{background:#6366f1}.role-yingxiao{background:#ec4899}
@@ -103,6 +102,8 @@ body{background:#f5f7fa;color:#1f2937}
 .x-icon.case:hover{color:#7856ff;background:#f0edff}
 .x-icon.trial:hover{color:#ff7a00;background:#fff4e8}
 .x-icon.report:hover{color:#f4212e;background:#fef2f2}
+.x-icon.pull{color:#f97316}
+.x-icon.pull:hover{color:#ea580c;background:#fff7ed}
 .g-search-wrap{display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;max-width:320px}
 .g-search{display:flex;align-items:center;width:100%;height:40px;border:1px solid #dfe1e5;border-radius:24px;padding:0 14px;background:#fff;transition:box-shadow .2s,border-color .2s}
 .g-search:hover,.g-search:focus-within{box-shadow:0 1px 6px rgba(32,33,36,.28);border-color:transparent}
@@ -118,7 +119,10 @@ body{background:#f5f7fa;color:#1f2937}
 .team-box{margin-top:12px;padding:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px}
 .team-box h4{font-size:13px;margin-bottom:6px;color:#0369a1}
 .member-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.member-chip{background:#e0f2fe;color:#0c4a6e;font-size:12px;padding:3px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:4px}
+.member-chip{background:#e0f2fe;color:#0c4a6e;font-size:12px;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:4px;position:relative}
+.member-chip .power-icon{color:#b45309;font-size:12px}
+.member-chip .member-x{opacity:0;transition:opacity .2s;background:#ef4444;color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:2px}
+.member-chip:hover .member-x,.member-chip:active .member-x{opacity:1}
 @media (max-width:768px){
   .container{flex-direction:column;height:auto;min-height:calc(100vh - 65px)}
   .sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e7eb;padding:8px 6px;display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:4px;flex-shrink:0}
@@ -131,6 +135,7 @@ body{background:#f5f7fa;color:#1f2937}
   .logo-text p{display:none}
   .cloud-tip{font-size:11px;padding:6px 10px}
   .g-search-wrap{max-width:100%;margin-top:6px}
+  .member-chip .member-x{opacity:0.6} /* 移动端稍微可见 */
 }
 </style>
 </head>
@@ -632,19 +637,14 @@ function renderBizCard(card){
   <div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;
 }
 
-/* ========== 拉入团队功能（75/76） ========== */
-async function pullIntoTeam(targetPhone, targetName, targetType){
+/* ========== 拉入团队（78：用 id + type 存储） ========== */
+async function pullIntoTeam(targetId, targetName, targetType, targetPower = 0){
   const user = getUser();
   if(!user) return alert('请先登录');
   if(user.role !== 'jinzhu' && user.role !== 'admin') return alert('仅金主和管理员可使用此功能');
 
   const teams = await fetchTeam();
-  let targetTeams = [];
-  if(user.role === 'admin'){
-    targetTeams = teams;
-  } else {
-    targetTeams = teams.filter(t => String(t.phone) === String(user.phone));
-  }
+  let targetTeams = user.role === 'admin' ? teams : teams.filter(t => String(t.phone) === String(user.phone));
 
   if(!targetTeams.length){
     return alert(user.role === 'admin' ? '系统中暂无任何超级团队' : '您还没有超级团队，请先发布需求自动生成或手动创建');
@@ -653,11 +653,13 @@ async function pullIntoTeam(targetPhone, targetName, targetType){
   let addedCount = 0;
   for(const team of targetTeams){
     let members = Array.isArray(team.members) ? [...team.members] : [];
-    if(members.some(m => String(m.phone) === String(targetPhone))) continue;
+    // 用 id + type 判断是否已存在（支持同手机号多个）
+    if(members.some(m => String(m.id) === String(targetId) && m.type === targetType)) continue;
     members.push({
-      phone: targetPhone,
-      name: targetName || targetPhone,
-      type: targetType || 'member'
+      id: targetId,
+      type: targetType,          // 'hero' | 'dashi' | 'member'
+      name: targetName || String(targetId),
+      power: targetPower || 0
     });
     const { error } = await sb.from('team').update({ members }).eq('id', team.id);
     if(!error) addedCount++;
@@ -856,9 +858,12 @@ async function renderJinZhu(){
     if(team){
       const members = team.members || [];
       const isOwner = user && (String(team.phone)===String(user.phone) || isAdmin());
-      const isMember = user && members.some(m => String(m.phone)===String(user.phone));
+      const isMember = user && members.some(m => m.type === 'member' && String(m.id) === String(user.phone));
       teamHtml = `<div class="team-box">
-        <h4>👥 超级团队：${team.name||''} ${team.power?`<span class="tag tag-power">战力:${team.power}</span>`:''}</h4>
+        <h4>👥 超级团队：${team.name||''} 
+          ${team.power?`<span class="tag tag-power">战力:${team.power}</span>`:''}
+          ${j.difficulty?`<span class="tag tag-diff">难度:${j.difficulty}</span>`:''}
+        </h4>
         <div class="card-desc"><b>需求说明：</b>${team.demand||j.detail||j.intro||'-'}</div>
         <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
           ${isOwner?`<button class="btn btn-danger btn-sm" onclick="disbandTeam(${team.id})">解散团队</button>`:''}
@@ -866,9 +871,14 @@ async function renderJinZhu(){
         </div>
         <div class="card-desc" style="margin-top:8px"><b>队员清单：</b></div>
         <div class="member-list">
-          ${members.length?members.map(m=>`<span class="member-chip">${m.name||m.phone}${m.type?`(${m.type})`:''}
-            ${isOwner?`<button class="btn btn-del btn-sm" style="padding:0 4px;font-size:10px;margin-left:2px" onclick="kickMember(${team.id},'${escapeAttr(m.phone)}')">分手</button>`:''}
-          </span>`).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}
+          ${members.length ? members.map(m => `
+            <span class="member-chip">
+              ${m.name||m.id}
+              ${m.type && m.type !== 'member' ? `<small>(${m.type==='hero'?'精英':'SI'})</small>` : ''}
+              ${m.power ? `<span class="power-icon">⚡${m.power}</span>` : ''}
+              ${isOwner ? `<button class="member-x" title="分手" onclick="kickMember(${team.id},'${escapeAttr(m.id)}','${m.type||'member'}')">×</button>` : ''}
+            </span>
+          `).join('') : '<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}
         </div>
       </div>`;
     }
@@ -933,11 +943,12 @@ async function renderDaShi(){
   document.getElementById('dashi-list').innerHTML = pg.slice.length ? pg.slice.map(d => {
     const showInteract = user && (user.role === 'jinzhu' || user.role === 'admin' || user.role === 'yingxiao');
     const pn = escapeAttr(d.phone), nm = escapeAttr(d.name);
+    const power = d.power ?? 0;
     return `
     <div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content">
       <div class="card-title">${d.name}
         ${d.category?`<span class="tag">${d.category}</span>`:''}
-        ${d.power!==undefined && d.power!==null?`<span class="tag tag-power">战力:${d.power}</span>`:''}
+        <span class="tag tag-power">战力:${power}</span>
         ${d._matchScore!==undefined?`<span class="match-score ${d._matchScore===0?'zero':''}">匹配度 ${d._matchScore}</span>`:''}
         ${canEdit(d)?`
           <button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">编辑超级智能工具</button>
@@ -945,7 +956,7 @@ async function renderDaShi(){
         `:''}
       </div>
       <div class="card-desc"><b>简介：</b>${d.intro||''}</div>
-      <div class="card-desc"><b>分类：</b>${d.category||'-'}　<b>战力：</b>${d.power??0}</div>
+      <div class="card-desc"><b>分类：</b>${d.category||'-'}　<b>战力：</b>${power}</div>
       <div class="card-desc"><b>座右铭：</b>${d.motto||'-'}</div>
       <div class="card-desc"><b>工具装备（${(d.tools||[]).length}个）：</b></div>
       ${(d.tools||[]).map(t=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${t.title}</b>：${t.desc}</div>`).join('')}
@@ -956,7 +967,7 @@ async function renderDaShi(){
         <button type="button" class="x-icon case" title="索取成功案例资料" onclick="openSendMsgDirect('case_request','${pn}','${nm}')">📄</button>
         <button type="button" class="x-icon trial" title="请求试用" onclick="openSendMsgDirect('trial_request','${pn}','${nm}')">🧪</button>
         <button type="button" class="x-icon report" title="举报" onclick="reportTarget('${pn}','${nm}','dashi')">🚩</button>
-        ${canPull?`<button class="btn btn-pull btn-sm" onclick="pullIntoTeam('${pn}','${nm}','SI工具')">拉入团队</button>`:''}
+        ${canPull?`<button type="button" class="x-icon pull" title="拉入团队" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}
       </div>` : ''}
     </div></div>`;
   }).join('') : emptyMsg;
@@ -983,18 +994,19 @@ async function renderHero(){
 
   document.getElementById('hero-list').innerHTML = pg.slice.length ? pg.slice.map(t => {
     const pn = escapeAttr(t.phone), nm = escapeAttr(t.name);
+    const power = t.power ?? 0;
     const showInteract = user && (user.role === 'jinzhu' || user.role === 'admin' || user.role === 'ai');
     return `
     <div class="card"><div class="avatar avatar-hero">精英</div><div class="card-content">
       <div class="card-title">${t.name}
-        ${t.power!==undefined && t.power!==null?`<span class="tag tag-power">战力:${t.power}</span>`:''}
+        <span class="tag tag-power">战力:${power}</span>
         ${canEdit(t)?`
           <button class="btn btn-edit btn-sm" onclick="editHero(${t.id})">编辑</button>
           <button class="btn btn-del btn-sm" onclick="deleteHero(${t.id})">删除</button>
         `:''}
       </div>
       <div class="card-desc"><b>简介：</b>${t.intro||''}</div>
-      <div class="card-desc"><b>技能标题：</b>${t.skill_title||'-'}　<b>战力：</b>${t.power??0}</div>
+      <div class="card-desc"><b>技能标题：</b>${t.skill_title||'-'}　<b>战力：</b>${power}</div>
       <div class="card-desc"><b>技能详情：</b>${t.skill_desc||'-'}</div>
       <div class="card-desc"><b>梦想：</b>${t.dream||'-'}</div>
       <div class="card-desc"><b>业绩记录（${(t.performances||[]).length}条）：</b></div>
@@ -1004,7 +1016,7 @@ async function renderHero(){
       <div class="x-actions">
         <button type="button" class="x-icon greet" title="发送美好的问候" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>
         <button type="button" class="x-icon report" title="举报" onclick="reportTarget('${pn}','${nm}','hero')">🚩</button>
-        ${canPull?`<button class="btn btn-pull btn-sm" onclick="pullIntoTeam('${pn}','${nm}','超级精英')">拉入团队</button>`:''}
+        ${canPull?`<button type="button" class="x-icon pull" title="拉入团队" onclick="pullIntoTeam(${t.id},'${nm}','hero',${power})">➕</button>`:''}
       </div>` : ''}
     </div></div>`;
   }).join('') : emptyMsg;
@@ -1023,14 +1035,21 @@ async function renderTeam(){
   const pg = paginate(list, teamPage, PAGE_SIZE);
   teamPage = pg.page;
 
+  // 为了显示难度，需要关联 jinzhu
+  const allJinZhu = await fetchJinZhu();
+
   document.getElementById('team-list').innerHTML = pg.slice.length ? pg.slice.map(t => {
     const members = t.members || [];
     const isOwner = user && (String(t.phone)===String(user.phone) || isAdmin());
-    const isMember = user && members.some(m => String(m.phone)===String(user.phone));
+    const isMember = user && members.some(m => m.type === 'member' && String(m.id) === String(user.phone));
+    const linkedJin = allJinZhu.find(j => String(j.id) === String(t.jinzhu_id));
+    const difficulty = linkedJin ? (linkedJin.difficulty || '待填') : '-';
+
     return `
     <div class="card"><div class="avatar avatar-team">团队</div><div class="card-content">
       <div class="card-title">${t.name||'超级团队'}
         ${t.power!==undefined && t.power!==null?`<span class="tag tag-power">战力:${t.power}</span>`:''}
+        <span class="tag tag-diff">难度:${difficulty}</span>
         ${canEdit(t)?`
           <button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>
           <button class="btn btn-del btn-sm" onclick="disbandTeam(${t.id})">解散</button>
@@ -1048,9 +1067,14 @@ async function renderTeam(){
         </div>
         <div class="card-desc"><b>队员清单：</b></div>
         <div class="member-list">
-          ${members.length?members.map(m=>`<span class="member-chip">${m.name||m.phone}${m.type?`(${m.type})`:''}
-            ${isOwner?`<button class="btn btn-del btn-sm" style="padding:0 4px;font-size:10px" onclick="kickMember(${t.id},'${escapeAttr(m.phone)}')">分手</button>`:''}
-          </span>`).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}
+          ${members.length ? members.map(m => `
+            <span class="member-chip">
+              ${m.name||m.id}
+              ${m.type && m.type !== 'member' ? `<small>(${m.type==='hero'?'精英':'SI'})</small>` : ''}
+              ${m.power ? `<span class="power-icon">⚡${m.power}</span>` : ''}
+              ${isOwner ? `<button class="member-x" title="分手" onclick="kickMember(${t.id},'${escapeAttr(m.id)}','${m.type||'member'}')">×</button>` : ''}
+            </span>
+          `).join('') : '<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}
         </div>
       </div>
     </div></div>`;
@@ -1248,7 +1272,7 @@ async function deleteJinZhu(id){
   renderAll();
 }
 
-/* ========== 超级智能工具表单（含战力） ========== */
+/* ========== 超级智能工具表单 ========== */
 function openAddDaShi(){ editingDaShiId=null; showDaShiForm(); }
 async function editDaShi(id){
   const list=await fetchDaShi();
@@ -1315,7 +1339,7 @@ async function deleteDaShi(id){
   renderAll();
 }
 
-/* ========== 超级精英表单（含战力） ========== */
+/* ========== 超级精英表单 ========== */
 function openAddHero(){ editingHeroId=null; showHeroForm(); }
 async function editHero(id){
   const list=await fetchHero();
@@ -1386,7 +1410,7 @@ async function deleteHero(id){
   renderHero();
 }
 
-/* ========== 超级团队表单（含战力） ========== */
+/* ========== 超级团队表单 ========== */
 function openAddTeam(){ editingTeamId=null; showTeamForm(); }
 async function editTeam(id){
   const list=await fetchTeam();
@@ -1456,20 +1480,20 @@ async function joinTeam(teamId){
   const list = await fetchTeam();
   const team = list.find(t=>t.id===teamId);
   if(!team) return alert('团队不存在');
-  const members = team.members || [];
-  if(members.some(m=>String(m.phone)===String(user.phone))) return alert('您已在队伍中');
-  members.push({ phone: user.phone, name: user.phone });
+  let members = Array.isArray(team.members) ? [...team.members] : [];
+  if(members.some(m => m.type === 'member' && String(m.id) === String(user.phone))) return alert('您已在队伍中');
+  members.push({ id: user.phone, type: 'member', name: user.phone, power: 0 });
   const { error } = await sb.from('team').update({ members }).eq('id', teamId);
   if(error) return alert(error.message);
   alert('已加入超级团队');
   renderTeam(); renderJinZhu();
 }
-async function kickMember(teamId, phone){
+async function kickMember(teamId, memberId, memberType){
   if(!confirm('确定让该队员分手？')) return;
   const list = await fetchTeam();
   const team = list.find(t=>t.id===teamId);
   if(!team) return;
-  const members = (team.members||[]).filter(m=>String(m.phone)!==String(phone));
+  const members = (team.members||[]).filter(m => !(String(m.id) === String(memberId) && (m.type||'member') === memberType));
   await sb.from('team').update({ members }).eq('id', teamId);
   renderTeam(); renderJinZhu();
 }
