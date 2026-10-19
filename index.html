@@ -1025,65 +1025,134 @@ async function editJinZhu(id){
   if(!item||!canEdit(item)) return alert('无权限');
   editingJinZhuId=id; showJinZhuForm(item);
 }
+
 function showJinZhuForm(item=null){
   const user=getUser();
   const phoneVal=item?item.phone:(user?user.phone:'');
   const isNew = !item;
-  document.getElementById('modalBox').innerHTML=`<h3>${item?'编辑需求':'发布需求'}</h3>
-    <div class="form-group"><label>公司名/姓名 *</label><input id="jz-name" value="${item?item.name:(isNew?'待填':'')}"></div>
-    <div class="form-group"><label>简介</label><textarea id="jz-intro">${item?item.intro:(isNew?'待填':'')}</textarea></div>
-    <div class="form-group"><label>详情</label><textarea id="jz-detail" placeholder="详细描述需求">${item?(item.detail||''):(isNew?'待填':'')}</textarea></div>
-    <div class="form-group"><label>梦想</label><input id="jz-dream" value="${item?(item.dream||''):(isNew?'待填':'')}"></div>
+
+  if(isNew){
+    // 72：发布需求时只显示【详情】一个输入框
+    document.getElementById('modalBox').innerHTML=`
+      <h3>发布需求</h3>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.5">
+        只需填写<strong>详情</strong>即可快速发布。其它信息将自动填为「待填」，保存后可随时点「编辑需求」完善。
+      </p>
+      <div class="form-group">
+        <label>详情 *</label>
+        <textarea id="jz-detail" placeholder="请简单描述您的需求、痛点或想解决的问题…" style="min-height:120px"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-outline" onclick="closeModal()">取消</button>
+        <button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button>
+        <button class="btn btn-team" onclick="saveJinZhu(true)">保存并召集TEAM</button>
+      </div>`;
+    document.getElementById('modalMask').style.display='flex';
+    return;
+  }
+
+  // 编辑时仍显示完整表单
+  document.getElementById('modalBox').innerHTML=`<h3>编辑需求</h3>
+    <div class="form-group"><label>公司名/姓名 *</label><input id="jz-name" value="${item.name||''}"></div>
+    <div class="form-group"><label>简介</label><textarea id="jz-intro">${item.intro||''}</textarea></div>
+    <div class="form-group"><label>详情</label><textarea id="jz-detail">${item.detail||''}</textarea></div>
+    <div class="form-group"><label>梦想</label><input id="jz-dream" value="${item.dream||''}"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><b>痛点列表</b>
       <button type="button" class="btn btn-outline btn-sm" onclick="addPainItem()">+ 添加痛点</button></div>
     <div id="pain-list"></div>
     <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb">
     <div style="font-weight:600;margin-bottom:8px">名片</div>
-    <div class="form-group"><label>名片姓名 *</label><input id="jz-person" value="${item&&item.card?item.card.person:(isNew?'待填':'')}"></div>
-    <div class="form-group"><label>职位</label><input id="jz-title" value="${item&&item.card?(item.card.title||''):(isNew?'待填':'')}"></div>
+    <div class="form-group"><label>名片姓名 *</label><input id="jz-person" value="${item.card?item.card.person:''}"></div>
+    <div class="form-group"><label>职位</label><input id="jz-title" value="${item.card?(item.card.title||''):''}"></div>
     <div class="form-group"><label>手机号 *</label><input id="jz-phone" value="${phoneVal}" readonly style="background:#f3f4f6"></div>
-    <div class="form-group"><label>邮箱</label><input id="jz-email" value="${item&&item.card?(item.card.email||''):(isNew?'待填':'')}"></div>
-    <div class="form-group"><label>微信ID *</label><input id="jz-wechat" value="${item&&item.card?(item.card.wechat||''):(isNew?'待填':'')}"></div>
-    <div class="form-group"><label>WhatsApp</label><input id="jz-whatsapp" value="${item&&item.card?(item.card.whatsapp||''):(isNew?'0':'')}"></div>
-    <div class="form-group"><label>公司网址</label><input id="jz-website" placeholder="https://www.example.com" value="${item&&item.card?(item.card.website||''):(isNew?'待填':'')}"></div>
+    <div class="form-group"><label>邮箱</label><input id="jz-email" value="${item.card?(item.card.email||''):''}"></div>
+    <div class="form-group"><label>微信ID *</label><input id="jz-wechat" value="${item.card?(item.card.wechat||''):''}"></div>
+    <div class="form-group"><label>WhatsApp</label><input id="jz-whatsapp" value="${item.card?(item.card.whatsapp||''):''}"></div>
+    <div class="form-group"><label>公司网址</label><input id="jz-website" placeholder="https://www.example.com" value="${item.card?(item.card.website||''):''}"></div>
     <div class="form-actions">
       <button class="btn btn-outline" onclick="closeModal()">取消</button>
       <button class="btn btn-primary" onclick="saveJinZhu()">保存</button>
-      ${isNew?`<button class="btn btn-team" onclick="saveJinZhu(true)">保存并召集TEAM</button>`:''}
     </div>`;
   document.getElementById('modalMask').style.display='flex';
-  if(item&&item.pains&&item.pains.length) item.pains.forEach(p=>addPainItem(p.title,p.desc)); else addPainItem(isNew?'待填':'', isNew?'待填':'');
+  if(item.pains&&item.pains.length) item.pains.forEach(p=>addPainItem(p.title,p.desc)); else addPainItem();
 }
+
 async function saveJinZhu(convene=false){
-  const name=document.getElementById('jz-name').value.trim();
-  const person=document.getElementById('jz-person').value.trim();
-  const phone=document.getElementById('jz-phone').value.trim();
-  const wechat=document.getElementById('jz-wechat').value.trim();
-  if(!name||!person||!phone||!wechat) return alert('必填项不能为空');
-  const pains=[];
-  document.querySelectorAll('#pain-list .dynamic-item').forEach(item=>{
-    const t=item.querySelector('.pain-title').value.trim();
-    const d=item.querySelector('.pain-desc').value.trim();
-    if(t) pains.push({title:t,desc:d});
-  });
-  const detail = document.getElementById('jz-detail').value;
+  const user = getUser();
+  if(!user) return alert('请先登录');
+
+  // 判断是否为「仅详情」极简模式
+  const isSimpleMode = !editingJinZhuId && document.getElementById('jz-name') === null;
+
+  let name, intro, detail, dream, person, phone, wechat, title, email, whatsapp, website, pains;
+
+  if(isSimpleMode){
+    // 72：极简发布，只取详情，其余自动填默认值
+    detail = (document.getElementById('jz-detail').value || '').trim();
+    if(!detail) return alert('请填写详情');
+    name = '待填';
+    intro = '待填';
+    dream = '待填';
+    person = '待填';
+    phone = user.phone;
+    wechat = '待填';
+    title = '待填';
+    email = '待填';
+    whatsapp = '0';
+    website = '待填';
+    pains = [{title:'待填', desc:'待填'}];
+  } else {
+    // 完整编辑模式
+    name = document.getElementById('jz-name').value.trim();
+    person = document.getElementById('jz-person').value.trim();
+    phone = document.getElementById('jz-phone').value.trim();
+    wechat = document.getElementById('jz-wechat').value.trim();
+    if(!name||!person||!phone||!wechat) return alert('必填项不能为空');
+    intro = document.getElementById('jz-intro').value;
+    detail = document.getElementById('jz-detail').value;
+    dream = document.getElementById('jz-dream').value;
+    title = document.getElementById('jz-title').value;
+    email = document.getElementById('jz-email').value;
+    whatsapp = document.getElementById('jz-whatsapp').value;
+    website = document.getElementById('jz-website').value.trim();
+    pains = [];
+    document.querySelectorAll('#pain-list .dynamic-item').forEach(item=>{
+      const t=item.querySelector('.pain-title').value.trim();
+      const d=item.querySelector('.pain-desc').value.trim();
+      if(t) pains.push({title:t,desc:d});
+    });
+  }
+
   const row={
     id: editingJinZhuId || Date.now(),
-    name, intro:document.getElementById('jz-intro').value, detail, dream:document.getElementById('jz-dream').value, phone, pains,
-    card:{ person, title:document.getElementById('jz-title').value, phone, email:document.getElementById('jz-email').value, wechat,
-      whatsapp:document.getElementById('jz-whatsapp').value, website:document.getElementById('jz-website').value.trim(),
-      qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}` }
+    name, intro, detail, dream, phone, pains,
+    card:{
+      person, title, phone, email, wechat, whatsapp, website,
+      qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`
+    }
   };
+
   let error;
-  if(editingJinZhuId) ({error}=await sb.from('jinzhu').update(row).eq('id', editingJinZhuId));
-  else ({error}=await sb.from('jinzhu').insert(row));
+  if(editingJinZhuId){
+    ({error}=await sb.from('jinzhu').update(row).eq('id', editingJinZhuId));
+  } else {
+    ({error}=await sb.from('jinzhu').insert(row));
+  }
   if(error) return alert('保存失败：'+error.message);
-  if(convene || (!editingJinZhuId)){
-    // 自动配备一支 TEAM
+
+  // 新发布时自动配备 TEAM
+  if(!editingJinZhuId){
     await autoCreateTeamForJinZhu(row);
   }
-  closeModal(); renderAll(); alert('保存成功（已同步云端）'+(convene?'，已召集TEAM':''));
+  if(convene){
+    await autoCreateTeamForJinZhu(row);
+  }
+
+  closeModal();
+  renderAll();
+  alert(isSimpleMode ? '已快速发布！可随时点「编辑需求」完善信息' : '保存成功（已同步云端）');
 }
+
 async function autoCreateTeamForJinZhu(jin){
   const teams = await fetchTeams();
   if(teams.some(t => String(t.jinzhu_id)===String(jin.id))) return;
