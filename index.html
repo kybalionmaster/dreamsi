@@ -22,6 +22,7 @@ body{background:#f5f7fa;color:#1f2937}
 .btn-warn{background:#f59e0b;color:#fff}.btn-savior{background:#10b981;color:#fff;margin-left:4px}
 .btn-caishen{background:#8b5cf6;color:#fff;margin-left:4px}.btn-team{background:#0ea5e9;color:#fff;margin-left:4px}
 .btn-survey{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;margin-left:4px}
+.btn-priority{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;margin-left:4px}
 .btn-toggle-kick{background:#64748b;color:#fff;margin-left:4px}
 .user-info{display:flex;align-items:center;gap:8px}
 .role-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff}
@@ -39,6 +40,7 @@ body{background:#f5f7fa;color:#1f2937}
 .card-list{padding:12px}
 .card{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
 .card.focus-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.25)}
+.card.priority-card{border-color:#f59e0b;box-shadow:0 0 0 2px rgba(245,158,11,.3);background:linear-gradient(180deg,#fffbeb 0%,#fff 48px)}
 .avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0}
 .avatar-jinzhu{background:#f59e0b}.avatar-dashi{background:#eab308}.avatar-hero{background:#ec4899}.avatar-team{background:#0ea5e9}
 .card-content{flex:1;min-width:0}
@@ -46,6 +48,7 @@ body{background:#f5f7fa;color:#1f2937}
 .card-desc{font-size:13px;color:#6b7280;line-height:1.45;margin-bottom:6px}
 .tags{display:flex;gap:6px;flex-wrap:wrap}.tag{background:#f3f4f6;color:#4b5563;font-size:11px;padding:2px 8px;border-radius:4px}
 .tag-power{background:#fef3c7;color:#b45309}.tag-diff{background:#fee2e2;color:#b91c1c}.tag-reward{background:#dcfce7;color:#15803d}.tag-industry{background:#e0e7ff;color:#3730a3}
+.tag-priority{background:#f59e0b;color:#fff;font-weight:600}
 .match-score{background:#dbeafe;color:#1e40af;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600}
 .biz-card{margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;display:flex;gap:14px;align-items:center}
 .biz-info{flex:1;font-size:12px;line-height:1.6}.biz-info b{color:#1e293b}
@@ -86,6 +89,7 @@ body{background:#f5f7fa;color:#1f2937}
 .badge-pending{background:#fef3c7;color:#92400e;font-size:11px;padding:2px 6px;border-radius:4px}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:13px}
 .cloud-tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;padding:8px 14px;font-size:12px;text-align:center}
+.focus-banner{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fcd34d;color:#92400e;padding:12px 16px;border-radius:10px;margin-bottom:12px;font-size:13px;line-height:1.5}
 .loading{padding:40px;text-align:center;color:#6b7280}
 .msg-item{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;background:#fff}
 .msg-type{font-size:11px;padding:2px 8px;border-radius:4px;background:#e0e7ff;color:#3730a3;margin-right:6px}
@@ -118,11 +122,10 @@ body{background:#f5f7fa;color:#1f2937}
 .member-chip .power-icon{color:#b45309;font-size:12px}
 .member-x{display:none;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;align-items:center;justify-content:center;padding:0;margin-left:2px}
 .team-show-kick .member-x{display:inline-flex}
-.team-x,.clear-x{opacity:0;transition:opacity .2s;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:2px}
-.team-title:hover .team-x,.member-header:hover .clear-x{opacity:1}
+.team-x{opacity:0;transition:opacity .2s;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:2px}
+.team-title:hover .team-x{opacity:1}
 .team-title{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 .member-header{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;color:#6b7280}
-.survey-btns{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px;margin-left:4px}
 .survey-wrap{max-width:800px;margin:0 auto}
 .survey-header{background:linear-gradient(135deg,#1e3a5f,#2563eb);color:#fff;padding:28px 32px;border-radius:12px 12px 0 0}
 .survey-header h2{font-size:22px;margin-bottom:6px}
@@ -160,7 +163,7 @@ body{background:#f5f7fa;color:#1f2937}
   .logo-text p{display:none}
   .cloud-tip{font-size:11px;padding:6px 10px}
   .g-search-wrap{max-width:100%;margin-top:6px}
-  .team-x,.clear-x{opacity:.55}
+  .team-x{opacity:.55}
   .avatar{display:none!important}
   .card{gap:0}
   .survey-header,.survey-body{padding:18px 16px}
@@ -176,6 +179,7 @@ body{background:#f5f7fa;color:#1f2937}
 <div class="container">
   <div class="sidebar">
     <div class="menu-item active" data-view="home">🏠 首页</div>
+    <div class="menu-item" data-view="focus">🎯 当前显化中心</div>
     <div class="menu-item" data-view="team">👥 我的超级团队</div>
     <div class="menu-item" data-view="jinzhu">📋 金主需求中心</div>
     <div class="menu-item" data-view="dashi">🧰 超级智能中心</div>
@@ -209,6 +213,15 @@ body{background:#f5f7fa;color:#1f2937}
         </div>
       </div>
     </div>
+    <!-- 117 当前显化中心 -->
+    <div class="view" id="view-focus">
+      <div class="panel">
+        <div class="panel-header"><h2>🎯 当前显化中心</h2>
+          <button class="btn btn-outline btn-sm" onclick="switchView('team')">查看全部团队</button>
+        </div>
+        <div class="card-list" id="focus-list"><div class="empty-tip">加载中…</div></div>
+      </div>
+    </div>
     <div class="view" id="view-team">
       <div class="panel">
         <div class="panel-header"><h2>我的超级团队</h2>
@@ -236,7 +249,7 @@ body{background:#f5f7fa;color:#1f2937}
     </div>
     <div class="view" id="view-dashi">
       <div class="panel">
-        <div class="panel-header"><h2>超级智能工具箱</h2>
+        <div class="panel-header"><h2>超级智能中心</h2>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
             <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="ds-q" placeholder="搜索名字、介绍、网址、分类" oninput="dsPage=1;renderDaShi()"></div></div>
             <button class="btn btn-primary" id="btn-add-dashi" onclick="openAddDaShi()" style="display:none">+ 发布超级智能工具</button>
@@ -261,7 +274,7 @@ body{background:#f5f7fa;color:#1f2937}
     </div>
     <div class="view" id="view-qgen">
       <div class="panel">
-        <div class="panel-header"><h2>问卷生成系统</h2>
+        <div class="panel-header"><h2>问卷生成中心</h2>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
             <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="qgen-q" placeholder="搜索问卷名、行业" oninput="qgenPage=1;renderQgen()"></div></div>
             <button class="btn btn-primary" id="btn-add-qgen" onclick="openAddQgen()" style="display:none">+ 新建问卷</button>
@@ -274,7 +287,7 @@ body{background:#f5f7fa;color:#1f2937}
     </div>
     <div class="view" id="view-diagnosis">
       <div class="panel">
-        <div class="panel-header"><h2>需求诊断</h2>
+        <div class="panel-header"><h2>需求诊断中心</h2>
           <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="diag-q" placeholder="搜索行业、状态" oninput="diagPage=1;renderDiagnosis()"></div></div>
         </div>
         <div class="card-list" id="diagnosis-list"><div class="empty-tip">请先登录后查看诊断记录</div></div>
@@ -339,6 +352,27 @@ function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;retu
 function paginate(list,page,size){const total=list.length,pages=Math.max(1,Math.ceil(total/size));page=Math.min(Math.max(1,page),pages);return {slice:list.slice((page-1)*size,page*size),page,pages,total};}
 function renderPager(elId,page,pages,onPage){const el=document.getElementById(elId);if(!el)return;if(pages<=1){el.innerHTML='';return;}let html='',start=Math.max(1,page-3),end=Math.min(pages,start+6);if(end-start<6)start=Math.max(1,end-6);for(let i=start;i<=end;i++)html+=i===page?`<span class="cur">${i}</span>`:`<a onclick="${onPage}(${i})">${i}</a>`;html+=page<pages?`<a class="next" onclick="${onPage}(${page+1})">下一页 ›</a>`:`<span class="next disabled">下一页 ›</span>`;el.innerHTML=html;}
 function generateTeamName(phone){const n=new Date();return `团队${phone||''}—${String(n.getHours()).padStart(2,'0')}${String(n.getMinutes()).padStart(2,'0')}${String(n.getSeconds()).padStart(2,'0')}`;}
+function priorityStorageKey(){const u=getUser();return u?'priority_team_'+u.phone:'priority_team_guest';}
+function getLocalPriorityTeamId(){const v=localStorage.getItem(priorityStorageKey());return v?v:null;}
+function setLocalPriorityTeamId(id){if(id==null||id==='')localStorage.removeItem(priorityStorageKey());else localStorage.setItem(priorityStorageKey(),String(id));}
+async function getPriorityTeamId(){
+  const user=getUser();if(!user)return getLocalPriorityTeamId();
+  try{
+    const {data}=await sb.from('app_users').select('priority_team_id').eq('phone',user.phone).maybeSingle();
+    if(data&&data.priority_team_id!=null){setLocalPriorityTeamId(data.priority_team_id);return String(data.priority_team_id);}
+  }catch(e){console.warn(e);}
+  return getLocalPriorityTeamId();
+}
+async function setPriorityTeam(teamId){
+  const user=getUser();if(!user)return alert('请先登录');
+  const id=Number(teamId);
+  setLocalPriorityTeamId(id);
+  try{
+    const {error}=await sb.from('app_users').update({priority_team_id:id}).eq('phone',user.phone);
+    if(error)console.warn('云端保存优先级失败，已用本地备份',error.message);
+  }catch(e){console.warn(e);}
+  switchView('focus');
+}
 function memberAvatarUrl(m){
   if(m&&m.avatar)return m.avatar;
   const seed=encodeURIComponent((m&&(m.name||m.id))||'user');
@@ -346,7 +380,6 @@ function memberAvatarUrl(m){
   if(m&&m.type==='hero')return `https://api.dicebear.com/7.x/avataaars/svg?seed=hero-${seed}&backgroundColor=fce7f3`;
   return `https://api.dicebear.com/7.x/avataaars/svg?seed=m-${seed}&backgroundColor=e0e7ff`;
 }
-/* 111：统一成员芯片 */
 function memberChipHtml(m,isOwner,teamId){
   const av=memberAvatarUrl(m);
   const label=m.name||m.id||'成员';
@@ -364,14 +397,8 @@ function goMemberProfile(type,id){
   if(type==='dashi'){focusDashiId=id;focusHeroId=null;switchView('dashi');}
   else if(type==='hero'){focusHeroId=id;focusDashiId=null;switchView('hero');}
 }
-function toggleTeamKick(teamId){
-  teamKickVisible[teamId]=!teamKickVisible[teamId];
-  renderTeam();renderJinZhu();
-}
-function goQgenFromTeam(teamId,teamName){
-  qgenTeamContext={teamId,teamName:teamName||''};
-  switchView('qgen');
-}
+function toggleTeamKick(teamId){teamKickVisible[teamId]=!teamKickVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
+function goQgenFromTeam(teamId,teamName){qgenTeamContext={teamId,teamName:teamName||''};switchView('qgen');}
 async function fetchJinZhu(){const {data,error}=await sb.from('jinzhu').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
 async function fetchDaShi(){const {data,error}=await sb.from('dashi').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
 async function fetchUsers(){const {data,error}=await sb.from('app_users').select('*').order('phone');if(error){console.error(error);return[];}return data||[];}
@@ -391,8 +418,7 @@ function switchView(view){
   const el=document.getElementById('view-'+view);if(el)el.classList.add('active');
   if(view!=='dashi')focusDashiId=null;
   if(view!=='hero')focusHeroId=null;
-  if(view!=='qgen'){/* keep context tip until leave */}
-  if(view==='home')renderHome();if(view==='jinzhu')renderJinZhu();if(view==='dashi')renderDaShi();
+  if(view==='home')renderHome();if(view==='focus')renderFocus();if(view==='jinzhu')renderJinZhu();if(view==='dashi')renderDaShi();
   if(view==='hero')renderHero();if(view==='team')renderTeam();if(view==='diagnosis')renderDiagnosis();
   if(view==='qgen')renderQgen();if(view==='inbox')renderInbox();if(view==='users')renderUsers();
   if(view==='coop-list')renderCoopList();if(view==='chat-list')renderChatList();
@@ -429,7 +455,7 @@ async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){
     members.push({id:targetId,type:targetType,name:targetName||String(targetId),power:Number(targetPower)||0});
     const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;
   }
-  alert(added>0?`已拉入 ${added} 个超级团队`:'该成员已在团队中');renderTeam();renderJinZhu();
+  alert(added>0?`已拉入 ${added} 个超级团队`:'该成员已在团队中');renderTeam();renderJinZhu();renderFocus();
 }
 async function openSendMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return alert('请先登录');if(!toPhone)return alert('对方手机号未知');const defaults={greeting:{title:'美好的问候',content:'您好！看到您的信息，特来打个招呼。'},progress:{title:'成功进展报告',content:'向您同步一下我们这边的进展。'},event:{title:'活动邀请',content:'诚邀您参加我们的交流活动。'},case_request:{title:'索取成功案例',content:'希望了解贵司相关成功案例。'},trial_request:{title:'请求试用',content:'希望试用贵司的方案/工具。'}};const d0=defaults[msgType]||{title:'',content:''};document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${MSG_TYPE_LABEL[msgType]||msgType}</h3><p style="font-size:13px;color:#6b7280;margin-bottom:12px">发送给：<b>${toName||''}</b>（${toPhone}）</p><div class="form-group"><label>标题</label><input id="msg-title" value="${d0.title}"></div><div class="form-group"><label>内容</label><textarea id="msg-content">${d0.content}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="submitMsgDirect('${msgType}','${escapeAttr(toPhone)}','${escapeAttr(toName)}')">发送</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function submitMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return;const title=document.getElementById('msg-title').value.trim(),content=document.getElementById('msg-content').value.trim();if(!content)return alert('请填写内容');const {error}=await sb.from('messages').insert({id:Date.now(),from_phone:user.phone,from_name:user.phone,from_role:user.role,to_phone:toPhone,msg_type:msgType,title:title||MSG_TYPE_LABEL[msgType]||'',content,related_name:toName||''});if(error)return alert(error.message);closeModal();alert('已发送');}
@@ -437,6 +463,66 @@ async function reportTarget(reportedPhone,reportedName){const user=getUser();if(
 async function renderInbox(){const user=getUser(),box=document.getElementById('inbox-list');if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}const list=await fetchMessagesToMe();box.innerHTML=list.length?list.map(m=>`<div class="msg-item"><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><span class="msg-type">${m.title==='用户举报'?'用户举报':(MSG_TYPE_LABEL[m.msg_type]||m.msg_type)}</span><b>${m.title||''}</b></div><button class="btn btn-del btn-sm" onclick="deleteMsg(${m.id})">删除</button></div><div class="card-desc" style="margin-top:8px">${linkify(m.content||'')}</div><div class="card-desc" style="font-size:12px;color:#9ca3af">来自：${m.from_phone}</div></div>`).join(''):'<div class="empty-tip">暂无信息</div>';}
 async function deleteMsg(id){if(!confirm('确定删除？'))return;await sb.from('messages').delete().eq('id',id);renderInbox();}
 async function renderAll(){await renderHome();await renderJinZhu();await renderDaShi();}
+
+/* 团队卡片公共渲染（列表 / 显化中心共用） */
+function renderOneTeamCard(t,linkedJin,user,opts){
+  opts=opts||{};
+  const members=t.members||[],isOwner=user&&(String(t.phone)===String(user.phone)||isAdmin());
+  const isMember=user&&members.some(m=>String(m.id)===String(user.phone));
+  const industry=linkedJin?(linkedJin.type||'待填'):'待填';
+  const difficulty=linkedJin?(Number(linkedJin.difficulty)||0):0;
+  const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
+  const showKick=!!teamKickVisible[t.id];
+  const isPri=!!opts.isPriority;
+  return `<div class="card ${isPri?'priority-card':''}">
+    <div class="avatar avatar-team">团队</div>
+    <div class="card-content">
+      <div class="card-title team-title">
+        ${t.name||'超级团队'}
+        ${isPri?'<span class="tag tag-priority">最高优先级</span>':''}
+        <span class="tag tag-power">⚡${sum}</span>
+        ${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${t.id},'${escapeAttr(t.name||'')}')">需求问卷</button>`:''}
+        ${user?`<button class="btn btn-priority btn-sm" onclick="setPriorityTeam(${t.id})">设为最高优先级</button>`:''}
+        ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${t.id})">×</button>`:''}
+        ${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>`:''}
+      </div>
+      <div class="card-desc">行业 <span class="tag tag-industry">${industry}</span></div>
+      <div class="card-desc">需求 <span class="tag tag-diff">⚡${difficulty}</span>：${t.demand||'-'}</div>
+      ${(isAdmin()||canEdit(t))?renderBizCard(t.card):''}
+      <div class="team-box ${showKick?'team-show-kick':''}">
+        <div style="margin-bottom:6px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${t.id})">加入团队</button>`:''}</div>
+        <div class="member-header">
+          <b>队员清单</b>
+          ${isOwner?`<button class="btn btn-toggle-kick btn-sm" onclick="toggleTeamKick(${t.id})">${showKick?'隐藏移除':'显示移除'}</button>`:''}
+        </div>
+        <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,t.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function renderFocus(){
+  const box=document.getElementById('focus-list');
+  const user=getUser();
+  if(!user){box.innerHTML='<div class="empty-tip">请先登录。登录后在「我的超级团队」将某团队设为最高优先级，即可在此聚焦。</div>';return;}
+  const pid=await getPriorityTeamId();
+  if(!pid){
+    box.innerHTML=`<div class="focus-banner">尚未设置最高优先级团队。同时参与多个团队时精力易分散，请到「我的超级团队」点击 <b>设为最高优先级</b>，只聚焦一支队伍。</div>
+      <div class="empty-tip"><button class="btn btn-primary" onclick="switchView('team')">去选择团队</button></div>`;
+    return;
+  }
+  const teams=await fetchTeam();
+  const t=teams.find(x=>String(x.id)===String(pid));
+  if(!t){
+    box.innerHTML=`<div class="empty-tip">优先级团队不存在或已解散。<br><button class="btn btn-primary" style="margin-top:12px" onclick="switchView('team')">重新选择</button></div>`;
+    setLocalPriorityTeamId(null);
+    return;
+  }
+  const allJinZhu=await fetchJinZhu();
+  const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
+  box.innerHTML=`<div class="focus-banner">🎯 当前只显示这一支最高优先级团队，便于显化与执行。可随时在「我的超级团队」更换优先级。</div>`+renderOneTeamCard(t,linkedJin,user,{isPriority:true});
+}
+
 async function renderHome(){
   const jinzhu=await fetchJinZhu(),dashi=await fetchDaShi(),admin=isAdmin();
   const pj=paginate(filterByQ(jinzhu,(document.getElementById('home-jz-q')||{}).value||''),homeJzPage,PAGE_SIZE);
@@ -448,29 +534,28 @@ async function renderHome(){
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
 }
 function goHomeJzPage(p){homeJzPage=p;renderHome();}function goHomeDsPage(p){homeDsPage=p;renderHome();}
+
 function teamBlockHtml(team,j,user){
   if(!team)return '';
   const members=team.members||[],isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
-  const isMember=user&&members.some(m=>(m.type==='member'&&String(m.id)===String(user.phone))||(String(m.id)===String(user.phone)));
+  const isMember=user&&members.some(m=>String(m.id)===String(user.phone));
   const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
   const showKick=!!teamKickVisible[team.id];
-  const canSurvey=!!user;
   return `<div class="team-box ${showKick?'team-show-kick':''}">
     <div class="team-title">
       <h4 style="margin:0">👥 ${team.name||''}</h4>
       <span class="tag tag-power">⚡${sum}</span>
-      ${canSurvey?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">需求问卷</button>`:''}
+      ${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">需求问卷</button>`:''}
+      ${user?`<button class="btn btn-priority btn-sm" onclick="setPriorityTeam(${team.id})">设为最高优先级</button>`:''}
       ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${team.id})">×</button>`:''}
     </div>
     <div class="card-desc" style="margin-top:6px">行业 <span class="tag tag-industry">${(j&&j.type)||'待填'}</span>　需求 <span class="tag tag-diff">⚡${j?Number(j.difficulty)||0:0}</span>：${team.demand||(j&&j.detail)||(j&&j.type)||'-'}</div>
     <div style="margin-top:8px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">加入团队</button>`:''}</div>
-    <div class="member-header">
-      <b>队员清单</b>
-      ${isOwner?`<button class="btn btn-toggle-kick btn-sm" onclick="toggleTeamKick(${team.id})">${showKick?'隐藏移除':'显示移除'}</button>`:''}
-    </div>
+    <div class="member-header"><b>队员清单</b>${isOwner?`<button class="btn btn-toggle-kick btn-sm" onclick="toggleTeamKick(${team.id})">${showKick?'隐藏移除':'显示移除'}</button>`:''}</div>
     <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
   </div>`;
 }
+
 async function renderJinZhu(){
   const user=getUser();let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
   const banner=document.getElementById('jinzhu-match-banner');
@@ -499,6 +584,7 @@ async function renderJinZhu(){
   renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
 }
 function goJzPage(p){jzPage=p;renderJinZhu();}
+
 async function renderDaShi(){
   const user=getUser();let list=await fetchDaShi();let emptyMsg='';
   const banner=document.getElementById('dashi-match-banner');
@@ -527,6 +613,7 @@ async function renderDaShi(){
   if(focusDashiId){const el=document.getElementById('dashi-card-'+focusDashiId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 function goDsPage(p){dsPage=p;renderDaShi();}
+
 async function renderHero(){
   const user=getUser();let list=await fetchHero();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
@@ -553,55 +640,30 @@ async function renderHero(){
   if(focusHeroId){const el=document.getElementById('hero-card-'+focusHeroId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 function goHeroPage(p){heroPage=p;renderHero();}
+
 async function renderTeam(){
   const user=getUser();let list=await fetchTeam();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
+  const pid=await getPriorityTeamId();
   const pg=paginate(filterByQ(list,(document.getElementById('team-q')||{}).value||''),teamPage,PAGE_SIZE);teamPage=pg.page;
   const allJinZhu=await fetchJinZhu();
   document.getElementById('team-list').innerHTML=pg.slice.length?pg.slice.map(t=>{
-    const members=t.members||[],isOwner=user&&(String(t.phone)===String(user.phone)||isAdmin());
-    const isMember=user&&members.some(m=>m.type==='member'&&String(m.id)===String(user.phone));
     const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
-    const industry=linkedJin?(linkedJin.type||'待填'):'待填';
-    const difficulty=linkedJin?(Number(linkedJin.difficulty)||0):0;
-    const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
-    const showKick=!!teamKickVisible[t.id];
-    return `<div class="card"><div class="avatar avatar-team">团队</div><div class="card-content">
-      <div class="card-title team-title">
-        ${t.name||'超级团队'}
-        <span class="tag tag-power">⚡${sum}</span>
-        ${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${t.id},'${escapeAttr(t.name||'')}')">需求问卷</button>`:''}
-        ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${t.id})">×</button>`:''}
-        ${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>`:''}
-      </div>
-      <div class="card-desc">行业 <span class="tag tag-industry">${industry}</span></div>
-      <div class="card-desc">需求 <span class="tag tag-diff">⚡${difficulty}</span>：${t.demand||'-'}</div>
-      ${(isAdmin()||canEdit(t))?renderBizCard(t.card):''}
-      <div class="team-box ${showKick?'team-show-kick':''}">
-        <div style="margin-bottom:6px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${t.id})">加入团队</button>`:''}</div>
-        <div class="member-header">
-          <b>队员清单</b>
-          ${isOwner?`<button class="btn btn-toggle-kick btn-sm" onclick="toggleTeamKick(${t.id})">${showKick?'隐藏移除':'显示移除'}</button>`:''}
-        </div>
-        <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,t.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
-      </div>
-    </div></div>`;
+    return renderOneTeamCard(t,linkedJin,user,{isPriority:pid&&String(t.id)===String(pid)});
   }).join(''):emptyMsg;
   renderPager('team-pager',pg.page,pg.pages,'goTeamPage');
 }
 function goTeamPage(p){teamPage=p;renderTeam();}
+
 async function renderQgen(){
   const user=getUser();const box=document.getElementById('qgen-list');
   const tip=document.getElementById('qgen-team-tip');
-  if(qgenTeamContext){
-    tip.style.display='block';
-    tip.innerHTML=`当前关联团队：<b>${qgenTeamContext.teamName||qgenTeamContext.teamId}</b>。可新建自己的需求问卷，填写后交给团队获取结论与方案。 <a href="javascript:qgenTeamContext=null;renderQgen()" style="color:#2563eb">清除关联</a>`;
-  }else tip.style.display='none';
-  if(!user){box.innerHTML='<div class="empty-tip">请先登录。所有成员均可在此生成与填写需求问卷，持续自我反省，并提交给 Team 获取方案。</div>';return;}
+  if(qgenTeamContext){tip.style.display='block';tip.innerHTML=`当前关联团队：<b>${qgenTeamContext.teamName||qgenTeamContext.teamId}</b>。可新建/填写问卷并提交给 Team。 <a href="javascript:qgenTeamContext=null;renderQgen()" style="color:#2563eb">清除关联</a>`;}
+  else tip.style.display='none';
+  if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}
   let list=await fetchQgen();
   if(user.role!=='admin')list=list.filter(t=>String(t.phone)===String(user.phone)||(qgenTeamContext&&String(t.team_id)===String(qgenTeamContext.teamId)));
-  const q=(document.getElementById('qgen-q')||{}).value||'';
-  list=filterByQ(list.map(t=>({...t,intro:t.description})),q);
+  list=filterByQ(list.map(t=>({...t,intro:t.description})),(document.getElementById('qgen-q')||{}).value||'');
   const pg=paginate(list,qgenPage,PAGE_SIZE);qgenPage=pg.page;
   box.innerHTML=pg.slice.length?pg.slice.map(t=>{
     const sections=Array.isArray(t.sections)?t.sections:[];
@@ -616,20 +678,20 @@ async function renderQgen(){
         ${can&&t.status!=='published'?`<button class="btn btn-savior btn-sm" onclick="publishQgen(${t.id})">发布</button>`:''}
         ${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${t.id})">删除</button>`:''}
       </div>
-      <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${t.industry||'-'}</span>　题数：${qCount}${t.team_id?`　关联团队ID：${t.team_id}`:''}</div>
+      <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${t.industry||'-'}</span>　题数：${qCount}${t.team_id?`　团队：${t.team_id}`:''}</div>
       <div class="card-desc">${t.description||''}</div>
     </div></div>`;
-  }).join(''):'<div class="empty-tip">暂无问卷。点击「+ 新建问卷」创建自己的需求问卷表，也可预览填写已有问卷并提交给 Team。</div>';
+  }).join(''):'<div class="empty-tip">暂无问卷。点击「+ 新建问卷」开始。</div>';
   renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');
 }
 function goQgenPage(p){qgenPage=p;renderQgen();}
 function openAddQgen(){editingQgenId=null;showQgenForm();}
-async function editQgen(id){const list=await fetchQgen();const item=list.find(t=>t.id===id);if(!item||!(canEdit({phone:item.phone})||isAdmin()))return alert('无权限');editingQgenId=id;showQgenForm(item);}
+async function editQgen(id){const item=(await fetchQgen()).find(t=>t.id===id);if(!item||!(canEdit({phone:item.phone})||isAdmin()))return alert('无权限');editingQgenId=id;showQgenForm(item);}
 function showQgenForm(item=null){
   const box=document.getElementById('modalBox');box.className='modal wide';
   const sections=item&&Array.isArray(item.sections)?item.sections:[{title:'自我反省',questions:[{type:'textarea',label:'当前最大挑战是什么？',options:[],required:true},{type:'textarea',label:'期望团队如何支持？',options:[],required:false}]}];
   box.innerHTML=`<h3>${item?'编辑问卷':'新建需求问卷'}</h3>
-    <p style="font-size:13px;color:#6b7280;margin-bottom:14px">所有成员可创建自己的问卷表，填写后交给 Team 获取结论与方案。${qgenTeamContext?`将关联团队：${qgenTeamContext.teamName||qgenTeamContext.teamId}`:''}</p>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:14px">${qgenTeamContext?`将关联团队：${qgenTeamContext.teamName||qgenTeamContext.teamId}`:'可创建问卷并提交给 Team'}</p>
     <div class="form-group"><label>问卷名称 *</label><input id="qg-name" value="${item?(item.name||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>行业</label><input id="qg-industry" value="${item?(item.industry||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>说明</label><textarea id="qg-desc">${item?(item.description||''):''}</textarea></div>
@@ -695,7 +757,7 @@ async function saveQgen(){
   if(editingQgenId){const old=(await fetchQgen()).find(t=>t.id===editingQgenId);if(old)status=old.status||'draft';}
   const row={id:editingQgenId||Date.now(),name,industry,description,sections,status,phone:user.phone,team_id:qgenTeamContext?qgenTeamContext.teamId:null};
   let error;if(editingQgenId)({error}=await sb.from('questionnaire_templates').update(row).eq('id',editingQgenId));else({error}=await sb.from('questionnaire_templates').insert(row));
-  if(error)return alert('保存失败：'+error.message);closeModal();renderQgen();alert('保存成功。可预览填写后交给 Team 获取方案。');
+  if(error)return alert('保存失败：'+error.message);closeModal();renderQgen();alert('保存成功');
 }
 async function publishQgen(id){if(!confirm('确定发布？'))return;const {error}=await sb.from('questionnaire_templates').update({status:'published'}).eq('id',id);if(error)return alert(error.message);renderQgen();}
 async function deleteQgen(id){if(!confirm('确定删除？'))return;await sb.from('questionnaire_templates').delete().eq('id',id);renderQgen();}
@@ -716,11 +778,8 @@ async function previewQgen(id){
     body+=`</div>`;
   });
   const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<div class="survey-wrap"><div class="survey-header"><h2>${t.name||'填写问卷'}</h2><p>${t.description||''}　行业：${t.industry||'-'}　填写后可提交给 Team</p></div><div class="survey-body"><div class="survey-progress"><div class="survey-progress-bar" style="width:30%"></div></div>${body||'<p class="empty-tip">暂无题目</p>'}
-    <div class="form-actions">
-      <button class="btn btn-outline" onclick="closeModal()">关闭</button>
-      <button class="btn btn-primary" onclick="submitFilledQgen(${t.id},${t.team_id||0})">提交给 Team</button>
-    </div>
+  box.innerHTML=`<div class="survey-wrap"><div class="survey-header"><h2>${t.name||'填写问卷'}</h2><p>${t.description||''}　行业：${t.industry||'-'}</p></div><div class="survey-body">${body||'<p class="empty-tip">暂无题目</p>'}
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">关闭</button><button class="btn btn-primary" onclick="submitFilledQgen(${t.id},${t.team_id||0})">提交给 Team</button></div>
   </div></div>`;
   document.getElementById('modalMask').style.display='flex';
 }
@@ -735,19 +794,19 @@ async function submitFilledQgen(tplId,teamId){
   const row={id:Date.now(),jinzhu_id:null,team_id:tid,phone:user.phone,industry:'问卷填写',answers,status:'pending',report:''};
   const {error}=await sb.from('diagnosis_surveys').insert(row);
   if(error)return alert('提交失败：'+error.message);
-  closeModal();alert('已提交给 Team，可在【需求诊断】查看进度与方案。');switchView('diagnosis');
+  closeModal();alert('已提交给 Team');switchView('diagnosis');
 }
 async function renderDiagnosis(){
   const user=getUser();const box=document.getElementById('diagnosis-list');
-  if(!user){box.innerHTML='<div class="empty-tip">请先登录后查看诊断记录</div>';return;}
+  if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}
   let list=await fetchDiagnosis();if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));
   list=filterByQ(list,(document.getElementById('diag-q')||{}).value||'');
   const pg=paginate(list,diagPage,PAGE_SIZE);diagPage=pg.page;
   box.innerHTML=pg.slice.length?pg.slice.map(d=>{
     const statusMap={pending:'待生成报告',generating:'生成中',completed:'已完成'};
     const statusCls={pending:'badge-pending',generating:'badge-pending',completed:'badge-ok'};
-    return `<div class="card"><div class="avatar avatar-jinzhu">诊</div><div class="card-content"><div class="card-title">行业：${d.industry||'-'} <span class="${statusCls[d.status]||'badge-pending'}">${statusMap[d.status]||d.status}</span>${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}</div><div class="card-desc">提交人：${d.phone||'-'} · 团队：${d.team_id||'-'} · ${d.created_at?new Date(d.created_at).toLocaleString('zh-CN'):''}</div><div class="card-desc"><b>摘要：</b>${summarizeAnswers(d.answers)}</div>${d.report?`<div class="card-desc" style="background:#f0fdf4;padding:10px;border-radius:8px;margin-top:8px"><b>方案：</b><br>${linkify(d.report)}</div>`:`<div class="card-desc" style="color:#9ca3af">等待 Team / AI 生成结论与方案…</div>`}</div></div>`;
-  }).join(''):'<div class="empty-tip">暂无记录。请在【问卷生成系统】填写问卷并提交给 Team。</div>';
+    return `<div class="card"><div class="avatar avatar-jinzhu">诊</div><div class="card-content"><div class="card-title">行业：${d.industry||'-'} <span class="${statusCls[d.status]||'badge-pending'}">${statusMap[d.status]||d.status}</span>${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}</div><div class="card-desc">提交人：${d.phone||'-'} · 团队：${d.team_id||'-'}</div><div class="card-desc"><b>摘要：</b>${summarizeAnswers(d.answers)}</div>${d.report?`<div class="card-desc" style="background:#f0fdf4;padding:10px;border-radius:8px"><b>方案：</b><br>${linkify(d.report)}</div>`:`<div class="card-desc" style="color:#9ca3af">等待结论与方案…</div>`}</div></div>`;
+  }).join(''):'<div class="empty-tip">暂无记录</div>';
   renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');
 }
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
@@ -762,10 +821,7 @@ function showJinZhuForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:''),isNew=!item;
   document.getElementById('modalBox').className='modal';
   if(isNew){
-    document.getElementById('modalBox').innerHTML=`<h3>发布需求</h3><p style="font-size:13px;color:#6b7280;margin-bottom:14px">填写<strong>行业</strong>与<strong>详情</strong>即可快速发布。</p>
-      <div class="form-group"><label>行业 *</label><input id="jz-type" placeholder="例如：艺术培训"></div>
-      <div class="form-group"><label>详情</label><textarea id="jz-detail" style="min-height:80px"></textarea></div>
-      <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button><button class="btn btn-team" onclick="saveJinZhu(true)">保存并召集超级团队</button></div>`;
+    document.getElementById('modalBox').innerHTML=`<h3>发布需求</h3><div class="form-group"><label>行业 *</label><input id="jz-type"></div><div class="form-group"><label>详情</label><textarea id="jz-detail" style="min-height:80px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button><button class="btn btn-team" onclick="saveJinZhu(true)">保存并召集超级团队</button></div>`;
     document.getElementById('modalMask').style.display='flex';return;
   }
   document.getElementById('modalBox').innerHTML=`<h3>编辑需求</h3>
@@ -918,9 +974,8 @@ async function saveTeam(){
   const existing=editingTeamId?(await fetchTeam()).find(t=>t.id===editingTeamId):null;
   const row={id:editingTeamId||Date.now(),name,demand:document.getElementById('tm-demand').value,dream:document.getElementById('tm-dream').value,power:parseInt(document.getElementById('tm-power').value)||0,phone,performances,members:existing?(existing.members||[]):[],jinzhu_id:existing?existing.jinzhu_id:null,card:{person,title:document.getElementById('tm-title').value,phone,email:document.getElementById('tm-email').value,wechat,whatsapp:document.getElementById('tm-whatsapp').value,website:document.getElementById('tm-website').value.trim(),qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}};
   let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));
-  if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();alert('保存成功');
+  if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();renderFocus();alert('保存成功');
 }
-/* 111：加入团队与拉入团队统一成员结构 */
 async function joinTeam(teamId){
   const user=getUser();if(!user)return alert('请先登录');
   const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;
@@ -938,10 +993,10 @@ async function joinTeam(teamId){
   }
   members.push({id,type:memberType,name:displayName,power});
   await sb.from('team').update({members}).eq('id',teamId);
-  alert('已加入');renderTeam();renderJinZhu();
+  alert('已加入');renderTeam();renderJinZhu();renderFocus();
 }
-async function kickMember(teamId,memberId,memberType){if(!confirm('确定移除该成员？'))return;const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)&&(m.type||'member')===memberType));await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();}
-async function disbandTeam(teamId){if(!confirm('确定解散整个团队？'))return;await sb.from('team').delete().eq('id',teamId);renderTeam();renderJinZhu();}
+async function kickMember(teamId,memberId,memberType){if(!confirm('确定移除该成员？'))return;const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)&&(m.type||'member')===memberType));await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
+async function disbandTeam(teamId){if(!confirm('确定解散整个团队？'))return;await sb.from('team').delete().eq('id',teamId);const pid=await getPriorityTeamId();if(pid&&String(pid)===String(teamId)){setLocalPriorityTeamId(null);const u=getUser();if(u)try{await sb.from('app_users').update({priority_team_id:null}).eq('phone',u.phone);}catch(e){}}renderTeam();renderJinZhu();renderFocus();}
 async function renderUsers(){if(!isAdmin())return;const users=await fetchUsers();document.getElementById('users-tbody').innerHTML=users.filter(u=>u.phone).map(u=>`<tr><td>${u.phone}</td><td>${ROLE_MAP[u.role]||u.role}</td><td>${u.created_at?new Date(u.created_at).toLocaleString('zh-CN'):'-'}</td><td>${u.blacklisted?'<span class="badge-black">黑名单</span>':'<span class="badge-ok">正常</span>'}</td><td><button class="btn btn-sm btn-outline" onclick="changePwd('${u.phone}')">改密码</button> <button class="btn btn-sm btn-warn" onclick="setBlacklist('${u.phone}',true)">拉黑</button> <button class="btn btn-sm btn-primary" onclick="setBlacklist('${u.phone}',false)">取消拉黑</button> <button class="btn btn-sm btn-danger" onclick="deleteUser('${u.phone}')">删除</button></td></tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:#9ca3af">暂无</td></tr>';}
 async function changePwd(phone){const p=prompt('新密码（至少4位）');if(!p||p.length<4)return;await sb.from('app_users').update({pwd:p}).eq('phone',phone);alert('已修改');renderUsers();}
 async function setBlacklist(phone,flag){await sb.from('app_users').update({blacklisted:!!flag}).eq('phone',phone);const cur=getUser();if(cur&&cur.phone===phone&&flag)setUser(null);renderUsers();}
