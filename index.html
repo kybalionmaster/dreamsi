@@ -22,7 +22,7 @@ body{background:#f5f7fa;color:#1f2937}
 .btn-warn{background:#f59e0b;color:#fff}.btn-savior{background:#10b981;color:#fff;margin-left:4px}
 .btn-caishen{background:#8b5cf6;color:#fff;margin-left:4px}.btn-team{background:#0ea5e9;color:#fff;margin-left:4px}
 .btn-survey{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;margin-left:4px}
-.btn-disabled{opacity:.5;cursor:not-allowed;margin-left:4px;background:#e5e7eb;color:#9ca3af}
+.btn-toggle-kick{background:#64748b;color:#fff;margin-left:4px}
 .user-info{display:flex;align-items:center;gap:8px}
 .role-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff}
 .role-jinzhu{background:#f59e0b}.role-ai{background:#eab308}.role-admin{background:#7c3aed}.role-kefu{background:#10b981}.role-shenhe{background:#6366f1}.role-yingxiao{background:#ec4899}
@@ -38,6 +38,7 @@ body{background:#f5f7fa;color:#1f2937}
 .panel-header h2{font-size:15px;font-weight:600}
 .card-list{padding:12px}
 .card{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
+.card.focus-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.25)}
 .avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0}
 .avatar-jinzhu{background:#f59e0b}.avatar-dashi{background:#eab308}.avatar-hero{background:#ec4899}.avatar-team{background:#0ea5e9}
 .card-content{flex:1;min-width:0}
@@ -64,13 +65,6 @@ body{background:#f5f7fa;color:#1f2937}
 .home-grid{display:flex;gap:16px;height:calc(100vh - 100px)}
 .home-panel{flex:1;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);display:flex;flex-direction:column}
 .home-panel .card-list{overflow-y:auto;flex:1}
-/* 104 首页滚动 */
-.marquee-wrap{overflow:hidden;background:#fff;border-radius:12px;margin-bottom:12px;border:1px solid #e5e7eb;height:48px;position:relative}
-.marquee-track{display:flex;align-items:center;gap:32px;white-space:nowrap;animation:marquee 40s linear infinite;padding:0 16px;height:100%}
-.marquee-track:hover{animation-play-state:paused}
-.marquee-item{font-size:13px;color:#374151;display:inline-flex;align-items:center;gap:8px}
-.marquee-item .tag{flex-shrink:0}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .section-title{font-size:20px;font-weight:600;margin-bottom:8px}
 .section-desc{color:#6b7280;margin-bottom:20px;font-size:14px}
 .coop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
@@ -96,7 +90,7 @@ body{background:#f5f7fa;color:#1f2937}
 .msg-item{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;background:#fff}
 .msg-type{font-size:11px;padding:2px 8px;border-radius:4px;background:#e0e7ff;color:#3730a3;margin-right:6px}
 .x-actions{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid #f3f4f6;flex-wrap:wrap}
-.x-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:none;border-radius:50%;cursor:pointer;font-size:17px;transition:transform .15s,box-shadow .15s;padding:0;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.x-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:none;border-radius:50%;cursor:pointer;font-size:17px;transition:transform .15s;padding:0;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .x-icon:hover{transform:scale(1.12)}
 .x-icon.greet{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff}
 .x-icon.progress{background:linear-gradient(135deg,#34d399,#10b981);color:#fff}
@@ -119,10 +113,13 @@ body{background:#f5f7fa;color:#1f2937}
 .team-box{margin-top:12px;padding:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px}
 .member-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .member-chip{background:#e0f2fe;color:#0c4a6e;font-size:12px;padding:4px 10px 4px 4px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
-.member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#fff;border:1px solid #bae6fd}
+.member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#fff;border:1px solid #bae6fd;cursor:pointer}
+.member-chip img.clickable:hover{outline:2px solid #2563eb}
 .member-chip .power-icon{color:#b45309;font-size:12px}
-.member-x,.team-x,.clear-x{opacity:0;transition:opacity .2s;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:2px}
-.member-chip:hover .member-x,.team-title:hover .team-x,.member-header:hover .clear-x{opacity:1}
+.member-x{display:none;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;align-items:center;justify-content:center;padding:0;margin-left:2px}
+.team-show-kick .member-x{display:inline-flex}
+.team-x,.clear-x{opacity:0;transition:opacity .2s;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:2px}
+.team-title:hover .team-x,.member-header:hover .clear-x{opacity:1}
 .team-title{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 .member-header{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;color:#6b7280}
 .survey-btns{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px;margin-left:4px}
@@ -150,6 +147,7 @@ body{background:#f5f7fa;color:#1f2937}
 .qgen-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .status-draft{background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:4px}
 .status-published{background:#d1fae5;color:#065f46;font-size:11px;padding:2px 8px;border-radius:4px}
+.qgen-team-tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:13px}
 @media (max-width:768px){
   .container{flex-direction:column;height:auto;min-height:calc(100vh - 65px)}
   .sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e7eb;padding:8px 6px;display:flex;overflow-x:auto;gap:4px}
@@ -162,7 +160,7 @@ body{background:#f5f7fa;color:#1f2937}
   .logo-text p{display:none}
   .cloud-tip{font-size:11px;padding:6px 10px}
   .g-search-wrap{max-width:100%;margin-top:6px}
-  .member-x,.team-x,.clear-x{opacity:.55}
+  .team-x,.clear-x{opacity:.55}
   .avatar{display:none!important}
   .card{gap:0}
   .survey-header,.survey-body{padding:18px 16px}
@@ -194,7 +192,6 @@ body{background:#f5f7fa;color:#1f2937}
   </div>
   <div class="main">
     <div class="view active" id="view-home">
-      <div class="marquee-wrap" id="home-marquee"><div class="marquee-track" id="home-marquee-track"><span class="loading" style="padding:12px">加载中…</span></div></div>
       <div class="home-grid">
         <div class="home-panel">
           <div class="panel-header"><h2>👥 用户需求列表</h2>
@@ -270,6 +267,7 @@ body{background:#f5f7fa;color:#1f2937}
             <button class="btn btn-primary" id="btn-add-qgen" onclick="openAddQgen()" style="display:none">+ 新建问卷</button>
           </div>
         </div>
+        <div id="qgen-team-tip" class="qgen-team-tip" style="display:none;margin:12px 12px 0"></div>
         <div class="card-list" id="qgen-list"><div class="empty-tip">加载中…</div></div>
         <div class="g-pager" id="qgen-pager"></div>
       </div>
@@ -321,6 +319,8 @@ const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
 const DEFAULT_AVATAR='https://api.dicebear.com/7.x/avataaars/svg?seed=dreamsi-default&backgroundColor=e0e7ff';
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null;
+let focusDashiId=null,focusHeroId=null,qgenTeamContext=null;
+const teamKickVisible={};
 const PAGE_SIZE=8; let homeJzPage=1,homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1;
 const MSG_TYPE_LABEL={greeting:'美好的问候',progress:'成功进展报告',event:'活动邀请',case_request:'索取成功案例',trial_request:'请求试用'};
 const ROLE_MAP={jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'营销精英'};
@@ -339,20 +339,38 @@ function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;retu
 function paginate(list,page,size){const total=list.length,pages=Math.max(1,Math.ceil(total/size));page=Math.min(Math.max(1,page),pages);return {slice:list.slice((page-1)*size,page*size),page,pages,total};}
 function renderPager(elId,page,pages,onPage){const el=document.getElementById(elId);if(!el)return;if(pages<=1){el.innerHTML='';return;}let html='',start=Math.max(1,page-3),end=Math.min(pages,start+6);if(end-start<6)start=Math.max(1,end-6);for(let i=start;i<=end;i++)html+=i===page?`<span class="cur">${i}</span>`:`<a onclick="${onPage}(${i})">${i}</a>`;html+=page<pages?`<a class="next" onclick="${onPage}(${page+1})">下一页 ›</a>`:`<span class="next disabled">下一页 ›</span>`;el.innerHTML=html;}
 function generateTeamName(phone){const n=new Date();return `团队${phone||''}—${String(n.getHours()).padStart(2,'0')}${String(n.getMinutes()).padStart(2,'0')}${String(n.getSeconds()).padStart(2,'0')}`;}
-function surveyButtonsHtml(jinzhuId,teamId,industry){return `<span class="survey-btns"><button class="btn btn-survey btn-sm" onclick="openSurvey(${jinzhuId||0},${teamId||0},'${escapeAttr(industry||'')}')">需求问卷</button><button class="btn btn-sm btn-disabled" disabled title="暂未开放">第二次需求问卷</button><button class="btn btn-sm btn-disabled" disabled title="暂未开放">第三次需求问卷</button></span>`;}
-/* 105：队员头像 */
 function memberAvatarUrl(m){
-  if(m&&m.avatar) return m.avatar;
+  if(m&&m.avatar)return m.avatar;
   const seed=encodeURIComponent((m&&(m.name||m.id))||'user');
-  if(m&&m.type==='dashi') return `https://api.dicebear.com/7.x/avataaars/svg?seed=si-${seed}&backgroundColor=fef3c7`;
-  if(m&&m.type==='hero') return `https://api.dicebear.com/7.x/avataaars/svg?seed=hero-${seed}&backgroundColor=fce7f3`;
+  if(m&&m.type==='dashi')return `https://api.dicebear.com/7.x/avataaars/svg?seed=si-${seed}&backgroundColor=fef3c7`;
+  if(m&&m.type==='hero')return `https://api.dicebear.com/7.x/avataaars/svg?seed=hero-${seed}&backgroundColor=fce7f3`;
   return `https://api.dicebear.com/7.x/avataaars/svg?seed=m-${seed}&backgroundColor=e0e7ff`;
 }
+/* 111：统一成员芯片 */
 function memberChipHtml(m,isOwner,teamId){
   const av=memberAvatarUrl(m);
-  const label=m.name||m.id||'';
-  const typeTag=m.type&&m.type!=='member'?`<small>(${m.type==='hero'?'精英':'SI'})</small>`:'';
-  return `<span class="member-chip"><img src="${av}" alt="" onerror="this.src='${DEFAULT_AVATAR}'">${label}${typeTag}<span class="power-icon">⚡${Number(m.power)||0}</span>${isOwner?`<button class="member-x" title="分手" onclick="kickMember(${teamId},'${escapeAttr(m.id)}','${m.type||'member'}')">×</button>`:''}</span>`;
+  const label=m.name||m.id||'成员';
+  const typeTag=m.type==='hero'?'精英':(m.type==='dashi'?'SI':'成员');
+  const clickable=(m.type==='dashi'||m.type==='hero');
+  const onClick=m.type==='dashi'?`goMemberProfile('dashi','${escapeAttr(m.id)}')`:m.type==='hero'?`goMemberProfile('hero','${escapeAttr(m.id)}')`:'';
+  return `<span class="member-chip">
+    <img class="${clickable?'clickable':''}" src="${av}" alt="" title="${clickable?'点击查看详情':''}" ${clickable?`onclick="${onClick}"`:''} onerror="this.src='${DEFAULT_AVATAR}'">
+    <span>${label}<small style="opacity:.75">(${typeTag})</small></span>
+    <span class="power-icon">⚡${Number(m.power)||0}</span>
+    ${isOwner?`<button class="member-x" title="移除成员" onclick="kickMember(${teamId},'${escapeAttr(m.id)}','${m.type||'member'}')">×</button>`:''}
+  </span>`;
+}
+function goMemberProfile(type,id){
+  if(type==='dashi'){focusDashiId=id;focusHeroId=null;switchView('dashi');}
+  else if(type==='hero'){focusHeroId=id;focusDashiId=null;switchView('hero');}
+}
+function toggleTeamKick(teamId){
+  teamKickVisible[teamId]=!teamKickVisible[teamId];
+  renderTeam();renderJinZhu();
+}
+function goQgenFromTeam(teamId,teamName){
+  qgenTeamContext={teamId,teamName:teamName||''};
+  switchView('qgen');
 }
 async function fetchJinZhu(){const {data,error}=await sb.from('jinzhu').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
 async function fetchDaShi(){const {data,error}=await sb.from('dashi').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
@@ -371,6 +389,9 @@ function switchView(view){
   document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const el=document.getElementById('view-'+view);if(el)el.classList.add('active');
+  if(view!=='dashi')focusDashiId=null;
+  if(view!=='hero')focusHeroId=null;
+  if(view!=='qgen'){/* keep context tip until leave */}
   if(view==='home')renderHome();if(view==='jinzhu')renderJinZhu();if(view==='dashi')renderDaShi();
   if(view==='hero')renderHero();if(view==='team')renderTeam();if(view==='diagnosis')renderDiagnosis();
   if(view==='qgen')renderQgen();if(view==='inbox')renderInbox();if(view==='users')renderUsers();
@@ -383,7 +404,7 @@ function updateButtons(){
   document.getElementById('btn-add-dashi').style.display=(user&&(user.role==='ai'||user.role==='admin'))?'inline-block':'none';
   const btnH=document.getElementById('btn-add-hero');if(btnH)btnH.style.display=(user&&(user.role==='yingxiao'||user.role==='admin'))?'inline-block':'none';
   const btnT=document.getElementById('btn-add-team');if(btnT)btnT.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'))?'inline-block':'none';
-  const btnQ=document.getElementById('btn-add-qgen');if(btnQ)btnQ.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'))?'inline-block':'none';
+  const btnQ=document.getElementById('btn-add-qgen');if(btnQ)btnQ.style.display=user?'inline-block':'none';
 }
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
 function openModal(type){const box=document.getElementById('modalBox');box.className='modal';if(type==='login')box.innerHTML=`<h3>手机号登录</h3><div class="form-group"><label>手机号 *</label><input id="login-phone"></div><div class="form-group"><label>密码 *</label><input type="password" id="login-pwd"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="doLogin()">登录</button></div>`;else box.innerHTML=`<h3>手机号注册</h3><div class="form-group"><label>手机号 *</label><input id="reg-phone"></div><div class="form-group"><label>密码 *</label><input type="password" id="reg-pwd"></div><div class="form-group"><label>确认密码 *</label><input type="password" id="reg-pwd2"></div><div class="form-group"><label>角色</label><select id="reg-role"><option value="jinzhu">金主</option><option value="ai">AI公司</option><option value="yingxiao">营销精英</option></select></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="doRegister()">注册并登录</button></div>`;document.getElementById('modalMask').style.display='flex';}
@@ -393,28 +414,31 @@ async function doLogin(){
   if(!phone||!pwd)return alert('请输入手机号和密码');
   const {data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();
   if(error)return alert('登录失败：'+error.message);if(!data)return alert('用户不存在');if(data.blacklisted)return alert('已列入黑名单');if(data.pwd!==pwd)return alert('密码错误');
-  setUser({phone:data.phone,role:data.role});closeModal();/* 102：不弹登录成功 */
+  setUser({phone:data.phone,role:data.role});closeModal();
 }
 async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert('请输入');if(pwd!==pwd2)return alert('两次密码不一致');if(pwd.length<4)return alert('密码至少4位');if(!['jinzhu','ai','yingxiao'].includes(role))return alert('仅支持金主、AI公司或营销精英');const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('该手机号已注册');const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();}
 function renderBizCard(card){if(!card)return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${site.replace(/</g,'&lt;')}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${card.person||'-'}</b> · ${card.title||''}</div><div>📱 ${card.phone||'-'}</div><div>✉️ ${card.email||'-'}</div><div>💬 微信：${card.wechat||'-'}</div><div>🟢 WhatsApp：${card.whatsapp||'-'}</div><div>🌐 公司网址：${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;}
-async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const user=getUser();if(!user)return alert('请先登录');if(user.role!=='jinzhu'&&user.role!=='admin')return alert('仅金主和管理员可用');const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(t=>String(t.phone)===String(user.phone));if(!targetTeams.length)return alert('请先创建超级团队');let added=0;for(const team of targetTeams){let members=Array.isArray(team.members)?[...team.members]:[];if(members.some(m=>String(m.id)===String(targetId)&&m.type===targetType))continue;members.push({id:targetId,type:targetType,name:targetName||String(targetId),power:Number(targetPower)||0});const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;}alert(added>0?`已拉入 ${added} 个超级团队`:'该成员已在团队中');renderTeam();renderJinZhu();}
+async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){
+  const user=getUser();if(!user)return alert('请先登录');if(user.role!=='jinzhu'&&user.role!=='admin')return alert('仅金主和管理员可用');
+  const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(t=>String(t.phone)===String(user.phone));
+  if(!targetTeams.length)return alert('请先创建超级团队');
+  let added=0;
+  for(const team of targetTeams){
+    let members=Array.isArray(team.members)?[...team.members]:[];
+    if(members.some(m=>String(m.id)===String(targetId)&&m.type===targetType))continue;
+    members.push({id:targetId,type:targetType,name:targetName||String(targetId),power:Number(targetPower)||0});
+    const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;
+  }
+  alert(added>0?`已拉入 ${added} 个超级团队`:'该成员已在团队中');renderTeam();renderJinZhu();
+}
 async function openSendMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return alert('请先登录');if(!toPhone)return alert('对方手机号未知');const defaults={greeting:{title:'美好的问候',content:'您好！看到您的信息，特来打个招呼。'},progress:{title:'成功进展报告',content:'向您同步一下我们这边的进展。'},event:{title:'活动邀请',content:'诚邀您参加我们的交流活动。'},case_request:{title:'索取成功案例',content:'希望了解贵司相关成功案例。'},trial_request:{title:'请求试用',content:'希望试用贵司的方案/工具。'}};const d0=defaults[msgType]||{title:'',content:''};document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${MSG_TYPE_LABEL[msgType]||msgType}</h3><p style="font-size:13px;color:#6b7280;margin-bottom:12px">发送给：<b>${toName||''}</b>（${toPhone}）</p><div class="form-group"><label>标题</label><input id="msg-title" value="${d0.title}"></div><div class="form-group"><label>内容</label><textarea id="msg-content">${d0.content}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="submitMsgDirect('${msgType}','${escapeAttr(toPhone)}','${escapeAttr(toName)}')">发送</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function submitMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return;const title=document.getElementById('msg-title').value.trim(),content=document.getElementById('msg-content').value.trim();if(!content)return alert('请填写内容');const {error}=await sb.from('messages').insert({id:Date.now(),from_phone:user.phone,from_name:user.phone,from_role:user.role,to_phone:toPhone,msg_type:msgType,title:title||MSG_TYPE_LABEL[msgType]||'',content,related_name:toName||''});if(error)return alert(error.message);closeModal();alert('已发送');}
 async function reportTarget(reportedPhone,reportedName){const user=getUser();if(!user)return alert('请先登录');const reason=prompt('请简要说明举报原因：');if(!reason||!reason.trim())return;const {data:admins}=await sb.from('app_users').select('phone').eq('role','admin');if(!admins?.length)return alert('暂无管理员');const content=`【用户举报】\n举报人：${user.phone}\n被举报：${reportedName||''}（${reportedPhone}）\n原因：${reason.trim()}`;for(const a of admins)await sb.from('messages').insert({id:Date.now()+Math.floor(Math.random()*9999),from_phone:user.phone,from_name:user.phone,from_role:user.role,to_phone:a.phone,msg_type:'greeting',title:'用户举报',content,related_name:reportedName||''});alert('举报已提交');}
 async function renderInbox(){const user=getUser(),box=document.getElementById('inbox-list');if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}const list=await fetchMessagesToMe();box.innerHTML=list.length?list.map(m=>`<div class="msg-item"><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><span class="msg-type">${m.title==='用户举报'?'用户举报':(MSG_TYPE_LABEL[m.msg_type]||m.msg_type)}</span><b>${m.title||''}</b></div><button class="btn btn-del btn-sm" onclick="deleteMsg(${m.id})">删除</button></div><div class="card-desc" style="margin-top:8px">${linkify(m.content||'')}</div><div class="card-desc" style="font-size:12px;color:#9ca3af">来自：${m.from_phone}</div></div>`).join(''):'<div class="empty-tip">暂无信息</div>';}
 async function deleteMsg(id){if(!confirm('确定删除？'))return;await sb.from('messages').delete().eq('id',id);renderInbox();}
 async function renderAll(){await renderHome();await renderJinZhu();await renderDaShi();}
-/* 104 滚动条 */
-function renderMarquee(jinzhuList){
-  const track=document.getElementById('home-marquee-track');
-  if(!track)return;
-  if(!jinzhuList.length){track.innerHTML='<span style="color:#9ca3af;font-size:13px;padding:0 16px">暂无金主需求</span>';return;}
-  const items=jinzhuList.map(j=>`<span class="marquee-item"><span class="tag tag-industry">${j.type||'行业待填'}</span><b>${j.name||'未命名'}</b> ${j.detail&&j.detail!=='待填'?j.detail:(j.intro||'')}</span>`).join('');
-  track.innerHTML=items+items;
-}
 async function renderHome(){
   const jinzhu=await fetchJinZhu(),dashi=await fetchDaShi(),admin=isAdmin();
-  renderMarquee(jinzhu);
   const pj=paginate(filterByQ(jinzhu,(document.getElementById('home-jz-q')||{}).value||''),homeJzPage,PAGE_SIZE);
   const pd=paginate(filterByQ(dashi,(document.getElementById('home-ds-q')||{}).value||''),homeDsPage,PAGE_SIZE);
   homeJzPage=pj.page;homeDsPage=pd.page;
@@ -424,6 +448,29 @@ async function renderHome(){
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
 }
 function goHomeJzPage(p){homeJzPage=p;renderHome();}function goHomeDsPage(p){homeDsPage=p;renderHome();}
+function teamBlockHtml(team,j,user){
+  if(!team)return '';
+  const members=team.members||[],isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
+  const isMember=user&&members.some(m=>(m.type==='member'&&String(m.id)===String(user.phone))||(String(m.id)===String(user.phone)));
+  const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
+  const showKick=!!teamKickVisible[team.id];
+  const canSurvey=!!user;
+  return `<div class="team-box ${showKick?'team-show-kick':''}">
+    <div class="team-title">
+      <h4 style="margin:0">👥 ${team.name||''}</h4>
+      <span class="tag tag-power">⚡${sum}</span>
+      ${canSurvey?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">需求问卷</button>`:''}
+      ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${team.id})">×</button>`:''}
+    </div>
+    <div class="card-desc" style="margin-top:6px">行业 <span class="tag tag-industry">${(j&&j.type)||'待填'}</span>　需求 <span class="tag tag-diff">⚡${j?Number(j.difficulty)||0:0}</span>：${team.demand||(j&&j.detail)||(j&&j.type)||'-'}</div>
+    <div style="margin-top:8px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">加入团队</button>`:''}</div>
+    <div class="member-header">
+      <b>队员清单</b>
+      ${isOwner?`<button class="btn btn-toggle-kick btn-sm" onclick="toggleTeamKick(${team.id})">${showKick?'隐藏移除':'显示移除'}</button>`:''}
+    </div>
+    <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
+  </div>`;
+}
 async function renderJinZhu(){
   const user=getUser();let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
   const banner=document.getElementById('jinzhu-match-banner');
@@ -434,15 +481,20 @@ async function renderJinZhu(){
     const showInteract=user&&(user.role==='ai'||user.role==='admin'||user.role==='yingxiao');
     const pn=escapeAttr(j.phone),nm=escapeAttr(j.name);
     const team=teams.find(t=>String(t.jinzhu_id)===String(j.id));
-    let teamHtml='';
-    if(team){
-      const members=team.members||[],isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
-      const isMember=user&&members.some(m=>m.type==='member'&&String(m.id)===String(user.phone));
-      const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
-      const canSv=isOwner||(user&&user.role==='jinzhu'&&String(j.phone)===String(user.phone));
-      teamHtml=`<div class="team-box"><div class="team-title"><h4 style="margin:0">👥 ${team.name||''}</h4><span class="tag tag-power">⚡${sum}</span>${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${team.id})">×</button>`:''}</div><div class="card-desc" style="margin-top:6px">行业 <span class="tag tag-industry">${j.type||'待填'}</span>　需求 ⚡${Number(j.difficulty)||0}：${team.demand||j.detail||j.type||'-'}</div><div style="margin-top:8px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">加入团队</button>`:''}${canSv?surveyButtonsHtml(j.id,team.id,j.type||''):''}</div><div class="member-header"><b>队员清单</b>${isOwner?`<button class="clear-x" title="清空成员" onclick="clearMembers(${team.id})">×</button>`:''}</div><div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div></div>`;
-    }
-    return `<div class="card"><div class="avatar avatar-jinzhu">金主</div><div class="card-content"><div class="card-title">${j.name}${j._matchScore!==undefined?`<span class="match-score">匹配度 ${j._matchScore}</span>`:''}${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">编辑</button><button class="btn btn-savior btn-sm" onclick="goSavior(${j.id})">我的救世主</button>${!team?`<button class="btn btn-team btn-sm" onclick="conveneTeam(${j.id})">召集超级团队</button>`:''}`:''}</div><div class="card-desc"><b>简介：</b>${j.intro||''}</div><div class="card-desc"><b>行业：</b><span class="tag tag-industry">${j.type||'待填'}</span></div><div class="card-desc"><b>详情：</b>${j.detail||'-'}</div><div class="card-desc"><b>梦想：</b>${j.dream||'-'}</div><div class="card-desc"><span class="tag tag-diff">难度：${Number(j.difficulty)||0}</span> <span class="tag tag-reward">重奖：${j.reward||'待填'}</span></div><div class="card-desc"><b>痛点：</b></div>${(j.pains||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}${(isAdmin()||canEdit(j))?renderBizCard(j.card):''}${teamHtml}${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon progress" onclick="openSendMsgDirect('progress','${pn}','${nm}')">📈</button><button class="x-icon event" onclick="openSendMsgDirect('event','${pn}','${nm}')">📅</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}</div></div>`;
+    return `<div class="card"><div class="avatar avatar-jinzhu">金主</div><div class="card-content">
+      <div class="card-title">${j.name}${j._matchScore!==undefined?`<span class="match-score">匹配度 ${j._matchScore}</span>`:''}
+        ${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">编辑</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">删除</button><button class="btn btn-savior btn-sm" onclick="goSavior(${j.id})">我的救世主</button>${!team?`<button class="btn btn-team btn-sm" onclick="conveneTeam(${j.id})">召集超级团队</button>`:''}`:''}
+      </div>
+      <div class="card-desc"><b>简介：</b>${j.intro||''}</div>
+      <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${j.type||'待填'}</span></div>
+      <div class="card-desc"><b>详情：</b>${j.detail||'-'}</div>
+      <div class="card-desc"><b>梦想：</b>${j.dream||'-'}</div>
+      <div class="card-desc"><span class="tag tag-diff">难度：${Number(j.difficulty)||0}</span> <span class="tag tag-reward">重奖：${j.reward||'待填'}</span></div>
+      <div class="card-desc"><b>痛点：</b></div>${(j.pains||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}
+      ${(isAdmin()||canEdit(j))?renderBizCard(j.card):''}
+      ${teamBlockHtml(team,j,user)}
+      ${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon progress" onclick="openSendMsgDirect('progress','${pn}','${nm}')">📈</button><button class="x-icon event" onclick="openSendMsgDirect('event','${pn}','${nm}')">📅</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
+    </div></div>`;
   }).join(''):emptyMsg;
   renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
 }
@@ -452,28 +504,53 @@ async function renderDaShi(){
   const banner=document.getElementById('dashi-match-banner');
   if(matchContext&&matchContext.type==='jinzhu'){banner.innerHTML=`<div class="match-banner">匹配来源：金主「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">清除匹配</a></div>`;list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);}
   else{banner.innerHTML='';if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}else if(user.role==='ai'){list=list.filter(d=>String(d.phone)===String(user.phone));if(!list.length)emptyMsg='<div class="empty-tip">您还没有发布工具</div>';}}
+  if(focusDashiId){const idx=list.findIndex(d=>String(d.id)===String(focusDashiId));if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('ds-q')||{}).value||''),dsPage,PAGE_SIZE);dsPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
   document.getElementById('dashi-list').innerHTML=pg.slice.length?pg.slice.map(d=>{
     const showInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao');
     const pn=escapeAttr(d.phone),nm=escapeAttr(d.name),power=Number(d.power)||0;
-    return `<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.category?`<span class="tag">${d.category}</span>`:''}${d._matchScore!==undefined?`<span class="match-score">匹配度 ${d._matchScore}</span>`:''}${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">编辑</button><button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">我的财神</button>`:''}</div><div class="card-desc"><b>简介：</b>${d.intro||''}</div><div class="card-desc"><b>分类：</b>${d.category||'-'}　<b>战力：</b>${power}</div><div class="card-desc"><b>座右铭：</b>${d.motto||'-'}</div><div class="card-desc"><b>工具：</b></div>${(d.tools||[]).map(t=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${t.title}</b>：${t.desc}</div>`).join('')}${renderBizCard(d.card)}${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon case" onclick="openSendMsgDirect('case_request','${pn}','${nm}')">📄</button><button class="x-icon trial" onclick="openSendMsgDirect('trial_request','${pn}','${nm}')">🧪</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}</div></div>`;
+    const focused=focusDashiId&&String(d.id)===String(focusDashiId);
+    return `<div class="card ${focused?'focus-card':''}" id="dashi-card-${d.id}"><div class="avatar avatar-dashi">SI</div><div class="card-content">
+      <div class="card-title">${d.name}${d.category?`<span class="tag">${d.category}</span>`:''}${d._matchScore!==undefined?`<span class="match-score">匹配度 ${d._matchScore}</span>`:''}
+        ${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">编辑</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button><button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">我的财神</button>`:''}
+      </div>
+      <div class="card-desc"><b>简介：</b>${d.intro||''}</div>
+      <div class="card-desc"><b>分类：</b>${d.category||'-'}　<b>战力：</b>${power}</div>
+      <div class="card-desc"><b>座右铭：</b>${d.motto||'-'}</div>
+      <div class="card-desc"><b>工具：</b></div>${(d.tools||[]).map(t=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${t.title}</b>：${t.desc}</div>`).join('')}
+      ${renderBizCard(d.card)}
+      ${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon case" onclick="openSendMsgDirect('case_request','${pn}','${nm}')">📄</button><button class="x-icon trial" onclick="openSendMsgDirect('trial_request','${pn}','${nm}')">🧪</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}
+    </div></div>`;
   }).join(''):emptyMsg;
   renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
+  if(focusDashiId){const el=document.getElementById('dashi-card-'+focusDashiId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 function goDsPage(p){dsPage=p;renderDaShi();}
 async function renderHero(){
   const user=getUser();let list=await fetchHero();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
   else if(user.role==='yingxiao'){list=list.filter(t=>String(t.phone)===String(user.phone));if(!list.length)emptyMsg='<div class="empty-tip">您还没有发布超级精英</div>';}
+  if(focusHeroId){const idx=list.findIndex(t=>String(t.id)===String(focusHeroId));if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('hero-q')||{}).value||''),heroPage,PAGE_SIZE);heroPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
   document.getElementById('hero-list').innerHTML=pg.slice.length?pg.slice.map(t=>{
     const pn=escapeAttr(t.phone),nm=escapeAttr(t.name),power=Number(t.power)||0;
     const showInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='ai');
-    return `<div class="card"><div class="avatar avatar-hero">精英</div><div class="card-content"><div class="card-title">${t.name}${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editHero(${t.id})">编辑</button><button class="btn btn-del btn-sm" onclick="deleteHero(${t.id})">删除</button>`:''}</div><div class="card-desc"><b>简介：</b>${t.intro||''}</div><div class="card-desc"><b>技能：</b>${t.skill_title||'-'}　<b>战力：</b>${power}</div><div class="card-desc"><b>技能详情：</b>${t.skill_desc||'-'}</div><div class="card-desc"><b>梦想：</b>${t.dream||'-'}</div>${(t.performances||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}${(isAdmin()||canEdit(t))?renderBizCard(t.card):''}${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${t.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}</div></div>`;
+    const focused=focusHeroId&&String(t.id)===String(focusHeroId);
+    return `<div class="card ${focused?'focus-card':''}" id="hero-card-${t.id}"><div class="avatar avatar-hero">精英</div><div class="card-content">
+      <div class="card-title">${t.name}${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editHero(${t.id})">编辑</button><button class="btn btn-del btn-sm" onclick="deleteHero(${t.id})">删除</button>`:''}</div>
+      <div class="card-desc"><b>简介：</b>${t.intro||''}</div>
+      <div class="card-desc"><b>技能：</b>${t.skill_title||'-'}　<b>战力：</b>${power}</div>
+      <div class="card-desc"><b>技能详情：</b>${t.skill_desc||'-'}</div>
+      <div class="card-desc"><b>梦想：</b>${t.dream||'-'}</div>
+      ${(t.performances||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}
+      ${(isAdmin()||canEdit(t))?renderBizCard(t.card):''}
+      ${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${t.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}
+    </div></div>`;
   }).join(''):emptyMsg;
   renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');
+  if(focusHeroId){const el=document.getElementById('hero-card-'+focusHeroId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 function goHeroPage(p){heroPage=p;renderHero();}
 async function renderTeam(){
@@ -486,19 +563,26 @@ async function renderTeam(){
     const isMember=user&&members.some(m=>m.type==='member'&&String(m.id)===String(user.phone));
     const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
     const industry=linkedJin?(linkedJin.type||'待填'):'待填';
-    const detail=linkedJin?(linkedJin.detail||'-'):'-';
     const difficulty=linkedJin?(Number(linkedJin.difficulty)||0):0;
     const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
-    const canSurvey=user&&(user.role==='jinzhu'||user.role==='admin')&&(isOwner||(linkedJin&&String(linkedJin.phone)===String(user.phone)));
+    const showKick=!!teamKickVisible[t.id];
     return `<div class="card"><div class="avatar avatar-team">团队</div><div class="card-content">
-      <div class="card-title team-title">${t.name||'超级团队'}<span class="tag tag-power">⚡${sum}</span>${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${t.id})">×</button>`:''}${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>`:''}</div>
-      <div class="card-desc">行业 <span class="tag tag-industry">${industry}</span>${canSurvey?surveyButtonsHtml(t.jinzhu_id||0,t.id,industry):''}</div>
-      <div class="card-desc"><b>详情：</b>${detail}</div>
+      <div class="card-title team-title">
+        ${t.name||'超级团队'}
+        <span class="tag tag-power">⚡${sum}</span>
+        ${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${t.id},'${escapeAttr(t.name||'')}')">需求问卷</button>`:''}
+        ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${t.id})">×</button>`:''}
+        ${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>`:''}
+      </div>
+      <div class="card-desc">行业 <span class="tag tag-industry">${industry}</span></div>
       <div class="card-desc">需求 <span class="tag tag-diff">⚡${difficulty}</span>：${t.demand||'-'}</div>
       ${(isAdmin()||canEdit(t))?renderBizCard(t.card):''}
-      <div class="team-box">
+      <div class="team-box ${showKick?'team-show-kick':''}">
         <div style="margin-bottom:6px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${t.id})">加入团队</button>`:''}</div>
-        <div class="member-header"><b>队员清单</b>${isOwner?`<button class="clear-x" title="清空成员" onclick="clearMembers(${t.id})">×</button>`:''}</div>
+        <div class="member-header">
+          <b>队员清单</b>
+          ${isOwner?`<button class="btn btn-toggle-kick btn-sm" onclick="toggleTeamKick(${t.id})">${showKick?'隐藏移除':'显示移除'}</button>`:''}
+        </div>
         <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,t.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
       </div>
     </div></div>`;
@@ -506,12 +590,16 @@ async function renderTeam(){
   renderPager('team-pager',pg.page,pg.pages,'goTeamPage');
 }
 function goTeamPage(p){teamPage=p;renderTeam();}
-/* 100 问卷生成系统 */
 async function renderQgen(){
   const user=getUser();const box=document.getElementById('qgen-list');
-  if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}
+  const tip=document.getElementById('qgen-team-tip');
+  if(qgenTeamContext){
+    tip.style.display='block';
+    tip.innerHTML=`当前关联团队：<b>${qgenTeamContext.teamName||qgenTeamContext.teamId}</b>。可新建自己的需求问卷，填写后交给团队获取结论与方案。 <a href="javascript:qgenTeamContext=null;renderQgen()" style="color:#2563eb">清除关联</a>`;
+  }else tip.style.display='none';
+  if(!user){box.innerHTML='<div class="empty-tip">请先登录。所有成员均可在此生成与填写需求问卷，持续自我反省，并提交给 Team 获取方案。</div>';return;}
   let list=await fetchQgen();
-  if(user.role!=='admin')list=list.filter(t=>String(t.phone)===String(user.phone));
+  if(user.role!=='admin')list=list.filter(t=>String(t.phone)===String(user.phone)||(qgenTeamContext&&String(t.team_id)===String(qgenTeamContext.teamId)));
   const q=(document.getElementById('qgen-q')||{}).value||'';
   list=filterByQ(list.map(t=>({...t,intro:t.description})),q);
   const pg=paginate(list,qgenPage,PAGE_SIZE);qgenPage=pg.page;
@@ -520,28 +608,28 @@ async function renderQgen(){
     const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
     const st=t.status==='published'?'status-published':'status-draft';
     const stLabel=t.status==='published'?'已发布':'草稿';
-    const can=canEdit({phone:t.phone});
+    const can=canEdit({phone:t.phone})||isAdmin();
     return `<div class="card"><div class="avatar avatar-jinzhu">卷</div><div class="card-content">
       <div class="card-title">${t.name||'未命名'} <span class="${st}">${stLabel}</span>
-        ${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${t.id})">编辑</button>
-        <button class="btn btn-primary btn-sm" onclick="previewQgen(${t.id})">预览</button>
-        ${t.status!=='published'?`<button class="btn btn-savior btn-sm" onclick="publishQgen(${t.id})">发布</button>`:''}
-        <button class="btn btn-del btn-sm" onclick="deleteQgen(${t.id})">删除</button>`:''}
+        ${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${t.id})">编辑</button>`:''}
+        <button class="btn btn-primary btn-sm" onclick="previewQgen(${t.id})">预览/填写</button>
+        ${can&&t.status!=='published'?`<button class="btn btn-savior btn-sm" onclick="publishQgen(${t.id})">发布</button>`:''}
+        ${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${t.id})">删除</button>`:''}
       </div>
-      <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${t.industry||'-'}</span>　题数：${qCount}　节数：${sections.length}</div>
+      <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${t.industry||'-'}</span>　题数：${qCount}${t.team_id?`　关联团队ID：${t.team_id}`:''}</div>
       <div class="card-desc">${t.description||''}</div>
     </div></div>`;
-  }).join(''):'<div class="empty-tip">暂无问卷模板。点击「+ 新建问卷」开始设计。</div>';
+  }).join(''):'<div class="empty-tip">暂无问卷。点击「+ 新建问卷」创建自己的需求问卷表，也可预览填写已有问卷并提交给 Team。</div>';
   renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');
 }
 function goQgenPage(p){qgenPage=p;renderQgen();}
 function openAddQgen(){editingQgenId=null;showQgenForm();}
-async function editQgen(id){const list=await fetchQgen();const item=list.find(t=>t.id===id);if(!item||!canEdit({phone:item.phone}))return alert('无权限');editingQgenId=id;showQgenForm(item);}
+async function editQgen(id){const list=await fetchQgen();const item=list.find(t=>t.id===id);if(!item||!(canEdit({phone:item.phone})||isAdmin()))return alert('无权限');editingQgenId=id;showQgenForm(item);}
 function showQgenForm(item=null){
   const box=document.getElementById('modalBox');box.className='modal wide';
-  const sections=item&&Array.isArray(item.sections)?item.sections:[{title:'第一节',questions:[{type:'text',label:'示例问题',options:[],required:true}]}];
-  box.innerHTML=`<h3>${item?'编辑问卷':'新建问卷'}</h3>
-    <p style="font-size:13px;color:#6b7280;margin-bottom:14px">参考世界领先企业问卷生成框架：分节 · 多题型 · 预览发布</p>
+  const sections=item&&Array.isArray(item.sections)?item.sections:[{title:'自我反省',questions:[{type:'textarea',label:'当前最大挑战是什么？',options:[],required:true},{type:'textarea',label:'期望团队如何支持？',options:[],required:false}]}];
+  box.innerHTML=`<h3>${item?'编辑问卷':'新建需求问卷'}</h3>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:14px">所有成员可创建自己的问卷表，填写后交给 Team 获取结论与方案。${qgenTeamContext?`将关联团队：${qgenTeamContext.teamName||qgenTeamContext.teamId}`:''}</p>
     <div class="form-group"><label>问卷名称 *</label><input id="qg-name" value="${item?(item.name||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>行业</label><input id="qg-industry" value="${item?(item.industry||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>说明</label><textarea id="qg-desc">${item?(item.description||''):''}</textarea></div>
@@ -605,9 +693,9 @@ async function saveQgen(){
   const sections=collectQgenSections();if(!sections.length)return alert('请至少添加一个章节');
   let status='draft';
   if(editingQgenId){const old=(await fetchQgen()).find(t=>t.id===editingQgenId);if(old)status=old.status||'draft';}
-  const row={id:editingQgenId||Date.now(),name,industry,description,sections,status,phone:user.phone};
+  const row={id:editingQgenId||Date.now(),name,industry,description,sections,status,phone:user.phone,team_id:qgenTeamContext?qgenTeamContext.teamId:null};
   let error;if(editingQgenId)({error}=await sb.from('questionnaire_templates').update(row).eq('id',editingQgenId));else({error}=await sb.from('questionnaire_templates').insert(row));
-  if(error)return alert('保存失败：'+error.message);closeModal();renderQgen();alert('保存成功');
+  if(error)return alert('保存失败：'+error.message);closeModal();renderQgen();alert('保存成功。可预览填写后交给 Team 获取方案。');
 }
 async function publishQgen(id){if(!confirm('确定发布？'))return;const {error}=await sb.from('questionnaire_templates').update({status:'published'}).eq('id',id);if(error)return alert(error.message);renderQgen();}
 async function deleteQgen(id){if(!confirm('确定删除？'))return;await sb.from('questionnaire_templates').delete().eq('id',id);renderQgen();}
@@ -619,17 +707,35 @@ async function previewQgen(id){
     body+=`<div class="survey-section"><h4><span class="num">${si+1}</span> ${sec.title||''}</h4>`;
     (sec.questions||[]).forEach((q,qi)=>{
       body+=`<div class="survey-q"><label class="q-label">${qi+1}. ${q.label||''}${q.required?' *':''}</label>`;
-      if(q.type==='text')body+=`<input placeholder="请输入">`;
-      else if(q.type==='textarea')body+=`<textarea style="min-height:60px"></textarea>`;
-      else if(q.type==='radio'||q.type==='checkbox'){body+=`<div class="survey-options">`;(q.options||[]).forEach(o=>{body+=`<label><input type="${q.type==='checkbox'?'checkbox':'radio'}" name="pq${si}_${qi}"> ${o}</label>`;});body+=`</div>`;}
-      else if(q.type==='scale'){body+=`<div class="survey-scale">`;(q.options||['1','2','3','4','5']).forEach(o=>{body+=`<label><input type="radio" name="pq${si}_${qi}"> ${o}</label>`;});body+=`</div>`;}
+      if(q.type==='text')body+=`<input class="fill-ans" data-k="${si}_${qi}" placeholder="请输入">`;
+      else if(q.type==='textarea')body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px"></textarea>`;
+      else if(q.type==='radio'||q.type==='checkbox'){body+=`<div class="survey-options">`;(q.options||[]).forEach(o=>{body+=`<label><input type="${q.type==='checkbox'?'checkbox':'radio'}" name="pq${si}_${qi}" value="${o}"> ${o}</label>`;});body+=`</div>`;}
+      else if(q.type==='scale'){body+=`<div class="survey-scale">`;(q.options||['1','2','3','4','5']).forEach(o=>{body+=`<label><input type="radio" name="pq${si}_${qi}" value="${o}"> ${o}</label>`;});body+=`</div>`;}
       body+=`</div>`;
     });
     body+=`</div>`;
   });
   const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<div class="survey-wrap"><div class="survey-header"><h2>${t.name||'预览'}</h2><p>${t.description||''}　行业：${t.industry||'-'}</p></div><div class="survey-body"><div class="survey-progress"><div class="survey-progress-bar" style="width:30%"></div></div>${body||'<p class="empty-tip">暂无题目</p>'}<div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">关闭</button></div></div></div>`;
+  box.innerHTML=`<div class="survey-wrap"><div class="survey-header"><h2>${t.name||'填写问卷'}</h2><p>${t.description||''}　行业：${t.industry||'-'}　填写后可提交给 Team</p></div><div class="survey-body"><div class="survey-progress"><div class="survey-progress-bar" style="width:30%"></div></div>${body||'<p class="empty-tip">暂无题目</p>'}
+    <div class="form-actions">
+      <button class="btn btn-outline" onclick="closeModal()">关闭</button>
+      <button class="btn btn-primary" onclick="submitFilledQgen(${t.id},${t.team_id||0})">提交给 Team</button>
+    </div>
+  </div></div>`;
   document.getElementById('modalMask').style.display='flex';
+}
+async function submitFilledQgen(tplId,teamId){
+  const user=getUser();if(!user)return alert('请先登录');
+  const answers={};
+  document.querySelectorAll('.fill-ans').forEach(el=>{answers[el.dataset.k]=el.value;});
+  document.querySelectorAll('input[type=radio]:checked,input[type=checkbox]:checked').forEach(el=>{
+    const n=el.name;if(!answers[n])answers[n]=[];if(Array.isArray(answers[n]))answers[n].push(el.value);else answers[n]=[answers[n],el.value];
+  });
+  const tid=teamId||(qgenTeamContext&&qgenTeamContext.teamId)||null;
+  const row={id:Date.now(),jinzhu_id:null,team_id:tid,phone:user.phone,industry:'问卷填写',answers,status:'pending',report:''};
+  const {error}=await sb.from('diagnosis_surveys').insert(row);
+  if(error)return alert('提交失败：'+error.message);
+  closeModal();alert('已提交给 Team，可在【需求诊断】查看进度与方案。');switchView('diagnosis');
 }
 async function renderDiagnosis(){
   const user=getUser();const box=document.getElementById('diagnosis-list');
@@ -640,65 +746,24 @@ async function renderDiagnosis(){
   box.innerHTML=pg.slice.length?pg.slice.map(d=>{
     const statusMap={pending:'待生成报告',generating:'生成中',completed:'已完成'};
     const statusCls={pending:'badge-pending',generating:'badge-pending',completed:'badge-ok'};
-    return `<div class="card"><div class="avatar avatar-jinzhu">诊</div><div class="card-content"><div class="card-title">行业：${d.industry||'-'} <span class="${statusCls[d.status]||'badge-pending'}">${statusMap[d.status]||d.status}</span>${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}</div><div class="card-desc">提交人：${d.phone||'-'} · ${d.created_at?new Date(d.created_at).toLocaleString('zh-CN'):''}</div><div class="card-desc"><b>问卷摘要：</b>${summarizeAnswers(d.answers)}</div>${d.report?`<div class="card-desc" style="background:#f0fdf4;padding:10px;border-radius:8px;margin-top:8px"><b>诊断报告：</b><br>${linkify(d.report)}</div>`:`<div class="card-desc" style="color:#9ca3af">等待 AI 工具生成诊断报告…</div>`}</div></div>`;
-  }).join(''):'<div class="empty-tip">暂无诊断记录。金主可在「我的超级团队」点击【需求问卷】提交。</div>';
+    return `<div class="card"><div class="avatar avatar-jinzhu">诊</div><div class="card-content"><div class="card-title">行业：${d.industry||'-'} <span class="${statusCls[d.status]||'badge-pending'}">${statusMap[d.status]||d.status}</span>${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}</div><div class="card-desc">提交人：${d.phone||'-'} · 团队：${d.team_id||'-'} · ${d.created_at?new Date(d.created_at).toLocaleString('zh-CN'):''}</div><div class="card-desc"><b>摘要：</b>${summarizeAnswers(d.answers)}</div>${d.report?`<div class="card-desc" style="background:#f0fdf4;padding:10px;border-radius:8px;margin-top:8px"><b>方案：</b><br>${linkify(d.report)}</div>`:`<div class="card-desc" style="color:#9ca3af">等待 Team / AI 生成结论与方案…</div>`}</div></div>`;
+  }).join(''):'<div class="empty-tip">暂无记录。请在【问卷生成系统】填写问卷并提交给 Team。</div>';
   renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');
 }
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
 function summarizeAnswers(ans){if(!ans||typeof ans!=='object')return '-';const keys=Object.keys(ans);if(!keys.length)return '-';return keys.slice(0,4).map(k=>`${k}: ${Array.isArray(ans[k])?ans[k].join(','):ans[k]}`).join('；')+(keys.length>4?'…':'');}
 async function deleteDiagnosis(id){if(!confirm('确定删除？'))return;await sb.from('diagnosis_surveys').delete().eq('id',id);renderDiagnosis();}
-function openSurvey(jinzhuId,teamId,industry){
-  const user=getUser();if(!user)return alert('请先登录');if(user.role!=='jinzhu'&&user.role!=='admin')return alert('仅金主可填写需求问卷');
-  const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<div class="survey-wrap"><div class="survey-header"><h2>需求诊断问卷</h2><p>请如实填写，提交后将匹配专业资源并生成诊断报告。</p></div><div class="survey-body">
-    <input type="hidden" id="sv-jinzhu-id" value="${jinzhuId||0}"><input type="hidden" id="sv-team-id" value="${teamId||0}"><input type="hidden" id="sv-industry" value="${escapeAttr(industry||'')}">
-    <div class="survey-section"><h4><span class="num">1</span> 企业与行业定位</h4>
-      <div class="survey-q"><label class="q-label">当前所属行业 *</label><input id="sv-q1" value="${industry&&industry!=='待填'?industry:''}" placeholder="例如：艺术培训"></div>
-      <div class="survey-q"><label class="q-label">企业规模</label><div class="survey-options"><label><input type="radio" name="sv-q2" value="1-10人"> 1-10人</label><label><input type="radio" name="sv-q2" value="11-50人"> 11-50人</label><label><input type="radio" name="sv-q2" value="51-200人"> 51-200人</label><label><input type="radio" name="sv-q2" value="200人以上"> 200人以上</label></div></div>
-    </div>
-    <div class="survey-section"><h4><span class="num">2</span> 核心挑战与目标</h4>
-      <div class="survey-q"><label class="q-label">最紧迫的业务挑战 *</label><textarea id="sv-q3" style="min-height:80px"></textarea></div>
-      <div class="survey-q"><label class="q-label">未来12个月战略目标</label><textarea id="sv-q4" style="min-height:60px"></textarea></div>
-      <div class="survey-q"><label class="q-label">紧急程度（1～5）</label><div class="survey-scale">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="sv-q5" value="${n}"> ${n}</label>`).join('')}</div></div>
-    </div>
-    <div class="survey-section"><h4><span class="num">3</span> 资源与投入</h4>
-      <div class="survey-q"><label class="q-label">销售/增长团队</label><div class="survey-options"><label><input type="radio" name="sv-q6" value="有专职团队"> 有专职团队</label><label><input type="radio" name="sv-q6" value="兼职/老板亲自"> 兼职/老板亲自</label><label><input type="radio" name="sv-q6" value="几乎没有"> 几乎没有</label></div></div>
-      <div class="survey-q"><label class="q-label">预算区间</label><div class="survey-options"><label><input type="radio" name="sv-q7" value="先咨询再定"> 先咨询再定</label><label><input type="radio" name="sv-q7" value="1万以内"> 1万以内</label><label><input type="radio" name="sv-q7" value="1-5万"> 1-5万</label><label><input type="radio" name="sv-q7" value="5-20万"> 5-20万</label><label><input type="radio" name="sv-q7" value="20万以上"> 20万以上</label></div></div>
-    </div>
-    <div class="survey-section"><h4><span class="num">4</span> 期望协同方式</h4>
-      <div class="survey-q"><label class="q-label">可多选</label><div class="survey-options"><label><input type="checkbox" name="sv-q8" value="AI诊断报告"> AI诊断报告</label><label><input type="checkbox" name="sv-q8" value="专家一对一辅导"> 专家一对一辅导</label><label><input type="checkbox" name="sv-q8" value="超级团队落地执行"> 超级团队落地执行</label><label><input type="checkbox" name="sv-q8" value="工具/系统部署"> 工具/系统部署</label><label><input type="checkbox" name="sv-q8" value="长期战略顾问"> 长期战略顾问</label></div></div>
-      <div class="survey-q"><label class="q-label">补充说明</label><textarea id="sv-q9" style="min-height:60px"></textarea></div>
-    </div>
-    <div class="form-actions" style="justify-content:space-between"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="submitSurvey()">确认提交问卷</button></div>
-  </div></div>`;
-  document.getElementById('modalMask').style.display='flex';
-}
-async function submitSurvey(){
-  const user=getUser();if(!user)return;
-  const jinzhuId=parseInt(document.getElementById('sv-jinzhu-id').value)||0;
-  const teamId=parseInt(document.getElementById('sv-team-id').value)||0;
-  const industry=(document.getElementById('sv-q1').value||document.getElementById('sv-industry').value||'').trim();
-  if(!industry)return alert('请填写行业');
-  const q3=(document.getElementById('sv-q3').value||'').trim();if(!q3)return alert('请填写核心业务挑战');
-  const getRadio=n=>{const el=document.querySelector(`input[name="${n}"]:checked`);return el?el.value:'';};
-  const getChecks=n=>[...document.querySelectorAll(`input[name="${n}"]:checked`)].map(e=>e.value);
-  const answers={'行业':industry,'企业规模':getRadio('sv-q2'),'核心挑战':q3,'战略目标':(document.getElementById('sv-q4').value||'').trim(),'紧急程度':getRadio('sv-q5'),'销售团队情况':getRadio('sv-q6'),'预算区间':getRadio('sv-q7'),'期望协同方式':getChecks('sv-q8'),'补充说明':(document.getElementById('sv-q9').value||'').trim()};
-  const row={id:Date.now(),jinzhu_id:jinzhuId||null,team_id:teamId||null,phone:user.phone,industry,answers,status:'pending',report:''};
-  const {error}=await sb.from('diagnosis_surveys').insert(row);if(error)return alert('保存失败：'+error.message);
-  if(jinzhuId)await sb.from('jinzhu').update({type:industry}).eq('id',jinzhuId);
-  closeModal();alert('问卷已提交！');switchView('diagnosis');
-}
 function addPainItem(t='',d=''){const box=document.getElementById('pain-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button><div class="form-group"><label>痛点标题</label><input class="pain-title" value="${(t||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>详细描述</label><textarea class="pain-desc">${d||''}</textarea></div>`;box.appendChild(div);}
 function addToolItem(t='',d=''){const box=document.getElementById('tool-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button><div class="form-group"><label>工具标题</label><input class="tool-title" value="${(t||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>详细描述</label><textarea class="tool-desc">${d||''}</textarea></div>`;box.appendChild(div);}
 function addPerfItem(t='',d=''){const box=document.getElementById('perf-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button><div class="form-group"><label>业绩标题</label><input class="perf-title" value="${(t||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>业绩详情</label><textarea class="perf-desc">${d||''}</textarea></div>`;box.appendChild(div);}
 function openAddJinZhu(){editingJinZhuId=null;showJinZhuForm();}
-async function editJinZhu(id){const list=await fetchJinZhu();const item=list.find(j=>j.id===id);if(!item||!canEdit(item))return alert('无权限');editingJinZhuId=id;showJinZhuForm(item);}
+async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return alert('无权限');editingJinZhuId=id;showJinZhuForm(item);}
 function showJinZhuForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:''),isNew=!item;
   document.getElementById('modalBox').className='modal';
   if(isNew){
     document.getElementById('modalBox').innerHTML=`<h3>发布需求</h3><p style="font-size:13px;color:#6b7280;margin-bottom:14px">填写<strong>行业</strong>与<strong>详情</strong>即可快速发布。</p>
-      <div class="form-group"><label>行业 *</label><input id="jz-type" placeholder="例如：艺术培训、教培、零售…"></div>
+      <div class="form-group"><label>行业 *</label><input id="jz-type" placeholder="例如：艺术培训"></div>
       <div class="form-group"><label>详情</label><textarea id="jz-detail" style="min-height:80px"></textarea></div>
       <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button><button class="btn btn-team" onclick="saveJinZhu(true)">保存并召集超级团队</button></div>`;
     document.getElementById('modalMask').style.display='flex';return;
@@ -855,9 +920,27 @@ async function saveTeam(){
   let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));
   if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();alert('保存成功');
 }
-async function joinTeam(teamId){const user=getUser();if(!user)return alert('请先登录');const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;let members=Array.isArray(team.members)?[...team.members]:[];if(members.some(m=>m.type==='member'&&String(m.id)===String(user.phone)))return alert('已在队伍中');members.push({id:user.phone,type:'member',name:user.phone,power:0});await sb.from('team').update({members}).eq('id',teamId);alert('已加入');renderTeam();renderJinZhu();}
-async function kickMember(teamId,memberId,memberType){if(!confirm('确定分手？'))return;const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)&&(m.type||'member')===memberType));await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();}
-async function clearMembers(teamId){if(!confirm('确定清空成员？'))return;await sb.from('team').update({members:[]}).eq('id',teamId);renderTeam();renderJinZhu();}
+/* 111：加入团队与拉入团队统一成员结构 */
+async function joinTeam(teamId){
+  const user=getUser();if(!user)return alert('请先登录');
+  const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;
+  let members=Array.isArray(team.members)?[...team.members]:[];
+  if(members.some(m=>String(m.id)===String(user.phone)&&(m.type==='member'||!m.type)))return alert('已在队伍中');
+  let displayName=user.phone, memberType='member', power=0, id=user.phone;
+  if(user.role==='yingxiao'){
+    const heroes=await fetchHero();
+    const mine=heroes.find(h=>String(h.phone)===String(user.phone));
+    if(mine){displayName=mine.name||user.phone;memberType='hero';power=Number(mine.power)||0;id=mine.id;}
+  }else if(user.role==='ai'){
+    const tools=await fetchDaShi();
+    const mine=tools.find(d=>String(d.phone)===String(user.phone));
+    if(mine){displayName=mine.name||user.phone;memberType='dashi';power=Number(mine.power)||0;id=mine.id;}
+  }
+  members.push({id,type:memberType,name:displayName,power});
+  await sb.from('team').update({members}).eq('id',teamId);
+  alert('已加入');renderTeam();renderJinZhu();
+}
+async function kickMember(teamId,memberId,memberType){if(!confirm('确定移除该成员？'))return;const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)&&(m.type||'member')===memberType));await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();}
 async function disbandTeam(teamId){if(!confirm('确定解散整个团队？'))return;await sb.from('team').delete().eq('id',teamId);renderTeam();renderJinZhu();}
 async function renderUsers(){if(!isAdmin())return;const users=await fetchUsers();document.getElementById('users-tbody').innerHTML=users.filter(u=>u.phone).map(u=>`<tr><td>${u.phone}</td><td>${ROLE_MAP[u.role]||u.role}</td><td>${u.created_at?new Date(u.created_at).toLocaleString('zh-CN'):'-'}</td><td>${u.blacklisted?'<span class="badge-black">黑名单</span>':'<span class="badge-ok">正常</span>'}</td><td><button class="btn btn-sm btn-outline" onclick="changePwd('${u.phone}')">改密码</button> <button class="btn btn-sm btn-warn" onclick="setBlacklist('${u.phone}',true)">拉黑</button> <button class="btn btn-sm btn-primary" onclick="setBlacklist('${u.phone}',false)">取消拉黑</button> <button class="btn btn-sm btn-danger" onclick="deleteUser('${u.phone}')">删除</button></td></tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:#9ca3af">暂无</td></tr>';}
 async function changePwd(phone){const p=prompt('新密码（至少4位）');if(!p||p.length<4)return;await sb.from('app_users').update({pwd:p}).eq('phone',phone);alert('已修改');renderUsers();}
