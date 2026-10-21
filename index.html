@@ -506,14 +506,10 @@ function renderOneTeamCard(t,linkedJin,user,opts){
         ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${t.id})">×</button>`:''}
       </div>
       <div class="card-desc">行业 <span class="tag tag-industry">${industry}</span></div>
-      <div class="card-desc">需求 <span class="tag tag-diff">⚡${difficulty}</span>：${t.demand||(linkedJin&&linkedJin.detail)||'-'}</div>
+      <div class="card-desc">需求 <span class="tag tag-diff">◆${difficulty}</span>：${t.demand||(linkedJin&&linkedJin.detail)||'-'}</div>
       <div class="team-box ${showKick?'team-show-kick':''}">
         <div style="margin-bottom:6px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${t.id})">加入团队</button>`:''}</div>
-        <div class="member-header">
-          <b>队员清单</b>
-          ${isOwner?`<button type="button" class="btn-icon-sm" title="${showKick?'结束重组':'开始重组'}" onclick="toggleTeamKick(${t.id})">${showKick?'✅':'🔀'}</button>
-          <span style="font-size:12px;color:#64748b">${showKick?'结束重组':'开始重组'}</span>`:''}
-        </div>
+        <div class="member-header"><b>队员清单</b></div>
         <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,t.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
       </div>
       <div class="team-progress-box">
@@ -525,15 +521,13 @@ function renderOneTeamCard(t,linkedJin,user,opts){
     </div>
   </div>`;
 }
-
 async function renderFocus(){
   const box=document.getElementById('focus-list');
   const user=getUser();
   if(!user){box.innerHTML='<div class="empty-tip">请先登录。登录后在「我的超级团队」点击 🎯 设为最高优先级。</div>';return;}
   const pid=await getPriorityTeamId();
   if(!pid){
-    box.innerHTML=`<div class="focus-banner">尚未设置聚焦团队。请到「我的超级团队」点击 🎯，只聚焦一支队伍推进战力与业绩。</div>
-      <div class="empty-tip"><button class="btn btn-primary" onclick="switchView('team')">去选择团队</button></div>`;
+    box.innerHTML=`<div class="empty-tip">尚未设置聚焦团队。<br><button class="btn btn-primary" style="margin-top:12px" onclick="switchView('team')">去选择团队</button></div>`;
     return;
   }
   const teams=await fetchTeam();
@@ -545,9 +539,9 @@ async function renderFocus(){
   }
   const allJinZhu=await fetchJinZhu();
   const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
-  box.innerHTML=`<div class="focus-banner">🎯 当前聚焦一支团队 · 关注战力与业绩进展。可随时在「我的超级团队」更换。</div>`+renderOneTeamCard(t,linkedJin,user,{isPriority:true});
+  // 128B：不再渲染 focus-banner
+  box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true});
 }
-
 async function renderHome(){
   const jinzhu=await fetchJinZhu(),dashi=await fetchDaShi(),admin=isAdmin();
   const pj=paginate(filterByQ(jinzhu,(document.getElementById('home-jz-q')||{}).value||''),homeJzPage,PAGE_SIZE);
@@ -559,7 +553,6 @@ async function renderHome(){
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
 }
 function goHomeJzPage(p){homeJzPage=p;renderHome();}function goHomeDsPage(p){homeDsPage=p;renderHome();}
-
 function teamBlockHtml(team,j,user){
   if(!team)return '';
   const members=team.members||[];
@@ -583,12 +576,9 @@ function teamBlockHtml(team,j,user){
       ${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">编辑</button>`:''}
       ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${team.id})">×</button>`:''}
     </div>
-    <div class="card-desc" style="margin-top:6px">行业 <span class="tag tag-industry">${(j&&j.type)||'待填'}</span>　需求 <span class="tag tag-diff">⚡${j?Number(j.difficulty)||0:0}</span>：${team.demand||(j&&j.detail)||(j&&j.type)||'-'}</div>
+    <div class="card-desc" style="margin-top:6px">行业 <span class="tag tag-industry">${(j&&j.type)||'待填'}</span>　需求 <span class="tag tag-diff">◆${j?Number(j.difficulty)||0:0}</span>：${team.demand||(j&&j.detail)||(j&&j.type)||'-'}</div>
     <div style="margin-top:8px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">加入团队</button>`:''}</div>
-    <div class="member-header"><b>队员清单</b>
-      ${isOwner?`<button type="button" class="btn-icon-sm" title="${showKick?'结束重组':'开始重组'}" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>
-      <span style="font-size:12px;color:#64748b">${showKick?'结束重组':'开始重组'}</span>`:''}
-    </div>
+    <div class="member-header"><b>队员清单</b></div>
     <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
     <div class="team-progress-box">
       <h5>📈 团队进展与业绩　战力 ⚡${sum}</h5>
@@ -597,7 +587,6 @@ function teamBlockHtml(team,j,user){
     ${showCard&&j&&j.card?`<div style="margin-top:8px;font-size:12px;color:#64748b">金主名片</div>${renderBizCard(j.card)}`:''}
   </div>`;
 }
-
 async function renderJinZhu(){
   const user=getUser();let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
   const banner=document.getElementById('jinzhu-match-banner');
@@ -876,7 +865,7 @@ function showJinZhuForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:''),isNew=!item;
   document.getElementById('modalBox').className='modal';
   if(isNew){
-    document.getElementById('modalBox').innerHTML=`<h3>发布需求</h3><div class="form-group"><label>行业 *</label><input id="jz-type"></div><div class="form-group"><label>详情</label><textarea id="jz-detail" style="min-height:80px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button><button class="btn btn-team" onclick="saveJinZhu(true)">保存并召集超级团队</button></div>`;
+    document.getElementById('modalBox').innerHTML=`<h3>发布需求</h3><div class="form-group"><label>行业 *</label><input id="jz-type"></div><div class="form-group"><label>详情</label><textarea id="jz-detail" style="min-height:80px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button></div>`;
     document.getElementById('modalMask').style.display='flex';return;
   }
   document.getElementById('modalBox').innerHTML=`<h3>编辑需求</h3>
