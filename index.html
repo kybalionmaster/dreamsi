@@ -2,337 +2,287 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>梦想显化器</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23D4AF37' d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>𝕏</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif}
-body{background:#f5f7fa;color:#1f2937}
-.header{background:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#3b82f6,#60a5fa);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px}
-.logo-text h1{font-size:18px;font-weight:600}
-.logo-text p{font-size:12px;color:#6b7280;margin-top:2px}
-.header-right{display:flex;gap:12px;align-items:center;font-size:14px}
-.btn{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-size:13px;font-weight:500}
-.btn-primary{background:#2563eb;color:#fff}.btn-outline{background:#fff;border:1px solid #d1d5db;color:#374151}
-.btn-danger{background:#ef4444;color:#fff}.btn-sm{padding:4px 10px;font-size:12px}
-.btn-edit{background:#f59e0b;color:#fff;margin-left:4px}.btn-del{background:#ef4444;color:#fff;margin-left:4px}
-.btn-warn{background:#f59e0b;color:#fff}.btn-savior{background:#10b981;color:#fff;margin-left:4px}
-.btn-caishen{background:#8b5cf6;color:#fff;margin-left:4px}.btn-team{background:#0ea5e9;color:#fff;margin-left:4px}
-.btn-survey{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;margin-left:4px}
-.btn-priority{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;margin-left:4px}
-.btn-toggle-kick{background:#64748b;color:#fff;margin-left:4px}
-.btn-icon-sm{width:28px;height:28px;padding:0;border-radius:8px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;font-size:14px;line-height:1;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;margin-left:2px}
-.btn-icon-sm:hover{background:#f3f4f6;border-color:#d1d5db}
-.user-info{display:flex;align-items:center;gap:8px}
-.role-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff}
-.role-jinzhu{background:#f59e0b}.role-ai{background:#eab308}.role-admin{background:#7c3aed}.role-kefu{background:#10b981}.role-shenhe{background:#6366f1}.role-yingxiao{background:#ec4899}
-.container{display:flex;height:calc(100vh - 65px)}
-.sidebar{width:200px;background:#fff;border-right:1px solid #e5e7eb;padding:12px 0;flex-shrink:0;overflow-y:auto}
-.menu-item{padding:11px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#4b5563;font-size:13px}
-.menu-item.active{background:#eff6ff;color:#2563eb;border-right:3px solid #2563eb;font-weight:500}
-.menu-item:hover{background:#f9fafb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.app{display:flex;min-height:100vh}
+.sidebar{width:240px;background:linear-gradient(180deg,#0f172a,#1e293b);color:#e2e8f0;padding:16px 12px;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:40;transition:transform .25s}
+.sidebar .logo{display:flex;align-items:center;gap:10px;padding:8px 10px 18px;font-weight:700;font-size:16px;color:#fbbf24}
+.sidebar .logo span{width:32px;height:32px;border-radius:50%;background:#fbbf24;color:#0f172a;display:flex;align-items:center;justify-content:center;font-size:14px}
+.menu-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px;margin-bottom:2px;color:#cbd5e1}
+.menu-item:hover,.menu-item.active{background:rgba(251,191,36,.15);color:#fbbf24}
 .menu-item.admin-only{display:none}
-.main{flex:1;padding:16px;overflow:auto}
-.panel{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:16px}
-.panel-header{padding:14px 18px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.panel-header h2{font-size:15px;font-weight:600}
-.card-list{padding:12px}
-.card{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
-.card.focus-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.25)}
-.card.priority-card{border-color:#f59e0b;box-shadow:0 0 0 2px rgba(245,158,11,.25);background:linear-gradient(180deg,#fffbeb 0%,#fff 40px)}
-.avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0}
-.avatar-jinzhu{background:#f59e0b}.avatar-dashi{background:#eab308}.avatar-hero{background:#ec4899}.avatar-team{background:#0ea5e9}.avatar-diag{background:#0f766e}
-.card-content{flex:1;min-width:0}
-.card-title{font-weight:600;font-size:14px;margin-bottom:4px;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
-.card-desc{font-size:13px;color:#6b7280;line-height:1.45;margin-bottom:6px}
-.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{background:#f3f4f6;color:#4b5563;font-size:11px;padding:2px 8px;border-radius:4px}
-.tag-power{background:#fef3c7;color:#b45309}.tag-diff{background:#fee2e2;color:#b91c1c}.tag-reward{background:#dcfce7;color:#15803d}.tag-industry{background:#e0e7ff;color:#3730a3}
-.match-score{background:#dbeafe;color:#1e40af;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600}
-.biz-card{margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;display:flex;gap:14px;align-items:center}
-.biz-info{flex:1;font-size:12px;line-height:1.6}.biz-info b{color:#1e293b}
-.qr-box{width:72px;height:72px;background:#fff;border:1px solid #e2e8f0;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.qr-box img{width:64px;height:64px}
-.team-progress-box{margin-top:12px;padding:12px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
-.team-progress-box h5{margin:0 0 8px;font-size:13px;color:#0f766e}
-.team-progress-box .prog-item{font-size:13px;color:#334155;margin:4px 0 4px 8px;line-height:1.5}
-.modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:200}
-.modal{background:#fff;border-radius:12px;width:560px;max-width:94%;padding:24px;max-height:92vh;overflow:auto}
-.modal.wide{width:720px}.modal.consult{width:860px;padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:92vh}
-.modal h3{margin-bottom:16px;font-size:18px}
-.form-group{margin-bottom:12px}
-.form-group label{display:block;font-size:13px;margin-bottom:4px;color:#374151}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px}
-.form-group textarea{min-height:56px;resize:vertical}
-.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
-.dynamic-item{border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-bottom:10px;background:#fafafa;position:relative}
-.dynamic-item .remove-btn{position:absolute;top:8px;right:8px}
+.main{flex:1;margin-left:240px;min-width:0}
+.topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30}
+.topbar .brand{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.user-area{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.user-info{display:flex;align-items:center;gap:8px;font-size:13px}
+.content{padding:16px;max-width:1100px}
 .view{display:none}.view.active{display:block}
-.home-grid{display:flex;gap:16px;height:calc(100vh - 100px)}
-.home-panel{flex:1;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);display:flex;flex-direction:column}
-.home-panel .card-list{overflow-y:auto;flex:1}
-.section-title{font-size:20px;font-weight:600;margin-bottom:8px}
-.section-desc{color:#6b7280;margin-bottom:20px;font-size:14px}
-.coop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
-.coop-card{border:1px solid #e5e7eb;border-radius:10px;padding:20px;text-align:center}
-.chat-box{border:1px solid #e5e7eb;border-radius:10px;height:360px;display:flex;flex-direction:column}
-.chat-messages{flex:1;padding:16px;overflow:auto;background:#f9fafb}
-.chat-input{display:flex;border-top:1px solid #e5e7eb}
-.chat-input input{flex:1;border:none;padding:12px;outline:none}
-.chat-input button{padding:0 16px;background:#2563eb;color:#fff;border:none;cursor:pointer}
-.msg{margin-bottom:10px;max-width:80%}
-.msg.bot{background:#e0e7ff;padding:8px 12px;border-radius:8px}
-.msg.user{background:#dbeafe;padding:8px 12px;border-radius:8px;margin-left:auto}
-.empty-tip{padding:40px 20px;text-align:center;color:#9ca3af;font-size:14px;line-height:1.6}
-.table{width:100%;border-collapse:collapse;font-size:13px}
-.table th,.table td{padding:10px 12px;border-bottom:1px solid #e5e7eb;text-align:left}
-.table th{background:#f9fafb;font-weight:600}
-.badge-black{background:#fecaca;color:#991b1b;font-size:11px;padding:2px 6px;border-radius:4px}
-.badge-ok{background:#d1fae5;color:#065f46;font-size:11px;padding:2px 6px;border-radius:4px}
-.badge-pending{background:#fef3c7;color:#92400e;font-size:11px;padding:2px 6px;border-radius:4px}
-.match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:13px}
-.cloud-tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;padding:8px 14px;font-size:12px;text-align:center}
-.focus-banner{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fcd34d;color:#92400e;padding:12px 16px;border-radius:10px;margin-bottom:12px;font-size:13px;line-height:1.5}
-.loading{padding:40px;text-align:center;color:#6b7280}
-.msg-item{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;background:#fff}
-.msg-type{font-size:11px;padding:2px 8px;border-radius:4px;background:#e0e7ff;color:#3730a3;margin-right:6px}
-.x-actions{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid #f3f4f6;flex-wrap:wrap}
-.x-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:none;border-radius:50%;cursor:pointer;font-size:17px;transition:transform .15s;padding:0;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.x-icon:hover{transform:scale(1.12)}
-.x-icon.greet{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff}
-.x-icon.progress{background:linear-gradient(135deg,#34d399,#10b981);color:#fff}
-.x-icon.event{background:linear-gradient(135deg,#f472b6,#ec4899);color:#fff}
-.x-icon.case{background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:#fff}
-.x-icon.trial{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff}
-.x-icon.report{background:linear-gradient(135deg,#f87171,#ef4444);color:#fff}
-.x-icon.pull{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff}
-.g-search-wrap{display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;max-width:320px}
-.g-search{display:flex;align-items:center;width:100%;height:40px;border:1px solid #dfe1e5;border-radius:24px;padding:0 14px;background:#fff}
-.g-search:hover,.g-search:focus-within{box-shadow:0 1px 6px rgba(32,33,36,.28);border-color:transparent}
-.g-search input{flex:1;border:none;outline:none;font-size:14px;background:transparent}
-.g-search .g-icon{color:#4285f4;margin-right:8px}
-.g-pager{display:flex;align-items:center;justify-content:center;gap:4px;padding:16px 8px;flex-wrap:wrap}
-.g-pager a,.g-pager span{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;font-size:14px;color:#4285f4;cursor:pointer;border-radius:4px}
-.g-pager a:hover{background:#f1f3f4}
-.g-pager .cur{color:#202124;font-weight:500;border-bottom:3px solid #4285f4;border-radius:0}
-.g-pager .disabled{color:#bdc1c6;pointer-events:none}
-.g-pager .next{margin-left:8px;font-weight:500}
-.team-box{margin-top:12px;padding:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px}
-.member-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.member-chip{background:#e0f2fe;color:#0c4a6e;font-size:12px;padding:4px 10px 4px 4px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
-.member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#fff;border:1px solid #bae6fd;cursor:pointer}
-.member-chip img.clickable:hover{outline:2px solid #2563eb}
-.member-chip .power-icon{color:#b45309;font-size:12px}
-.member-x{display:none;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;align-items:center;justify-content:center;padding:0;margin-left:2px}
-.team-show-kick .member-x{display:inline-flex}
-.team-x{opacity:0;transition:opacity .2s;background:linear-gradient(135deg,#f87171,#ef4444);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:2px}
-.team-title:hover .team-x,.team-title:focus-within .team-x{opacity:1}
-.team-title{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
-.member-header{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;color:#6b7280}
-.survey-wrap{max-width:800px;margin:0 auto}
-.survey-header{background:linear-gradient(135deg,#1e3a5f,#2563eb);color:#fff;padding:28px 32px;border-radius:12px 12px 0 0}
-.survey-header h2{font-size:22px;margin-bottom:6px}
-.survey-header p{opacity:.9;font-size:14px}
-.survey-body{background:#fff;padding:28px 32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 12px 12px}
-.survey-section{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #f3f4f6}
-.survey-section h4{font-size:15px;color:#1e3a5f;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.survey-section h4 .num{background:#2563eb;color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
-.survey-q{margin-bottom:16px}
-.survey-q label.q-label{font-size:14px;font-weight:500;color:#374151;margin-bottom:8px;display:block}
-.survey-options{display:flex;flex-direction:column;gap:8px}
-.survey-options label{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:13px}
-.qgen-section-box{border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin-bottom:14px;background:#fafbfc;position:relative}
-.qgen-q-row{border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-bottom:10px;background:#fff;position:relative}
-.qgen-q-row .remove-btn,.qgen-section-box>.remove-btn{position:absolute;top:8px;right:8px}
-.qgen-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.status-draft{background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:4px}
-.status-published{background:#d1fae5;color:#065f46;font-size:11px;padding:2px 8px;border-radius:4px}
-.qgen-team-tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:13px}
-.consult-scroll{overflow:auto;flex:1;padding:28px 32px;background:#f7f5f2}
-.consult-doc{max-width:720px;margin:0 auto;background:#fff;padding:36px 40px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:1px solid #e8e4de}
-.consult-brand{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8b7355;margin-bottom:8px}
-.consult-title{font-size:22px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
-.consult-sub{font-size:13px;color:#6b6560;margin-bottom:20px}
-.consult-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px;color:#5c5650;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #e8e4de}
-.consult-h2{font-size:15px;font-weight:600;color:#1a1a1a;margin:22px 0 12px;padding-bottom:6px;border-bottom:2px solid #8b7355}
-.consult-qa{margin-bottom:12px;padding:10px 12px;background:#faf9f7;border-radius:6px}
-.consult-report-box{margin-top:16px;padding:20px;background:linear-gradient(135deg,#0f766e,#0d9488);color:#fff;border-radius:10px}
-.consult-toolbar{padding:12px 16px;border-top:1px solid #e5e7eb;display:flex;gap:8px;justify-content:flex-end;background:#fff}
+.view-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.view-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.btn{border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:4px;transition:.15s}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-primary{background:#2563eb;color:#fff}.btn-primary:hover{background:#1d4ed8}
+.btn-outline{background:#fff;border:1px solid #cbd5e1;color:#334155}.btn-outline:hover{background:#f8fafc}
+.btn-edit{background:#e0e7ff;color:#3730a3}.btn-del{background:#fee2e2;color:#b91c1c}
+.btn-team{background:#d1fae5;color:#047857}.btn-savior{background:#fef3c7;color:#b45309}
+.btn-caishen{background:#fce7f3;color:#9d174d}.btn-survey{background:#ede9fe;color:#5b21b6}
+.btn-danger{background:#dc2626;color:#fff}.btn-warn{background:#f59e0b;color:#fff}
+.btn-icon-sm{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:16px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.btn-icon-sm:hover{background:#f1f5f9;border-color:#94a3b8}
+.search-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:160px;padding:10px 14px;border:1px solid #cbd5e1;border-radius:24px;font-size:14px;outline:none}
+.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.pager{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:14px}
+.pager a,.pager span{padding:6px 12px;border-radius:4px;color:#1a0dab}
+.pager a:hover{text-decoration:underline}
+.pager .cur{color:#000;font-weight:700}
+.pager .disabled{color:#9ca3af;cursor:default}
+.pager .next{margin-left:8px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card.focus-card,.card.priority-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.2)}
+.avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.avatar-jinzhu{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.avatar-dashi{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+.avatar-hero{background:linear-gradient(135deg,#ec4899,#be185d)}
+.avatar-team{background:linear-gradient(135deg,#10b981,#047857)}
+.avatar-diag{background:linear-gradient(135deg,#0ea5e9,#0369a1)}
+.card-content{flex:1;min-width:0}
+.card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
+.card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
+.tag-industry{background:#ecfdf5;color:#047857}
+.tag-diff{background:#fff7ed;color:#c2410c}
+.tag-power{background:#fef3c7;color:#b45309}
+.tag-reward{background:#fce7f3;color:#9d174d}
+.match-score{font-size:12px;color:#059669;font-weight:600}
+.match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
+.empty-tip{text-align:center;color:#94a3b8;padding:40px 16px;font-size:14px}
+.role-badge{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+.role-jinzhu{background:#fef3c7;color:#b45309}.role-ai{background:#ede9fe;color:#6d28d9}
+.role-admin{background:#fee2e2;color:#b91c1c}.role-yingxiao{background:#fce7f3;color:#9d174d}
+.role-kefu,.role-shenhe{background:#e0f2fe;color:#0369a1}
+.biz-card{display:flex;gap:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-top:8px;font-size:12px}
+.biz-info{flex:1}.qr-box img{width:72px;height:72px;border-radius:6px}
+.x-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.x-icon{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;font-size:14px;background:#f1f5f9}
+.x-icon:hover{transform:scale(1.08)}.x-icon.pull{background:#dbeafe}
+.team-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:12px;margin-top:10px}
+.team-title{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.member-header{display:flex;align-items:center;gap:8px;margin:8px 0 6px;font-size:13px}
+.member-list{display:flex;flex-wrap:wrap;gap:8px}
+.member-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:4px 10px 4px 4px;font-size:12px}
+.member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#e2e8f0}
+.member-chip img.clickable{cursor:pointer}
+.member-chip img.clickable:hover{outline:2px solid #2563eb;outline-offset:1px}
+.member-chip .power-icon{color:#b45309;font-weight:600}
+.member-x,.team-x{width:22px;height:22px;border-radius:50%;border:none;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px;line-height:1;opacity:0;transition:opacity .15s}
+.team-show-kick .member-x,.team-title:hover .team-x,.team-box:hover .team-x{opacity:1}
+@media (hover:none){.team-show-kick .member-x{opacity:1}}
+.team-progress-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:10px}
+.team-progress-box h5{font-size:13px;margin-bottom:8px;color:#0f172a}
+.prog-item{font-size:13px;color:#334155;margin:4px 0}
+.modal-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.modal.wide{max-width:720px}
+.modal h3{margin-bottom:14px;font-size:17px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:#64748b;margin-bottom:4px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px}
+.form-group textarea{min-height:72px;resize:vertical}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.dynamic-item,.qgen-section-box,.qgen-q-row{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
+.remove-btn{position:absolute;top:8px;right:8px}
+.qgen-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.status-published{color:#047857;font-size:12px;font-weight:600}
+.status-draft{color:#94a3b8;font-size:12px}
+.badge-ok{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
+.badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
+.badge-black{background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:999px;font-size:11px}
+.survey-wrap{}.survey-header{margin-bottom:16px}.survey-header h2{font-size:18px;margin-bottom:6px}
+.survey-section{margin-bottom:18px}.survey-section h4{font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.survey-section .num{width:24px;height:24px;border-radius:50%;background:#2563eb;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.survey-q{margin-bottom:12px}.q-label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
+.survey-options{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.msg-item{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px}
+.msg-type{font-size:11px;background:#e0e7ff;color:#3730a3;padding:2px 6px;border-radius:4px;margin-right:6px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{background:#f8fafc;font-weight:600}
+.fab-menu{display:none;position:fixed;bottom:20px;right:16px;z-index:50}
+.fab-menu button{width:48px;height:48px;border-radius:50%;border:none;background:#fbbf24;color:#0f172a;font-size:20px;box-shadow:0 4px 12px rgba(0,0,0,.2);cursor:pointer}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}
 @media (max-width:768px){
-  .container{flex-direction:column;height:auto;min-height:calc(100vh - 65px)}
-  .sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e7eb;padding:8px 6px;display:flex;overflow-x:auto;gap:4px}
-  .menu-item{padding:8px 12px;white-space:nowrap;flex-shrink:0;border-radius:8px;font-size:12px}
-  .menu-item.active{border-right:none;background:#eff6ff;color:#2563eb;font-weight:600}
-  .main{padding:12px}
-  .home-grid{flex-direction:column;height:auto;gap:12px}
-  .home-panel{min-height:280px}
-  .header{padding:10px 12px;flex-wrap:wrap;gap:8px}
-  .logo-text p{display:none}
-  .cloud-tip{font-size:11px;padding:6px 10px}
-  .g-search-wrap{max-width:100%;margin-top:6px}
-  .team-x{opacity:.55}
-  .avatar{display:none!important}
-  .card{gap:0}
-  .consult-meta{grid-template-columns:1fr 1fr}
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}.fab-menu{display:block}
+  .sidebar-overlay.open{display:block}
+  .quick-icons{display:none!important}
 }
+.quick-icons{display:flex;gap:6px;margin-right:8px}
+.quick-icons button{width:36px;height:36px;border-radius:50%;border:none;background:#fbbf24;color:#0f172a;font-size:11px;font-weight:700;cursor:pointer}
+#chatMessages{height:240px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
+.msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
+.msg.bot{text-align:left;margin:6px 0;color:#334155}
 </style>
 </head>
 <body>
-<div class="cloud-tip">☁️ 数据已接入云端（Supabase）· 所有用户共享同一份数据</div>
-<div class="header">
-  <div class="logo"><div class="logo-icon">梦</div><div class="logo-text"><h1>梦想显化器</h1><p>用宇宙法则，创造人类幸福。用超级智能工具，免费提升您的销售盈利。</p></div></div>
-  <div class="header-right" id="userArea"></div>
-</div>
-<div class="container">
-  <div class="sidebar">
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="logo"><span>显</span>梦想显化器</div>
     <div class="menu-item active" data-view="home">🏠 首页</div>
     <div class="menu-item" data-view="focus">🎯 当前显化中心</div>
     <div class="menu-item" data-view="team">👥 我的超级团队</div>
-    <div class="menu-item" data-view="jinzhu">📋 金主需求中心</div>
-    <div class="menu-item" data-view="dashi">🧰 超级智能中心</div>
-    <div class="menu-item" data-view="hero">🌟 超级精英中心</div>
-    <div class="menu-item" data-view="qgen">📝 问卷生成中心</div>
-    <div class="menu-item" data-view="diagnosis">📊 需求诊断中心</div>
-    <div class="menu-item" data-view="inbox">📩 收到的信息</div>
+    <div class="menu-item" data-view="jinzhu">💰 金主需求中心</div>
+    <div class="menu-item" data-view="dashi">🤖 超级智能中心</div>
+    <div class="menu-item" data-view="hero">⭐ 超级精英中心</div>
+    <div class="menu-item" data-view="qgen">📋 问卷生成中心</div>
+    <div class="menu-item" data-view="diagnosis">🔎 需求诊断中心</div>
+    <div class="menu-item" data-view="inbox">📬 站内信</div>
     <div class="menu-item" data-view="coop">🤝 商务合作</div>
-    <div class="menu-item" data-view="kefu">🎧 在线客服</div>
-    <div class="menu-item admin-only" data-view="users">👥 用户管理</div>
-    <div class="menu-item admin-only" data-view="coop-list">📊 商务合作汇总</div>
-    <div class="menu-item admin-only" data-view="chat-list">💬 在线客服汇总</div>
-    <div class="menu-item admin-only" data-view="setting">⚙️ 设置</div>
-  </div>
+    <div class="menu-item" data-view="chat">💬 在线客服</div>
+    <div class="menu-item admin-only" data-view="coop-list">📑 商务合作汇总</div>
+    <div class="menu-item admin-only" data-view="chat-list">🗂 在线客服汇总</div>
+    <div class="menu-item admin-only" data-view="users">👤 用户管理</div>
+    <div class="menu-item admin-only" data-view="settings">⚙️ 设置</div>
+  </aside>
   <div class="main">
-    <div class="view active" id="view-home">
-      <div class="home-grid">
-        <div class="home-panel">
-          <div class="panel-header"><h2>👥 用户需求列表</h2>
-            <div class="g-search-wrap"><div class="g-search"><span class="g-icon">🔍</span><input id="home-jz-q" placeholder="搜索名字、介绍、网址" oninput="homeJzPage=1;renderHome()"></div></div>
-          </div>
-          <div class="card-list" id="home-jinzhu-list"><div class="loading">加载中…</div></div>
-          <div class="g-pager" id="home-jz-pager"></div>
+    <div class="topbar">
+      <div class="brand">
+        <button class="btn btn-outline btn-sm" style="display:none" id="btnMenu" onclick="toggleSidebar(true)">☰</button>
+        <span id="topTitle">梦想显化器</span>
+      </div>
+      <div style="display:flex;align-items:center">
+        <div class="quick-icons">
+
+          <button title="金主" onclick="switchView('jinzhu')">金主</button>
+          <button title="SI" onclick="switchView('dashi')">SI</button>
+          <button title="精英" onclick="switchView('hero')">精英</button>
+          <button title="团队" onclick="switchView('team')">团队</button>
+          <button title="诊" onclick="switchView('diagnosis')">诊</button>
         </div>
-        <div class="home-panel">
-          <div class="panel-header"><h2>✨ 免费方案与工具</h2>
-            <div class="g-search-wrap"><div class="g-search"><span class="g-icon">🔍</span><input id="home-ds-q" placeholder="搜索名字、介绍、网址" oninput="homeDsPage=1;renderHome()"></div></div>
-          </div>
-          <div class="card-list" id="home-dashi-list"><div class="loading">加载中…</div></div>
-          <div class="g-pager" id="home-ds-pager"></div>
-        </div>
+        <div class="user-area" id="userArea"></div>
       </div>
     </div>
-    <div class="view" id="view-focus">
-      <div class="panel">
-        <div class="panel-header"><h2>🎯 当前显化中心</h2>
+    <div class="content">
+      <div class="view active" id="view-home">
+        <div class="view-header"><h2>🏠 首页</h2></div>
+        <h3 style="font-size:15px;margin:12px 0 8px">金主用户需求</h3>
+        <div class="search-bar"><input id="home-jz-q" placeholder="搜索金主名字、介绍、网址…" oninput="homeJzPage=1;renderHome()"></div>
+        <div id="home-jinzhu-list"></div>
+        <div class="pager" id="home-jz-pager"></div>
+        <h3 style="font-size:15px;margin:20px 0 8px">超级智能工具</h3>
+        <div class="search-bar"><input id="home-ds-q" placeholder="搜索工具名字、介绍、网址…" oninput="homeDsPage=1;renderHome()"></div>
+        <div id="home-dashi-list"></div>
+        <div class="pager" id="home-ds-pager"></div>
+      </div>
+      <div class="view" id="view-focus">
+        <div class="view-header">
+          <h2>🎯 当前显化中心</h2>
           <button class="btn btn-outline btn-sm" onclick="switchView('team')">查看全部团队</button>
         </div>
-        <div class="card-list" id="focus-list"><div class="empty-tip">加载中…</div></div>
+        <div id="focus-list"></div>
       </div>
-    </div>
-    <div class="view" id="view-team">
-      <div class="panel">
-        <div class="panel-header"><h2>我的超级团队</h2>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="team-q" placeholder="搜索团队名、需求" oninput="teamPage=1;renderTeam()"></div></div>
-            <button class="btn btn-primary" id="btn-add-team" onclick="openAddTeam()" style="display:none">+ 创建超级团队</button>
-          </div>
+      <div class="view" id="view-team">
+        <div class="view-header">
+          <h2>👥 我的超级团队</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-team" onclick="openAddTeam()">+ 创建团队</button>
         </div>
-        <div class="card-list" id="team-list"></div>
-        <div class="g-pager" id="team-pager"></div>
+        <div class="search-bar"><input id="team-q" placeholder="搜索团队…" oninput="teamPage=1;renderTeam()"></div>
+        <div id="team-list"></div>
+        <div class="pager" id="team-pager"></div>
       </div>
-    </div>
-    <div class="view" id="view-jinzhu">
-      <div class="panel">
-        <div class="panel-header"><h2>金主需求中心</h2>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="jz-q" placeholder="搜索名字、介绍、网址" oninput="jzPage=1;renderJinZhu()"></div></div>
-            <button class="btn btn-primary" id="btn-add-jinzhu" onclick="openAddJinZhu()" style="display:none">+ 发布需求</button>
-          </div>
+      <div class="view" id="view-jinzhu">
+        <div class="view-header">
+          <h2>💰 金主需求中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-jinzhu" onclick="openAddJinZhu()">+ 发布需求</button>
         </div>
         <div id="jinzhu-match-banner"></div>
-        <div class="card-list" id="jinzhu-list"></div>
-        <div class="g-pager" id="jz-pager"></div>
+        <div class="search-bar"><input id="jz-q" placeholder="搜索…" oninput="jzPage=1;renderJinZhu()"></div>
+        <div id="jinzhu-list"></div>
+        <div class="pager" id="jz-pager"></div>
       </div>
-    </div>
-    <div class="view" id="view-dashi">
-      <div class="panel">
-        <div class="panel-header"><h2>超级智能中心</h2>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="ds-q" placeholder="搜索名字、介绍、网址、分类" oninput="dsPage=1;renderDaShi()"></div></div>
-            <button class="btn btn-primary" id="btn-add-dashi" onclick="openAddDaShi()" style="display:none">+ 发布超级智能工具</button>
-          </div>
+      <div class="view" id="view-dashi">
+        <div class="view-header">
+          <h2>🤖 超级智能中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-dashi" onclick="openAddDaShi()">+ 发布工具</button>
         </div>
         <div id="dashi-match-banner"></div>
-        <div class="card-list" id="dashi-list"></div>
-        <div class="g-pager" id="ds-pager"></div>
+        <div class="search-bar"><input id="ds-q" placeholder="搜索…" oninput="dsPage=1;renderDaShi()"></div>
+        <div id="dashi-list"></div>
+        <div class="pager" id="ds-pager"></div>
       </div>
-    </div>
-    <div class="view" id="view-hero">
-      <div class="panel">
-        <div class="panel-header"><h2>超级精英中心</h2>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="hero-q" placeholder="搜索名字、技能、介绍" oninput="heroPage=1;renderHero()"></div></div>
-            <button class="btn btn-primary" id="btn-add-hero" onclick="openAddHero()" style="display:none">+ 发布超级精英</button>
-          </div>
+      <div class="view" id="view-hero">
+        <div class="view-header">
+          <h2>⭐ 超级精英中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-hero" onclick="openAddHero()">+ 发布精英</button>
         </div>
-        <div class="card-list" id="hero-list"></div>
-        <div class="g-pager" id="hero-pager"></div>
+        <div class="search-bar"><input id="hero-q" placeholder="搜索…" oninput="heroPage=1;renderHero()"></div>
+        <div id="hero-list"></div>
+        <div class="pager" id="hero-pager"></div>
       </div>
-    </div>
-    <div class="view" id="view-qgen">
-      <div class="panel">
-        <div class="panel-header"><h2>问卷生成中心</h2>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="qgen-q" placeholder="搜索问卷名、行业" oninput="qgenPage=1;renderQgen()"></div></div>
-            <button class="btn btn-primary" id="btn-add-qgen" onclick="openAddQgen()" style="display:none">+ 新建问卷</button>
-          </div>
+      <div class="view" id="view-qgen">
+        <div class="view-header">
+          <h2>📋 问卷生成中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-qgen" onclick="openAddQgen()">+ 新建问卷</button>
         </div>
-        <div id="qgen-team-tip" class="qgen-team-tip" style="display:none;margin:12px 12px 0"></div>
-        <div class="card-list" id="qgen-list"><div class="empty-tip">加载中…</div></div>
-        <div class="g-pager" id="qgen-pager"></div>
+        <div id="qgen-team-tip" class="match-banner" style="display:none"></div>
+        <div class="search-bar"><input id="qgen-q" placeholder="搜索问卷…" oninput="qgenPage=1;renderQgen()"></div>
+        <div id="qgen-list"></div>
+        <div class="pager" id="qgen-pager"></div>
+      </div>
+      <div class="view" id="view-diagnosis">
+        <div class="view-header"><h2>🔎 需求诊断中心</h2></div>
+        <div class="search-bar"><input id="diag-q" placeholder="搜索…" oninput="diagPage=1;renderDiagnosis()"></div>
+        <div id="diagnosis-list"></div>
+        <div class="pager" id="diag-pager"></div>
+      </div>
+      <div class="view" id="view-inbox">
+        <div class="view-header"><h2>📬 站内信</h2></div>
+        <div id="inbox-list"></div>
+      </div>
+      <div class="view" id="view-coop">
+        <div class="view-header"><h2>🤝 商务合作</h2></div>
+        <div class="card"><div class="card-content">
+          <div class="form-group"><label>名称 *</label><input id="coop-name"></div>
+          <div class="form-group"><label>联系方式 *</label><input id="coop-contact"></div>
+          <div class="form-group"><label>类型</label><select id="coop-type"><option>商务合作</option><option>资源互换</option><option>其他</option></select></div>
+          <div class="form-group"><label>说明</label><textarea id="coop-desc"></textarea></div>
+          <button class="btn btn-primary" onclick="submitCoop()">提交</button>
+        </div></div>
+      </div>
+      <div class="view" id="view-chat">
+        <div class="view-header"><h2>💬 在线客服</h2></div>
+        <div id="chatMessages"></div>
+        <div style="display:flex;gap:8px"><input id="chatInput" style="flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px" placeholder="输入消息…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-primary" onclick="sendChat()">发送</button></div>
+      </div>
+      <div class="view" id="view-coop-list">
+        <div class="view-header"><h2>📑 商务合作汇总</h2></div>
+        <div id="coop-list"></div>
+      </div>
+      <div class="view" id="view-chat-list">
+        <div class="view-header"><h2>🗂 在线客服汇总</h2></div>
+        <div id="chat-list"></div>
+      </div>
+      <div class="view" id="view-users">
+        <div class="view-header"><h2>👤 用户管理</h2></div>
+        <table><thead><tr><th>手机号</th><th>角色</th><th>注册日期</th><th>状态</th><th>操作</th></tr></thead><tbody id="users-tbody"></tbody></table>
+      </div>
+      <div class="view" id="view-settings">
+        <div class="view-header"><h2>⚙️ 设置</h2></div>
+        <div class="empty-tip">管理员设置（预留）</div>
       </div>
     </div>
-    <div class="view" id="view-diagnosis">
-      <div class="panel">
-        <div class="panel-header"><h2>需求诊断中心</h2>
-          <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="diag-q" placeholder="搜索行业、状态" oninput="diagPage=1;renderDiagnosis()"></div></div>
-        </div>
-        <div class="card-list" id="diagnosis-list"><div class="empty-tip">请先登录后查看诊断记录</div></div>
-        <div class="g-pager" id="diag-pager"></div>
-      </div>
-    </div>
-    <div class="view" id="view-inbox"><div class="panel"><div class="panel-header"><h2>收到的信息</h2></div><div class="card-list" id="inbox-list"><div class="empty-tip">请先登录后查看</div></div></div></div>
-    <div class="view" id="view-coop">
-      <div class="section-title">商务合作</div><div class="section-desc">与梦想显化器共建销售AI生态。</div>
-      <div class="coop-grid">
-        <div class="coop-card"><h4>战略合作</h4><p style="font-size:13px;color:#6b7280">共同打造行业解决方案</p></div>
-        <div class="coop-card"><h4>渠道合作</h4><p style="font-size:13px;color:#6b7280">推荐伙伴，持续导流分成</p></div>
-        <div class="coop-card"><h4>技术合作</h4><p style="font-size:13px;color:#6b7280">API对接、私有化部署</p></div>
-        <div class="coop-card"><h4>内容培训</h4><p style="font-size:13px;color:#6b7280">联合课程与案例输出</p></div>
-      </div>
-      <div class="panel" style="padding:20px">
-        <h3 style="margin-bottom:12px">提交合作意向</h3>
-        <div class="form-group"><label>公司 / 个人名称 *</label><input id="coop-name"></div>
-        <div class="form-group"><label>联系人 + 微信/电话 *</label><input id="coop-contact"></div>
-        <div class="form-group"><label>合作类型</label><select id="coop-type"><option>战略合作</option><option>渠道合作</option><option>技术合作</option><option>内容培训合作</option></select></div>
-        <div class="form-group"><label>合作说明</label><textarea id="coop-desc"></textarea></div>
-        <button class="btn btn-primary" onclick="submitCoop()">提交意向</button>
-      </div>
-    </div>
-    <div class="view" id="view-kefu">
-      <div class="section-title">在线客服</div><div class="section-desc">演示版（消息写入云端）</div>
-      <div class="chat-box">
-        <div class="chat-messages" id="chatMessages"><div class="msg bot">您好！我是梦想显化器智能客服，有什么可以帮您？</div></div>
-        <div class="chat-input"><input id="chatInput" placeholder="输入消息..." onkeypress="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">发送</button></div>
-      </div>
-    </div>
-    <div class="view" id="view-users"><div class="panel"><div class="panel-header"><h2>用户管理</h2></div><div style="padding:12px;overflow-x:auto"><table class="table"><thead><tr><th>手机号</th><th>角色</th><th>注册日期</th><th>状态</th><th>操作</th></tr></thead><tbody id="users-tbody"></tbody></table></div></div></div>
-    <div class="view" id="view-coop-list"><div class="panel"><div class="panel-header"><h2>商务合作汇总</h2></div><div class="card-list" id="coop-list"></div></div></div>
-    <div class="view" id="view-chat-list"><div class="panel"><div class="panel-header"><h2>在线客服汇总</h2></div><div class="card-list" id="chat-list"></div></div></div>
-    <div class="view" id="view-setting"><div class="panel" style="padding:24px"><h2 style="margin-bottom:12px">设置</h2><p style="color:#6b7280;font-size:14px;line-height:1.6">数据存储在 <b>Supabase</b> 云端。<br>注册角色：金主、AI公司、<b>行业精英</b>。<br><br>演示账号（密码均为 <b>123456</b>）：<br>金主：13800001111 / 13900002222<br>AI公司：13700003333 / 13600004444<br>管理员：10000000000</p></div></div>
   </div>
 </div>
+<div class="fab-menu"><button onclick="toggleSidebar(true)">☰</button></div>
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
@@ -342,7 +292,7 @@ const DEFAULT_AVATAR='https://api.dicebear.com/7.x/avataaars/svg?seed=dreamsi-de
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null;
 let focusDashiId=null,focusHeroId=null,qgenTeamContext=null;
 const teamKickVisible={};
-const teamCardVisible={}; // 126：金主名片显隐
+const teamCardVisible={};
 const PAGE_SIZE=8; let homeJzPage=1,homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1;
 const MSG_TYPE_LABEL={greeting:'美好的问候',progress:'成功进展报告',event:'活动邀请',case_request:'索取成功案例',trial_request:'请求试用'};
 const ROLE_MAP={jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'};
@@ -389,27 +339,40 @@ function memberAvatarUrl(m){
   if(m&&m.type==='hero')return `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=fce7f3`;
   return DEFAULT_AVATAR;
 }
-function memberChipHtml(m,isOwner,teamId){
-  const type=m.type||'member';
-  const clickable=type==='dashi'||type==='hero';
-  const onClick=type==='dashi'?`goMemberProfile('dashi',${JSON.stringify(String(m.id))})`:(type==='hero'?`goMemberProfile('hero',${JSON.stringify(String(m.id))})`:'');
-  const typeTag=type==='dashi'?'SI':(type==='hero'?'精英':'成员');
-  const label=(m.name||m.id||'').toString().replace(/</g,'&lt;');
-  const av=memberAvatarUrl(m);
-  return `<span class="member-chip">
-    <img class="${clickable?'clickable':''}" src="${av}" alt="" title="${clickable?'点击查看详情':''}" ${clickable?`onclick="${onClick}"`:''} onerror="this.src='${DEFAULT_AVATAR}'">
-    <span>${label}<small style="opacity:.75">(${typeTag})</small></span>
-    <span class="power-icon">⚡${Number(m.power)||0}</span>
-    ${isOwner?`<button class="member-x" title="移除成员" onclick="kickMember(${teamId},'${escapeAttr(m.id)}','${type}')">×</button>`:''}
-  </span>`;
-}
+/* 131 头像点击 */
 function goMemberProfile(type,id){
+  id=String(id);
   if(type==='dashi'){focusDashiId=id;focusHeroId=null;switchView('dashi');}
   else if(type==='hero'){focusHeroId=id;focusDashiId=null;switchView('hero');}
+}
+function memberChipHtml(m,isOwner,teamId){
+  if(!m)return '';
+  let type=(m.type||'member')+'';
+  if(type==='si'||type==='SI'||type==='tool')type='dashi';
+  if(type==='yingxiao'||type==='elite'||type==='精英')type='hero';
+  const isDashi=type==='dashi',isHero=type==='hero',clickable=isDashi||isHero;
+  const safeId=escapeAttr(String(m.id));
+  const onClick=isDashi?`goMemberProfile('dashi','${safeId}')`:(isHero?`goMemberProfile('hero','${safeId}')`:'');
+  const typeTag=isDashi?'SI':(isHero?'精英':'成员');
+  const label=String(m.name||m.id||'').replace(/</g,'&lt;');
+  const av=memberAvatarUrl(Object.assign({},m,{type:type}));
+  return `<span class="member-chip">
+    <img class="${clickable?'clickable':''}" src="${av}" alt="" title="${clickable?'点击查看详情':''}"
+      ${clickable?`onclick="${onClick}" style="cursor:pointer"`:''}
+      onerror="this.src='${DEFAULT_AVATAR}'">
+    <span>${label}<small style="opacity:.75">(${typeTag})</small></span>
+    <span class="power-icon">⚡${Number(m.power)||0}</span>
+    ${isOwner?`<button class="member-x" title="移除成员" onclick="kickMember(${teamId},'${safeId}','${type}')">×</button>`:''}
+  </span>`;
 }
 function toggleTeamKick(teamId){teamKickVisible[teamId]=!teamKickVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
 function toggleTeamCard(teamId){teamCardVisible[teamId]=!teamCardVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
 function goQgenFromTeam(teamId,teamName){qgenTeamContext={teamId,teamName:teamName||''};switchView('qgen');}
+function toggleSidebar(open){
+  const sbEl=document.getElementById('sidebar'),ov=document.getElementById('sidebarOverlay');
+  if(open){sbEl.classList.add('open');ov.classList.add('open');}
+  else{sbEl.classList.remove('open');ov.classList.remove('open');}
+}
 async function fetchJinZhu(){const {data,error}=await sb.from('jinzhu').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
 async function fetchDaShi(){const {data,error}=await sb.from('dashi').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
 async function fetchUsers(){const {data,error}=await sb.from('app_users').select('*').order('phone');if(error){console.error(error);return[];}return data||[];}
@@ -427,6 +390,7 @@ function switchView(view){
   document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const el=document.getElementById('view-'+view);if(el)el.classList.add('active');
+  toggleSidebar(false);
   if(view!=='dashi')focusDashiId=null;
   if(view!=='hero')focusHeroId=null;
   if(view==='home')renderHome();if(view==='focus')renderFocus();if(view==='jinzhu')renderJinZhu();if(view==='dashi')renderDaShi();
@@ -437,11 +401,11 @@ function switchView(view){
 function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">登录</button><button class="btn btn-primary" onclick="openModal('register')">注册</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||'role-jinzhu'}">${ROLE_MAP[user.role]||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">退出</button></div>`;}
 function updateButtons(){
   const user=getUser();
-  document.getElementById('btn-add-jinzhu').style.display=(user&&(user.role==='jinzhu'||user.role==='admin'))?'inline-block':'none';
-  document.getElementById('btn-add-dashi').style.display=(user&&(user.role==='ai'||user.role==='admin'))?'inline-block':'none';
-  const btnH=document.getElementById('btn-add-hero');if(btnH)btnH.style.display=(user&&(user.role==='yingxiao'||user.role==='admin'))?'inline-block':'none';
-  const btnT=document.getElementById('btn-add-team');if(btnT)btnT.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'))?'inline-block':'none';
-  const btnQ=document.getElementById('btn-add-qgen');if(btnQ)btnQ.style.display=user?'inline-block':'none';
+  const bj=document.getElementById('btn-add-jinzhu');if(bj)bj.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'))?'inline-block':'none';
+  const bd=document.getElementById('btn-add-dashi');if(bd)bd.style.display=(user&&(user.role==='ai'||user.role==='admin'))?'inline-block':'none';
+  const bh=document.getElementById('btn-add-hero');if(bh)bh.style.display=(user&&(user.role==='yingxiao'||user.role==='admin'))?'inline-block':'none';
+  const bt=document.getElementById('btn-add-team');if(bt)bt.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'))?'inline-block':'none';
+  const bq=document.getElementById('btn-add-qgen');if(bq)bq.style.display=user?'inline-block':'none';
 }
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
 function openModal(type){const box=document.getElementById('modalBox');box.className='modal';if(type==='login')box.innerHTML=`<h3>手机号登录</h3><div class="form-group"><label>手机号 *</label><input id="login-phone"></div><div class="form-group"><label>密码 *</label><input type="password" id="login-pwd"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="doLogin()">登录</button></div>`;else box.innerHTML=`<h3>手机号注册</h3><div class="form-group"><label>手机号 *</label><input id="reg-phone"></div><div class="form-group"><label>密码 *</label><input type="password" id="reg-pwd"></div><div class="form-group"><label>确认密码 *</label><input type="password" id="reg-pwd2"></div><div class="form-group"><label>角色</label><select id="reg-role"><option value="jinzhu">金主</option><option value="ai">AI公司</option><option value="yingxiao">行业精英</option></select></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="doRegister()">注册并登录</button></div>`;document.getElementById('modalMask').style.display='flex';}
@@ -475,12 +439,11 @@ async function renderInbox(){const user=getUser(),box=document.getElementById('i
 async function deleteMsg(id){if(!confirm('确定删除？'))return;await sb.from('messages').delete().eq('id',id);renderInbox();}
 async function renderAll(){await renderHome();await renderJinZhu();await renderDaShi();}
 
-/* ========== 126 团队卡片：战力/业绩聚焦 ========== */
 function renderOneTeamCard(t,linkedJin,user,opts){
   opts=opts||{};
   const members=t.members||[];
   const isOwner=user&&(String(t.phone)===String(user.phone)||isAdmin());
-  const isMember=user&&members.some(m=>String(m.id)===String(user.phone));
+  const isMember=user&&members.some(m=>String(m.id)===String(user.phone)||String(m.id)===String(user.phone));
   const industry=linkedJin?(linkedJin.type||'待填'):'待填';
   const difficulty=linkedJin?(Number(linkedJin.difficulty)||0):0;
   const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
@@ -521,6 +484,7 @@ function renderOneTeamCard(t,linkedJin,user,opts){
     </div>
   </div>`;
 }
+
 async function renderFocus(){
   const box=document.getElementById('focus-list');
   const user=getUser();
@@ -539,20 +503,21 @@ async function renderFocus(){
   }
   const allJinZhu=await fetchJinZhu();
   const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
-  // 128B：不再渲染 focus-banner
   box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true});
 }
+
 async function renderHome(){
   const jinzhu=await fetchJinZhu(),dashi=await fetchDaShi(),admin=isAdmin();
   const pj=paginate(filterByQ(jinzhu,(document.getElementById('home-jz-q')||{}).value||''),homeJzPage,PAGE_SIZE);
   const pd=paginate(filterByQ(dashi,(document.getElementById('home-ds-q')||{}).value||''),homeDsPage,PAGE_SIZE);
   homeJzPage=pj.page;homeDsPage=pd.page;
-  document.getElementById('home-jinzhu-list').innerHTML=pj.slice.length?pj.slice.map(j=>`<div class="card"><div class="avatar avatar-jinzhu">金主</div><div class="card-content"><div class="card-title">${j.name}${admin?` <button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">删除</button>`:''}</div><div class="card-desc">${j.intro||''}</div><div class="tags"><span class="tag tag-industry">${j.type||'待填'}</span><span class="tag tag-diff">难度:${Number(j.difficulty)||0}</span>${j.reward?`<span class="tag tag-reward">重奖:${j.reward}</span>`:''}</div>${admin?renderBizCard(j.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
+  document.getElementById('home-jinzhu-list').innerHTML=pj.slice.length?pj.slice.map(j=>`<div class="card"><div class="avatar avatar-jinzhu">金主</div><div class="card-content"><div class="card-title">${j.name}${admin?` <button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">删除</button>`:''}</div><div class="card-desc">${j.intro||''}</div><div class="tags"><span class="tag tag-industry">${j.type||'待填'}</span><span class="tag tag-diff">◆难度:${Number(j.difficulty)||0}</span>${j.reward?`<span class="tag tag-reward">重奖:${j.reward}</span>`:''}</div>${admin?renderBizCard(j.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
   renderPager('home-jz-pager',pj.page,pj.pages,'goHomeJzPage');
-  document.getElementById('home-dashi-list').innerHTML=pd.slice.length?pd.slice.map(d=>`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.category?` <span class="tag">${d.category}</span>`:''}<span class="tag tag-power">战力:${Number(d.power)||0}</span>${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div><div class="card-desc">${d.intro||''}</div>${admin?renderBizCard(d.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
+  document.getElementById('home-dashi-list').innerHTML=pd.slice.length?pd.slice.map(d=>`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.category?` <span class="tag">${d.category}</span>`:''}<span class="tag tag-power">⚡${Number(d.power)||0}</span>${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div><div class="card-desc">${d.intro||''}</div>${admin?renderBizCard(d.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
 }
 function goHomeJzPage(p){homeJzPage=p;renderHome();}function goHomeDsPage(p){homeDsPage=p;renderHome();}
+
 function teamBlockHtml(team,j,user){
   if(!team)return '';
   const members=team.members||[];
@@ -587,6 +552,7 @@ function teamBlockHtml(team,j,user){
     ${showCard&&j&&j.card?`<div style="margin-top:8px;font-size:12px;color:#64748b">金主名片</div>${renderBizCard(j.card)}`:''}
   </div>`;
 }
+
 async function renderJinZhu(){
   const user=getUser();let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
   const banner=document.getElementById('jinzhu-match-banner');
@@ -605,7 +571,7 @@ async function renderJinZhu(){
       <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${j.type||'待填'}</span></div>
       <div class="card-desc"><b>详情：</b>${j.detail||'-'}</div>
       <div class="card-desc"><b>梦想：</b>${j.dream||'-'}</div>
-      <div class="card-desc"><span class="tag tag-diff">难度：${Number(j.difficulty)||0}</span> <span class="tag tag-reward">重奖：${j.reward||'待填'}</span></div>
+      <div class="card-desc"><span class="tag tag-diff">◆难度：${Number(j.difficulty)||0}</span> <span class="tag tag-reward">重奖：${j.reward||'待填'}</span></div>
       <div class="card-desc"><b>痛点：</b></div>${(j.pains||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}
       ${(isAdmin()||canEdit(j))?renderBizCard(j.card):''}
       ${teamBlockHtml(team,j,user)}
@@ -621,7 +587,7 @@ async function renderDaShi(){
   const banner=document.getElementById('dashi-match-banner');
   if(matchContext&&matchContext.type==='jinzhu'){banner.innerHTML=`<div class="match-banner">匹配来源：金主「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">清除匹配</a></div>`;list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);}
   else{banner.innerHTML='';if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}else if(user.role==='ai'){list=list.filter(d=>String(d.phone)===String(user.phone));if(!list.length)emptyMsg='<div class="empty-tip">您还没有发布工具</div>';}}
-  if(focusDashiId){const idx=list.findIndex(d=>String(d.id)===String(focusDashiId));if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
+  if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('ds-q')||{}).value||''),dsPage,PAGE_SIZE);dsPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
   document.getElementById('dashi-list').innerHTML=pg.slice.length?pg.slice.map(d=>{
@@ -633,7 +599,7 @@ async function renderDaShi(){
         ${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">编辑</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button><button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">我的财神</button>`:''}
       </div>
       <div class="card-desc"><b>简介：</b>${d.intro||''}</div>
-      <div class="card-desc"><b>分类：</b>${d.category||'-'}　<b>战力：</b>${power}</div>
+      <div class="card-desc"><b>分类：</b>${d.category||'-'}　<b>战力：</b>⚡${power}</div>
       <div class="card-desc"><b>座右铭：</b>${d.motto||'-'}</div>
       <div class="card-desc"><b>工具：</b></div>${(d.tools||[]).map(t=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${t.title}</b>：${t.desc}</div>`).join('')}
       ${renderBizCard(d.card)}
@@ -641,7 +607,7 @@ async function renderDaShi(){
     </div></div>`;
   }).join(''):emptyMsg;
   renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
-  if(focusDashiId){const el=document.getElementById('dashi-card-'+focusDashiId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  if(focusDashiId){const el=document.getElementById('dashi-card-'+focusDashiId)||document.getElementById('dashi-card-'+String(focusDashiId));if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),80);}
 }
 function goDsPage(p){dsPage=p;renderDaShi();}
 
@@ -649,7 +615,7 @@ async function renderHero(){
   const user=getUser();let list=await fetchHero();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
   else if(user.role==='yingxiao'){list=list.filter(t=>String(t.phone)===String(user.phone));if(!list.length)emptyMsg='<div class="empty-tip">您还没有发布超级精英</div>';}
-  if(focusHeroId){const idx=list.findIndex(t=>String(t.id)===String(focusHeroId));if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
+  if(focusHeroId){const fid=String(focusHeroId);const idx=list.findIndex(t=>String(t.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('hero-q')||{}).value||''),heroPage,PAGE_SIZE);heroPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
   document.getElementById('hero-list').innerHTML=pg.slice.length?pg.slice.map(t=>{
@@ -659,7 +625,7 @@ async function renderHero(){
     return `<div class="card ${focused?'focus-card':''}" id="hero-card-${t.id}"><div class="avatar avatar-hero">精英</div><div class="card-content">
       <div class="card-title">${t.name}${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editHero(${t.id})">编辑</button><button class="btn btn-del btn-sm" onclick="deleteHero(${t.id})">删除</button>`:''}</div>
       <div class="card-desc"><b>简介：</b>${t.intro||''}</div>
-      <div class="card-desc"><b>技能：</b>${t.skill_title||'-'}　<b>战力：</b>${power}</div>
+      <div class="card-desc"><b>技能：</b>${t.skill_title||'-'}　<b>战力：</b>⚡${power}</div>
       <div class="card-desc"><b>技能详情：</b>${t.skill_desc||'-'}</div>
       <div class="card-desc"><b>梦想：</b>${t.dream||'-'}</div>
       ${(t.performances||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}
@@ -668,7 +634,7 @@ async function renderHero(){
     </div></div>`;
   }).join(''):emptyMsg;
   renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');
-  if(focusHeroId){const el=document.getElementById('hero-card-'+focusHeroId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  if(focusHeroId){const el=document.getElementById('hero-card-'+focusHeroId)||document.getElementById('hero-card-'+String(focusHeroId));if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),80);}
 }
 function goHeroPage(p){heroPage=p;renderHero();}
 
@@ -849,12 +815,83 @@ async function renderDiagnosis(){
   box.innerHTML=pg.slice.length?pg.slice.map(d=>{
     const statusMap={pending:'待生成报告',generating:'生成中',completed:'已完成'};
     const statusCls={pending:'badge-pending',generating:'badge-pending',completed:'badge-ok'};
-    return `<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">行业：${d.industry||'-'} <span class="${statusCls[d.status]||'badge-pending'}">${statusMap[d.status]||d.status}</span>${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}</div><div class="card-desc">提交人：${d.phone||'-'} · 团队：${d.team_id||'-'}</div><div class="card-desc"><b>摘要：</b>${summarizeAnswers(d.answers)}</div>${d.report_link?`<div class="card-desc"><a href="${String(d.report_link).replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#0f766e">打开报告</a></div>`:''}${d.report?`<div class="card-desc" style="background:#f0fdf4;padding:10px;border-radius:8px"><b>方案：</b><br>${linkify(d.report)}</div>`:`<div class="card-desc" style="color:#9ca3af">等待结论与方案…</div>`}</div></div>`;
+    return `<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">行业：${d.industry||'-'} <span class="${statusCls[d.status]||'badge-pending'}">${statusMap[d.status]||d.status}</span>
+      <button class="btn btn-primary btn-sm" onclick="viewDiagnosis(${d.id})">查看</button>
+      ${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}</div>
+      <div class="card-desc">提交人：${d.phone||'-'} · 团队：${d.team_id||'-'}</div>
+      <div class="card-desc"><b>摘要：</b>${summarizeAnswers(d.answers)}</div>
+      ${d.report_link?`<div class="card-desc"><a href="${String(d.report_link).replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#0f766e">打开报告</a></div>`:''}
+      ${d.report?`<div class="card-desc" style="background:#f0fdf4;padding:10px;border-radius:8px"><b>方案：</b><br>${linkify(d.report)}</div>`:`<div class="card-desc" style="color:#9ca3af">等待结论与方案…</div>`}
+    </div></div>`;
   }).join(''):'<div class="empty-tip">暂无记录</div>';
   renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');
 }
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
 function summarizeAnswers(ans){if(!ans||typeof ans!=='object')return '-';const keys=Object.keys(ans);if(!keys.length)return '-';return keys.slice(0,4).map(k=>`${k}: ${Array.isArray(ans[k])?ans[k].join(','):ans[k]}`).join('；')+(keys.length>4?'…':'');}
+function formatAnswerVal(v){
+  if(v==null||v==='')return '—';
+  if(typeof v==='string'){const t=v.trim();if((t.startsWith('[')&&t.endsWith(']'))||(t.startsWith('{')&&t.endsWith('}'))){try{v=JSON.parse(t);}catch(e){}}}
+  if(Array.isArray(v)){const items=v.map(x=>String(x==null?'':x).trim()).filter(Boolean);if(!items.length)return '—';return items.map(x=>'【'+x+'】').join('、');}
+  let s=String(v).trim();s=s.replace(/\r\n|\r|\n/g,' - ');return '【'+s+'】';
+}
+function getAnswerForQuestion(answers,si,qi){
+  if(!answers)return '—';
+  const k1=si+'_'+qi,k2='pq'+si+'_'+qi;
+  if(answers[k1]!=null&&answers[k1]!=='')return formatAnswerVal(answers[k1]);
+  if(answers[k2]!=null&&answers[k2]!=='')return formatAnswerVal(answers[k2]);
+  return '—';
+}
+function normalizeSections(sections){
+  if(!sections)return [];
+  if(typeof sections==='string'){try{sections=JSON.parse(sections);}catch(e){return [];}}
+  if(!Array.isArray(sections))return [];
+  return sections.map(sec=>({title:(sec&&sec.title)||'',questions:Array.isArray(sec&&sec.questions)?sec.questions:[]}));
+}
+function buildStructuredQaHtml(tpl,answers){
+  const sections=tpl?normalizeSections(tpl.sections):[];
+  if(!sections.length){
+    if(!answers||typeof answers!=='object')return '<p>—</p>';
+    return Object.keys(answers).map(k=>`<div class="card-desc"><b>${k}</b>：${formatAnswerVal(answers[k])}</div>`).join('');
+  }
+  let html='';
+  sections.forEach((sec,si)=>{
+    html+=`<div style="margin:14px 0 8px;font-weight:600;font-size:15px">${si+1}. ${sec.title||'章节'}</div>`;
+    (sec.questions||[]).forEach((q,qi)=>{
+      const ans=getAnswerForQuestion(answers,si,qi);
+      html+=`<div style="margin:8px 0 8px 8px;font-size:14px;line-height:1.6"><b>题干：</b>${(q.label||'').replace(/</g,'&lt;')}<br><b>答案：</b>${ans}</div>`;
+    });
+  });
+  return html||'<p>—</p>';
+}
+async function viewDiagnosis(id){
+  const list=await fetchDiagnosis();
+  const d=list.find(x=>x.id===id);if(!d)return alert('未找到');
+  let tpl=null;
+  if(d.template_id){const tpls=await fetchQgen();tpl=tpls.find(t=>String(t.id)===String(d.template_id));}
+  const box=document.getElementById('modalBox');box.className='modal wide';
+  box.innerHTML=`<h3>一、问卷回答摘要</h3>
+    <div style="font-size:13px;color:#64748b;margin-bottom:12px">
+      <div><b>问卷名称：</b>${tpl?(tpl.name||'-'):'-'}</div>
+      <div><b>行业：</b>${(tpl&&tpl.industry)||d.industry||'-'}</div>
+      <div><b>说明：</b>${tpl?(tpl.description||'-'):'-'}</div>
+      <div><b>提交人：</b>${d.phone||'-'} · 状态：${d.status||'-'}</div>
+    </div>
+    <div style="border-top:1px solid #e2e8f0;padding-top:12px">${buildStructuredQaHtml(tpl,d.answers)}</div>
+    ${d.report_link?`<div style="margin-top:16px"><b>诊断报告：</b><a href="${String(d.report_link).replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#0f766e">打开链接</a></div>`:''}
+    ${d.report?`<div style="margin-top:12px;background:#f0fdf4;padding:12px;border-radius:8px"><b>方案：</b><br>${linkify(d.report)}</div>`:''}
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">关闭</button>
+      ${isAdmin()?`<button class="btn btn-primary" onclick="editDiagnosisReport(${d.id})">填写/更新报告链接</button>`:''}
+    </div>`;
+  document.getElementById('modalMask').style.display='flex';
+}
+async function editDiagnosisReport(id){
+  const link=prompt('粘贴诊断报告链接（可空）');
+  if(link===null)return;
+  const report=prompt('或直接粘贴报告正文（可空）')||'';
+  const {error}=await sb.from('diagnosis_surveys').update({report_link:link||'',report:report,status:link||report?'completed':'pending'}).eq('id',id);
+  if(error)return alert(error.message);
+  closeModal();renderDiagnosis();alert('已更新');
+}
 async function deleteDiagnosis(id){if(!confirm('确定删除？'))return;await sb.from('diagnosis_surveys').delete().eq('id',id);renderDiagnosis();}
 function addPainItem(t='',d=''){const box=document.getElementById('pain-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button><div class="form-group"><label>痛点标题</label><input class="pain-title" value="${(t||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>详细描述</label><textarea class="pain-desc">${d||''}</textarea></div>`;box.appendChild(div);}
 function addToolItem(t='',d=''){const box=document.getElementById('tool-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">删除</button><div class="form-group"><label>工具标题</label><input class="tool-title" value="${(t||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>详细描述</label><textarea class="tool-desc">${d||''}</textarea></div>`;box.appendChild(div);}
@@ -865,6 +902,7 @@ function showJinZhuForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:''),isNew=!item;
   document.getElementById('modalBox').className='modal';
   if(isNew){
+    /* 127 去掉召集超级团队按钮 */
     document.getElementById('modalBox').innerHTML=`<h3>发布需求</h3><div class="form-group"><label>行业 *</label><input id="jz-type"></div><div class="form-group"><label>详情</label><textarea id="jz-detail" style="min-height:80px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button></div>`;
     document.getElementById('modalMask').style.display='flex';return;
   }
@@ -1051,6 +1089,7 @@ async function renderCoopList(){if(!isAdmin())return;const list=await fetchCoop(
 async function renderChatList(){if(!isAdmin())return;const list=await fetchChat();document.getElementById('chat-list').innerHTML=list.length?list.map(c=>`<div class="card"><div class="card-content"><div class="card-title">${c.phone||'guest'}</div><div class="card-desc">${c.content||''}</div></div></div>`).join(''):'<div class="empty-tip">暂无</div>';}
 
 document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click',()=>{const v=el.dataset.view;if(v)switchView(v);});});
+if(window.innerWidth<=768){const bm=document.getElementById('btnMenu');if(bm)bm.style.display='inline-block';}
 renderUserArea();updateButtons();updateAdminMenus();renderAll();
 </script>
 </body>
