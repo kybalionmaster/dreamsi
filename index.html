@@ -798,22 +798,64 @@ function appendQgenQuestion(qsBox,q){
   qsBox.appendChild(row);
 }
 function collectQgenSections(){
+  const root=document.getElementById('modalBox')||document;
   const sections=[];
-  document.querySelectorAll('#qg-sections .qgen-section-box').forEach(box=>{
-    const title=(box.querySelector('.qg-sec-title')?.value||'').trim()||'未命名章节';
+  const boxes=root.querySelectorAll('.qgen-section-box');
+
+  boxes.forEach(box=>{
+    const titleEl=box.querySelector('input.qg-sec-title')||box.querySelector('.qg-sec-title');
+    const title=((titleEl&&titleEl.value)||'').trim()||'未命名章节';
     const questions=[];
-    box.querySelectorAll('.qg-q-row').forEach(row=>{
-      const type=row.dataset.type||'text';
-      const labelEl=row.querySelector('.qg-q-label');
-      const label=(labelEl&&labelEl.value||'').trim();
+
+    // 优先按题目行采集
+    box.querySelectorAll('.qgen-q-row').forEach(row=>{
+      const type=row.dataset.type||row.getAttribute('data-type')||'text';
+      const labelEl=row.querySelector('input.qg-q-label')||row.querySelector('.qg-q-label');
+      const label=((labelEl&&labelEl.value)||'').trim();
       if(!label)return;
-      const optsEl=row.querySelector('.qg-q-opts');
-      const options=(optsEl&&optsEl.value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-      const reqEl=row.querySelector('.qg-q-req');
-      questions.push({type,label,options,required:!!(reqEl&&reqEl.checked)});
+      const optsEl=row.querySelector('textarea.qg-q-opts')||row.querySelector('.qg-q-opts');
+      const options=((optsEl&&optsEl.value)||'').split('\n').map(s=>s.trim()).filter(Boolean);
+      const reqEl=row.querySelector('input.qg-q-req')||row.querySelector('.qg-q-req');
+      questions.push({type:type,label:label,options:options,required:!!(reqEl&&reqEl.checked)});
     });
-    sections.push({title,questions});
+
+    // 行结构异常时的兜底：章节内所有题干输入框
+    if(!questions.length){
+      box.querySelectorAll('input.qg-q-label').forEach(function(labelEl){
+        const label=(labelEl.value||'').trim();
+        if(!label)return;
+        const row=labelEl.closest('.qgen-q-row');
+        const type=(row&&(row.dataset.type||row.getAttribute('data-type')))||'textarea';
+        const optsEl=row&&(row.querySelector('textarea.qg-q-opts')||row.querySelector('.qg-q-opts'));
+        const options=((optsEl&&optsEl.value)||'').split('\n').map(s=>s.trim()).filter(Boolean);
+        const reqEl=row&&(row.querySelector('input.qg-q-req')||row.querySelector('.qg-q-req'));
+        questions.push({type:type,label:label,options:options,required:!!(reqEl&&reqEl.checked)});
+      });
+    }
+
+    sections.push({title:title,questions:questions});
   });
+
+  // 终极兜底：弹窗内任意题干
+  const total=sections.reduce(function(s,sec){return s+(sec.questions||[]).length;},0);
+  if(!total){
+    const questions=[];
+    root.querySelectorAll('input.qg-q-label').forEach(function(labelEl){
+      const label=(labelEl.value||'').trim();
+      if(!label)return;
+      const row=labelEl.closest('.qgen-q-row');
+      const type=(row&&(row.dataset.type||row.getAttribute('data-type')))||'textarea';
+      const optsEl=row&&(row.querySelector('textarea.qg-q-opts')||row.querySelector('.qg-q-opts'));
+      const options=((optsEl&&optsEl.value)||'').split('\n').map(s=>s.trim()).filter(Boolean);
+      const reqEl=row&&(row.querySelector('input.qg-q-req')||row.querySelector('.qg-q-req'));
+      questions.push({type:type,label:label,options:options,required:!!(reqEl&&reqEl.checked)});
+    });
+    if(questions.length){
+      const titleEl=root.querySelector('input.qg-sec-title');
+      const title=((titleEl&&titleEl.value)||'').trim()||'问卷题目';
+      return [{title:title,questions:questions}];
+    }
+  }
   return sections;
 }
 async function saveQgen(){
@@ -821,9 +863,13 @@ async function saveQgen(){
   const name=(document.getElementById('qg-name').value||'').trim();if(!name)return alert('请填写问卷名称');
   const industry=(document.getElementById('qg-industry').value||'').trim();
   const description=(document.getElementById('qg-desc').value||'').trim();
-  const sections=collectQgenSections();if(!sections.length)return alert('请至少添加一个章节');
-  const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
-  if(!qCount)return alert('未采集到任何题干。请确认每道题都填写了「题干」，再保存。');
+  const sections=collectQgenSections();
+  const qCount=sections.reduce(function(s,sec){return s+(sec.questions||[]).length;},0);
+  if(!sections.length)return alert('请至少添加一个章节');
+  if(!qCount){
+    const n=document.querySelectorAll('#modalBox input.qg-q-label').length;
+    return alert('未采集到题干（弹窗内题干框数量：'+n+'）。请硬刷新后重试；若仍失败，把此数字发我。');
+  }
   let status='draft', visTeams=[], visPhones=[user.phone];
   if(editingQgenId){
     const old=(await fetchQgen()).find(t=>t.id===editingQgenId);
