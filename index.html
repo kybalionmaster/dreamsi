@@ -385,9 +385,6 @@ function getLocalPriorityTeamId(){const v=localStorage.getItem(priorityStorageKe
 function setLocalPriorityTeamId(id){if(id==null||id==='')localStorage.removeItem(priorityStorageKey());else localStorage.setItem(priorityStorageKey(),String(id));}
 async function getPriorityTeamId(){const user=getUser();if(!user)return getLocalPriorityTeamId();try{const {data}=await sb.from('app_users').select('priority_team_id').eq('phone',user.phone).maybeSingle();if(data&&data.priority_team_id!=null){setLocalPriorityTeamId(data.priority_team_id);return String(data.priority_team_id);}}catch(e){console.warn(e);}return getLocalPriorityTeamId();}
 async function setPriorityTeam(teamId){const user=getUser();if(!user)return alert('请先登录');const id=Number(teamId);setLocalPriorityTeamId(id);try{const {error}=await sb.from('app_users').update({priority_team_id:id}).eq('phone',user.phone);if(error)console.warn(error.message);}catch(e){}switchView('focus');}
-/*===PART1_END===*/
-
-/*===PART2_START===*/
 function memberAvatarUrl(m){
   if(m&&m.avatar)return m.avatar;
   const seed=encodeURIComponent((m&&(m.name||m.id))||'member');
@@ -949,7 +946,10 @@ async function submitFilledQgen(tplId,teamId){
   const answers={};
   document.querySelectorAll('.fill-ans').forEach(el=>{answers[el.dataset.k]=el.value;});
   document.querySelectorAll('input[type=radio]:checked,input[type=checkbox]:checked').forEach(el=>{
-    const n=el.name;if(!answers[n])answers[n]=[];if(Array.isArray(answers[n]))answers[n].push(el.value);else answers[n]=[answers[n],el.value];
+    const n=el.name;
+    if(!answers[n])answers[n]=[];
+    if(Array.isArray(answers[n]))answers[n].push(el.value);
+    else answers[n]=[answers[n],el.value];
   });
   const tid=teamId||(qgenTeamContext&&qgenTeamContext.teamId)||null;
   const tpl=(await fetchQgen()).find(x=>x.id===tplId);
@@ -1018,28 +1018,44 @@ async function saveKnowledge(){
 }
 async function deleteKnowledge(id){if(!confirm('确定删除？'))return;await sb.from('team_knowledge').delete().eq('id',id);renderKnowledge();}
 
-/* ========== 120+121 需求诊断中心 ========== */
+/* ========== 120–122 需求诊断中心 ========== */
+/** 122：多选累积一行 【答案1】、【答案2】、【答案8】 */
 function formatAnswerVal(v){
   if(v==null||v==='')return '—';
-  if(Array.isArray(v))return v.filter(Boolean).join('、')||'—';
-  return String(v);
+  if(typeof v==='string'){
+    const t=v.trim();
+    if((t.startsWith('[')&&t.endsWith(']'))||(t.startsWith('{')&&t.endsWith('}'))){
+      try{v=JSON.parse(t);}catch(e){}
+    }
+  }
+  if(Array.isArray(v)){
+    const items=v.map(function(x){return String(x==null?'':x).trim();}).filter(Boolean);
+    if(!items.length)return '—';
+    return items.map(function(x){return '【'+x+'】';}).join('、');
+  }
+  return '【'+String(v).trim()+'】';
 }
-/** 按章节下标+题号取答案（兼容 text 的 si_qi 与 radio/checkbox 的 pqsi_qi） */
 function getAnswerForQuestion(answers,si,qi){
   if(!answers||typeof answers!=='object')return '—';
   const k1=si+'_'+qi, k2='pq'+si+'_'+qi;
   if(answers[k1]!=null&&answers[k1]!=='')return formatAnswerVal(answers[k1]);
   if(answers[k2]!=null&&answers[k2]!=='')return formatAnswerVal(answers[k2]);
+  const keys=Object.keys(answers);
+  for(let i=0;i<keys.length;i++){
+    const k=keys[i];
+    if(k===k1||k===k2||k.endsWith('_'+si+'_'+qi)||k.indexOf(String(si)+'_'+String(qi))>=0)
+      return formatAnswerVal(answers[k]);
+  }
   return '—';
 }
-/** 121：问卷结构 + 题干：答案（无题型、无输入框） */
+/** 121+122：章节+题干：答案（多选一行累积） */
 function buildStructuredQaHtml(tpl,answers){
   const sections=tpl?normalizeSections(tpl.sections):[];
   if(!sections.length){
     if(!answers||typeof answers!=='object'||!Object.keys(answers).length)
       return '<p style="color:#9ca3af;font-size:14px">暂无答卷内容（且未关联到问卷模板）。</p>';
     return Object.keys(answers).map(function(k){
-      return '<div class="consult-qa"><div class="consult-q">'+String(k).replace(/</g,'&lt;')+'</div><div class="consult-a">'+formatAnswerVal(answers[k]).replace(/</g,'&lt;')+'</div></div>';
+      return '<div class="consult-qa"><div class="consult-a" style="font-size:14px;line-height:1.7"><span style="color:#8b7355;font-weight:600">'+String(k).replace(/</g,'&lt;')+'</span>：'+formatAnswerVal(answers[k]).replace(/</g,'&lt;')+'</div></div>';
     }).join('');
   }
   let html='';
@@ -1048,7 +1064,7 @@ function buildStructuredQaHtml(tpl,answers){
     (sec.questions||[]).forEach(function(q,qi){
       const stem=(q.label||('第'+(qi+1)+'题')).replace(/</g,'&lt;');
       const ans=getAnswerForQuestion(answers,si,qi).replace(/</g,'&lt;');
-      html+='<div class="consult-qa"><div class="consult-q">'+stem+'</div><div class="consult-a"><b style="color:#0f766e;font-weight:600;margin-right:6px">答案</b>'+ans+'</div></div>';
+      html+='<div class="consult-qa"><div class="consult-a" style="font-size:14px;line-height:1.7"><span style="color:#8b7355;font-weight:600">'+stem+'</span>：'+ans+'</div></div>';
     });
   });
   return html||'<p style="color:#9ca3af">暂无题目</p>';
@@ -1122,7 +1138,7 @@ async function viewDiagnosis(id){
       </div>
       ${qDesc?`<div style="font-size:13px;color:#5c5650;line-height:1.6;margin-bottom:20px;padding:12px 14px;background:#faf9f7;border-left:3px solid #8b7355"><b style="color:#1a1a1a">问卷说明</b><br>${String(qDesc).replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`:''}
       <div class="consult-h2">一、问卷回答摘要</div>
-      <p style="font-size:12px;color:#8b7355;margin:-4px 0 14px">以下按原问卷章节与题干排列，仅展示题干与答案。</p>
+      <p style="font-size:12px;color:#8b7355;margin:-4px 0 14px">按原问卷章节与题干排列；多选答案同一行用顿号累积。</p>
       ${qaBody}
       <div class="consult-h2">二、诊断报告</div>
       ${reportBlock}
