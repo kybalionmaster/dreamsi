@@ -1020,6 +1020,7 @@ async function deleteKnowledge(id){if(!confirm('确定删除？'))return;await s
 
 /* ========== 120–122 需求诊断中心 ========== */
 /** 122：多选累积一行 【答案1】、【答案2】、【答案8】 */
+/** 122+124：多选【A】、【B】；多行【行1 - 行2 - 行3】 */
 function formatAnswerVal(v){
   if(v==null||v==='')return '—';
   if(typeof v==='string'){
@@ -1033,7 +1034,11 @@ function formatAnswerVal(v){
     if(!items.length)return '—';
     return items.map(function(x){return '【'+x+'】';}).join('、');
   }
-  return '【'+String(v).trim()+'】';
+  // 多行文本：换行 / 回车 → " - "，再包成一行
+  var s=String(v).replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  var lines=s.split('\n').map(function(line){return line.trim();}).filter(Boolean);
+  if(!lines.length)return '—';
+  return '【'+lines.join(' - ')+'】';
 }
 function getAnswerForQuestion(answers,si,qi){
   if(!answers||typeof answers!=='object')return '—';
