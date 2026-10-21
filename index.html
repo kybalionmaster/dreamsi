@@ -662,6 +662,35 @@ async function kickMember(teamId,memberId,memberType){
 }
 async function disbandTeam(teamId){if(!confirm('确定解散整个团队？'))return;await sb.from('team').delete().eq('id',teamId);const pid=getLocalPriorityTeamId();if(pid&&String(pid)===String(teamId))setLocalPriorityTeamId(null);renderTeam();renderJinZhu();renderFocus();}
 
+function normalizeSections(raw){
+  let sections=raw;
+  if(typeof sections==='string'){
+    try{sections=JSON.parse(sections);}catch(e){sections=[];}
+  }
+  if(!Array.isArray(sections))sections=[];
+  return sections.map(sec=>{
+    if(typeof sec==='string'){
+      try{sec=JSON.parse(sec);}catch(e){return {title:String(sec),questions:[]};}
+    }
+    const title=(sec&& (sec.title||sec.name))||'未命名章节';
+    let questions=(sec&&(sec.questions||sec.items||sec.qs))||[];
+    if(typeof questions==='string'){
+      try{questions=JSON.parse(questions);}catch(e){questions=[];}
+    }
+    if(!Array.isArray(questions))questions=[];
+    questions=questions.map(q=>{
+      if(typeof q==='string')return {type:'textarea',label:q,options:[],required:false};
+      return {
+        type:q.type||'textarea',
+        label:q.label||q.text||q.title||q.question||'',
+        options:Array.isArray(q.options)?q.options:(q.options?String(q.options).split(/[\n,]/):[]),
+        required:!!q.required
+      };
+    }).filter(q=>q.label);
+    return {title,questions};
+  });
+}
+
 function defaultQgenSections(){
   return [
     {title:'一、路径可行性',questions:[
@@ -723,7 +752,9 @@ function openAddQgen(){editingQgenId=null;showQgenForm();}
 async function editQgen(id){const item=(await fetchQgen()).find(t=>t.id===id);if(!item||!(canEdit({phone:item.phone})||isAdmin()))return alert('无权限');editingQgenId=id;showQgenForm(item);}
 function showQgenForm(item=null){
   const box=document.getElementById('modalBox');box.className='modal wide';
-  const sections=item&&Array.isArray(item.sections)&&item.sections.length?item.sections:defaultQgenSections();
+  let sections=item?normalizeSections(item.sections):[];
+  const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
+  if(!sections.length||!qCount)sections=defaultQgenSections();
   box.innerHTML=`<h3>${item?'编辑问卷':'新建需求问卷'}</h3>
     <p style="font-size:13px;color:#6b7280;margin-bottom:14px">${qgenTeamContext?`将关联团队：${qgenTeamContext.teamName||qgenTeamContext.teamId}`:'已预填示范章节，可直接修改/增删题目'}</p>
     <div class="form-group"><label>问卷名称 *</label><input id="qg-name" value="${item?(item.name||'').replace(/"/g,'&quot;'):'路径可行性诊断问卷'}"></div>
@@ -769,13 +800,17 @@ function appendQgenQuestion(qsBox,q){
 function collectQgenSections(){
   const sections=[];
   document.querySelectorAll('#qg-sections .qgen-section-box').forEach(box=>{
-    const title=(box.querySelector('.qg-sec-title').value||'').trim()||'未命名章节';
+    const title=(box.querySelector('.qg-sec-title')?.value||'').trim()||'未命名章节';
     const questions=[];
     box.querySelectorAll('.qg-q-row').forEach(row=>{
       const type=row.dataset.type||'text';
-      const label=(row.querySelector('.qg-q-label').value||'').trim();if(!label)return;
-      const options=(row.querySelector('.qg-q-opts').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-      questions.push({type,label,options,required:!!row.querySelector('.qg-q-req').checked});
+      const labelEl=row.querySelector('.qg-q-label');
+      const label=(labelEl&&labelEl.value||'').trim();
+      if(!label)return;
+      const optsEl=row.querySelector('.qg-q-opts');
+      const options=(optsEl&&optsEl.value||'').split('\n').map(s=>s.trim()).filter(Boolean);
+      const reqEl=row.querySelector('.qg-q-req');
+      questions.push({type,label,options,required:!!(reqEl&&reqEl.checked)});
     });
     sections.push({title,questions});
   });
@@ -787,6 +822,8 @@ async function saveQgen(){
   const industry=(document.getElementById('qg-industry').value||'').trim();
   const description=(document.getElementById('qg-desc').value||'').trim();
   const sections=collectQgenSections();if(!sections.length)return alert('请至少添加一个章节');
+  const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
+  if(!qCount)return alert('未采集到任何题干。请确认每道题都填写了「题干」，再保存。');
   let status='draft', visTeams=[], visPhones=[user.phone];
   if(editingQgenId){
     const old=(await fetchQgen()).find(t=>t.id===editingQgenId);
@@ -834,18 +871,40 @@ async function publishQgen(id){if(!confirm('确定发布？'))return;const {erro
 async function deleteQgen(id){if(!confirm('确定删除？'))return;await sb.from('questionnaire_templates').delete().eq('id',id);renderQgen();}
 async function previewQgen(id){
   const t=(await fetchQgen()).find(x=>x.id===id);if(!t)return;
-  const sections=Array.isArray(t.sections)?t.sections:[];
+  let sections=normalizeSections(t.sections);
+  // 库里只有章节、没有题干时，用示范题兜底，避免空白
+  const totalQ=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
+  if(!totalQ){
+    sections=defaultQgenSections();
+  }
   let body='';
   sections.forEach((sec,si)=>{
     body+=`<div class="survey-section"><h4><span class="num">${si+1}</span> ${sec.title||''}</h4>`;
-    (sec.questions||[]).forEach((q,qi)=>{
-      body+=`<div class="survey-q"><label class="q-label">${qi+1}. ${q.label||''}${q.required?' *':''}</label>`;
-      if(q.type==='text')body+=`<input class="fill-ans" data-k="${si}_${qi}" placeholder="请输入">`;
-      else if(q.type==='textarea')body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px"></textarea>`;
-      else if(q.type==='radio'||q.type==='checkbox'){body+=`<div class="survey-options">`;(q.options||[]).forEach(o=>{body+=`<label><input type="${q.type==='checkbox'?'checkbox':'radio'}" name="pq${si}_${qi}" value="${o}"> ${o}</label>`;});body+=`</div>`;}
-      else if(q.type==='scale'){body+=`<div class="survey-scale">`;(q.options||['1','2','3','4','5']).forEach(o=>{body+=`<label><input type="radio" name="pq${si}_${qi}" value="${o}"> ${o}</label>`;});body+=`</div>`;}
-      body+=`</div>`;
-    });
+    const qs=sec.questions||[];
+    if(!qs.length){
+      body+=`<p class="empty-tip" style="padding:12px 0;text-align:left">本章节暂无题目，请回到「编辑」重新保存题干。</p>`;
+    }else{
+      qs.forEach((q,qi)=>{
+        const lab=q.label||'（无题干）';
+        body+=`<div class="survey-q"><label class="q-label">${qi+1}. ${lab}${q.required?' *':''}</label>`;
+        if(q.type==='text')body+=`<input class="fill-ans" data-k="${si}_${qi}" placeholder="请输入">`;
+        else if(q.type==='textarea')body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px" placeholder="请填写"></textarea>`;
+        else if(q.type==='radio'||q.type==='checkbox'){
+          body+=`<div class="survey-options">`;
+          (q.options||[]).forEach(o=>{body+=`<label><input type="${q.type==='checkbox'?'checkbox':'radio'}" name="pq${si}_${qi}" value="${String(o).replace(/"/g,'&quot;')}"> ${o}</label>`;});
+          body+=`</div>`;
+        }else if(q.type==='scale'){
+          body+=`<div class="survey-scale">`;
+          (q.options&&q.options.length?q.options:['1','2','3','4','5']).forEach(o=>{
+            body+=`<label><input type="radio" name="pq${si}_${qi}" value="${o}"> ${o}</label>`;
+          });
+          body+=`</div>`;
+        }else{
+          body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px"></textarea>`;
+        }
+        body+=`</div>`;
+      });
+    }
     body+=`</div>`;
   });
   const box=document.getElementById('modalBox');box.className='modal wide';
