@@ -24,6 +24,7 @@ body{background:#f5f7fa;color:#1f2937}
 .btn-survey{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;margin-left:4px}
 .btn-priority{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;margin-left:4px}
 .btn-toggle-kick{background:#64748b;color:#fff;margin-left:4px}
+.btn-view{background:linear-gradient(135deg,#0f766e,#0d9488);color:#fff;margin-left:4px}
 .user-info{display:flex;align-items:center;gap:8px}
 .role-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff}
 .role-jinzhu{background:#f59e0b}.role-ai{background:#eab308}.role-admin{background:#7c3aed}.role-kefu{background:#10b981}.role-shenhe{background:#6366f1}.role-yingxiao{background:#ec4899}
@@ -42,7 +43,7 @@ body{background:#f5f7fa;color:#1f2937}
 .card.focus-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.25)}
 .card.priority-card{border-color:#f59e0b;box-shadow:0 0 0 2px rgba(245,158,11,.3);background:linear-gradient(180deg,#fffbeb 0%,#fff 48px)}
 .avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0}
-.avatar-jinzhu{background:#f59e0b}.avatar-dashi{background:#eab308}.avatar-hero{background:#ec4899}.avatar-team{background:#0ea5e9}
+.avatar-jinzhu{background:#f59e0b}.avatar-dashi{background:#eab308}.avatar-hero{background:#ec4899}.avatar-team{background:#0ea5e9}.avatar-diag{background:linear-gradient(135deg,#0f766e,#14b8a6)}
 .card-content{flex:1;min-width:0}
 .card-title{font-weight:600;font-size:14px;margin-bottom:4px;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .card-desc{font-size:13px;color:#6b7280;line-height:1.45;margin-bottom:6px}
@@ -56,7 +57,8 @@ body{background:#f5f7fa;color:#1f2937}
 .qr-box img{width:64px;height:64px}
 .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:200}
 .modal{background:#fff;border-radius:12px;width:560px;max-width:94%;padding:24px;max-height:92vh;overflow:auto}
-.modal.wide{width:720px}.modal h3{margin-bottom:16px;font-size:18px}
+.modal.wide{width:720px}.modal.consult{width:860px;padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:94vh}
+.modal h3{margin-bottom:16px;font-size:18px}
 .form-group{margin-bottom:12px}
 .form-group label{display:block;font-size:13px;margin-bottom:4px;color:#374151}
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px}
@@ -149,13 +151,33 @@ body{background:#f5f7fa;color:#1f2937}
 .status-draft{background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:4px}
 .status-published{background:#d1fae5;color:#065f46;font-size:11px;padding:2px 8px;border-radius:4px}
 .qgen-team-tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:13px}
+/* 120 咨询公司风格诊断查看页 */
+.consult-scroll{overflow:auto;flex:1;background:#f7f6f2}
+.consult-doc{max-width:720px;margin:0 auto;padding:32px 28px 48px;background:#fff;min-height:100%;box-shadow:0 0 0 1px #e8e6e1}
+.consult-brand{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8b7355;font-weight:600;margin-bottom:8px}
+.consult-title{font-family:Georgia,"Times New Roman","Songti SC",serif;font-size:26px;color:#1a1a1a;line-height:1.3;margin-bottom:6px;font-weight:600}
+.consult-sub{font-size:13px;color:#6b6560;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid #1a1a1a}
+.consult-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;font-size:12px;color:#5c5650;margin-bottom:28px}
+.consult-meta b{color:#1a1a1a;font-weight:600}
+.consult-h2{font-family:Georgia,"Songti SC",serif;font-size:16px;color:#1a1a1a;margin:28px 0 12px;padding-left:12px;border-left:3px solid #0f766e}
+.consult-qa{margin-bottom:16px;padding:14px 16px;background:#faf9f7;border:1px solid #ebe8e2;border-radius:4px}
+.consult-q{font-size:12px;color:#8b7355;font-weight:600;margin-bottom:6px;letter-spacing:.02em}
+.consult-a{font-size:14px;color:#1f2937;line-height:1.65;white-space:pre-wrap}
+.consult-report-box{margin-top:28px;padding:20px 22px;background:linear-gradient(135deg,#0f172a,#1e3a5f);color:#fff;border-radius:8px}
+.consult-report-box h3{font-family:Georgia,serif;font-size:15px;margin-bottom:10px;font-weight:600}
+.consult-report-box a{color:#5eead4;font-weight:600;word-break:break-all}
+.consult-report-box p{font-size:13px;opacity:.9;line-height:1.5;margin-top:8px}
+.consult-footer{margin-top:36px;padding-top:16px;border-top:1px solid #e8e6e1;font-size:11px;color:#9ca3af;text-align:center;letter-spacing:.04em}
+.consult-toolbar{padding:12px 16px;background:#fff;border-top:1px solid #e5e7eb;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.diag-panel-desc{padding:10px 18px;font-size:13px;color:#6b7280;background:#f0fdfa;border-bottom:1px solid #ccfbf1}
 @media (max-width:768px){
   .container{flex-direction:column;height:auto;min-height:calc(100vh - 65px)}
   .sidebar{width:100%;display:flex;overflow-x:auto;border-right:none;border-bottom:1px solid #e5e7eb;padding:0}
   .menu-item{white-space:nowrap;border-right:none}
   .menu-item.active{border-right:none;border-bottom:3px solid #2563eb}
   .home-grid{flex-direction:column;height:auto}
-  .card{gap:0}
+  .consult-meta{grid-template-columns:1fr}
+  .consult-doc{padding:20px 16px 32px}
   .survey-header,.survey-body{padding:18px 16px}
 }
 </style>
@@ -290,9 +312,12 @@ body{background:#f5f7fa;color:#1f2937}
     <div class="view" id="view-diagnosis">
       <div class="panel">
         <div class="panel-header"><h2>需求诊断中心</h2>
-          <div class="g-search-wrap" style="max-width:260px"><div class="g-search"><span class="g-icon">🔍</span><input id="diag-q" placeholder="搜索行业、状态" oninput="diagPage=1;renderDiagnosis()"></div></div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div class="g-search-wrap" style="max-width:280px"><div class="g-search"><span class="g-icon">🔍</span><input id="diag-q" placeholder="搜索行业、提交人、状态" oninput="diagPage=1;renderDiagnosis()"></div></div>
+          </div>
         </div>
-        <div class="card-list" id="diagnosis-list"><div class="empty-tip">请先登录后查看诊断记录</div></div>
+        <div class="diag-panel-desc">填写问卷后可在此查看答卷。管理员粘贴分析结论后可挂上<strong>诊断报告链接</strong>，用户点击即可阅读精美报告。</div>
+        <div class="card-list" id="diagnosis-list"><div class="empty-tip">加载中…</div></div>
         <div class="g-pager" id="diag-pager"></div>
       </div>
     </div>
@@ -350,7 +375,7 @@ function linkify(text){if(!text)return '';const e=String(text).replace(/&/g,'&am
 function accumulatePains(jin){return (jin.pains||[]).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ');}
 function accumulateTools(d){return (d.tools||[]).map(t=>(t.title||'')+' '+(t.desc||'')).join(' ');}
 function textMatch(t1,t2){if(!t1||!t2)return 0;t1=(t1+'').toLowerCase();t2=(t2+'').toLowerCase();let s=0;['销售','预测','跟进','自动化','客户','画像','话术','方案','转化','获客','私域','复购','流量','数据','ai','智能'].forEach(k=>{if(t1.includes(k)&&t2.includes(k))s+=2;});if(t1.includes(t2)||t2.includes(t1))s+=3;return s;}
-function searchText(item){return ((item.name||'')+' '+(item.intro||'')+' '+((item.card&&item.card.website)||'')+' '+(item.category||'')+' '+(item.type||'')+' '+(item.detail||'')+' '+(item.industry||'')+' '+(item.skill_title||'')+' '+(item.demand||'')+' '+(item.dream||'')+' '+(item.description||'')+' '+(item.status||'')+' '+(item.title||'')+' '+(item.summary||'')).toLowerCase();}
+function searchText(item){return ((item.name||'')+' '+(item.intro||'')+' '+((item.card&&item.card.website)||'')+' '+(item.category||'')+' '+(item.type||'')+' '+(item.detail||'')+' '+(item.industry||'')+' '+(item.skill_title||'')+' '+(item.demand||'')+' '+(item.dream||'')+' '+(item.description||'')+' '+(item.status||'')+' '+(item.title||'')+' '+(item.summary||'')+' '+(item.phone||'')+' '+(item.report||'')+' '+(item.report_link||'')).toLowerCase();}
 function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;return list.filter(it=>searchText(it).includes(q));}
 function paginate(list,page,size){const total=list.length,pages=Math.max(1,Math.ceil(total/size));page=Math.min(Math.max(1,page),pages);return {slice:list.slice((page-1)*size,page*size),page,pages,total};}
 function renderPager(elId,page,pages,onPage){const el=document.getElementById(elId);if(!el)return;if(pages<=1){el.innerHTML='';return;}let html='',start=Math.max(1,page-3),end=Math.min(pages,start+6);if(end-start<6)start=Math.max(1,end-6);for(let i=start;i<=end;i++)html+=i===page?`<span class="cur">${i}</span>`:`<a onclick="${onPage}(${i})">${i}</a>`;html+=page<pages?`<a class="next" onclick="${onPage}(${page+1})">下一页 ›</a>`:`<span class="next disabled">下一页 ›</span>`;el.innerHTML=html;}
@@ -482,7 +507,7 @@ async function renderFocus(){
   if(!user){box.innerHTML='<div class="empty-tip">请先登录。登录后在「我的超级团队」将某团队设为最高优先级，即可在此聚焦。</div>';return;}
   const pid=await getPriorityTeamId();
   if(!pid){
-    box.innerHTML=`<div class="focus-banner">尚未设置最高优先级团队。同时参与多个团队时精力易分散，请到「我的超级团队」点击 <b>设为最高优先级</b>，只聚焦一支队伍。</div>
+    box.innerHTML=`<div class="focus-banner">尚未设置最高优先级团队。请到「我的超级团队」点击 <b>设为最高优先级</b>。</div>
       <div class="empty-tip"><button class="btn btn-primary" onclick="switchView('team')">去选择团队</button></div>`;
     return;
   }
@@ -495,7 +520,7 @@ async function renderFocus(){
   }
   const allJinZhu=await fetchJinZhu();
   const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
-  box.innerHTML=`<div class="focus-banner">🎯 当前只显示这一支最高优先级团队，便于显化与执行。可随时在「我的超级团队」更换优先级。</div>`+renderOneTeamCard(t,linkedJin,user,{isPriority:true});
+  box.innerHTML=`<div class="focus-banner">🎯 当前只显示这一支最高优先级团队。</div>`+renderOneTeamCard(t,linkedJin,user,{isPriority:true});
 }
 
 async function renderHome(){
@@ -620,7 +645,7 @@ async function renderTeam(){
   const user=getUser();let list=await fetchTeam();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
   else if(!isAdmin()){
-    list=list.filter(t=>String(t.phone)===String(user.phone)||(t.members||[]).some(m=>String(m.id)===String(user.phone)||String(m.id)===String(user.phone)));
+    list=list.filter(t=>String(t.phone)===String(user.phone)||(t.members||[]).some(m=>String(m.id)===String(user.phone)));
     if(!list.length)emptyMsg='<div class="empty-tip">暂无团队。金主可发布需求自动建队，或点「创建超级团队」。</div>';
   }
   const pid=await getPriorityTeamId();
@@ -662,35 +687,6 @@ async function kickMember(teamId,memberId,memberType){
 }
 async function disbandTeam(teamId){if(!confirm('确定解散整个团队？'))return;await sb.from('team').delete().eq('id',teamId);const pid=getLocalPriorityTeamId();if(pid&&String(pid)===String(teamId))setLocalPriorityTeamId(null);renderTeam();renderJinZhu();renderFocus();}
 
-function normalizeSections(raw){
-  let sections=raw;
-  if(typeof sections==='string'){
-    try{sections=JSON.parse(sections);}catch(e){sections=[];}
-  }
-  if(!Array.isArray(sections))sections=[];
-  return sections.map(sec=>{
-    if(typeof sec==='string'){
-      try{sec=JSON.parse(sec);}catch(e){return {title:String(sec),questions:[]};}
-    }
-    const title=(sec&& (sec.title||sec.name))||'未命名章节';
-    let questions=(sec&&(sec.questions||sec.items||sec.qs))||[];
-    if(typeof questions==='string'){
-      try{questions=JSON.parse(questions);}catch(e){questions=[];}
-    }
-    if(!Array.isArray(questions))questions=[];
-    questions=questions.map(q=>{
-      if(typeof q==='string')return {type:'textarea',label:q,options:[],required:false};
-      return {
-        type:q.type||'textarea',
-        label:q.label||q.text||q.title||q.question||'',
-        options:Array.isArray(q.options)?q.options:(q.options?String(q.options).split(/[\n,]/):[]),
-        required:!!q.required
-      };
-    }).filter(q=>q.label);
-    return {title,questions};
-  });
-}
-
 function defaultQgenSections(){
   return [
     {title:'一、路径可行性',questions:[
@@ -708,6 +704,23 @@ function defaultQgenSections(){
     ]}
   ];
 }
+function normalizeSections(raw){
+  let sections=raw;
+  if(typeof sections==='string'){try{sections=JSON.parse(sections);}catch(e){sections=[];}}
+  if(!Array.isArray(sections))sections=[];
+  return sections.map(sec=>{
+    if(typeof sec==='string'){try{sec=JSON.parse(sec);}catch(e){return {title:String(sec),questions:[]};}}
+    const title=(sec&&(sec.title||sec.name))||'未命名章节';
+    let questions=(sec&&(sec.questions||sec.items||sec.qs))||[];
+    if(typeof questions==='string'){try{questions=JSON.parse(questions);}catch(e){questions=[];}}
+    if(!Array.isArray(questions))questions=[];
+    questions=questions.map(q=>{
+      if(typeof q==='string')return {type:'textarea',label:q,options:[],required:false};
+      return {type:q.type||'textarea',label:q.label||q.text||q.title||q.question||'',options:Array.isArray(q.options)?q.options:(q.options?String(q.options).split(/[\n,]/):[]),required:!!q.required};
+    }).filter(q=>q.label);
+    return {title,questions};
+  });
+}
 function canSeeQgen(t,user){
   if(!user)return false;
   if(user.role==='admin'||String(t.phone)===String(user.phone))return true;
@@ -720,7 +733,7 @@ function canSeeQgen(t,user){
 async function renderQgen(){
   const user=getUser();const box=document.getElementById('qgen-list');
   const tip=document.getElementById('qgen-team-tip');
-  if(qgenTeamContext){tip.style.display='block';tip.innerHTML=`当前关联团队：<b>${qgenTeamContext.teamName||qgenTeamContext.teamId}</b>。可新建/填写/派发问卷。 <a href="javascript:qgenTeamContext=null;renderQgen()" style="color:#2563eb">清除关联</a>`;}
+  if(qgenTeamContext){tip.style.display='block';tip.innerHTML=`当前关联团队：<b>${qgenTeamContext.teamName||qgenTeamContext.teamId}</b>。 <a href="javascript:qgenTeamContext=null;renderQgen()" style="color:#2563eb">清除关联</a>`;}
   else tip.style.display='none';
   if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}
   let list=await fetchQgen();
@@ -728,7 +741,7 @@ async function renderQgen(){
   list=filterByQ(list.map(t=>({...t,intro:t.description})),(document.getElementById('qgen-q')||{}).value||'');
   const pg=paginate(list,qgenPage,PAGE_SIZE);qgenPage=pg.page;
   box.innerHTML=pg.slice.length?pg.slice.map(t=>{
-    const sections=Array.isArray(t.sections)?t.sections:[];
+    const sections=normalizeSections(t.sections);
     const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
     const st=t.status==='published'?'status-published':'status-draft';
     const stLabel=t.status==='published'?'已发布':'草稿';
@@ -744,7 +757,7 @@ async function renderQgen(){
       <div class="card-desc"><b>行业：</b><span class="tag tag-industry">${t.industry||'-'}</span>　题数：${qCount}${t.team_id?`　团队：${t.team_id}`:''}</div>
       <div class="card-desc">${t.description||''}</div>
     </div></div>`;
-  }).join(''):'<div class="empty-tip">暂无问卷。点击「+ 新建问卷」开始（已预填示范题）。</div>';
+  }).join(''):'<div class="empty-tip">暂无问卷。点击「+ 新建问卷」开始。</div>';
   renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');
 }
 function goQgenPage(p){qgenPage=p;renderQgen();}
@@ -756,10 +769,10 @@ function showQgenForm(item=null){
   const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
   if(!sections.length||!qCount)sections=defaultQgenSections();
   box.innerHTML=`<h3>${item?'编辑问卷':'新建需求问卷'}</h3>
-    <p style="font-size:13px;color:#6b7280;margin-bottom:14px">${qgenTeamContext?`将关联团队：${qgenTeamContext.teamName||qgenTeamContext.teamId}`:'已预填示范章节，可直接修改/增删题目'}</p>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:14px">${qgenTeamContext?`将关联团队：${qgenTeamContext.teamName||qgenTeamContext.teamId}`:'已预填示范章节，可修改/增删'}</p>
     <div class="form-group"><label>问卷名称 *</label><input id="qg-name" value="${item?(item.name||'').replace(/"/g,'&quot;'):'路径可行性诊断问卷'}"></div>
     <div class="form-group"><label>行业</label><input id="qg-industry" value="${item?(item.industry||'').replace(/"/g,'&quot;'):''}"></div>
-    <div class="form-group"><label>说明</label><textarea id="qg-desc">${item?(item.description||''):'请根据自身情况修改题目后保存，再点「派发」给团队成员。'}</textarea></div>
+    <div class="form-group"><label>说明</label><textarea id="qg-desc">${item?(item.description||''):'请根据自身情况修改题目后保存，再点「派发」。'}</textarea></div>
     <div style="display:flex;justify-content:space-between;margin:16px 0 8px"><b>问卷结构</b><button type="button" class="btn btn-outline btn-sm" onclick="addQgenSection()">+ 添加章节</button></div>
     <div id="qg-sections"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveQgen()">保存</button></div>`;
@@ -800,14 +813,10 @@ function appendQgenQuestion(qsBox,q){
 function collectQgenSections(){
   const root=document.getElementById('modalBox')||document;
   const sections=[];
-  const boxes=root.querySelectorAll('.qgen-section-box');
-
-  boxes.forEach(box=>{
+  root.querySelectorAll('.qgen-section-box').forEach(box=>{
     const titleEl=box.querySelector('input.qg-sec-title')||box.querySelector('.qg-sec-title');
     const title=((titleEl&&titleEl.value)||'').trim()||'未命名章节';
     const questions=[];
-
-    // 优先按题目行采集
     box.querySelectorAll('.qgen-q-row').forEach(row=>{
       const type=row.dataset.type||row.getAttribute('data-type')||'text';
       const labelEl=row.querySelector('input.qg-q-label')||row.querySelector('.qg-q-label');
@@ -816,44 +825,36 @@ function collectQgenSections(){
       const optsEl=row.querySelector('textarea.qg-q-opts')||row.querySelector('.qg-q-opts');
       const options=((optsEl&&optsEl.value)||'').split('\n').map(s=>s.trim()).filter(Boolean);
       const reqEl=row.querySelector('input.qg-q-req')||row.querySelector('.qg-q-req');
-      questions.push({type:type,label:label,options:options,required:!!(reqEl&&reqEl.checked)});
+      questions.push({type,label,options,required:!!(reqEl&&reqEl.checked)});
     });
-
-    // 行结构异常时的兜底：章节内所有题干输入框
     if(!questions.length){
-      box.querySelectorAll('input.qg-q-label').forEach(function(labelEl){
-        const label=(labelEl.value||'').trim();
-        if(!label)return;
+      box.querySelectorAll('input.qg-q-label').forEach(labelEl=>{
+        const label=(labelEl.value||'').trim();if(!label)return;
         const row=labelEl.closest('.qgen-q-row');
         const type=(row&&(row.dataset.type||row.getAttribute('data-type')))||'textarea';
         const optsEl=row&&(row.querySelector('textarea.qg-q-opts')||row.querySelector('.qg-q-opts'));
         const options=((optsEl&&optsEl.value)||'').split('\n').map(s=>s.trim()).filter(Boolean);
         const reqEl=row&&(row.querySelector('input.qg-q-req')||row.querySelector('.qg-q-req'));
-        questions.push({type:type,label:label,options:options,required:!!(reqEl&&reqEl.checked)});
+        questions.push({type,label,options,required:!!(reqEl&&reqEl.checked)});
       });
     }
-
-    sections.push({title:title,questions:questions});
+    sections.push({title,questions});
   });
-
-  // 终极兜底：弹窗内任意题干
-  const total=sections.reduce(function(s,sec){return s+(sec.questions||[]).length;},0);
+  const total=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
   if(!total){
     const questions=[];
-    root.querySelectorAll('input.qg-q-label').forEach(function(labelEl){
-      const label=(labelEl.value||'').trim();
-      if(!label)return;
+    root.querySelectorAll('input.qg-q-label').forEach(labelEl=>{
+      const label=(labelEl.value||'').trim();if(!label)return;
       const row=labelEl.closest('.qgen-q-row');
       const type=(row&&(row.dataset.type||row.getAttribute('data-type')))||'textarea';
       const optsEl=row&&(row.querySelector('textarea.qg-q-opts')||row.querySelector('.qg-q-opts'));
       const options=((optsEl&&optsEl.value)||'').split('\n').map(s=>s.trim()).filter(Boolean);
       const reqEl=row&&(row.querySelector('input.qg-q-req')||row.querySelector('.qg-q-req'));
-      questions.push({type:type,label:label,options:options,required:!!(reqEl&&reqEl.checked)});
+      questions.push({type,label,options,required:!!(reqEl&&reqEl.checked)});
     });
     if(questions.length){
       const titleEl=root.querySelector('input.qg-sec-title');
-      const title=((titleEl&&titleEl.value)||'').trim()||'问卷题目';
-      return [{title:title,questions:questions}];
+      return [{title:((titleEl&&titleEl.value)||'').trim()||'问卷题目',questions}];
     }
   }
   return sections;
@@ -864,11 +865,11 @@ async function saveQgen(){
   const industry=(document.getElementById('qg-industry').value||'').trim();
   const description=(document.getElementById('qg-desc').value||'').trim();
   const sections=collectQgenSections();
-  const qCount=sections.reduce(function(s,sec){return s+(sec.questions||[]).length;},0);
+  const qCount=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
   if(!sections.length)return alert('请至少添加一个章节');
   if(!qCount){
     const n=document.querySelectorAll('#modalBox input.qg-q-label').length;
-    return alert('未采集到题干（弹窗内题干框数量：'+n+'）。请硬刷新后重试；若仍失败，把此数字发我。');
+    return alert('未采集到题干（弹窗内题干框数量：'+n+'）。请硬刷新后重试。');
   }
   let status='draft', visTeams=[], visPhones=[user.phone];
   if(editingQgenId){
@@ -880,13 +881,12 @@ async function saveQgen(){
   const row={
     id:editingQgenId||Date.now(),name,industry,description,sections,status,phone:user.phone,
     team_id:qgenTeamContext?Number(qgenTeamContext.teamId):null,
-    visible_to_team_ids:visTeams,
-    visible_to_phones:visPhones
+    visible_to_team_ids:visTeams,visible_to_phones:visPhones
   };
   let error;
   if(editingQgenId)({error}=await sb.from('questionnaire_templates').update(row).eq('id',editingQgenId));
   else({error}=await sb.from('questionnaire_templates').insert(row));
-  if(error)return alert('保存失败：'+error.message+'\n请先在 Supabase 执行加列 SQL（team_id 等）。');
+  if(error)return alert('保存失败：'+error.message);
   closeModal();renderQgen();alert('保存成功');
 }
 async function openDispatchQgen(id){
@@ -900,9 +900,9 @@ async function openDispatchQgen(id){
   const opts=myTeams.map(t=>`<label style="display:block;padding:6px 0;font-size:13px"><input type="checkbox" class="disp-team" value="${t.id}" ${selTeams.includes(String(t.id))?'checked':''}> ${t.name||t.id}</label>`).join('')||'<p class="empty-tip">暂无团队</p>';
   document.getElementById('modalBox').className='modal';
   document.getElementById('modalBox').innerHTML=`<h3>派发问卷</h3>
-    <p style="font-size:13px;color:#6b7280;margin-bottom:12px">问卷：<b>${item.name||''}</b>。无权限者列表中不可见。</p>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:12px">问卷：<b>${item.name||''}</b></p>
     <div class="form-group"><label>发给哪些团队</label><div style="max-height:160px;overflow:auto;border:1px solid #e5e7eb;border-radius:8px;padding:8px">${opts}</div></div>
-    <div class="form-group"><label>发给哪些手机号（逗号分隔）</label><input id="disp-phones" value="${phones.replace(/"/g,'&quot;')}" placeholder="138...,139..."></div>
+    <div class="form-group"><label>发给哪些手机号（逗号分隔）</label><input id="disp-phones" value="${phones.replace(/"/g,'&quot;')}"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveDispatchQgen(${id})">确认派发</button></div>`;
   document.getElementById('modalMask').style.display='flex';
 }
@@ -918,43 +918,25 @@ async function deleteQgen(id){if(!confirm('确定删除？'))return;await sb.fro
 async function previewQgen(id){
   const t=(await fetchQgen()).find(x=>x.id===id);if(!t)return;
   let sections=normalizeSections(t.sections);
-  // 库里只有章节、没有题干时，用示范题兜底，避免空白
   const totalQ=sections.reduce((s,sec)=>s+(sec.questions||[]).length,0);
-  if(!totalQ){
-    sections=defaultQgenSections();
-  }
+  if(!totalQ)sections=defaultQgenSections();
   let body='';
   sections.forEach((sec,si)=>{
     body+=`<div class="survey-section"><h4><span class="num">${si+1}</span> ${sec.title||''}</h4>`;
-    const qs=sec.questions||[];
-    if(!qs.length){
-      body+=`<p class="empty-tip" style="padding:12px 0;text-align:left">本章节暂无题目，请回到「编辑」重新保存题干。</p>`;
-    }else{
-      qs.forEach((q,qi)=>{
-        const lab=q.label||'（无题干）';
-        body+=`<div class="survey-q"><label class="q-label">${qi+1}. ${lab}${q.required?' *':''}</label>`;
-        if(q.type==='text')body+=`<input class="fill-ans" data-k="${si}_${qi}" placeholder="请输入">`;
-        else if(q.type==='textarea')body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px" placeholder="请填写"></textarea>`;
-        else if(q.type==='radio'||q.type==='checkbox'){
-          body+=`<div class="survey-options">`;
-          (q.options||[]).forEach(o=>{body+=`<label><input type="${q.type==='checkbox'?'checkbox':'radio'}" name="pq${si}_${qi}" value="${String(o).replace(/"/g,'&quot;')}"> ${o}</label>`;});
-          body+=`</div>`;
-        }else if(q.type==='scale'){
-          body+=`<div class="survey-scale">`;
-          (q.options&&q.options.length?q.options:['1','2','3','4','5']).forEach(o=>{
-            body+=`<label><input type="radio" name="pq${si}_${qi}" value="${o}"> ${o}</label>`;
-          });
-          body+=`</div>`;
-        }else{
-          body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px"></textarea>`;
-        }
-        body+=`</div>`;
-      });
-    }
+    (sec.questions||[]).forEach((q,qi)=>{
+      const lab=q.label||'（无题干）';
+      body+=`<div class="survey-q"><label class="q-label">${qi+1}. ${lab}${q.required?' *':''}</label>`;
+      if(q.type==='text')body+=`<input class="fill-ans" data-k="${si}_${qi}" placeholder="请输入">`;
+      else if(q.type==='textarea')body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px"></textarea>`;
+      else if(q.type==='radio'||q.type==='checkbox'){body+=`<div class="survey-options">`;(q.options||[]).forEach(o=>{body+=`<label><input type="${q.type==='checkbox'?'checkbox':'radio'}" name="pq${si}_${qi}" value="${String(o).replace(/"/g,'&quot;')}"> ${o}</label>`;});body+=`</div>`;}
+      else if(q.type==='scale'){body+=`<div class="survey-scale">`;(q.options&&q.options.length?q.options:['1','2','3','4','5']).forEach(o=>{body+=`<label><input type="radio" name="pq${si}_${qi}" value="${o}"> ${o}</label>`;});body+=`</div>`;}
+      else body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px"></textarea>`;
+      body+=`</div>`;
+    });
     body+=`</div>`;
   });
   const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<div class="survey-wrap"><div class="survey-header"><h2>${t.name||'填写问卷'}</h2><p>${t.description||''}　行业：${t.industry||'-'}</p></div><div class="survey-body">${body||'<p class="empty-tip">暂无题目</p>'}
+  box.innerHTML=`<div class="survey-wrap"><div class="survey-header"><h2>${t.name||'填写问卷'}</h2><p>${t.description||''}　行业：${t.industry||'-'}</p></div><div class="survey-body">${body}
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">关闭</button><button class="btn btn-primary" onclick="submitFilledQgen(${t.id},${t.team_id||0})">提交给 Team</button></div>
   </div></div>`;
   document.getElementById('modalMask').style.display='flex';
@@ -967,10 +949,11 @@ async function submitFilledQgen(tplId,teamId){
     const n=el.name;if(!answers[n])answers[n]=[];if(Array.isArray(answers[n]))answers[n].push(el.value);else answers[n]=[answers[n],el.value];
   });
   const tid=teamId||(qgenTeamContext&&qgenTeamContext.teamId)||null;
-  const row={id:Date.now(),template_id:tplId,jinzhu_id:null,team_id:tid||null,phone:user.phone,industry:'问卷填写',answers,status:'pending',report:''};
+  const tpl=(await fetchQgen()).find(x=>x.id===tplId);
+  const row={id:Date.now(),template_id:tplId,jinzhu_id:null,team_id:tid||null,phone:user.phone,industry:(tpl&&tpl.industry)||'问卷填写',answers,status:'pending',report:'',report_link:''};
   const {error}=await sb.from('diagnosis_surveys').insert(row);
   if(error)return alert('提交失败：'+error.message);
-  closeModal();alert('已提交给 Team');switchView('diagnosis');
+  closeModal();alert('已提交，可在「需求诊断中心」查看');switchView('diagnosis');
 }
 
 function canSeeKb(k,user){
@@ -998,9 +981,8 @@ async function renderKnowledge(){
         <button class="btn btn-del btn-sm" onclick="deleteKnowledge(${k.id})">删除</button>`:''}</div>
       <div class="card-desc">${k.summary||''}</div>
       <div class="card-desc"><b>文件链接：</b>${linkHtml}</div>
-      <div class="card-desc" style="font-size:12px;color:#9ca3af">发布人：${k.phone||'-'}</div>
     </div></div>`;
-  }).join(''):'<div class="empty-tip">暂无知识。点击「+ 发布知识」。文件名请填可访问的链接。</div>';
+  }).join(''):'<div class="empty-tip">暂无知识。点击「+ 发布知识」。</div>';
   renderPager('kb-pager',pg.page,pg.pages,'goKbPage');
 }
 function goKbPage(p){kbPage=p;renderKnowledge();}
@@ -1013,7 +995,7 @@ function showKnowledgeForm(item=null){
     <div class="form-group"><label>标题 *</label><input id="kb-title" value="${item?(item.title||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>分类</label><select id="kb-cat">${cats}</select></div>
     <div class="form-group"><label>摘要说明</label><textarea id="kb-summary">${item?(item.summary||''):''}</textarea></div>
-    <div class="form-group"><label>文件名（填文件的链接）*</label><input id="kb-link" placeholder="https://文档或网盘链接" value="${item?(item.file_link||'').replace(/"/g,'&quot;'):''}"></div>
+    <div class="form-group"><label>文件名（填文件的链接）*</label><input id="kb-link" value="${item?(item.file_link||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>可见手机号（逗号分隔，空=仅自己）</label><input id="kb-phones" value="${item&&Array.isArray(item.visible_to_phones)?item.visible_to_phones.join(','):''}"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveKnowledge()">保存</button></div>`;
   document.getElementById('modalMask').style.display='flex';
@@ -1028,26 +1010,122 @@ async function saveKnowledge(){
   let error;
   if(editingKbId)({error}=await sb.from('team_knowledge').update(row).eq('id',editingKbId));
   else({error}=await sb.from('team_knowledge').insert(row));
-  if(error)return alert('保存失败：'+error.message+'\n请先执行 team_knowledge 建表 SQL。');
+  if(error)return alert('保存失败：'+error.message);
   closeModal();renderKnowledge();alert('已保存');
 }
 async function deleteKnowledge(id){if(!confirm('确定删除？'))return;await sb.from('team_knowledge').delete().eq('id',id);renderKnowledge();}
 
-function summarizeAnswers(ans){if(!ans||typeof ans!=='object')return '-';const keys=Object.keys(ans);if(!keys.length)return '-';return keys.slice(0,4).map(k=>`${k}:${Array.isArray(ans[k])?ans[k].join(','):ans[k]}`).join('；')+(keys.length>4?'…':'');}
+/* ========== 120 需求诊断中心 ========== */
+function formatAnswerVal(v){
+  if(v==null||v==='')return '—';
+  if(Array.isArray(v))return v.join('、')||'—';
+  return String(v);
+}
+function answersToConsultHtml(answers){
+  if(!answers||typeof answers!=='object')return '<p class="consult-a" style="color:#9ca3af">暂无答卷内容</p>';
+  const keys=Object.keys(answers);
+  if(!keys.length)return '<p class="consult-a" style="color:#9ca3af">暂无答卷内容</p>';
+  return keys.map((k,i)=>{
+    const label=k.replace(/^pq/,'题 ').replace(/_/g,' · ');
+    return `<div class="consult-qa"><div class="consult-q">RESPONSE ${String(i+1).padStart(2,'0')} · ${label}</div><div class="consult-a">${formatAnswerVal(answers[k]).replace(/</g,'&lt;')}</div></div>`;
+  }).join('');
+}
 async function renderDiagnosis(){
   const user=getUser();const box=document.getElementById('diagnosis-list');
-  if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}
-  let list=await fetchDiagnosis();if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));
-  list=filterByQ(list,(document.getElementById('diag-q')||{}).value||'');
+  if(!user){box.innerHTML='<div class="empty-tip">请先登录后查看诊断记录</div>';return;}
+  let list=await fetchDiagnosis();
+  if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));
+  list=filterByQ(list.map(d=>({...d,name:d.industry,intro:(d.phone||'')+' '+(d.status||'')})),(document.getElementById('diag-q')||{}).value||'');
   const pg=paginate(list,diagPage,PAGE_SIZE);diagPage=pg.page;
+  const statusMap={pending:'待出报告',generating:'分析中',completed:'报告已出'};
+  const statusCls={pending:'badge-pending',generating:'badge-pending',completed:'badge-ok'};
   box.innerHTML=pg.slice.length?pg.slice.map(d=>{
-    const statusMap={pending:'待生成报告',generating:'生成中',completed:'已完成'};
-    const statusCls={pending:'badge-pending',generating:'badge-pending',completed:'badge-ok'};
-    return `<div class="card"><div class="avatar avatar-jinzhu">诊</div><div class="card-content"><div class="card-title">行业：${d.industry||'-'} <span class="${statusCls[d.status]||'badge-pending'}">${statusMap[d.status]||d.status}</span>${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}</div><div class="card-desc">提交人：${d.phone||'-'} · 团队：${d.team_id||'-'}</div><div class="card-desc"><b>摘要：</b>${summarizeAnswers(d.answers)}</div>${d.report?`<div class="card-desc" style="background:#f0fdf4;padding:10px;border-radius:8px"><b>方案：</b><br>${linkify(d.report)}</div>`:`<div class="card-desc" style="color:#9ca3af">等待结论与方案…</div>`}</div></div>`;
-  }).join(''):'<div class="empty-tip">暂无记录。可在问卷生成中心填写并提交给 Team。</div>';
+    const st=statusMap[d.status]||d.status||'待出报告';
+    const sc=statusCls[d.status]||'badge-pending';
+    const hasLink=!!(d.report_link&&String(d.report_link).trim());
+    return `<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content">
+      <div class="card-title">${d.industry||'需求诊断'} <span class="${sc}">${st}</span>
+        <button class="btn btn-view btn-sm" onclick="viewDiagnosis(${d.id})">查看答卷</button>
+        ${isAdmin()?`<button class="btn btn-edit btn-sm" onclick="openDiagReportForm(${d.id})">写报告链接</button>
+        <button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">删除</button>`:''}
+      </div>
+      <div class="card-desc">提交人：${d.phone||'-'}　团队：${d.team_id||'-'}　模板：${d.template_id||'-'}</div>
+      <div class="card-desc">${hasLink?`<b>诊断报告：</b><a href="${String(d.report_link).replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#0f766e;font-weight:600">打开精美报告 ↗</a>`:'<span style="color:#9ca3af">诊断报告尚未挂载</span>'}</div>
+      ${d.report?`<div class="card-desc" style="background:#f0fdfa;padding:8px 10px;border-radius:6px;font-size:12px">${String(d.report).slice(0,120).replace(/</g,'&lt;')}${String(d.report).length>120?'…':''}</div>`:''}
+    </div></div>`;
+  }).join(''):'<div class="empty-tip">暂无诊断记录。<br>请在「问卷生成中心」填写问卷并提交给 Team。</div>';
   renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');
 }
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
+async function viewDiagnosis(id){
+  const user=getUser();if(!user)return alert('请先登录');
+  const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return alert('记录不存在');
+  if(user.role!=='admin'&&String(d.phone)!==String(user.phone))return alert('无权限查看');
+  const statusMap={pending:'待出报告',generating:'分析中',completed:'报告已出'};
+  const dateStr=d.created_at?new Date(d.created_at).toLocaleString():'-';
+  const link=(d.report_link||'').trim();
+  let href=link;if(link&&!/^https?:\/\//i.test(href))href='https://'+href;
+  const reportBlock=link
+    ?`<div class="consult-report-box"><h3>诊断报告 · Engagement Deliverable</h3>
+        <p>专家与 Grok 协同产出的正式报告已就绪。</p>
+        <p style="margin-top:12px"><a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">→ 打开完整诊断报告</a></p>
+        ${d.report?`<p style="margin-top:14px;opacity:.85;border-top:1px solid rgba(255,255,255,.15);padding-top:12px">${String(d.report).replace(/</g,'&lt;').replace(/\n/g,'<br>')}</p>`:''}
+      </div>`
+    :`<div class="consult-report-box" style="background:linear-gradient(135deg,#44403c,#57534e)"><h3>诊断报告 · 制作中</h3>
+        <p>管理员将与 Grok / 专家交流后，把报告链接挂到此处。请稍后在「需求诊断中心」刷新查看。</p>
+        ${d.report?`<p style="margin-top:12px;opacity:.9">${String(d.report).replace(/</g,'&lt;').replace(/\n/g,'<br>')}</p>`:''}
+      </div>`;
+  const box=document.getElementById('modalBox');
+  box.className='modal consult';
+  box.innerHTML=`<div class="consult-scroll"><div class="consult-doc">
+      <div class="consult-brand">Dream Manifestor · Diagnostic Brief</div>
+      <div class="consult-title">${d.industry||'需求诊断'} · 答卷审阅</div>
+      <div class="consult-sub">Confidential · For engagement use only</div>
+      <div class="consult-meta">
+        <div><b>Client / 提交人</b><br>${d.phone||'—'}</div>
+        <div><b>Status / 状态</b><br>${statusMap[d.status]||d.status||'—'}</div>
+        <div><b>Team ID</b><br>${d.team_id||'—'}</div>
+        <div><b>Submitted</b><br>${dateStr}</div>
+      </div>
+      <div class="consult-h2">一、问卷回答摘要</div>
+      ${answersToConsultHtml(d.answers)}
+      <div class="consult-h2">二、诊断报告</div>
+      ${reportBlock}
+      <div class="consult-footer">梦想显化器 · 需求诊断中心 · 对标顶级咨询交付标准</div>
+    </div></div>
+    <div class="consult-toolbar">
+      ${isAdmin()?`<button class="btn btn-edit btn-sm" onclick="openDiagReportForm(${d.id})">管理员：写报告链接</button>`:''}
+      <button class="btn btn-outline" onclick="closeModal()">关闭</button>
+    </div>`;
+  document.getElementById('modalMask').style.display='flex';
+}
+async function openDiagReportForm(id){
+  if(!isAdmin())return alert('仅管理员');
+  const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;
+  document.getElementById('modalBox').className='modal';
+  document.getElementById('modalBox').innerHTML=`<h3>挂载诊断报告</h3>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:12px">与 Grok/专家交流后，把精美报告的链接填在下方；用户在查看页可点击打开。</p>
+    <div class="form-group"><label>诊断报告链接 *</label><input id="diag-report-link" placeholder="https://..." value="${(d.report_link||'').replace(/"/g,'&quot;')}"></div>
+    <div class="form-group"><label>摘要说明（可选，显示在查看页）</label><textarea id="diag-report-text" style="min-height:100px">${d.report||''}</textarea></div>
+    <div class="form-group"><label>状态</label><select id="diag-status">
+      <option value="pending" ${d.status==='pending'?'selected':''}>待出报告</option>
+      <option value="generating" ${d.status==='generating'?'selected':''}>分析中</option>
+      <option value="completed" ${d.status==='completed'?'selected':''}>报告已出</option>
+    </select></div>
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveDiagReport(${id})">保存</button></div>`;
+  document.getElementById('modalMask').style.display='flex';
+}
+async function saveDiagReport(id){
+  if(!isAdmin())return;
+  const report_link=(document.getElementById('diag-report-link').value||'').trim();
+  const report=(document.getElementById('diag-report-text').value||'').trim();
+  const status=document.getElementById('diag-status').value;
+  if(!report_link&&status==='completed')return alert('报告已出时请填写报告链接');
+  const {error}=await sb.from('diagnosis_surveys').update({report_link,report,status:status||(report_link?'completed':'pending')}).eq('id',id);
+  if(error)return alert(error.message);
+  closeModal();renderDiagnosis();alert('已保存');
+}
 async function deleteDiagnosis(id){if(!confirm('确定删除？'))return;await sb.from('diagnosis_surveys').delete().eq('id',id);renderDiagnosis();}
 
 function openAddJinZhu(){editingJinZhuId=null;showJinZhuFormSimple();}
@@ -1216,8 +1294,7 @@ async function saveTeam(){
   const person=document.getElementById('tm-person').value.trim(),phone=document.getElementById('tm-phone').value.trim(),wechat=document.getElementById('tm-wechat').value.trim();
   if(!person||!phone||!wechat)return alert('名片必填项不能为空');
   const performances=[];document.querySelectorAll('#perf-list .dynamic-item').forEach(item=>{const t=item.querySelector('.perf-title').value.trim(),d=item.querySelector('.perf-desc').value.trim();if(t)performances.push({title:t,desc:d});});
-  const row={id:editingTeamId||Date.now(),name,demand:document.getElementById('tm-demand').value,dream:document.getElementById('tm-dream').value,power:parseInt(document.getElementById('tm-power').value)||0,phone,performances,members:editingTeamId?undefined:[],card:{person,title:document.getElementById('tm-title').value,phone,email:document.getElementById('tm-email').value,wechat,whatsapp:document.getElementById('tm-whatsapp').value,website:document.getElementById('tm-website').value.trim(),qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}};
-  if(row.members===undefined)delete row.members;
+  const row={id:editingTeamId||Date.now(),name,demand:document.getElementById('tm-demand').value,dream:document.getElementById('tm-dream').value,power:parseInt(document.getElementById('tm-power').value)||0,phone,performances,card:{person,title:document.getElementById('tm-title').value,phone,email:document.getElementById('tm-email').value,wechat,whatsapp:document.getElementById('tm-whatsapp').value,website:document.getElementById('tm-website').value.trim(),qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}};
   let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert({...row,members:[]}));
   if(error)return alert(error.message);closeModal();renderTeam();alert('保存成功');
 }
