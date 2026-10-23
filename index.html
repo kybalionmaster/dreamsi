@@ -416,21 +416,17 @@ async function doLogin(){
   const {data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();
   if(error)return alert('登录失败：'+error.message);if(!data)return alert('用户不存在');if(data.blacklisted)return alert('已列入黑名单');if(data.pwd!==pwd)return alert('密码错误');
   setUser({phone:data.phone,role:data.role});closeModal();
+  switchView('dashi'); // 133
 }
-async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert('请输入');if(pwd!==pwd2)return alert('两次密码不一致');if(pwd.length<4)return alert('密码至少4位');if(!['jinzhu','ai','yingxiao'].includes(role))return alert('仅支持金主、AI公司或行业精英');const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('该手机号已注册');const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();}
-function renderBizCard(card){if(!card)return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${site.replace(/</g,'&lt;')}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${card.person||'-'}</b> · ${card.title||''}</div><div>📱 ${card.phone||'-'}</div><div>✉️ ${card.email||'-'}</div><div>💬 微信：${card.wechat||'-'}</div><div>🟢 WhatsApp：${card.whatsapp||'-'}</div><div>🌐 公司网址：${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;}
-async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){
-  const user=getUser();if(!user)return alert('请先登录');if(user.role!=='jinzhu'&&user.role!=='admin')return alert('仅金主和管理员可用');
-  const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(t=>String(t.phone)===String(user.phone));
-  if(!targetTeams.length)return alert('请先创建超级团队');
-  let added=0;
-  for(const team of targetTeams){
-    let members=Array.isArray(team.members)?[...team.members]:[];
-    if(members.some(m=>String(m.id)===String(targetId)&&m.type===targetType))continue;
-    members.push({id:targetId,type:targetType,name:targetName||String(targetId),power:Number(targetPower)||0});
-    const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;
-  }
-  alert(added>0?`已拉入 ${added} 个超级团队`:'该成员已在团队中');renderTeam();renderJinZhu();renderFocus();
+async function doRegister(){
+  const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;
+  if(!phone||!pwd)return alert('请输入');if(pwd!==pwd2)return alert('两次密码不一致');if(pwd.length<4)return alert('密码至少4位');
+  if(!['jinzhu','ai','yingxiao'].includes(role))return alert('仅支持金主、AI公司或行业精英');
+  const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('该手机号已注册');
+  const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});
+  if(error)return alert(error.message);
+  setUser({phone,role});closeModal();
+  switchView('dashi'); // 133
 }
 async function openSendMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return alert('请先登录');if(!toPhone)return alert('对方手机号未知');const defaults={greeting:{title:'美好的问候',content:'您好！看到您的信息，特来打个招呼。'},progress:{title:'成功进展报告',content:'向您同步一下我们这边的进展。'},event:{title:'活动邀请',content:'诚邀您参加我们的交流活动。'},case_request:{title:'索取成功案例',content:'希望了解贵司相关成功案例。'},trial_request:{title:'请求试用',content:'希望试用贵司的方案/工具。'}};const d0=defaults[msgType]||{title:'',content:''};document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${MSG_TYPE_LABEL[msgType]||msgType}</h3><p style="font-size:13px;color:#6b7280;margin-bottom:12px">发送给：<b>${toName||''}</b>（${toPhone}）</p><div class="form-group"><label>标题</label><input id="msg-title" value="${d0.title}"></div><div class="form-group"><label>内容</label><textarea id="msg-content">${d0.content}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="submitMsgDirect('${msgType}','${escapeAttr(toPhone)}','${escapeAttr(toName)}')">发送</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function submitMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return;const title=document.getElementById('msg-title').value.trim(),content=document.getElementById('msg-content').value.trim();if(!content)return alert('请填写内容');const {error}=await sb.from('messages').insert({id:Date.now(),from_phone:user.phone,from_name:user.phone,from_role:user.role,to_phone:toPhone,msg_type:msgType,title:title||MSG_TYPE_LABEL[msgType]||'',content,related_name:toName||''});if(error)return alert(error.message);closeModal();alert('已发送');}
@@ -475,7 +471,14 @@ function renderOneTeamCard(t,linkedJin,user,opts){
         <div class="member-header"><b>队员清单</b></div>
         <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,t.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
       </div>
-      <div class="team-progress-box">
+  const canSeeProgress=user&&(user.role==='jinzhu'||user.role==='admin');
+  // ... 原有变量 ...
+  // 把原来的 team-progress-box 换成：
+      ${canSeeProgress?`<div class="team-progress-box">
+        <h5>📈 团队进展与业绩　战力 ⚡${sum}</h5>
+        ${perfHtml}
+        ${t.dream&&t.dream!=='待填'?`<div class="prog-item" style="margin-top:8px;color:#64748b">梦想：${String(t.dream).replace(/</g,'&lt;')}</div>`:''}
+      </div>`:''}
         <h5>📈 团队进展与业绩　战力 ⚡${sum}</h5>
         ${perfHtml}
         ${t.dream&&t.dream!=='待填'?`<div class="prog-item" style="margin-top:8px;color:#64748b">梦想：${String(t.dream).replace(/</g,'&lt;')}</div>`:''}
@@ -545,7 +548,12 @@ function teamBlockHtml(team,j,user){
     <div style="margin-top:8px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">加入团队</button>`:''}</div>
     <div class="member-header"><b>队员清单</b></div>
     <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
-    <div class="team-progress-box">
+  const canSeeProgress=user&&(user.role==='jinzhu'||user.role==='admin');
+  // ...
+    ${canSeeProgress?`<div class="team-progress-box">
+      <h5>📈 团队进展与业绩　战力 ⚡${sum}</h5>
+      ${perfHtml}
+    </div>`:''}
       <h5>📈 团队进展与业绩　战力 ⚡${sum}</h5>
       ${perfHtml}
     </div>
@@ -581,12 +589,21 @@ async function renderJinZhu(){
   renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
 }
 function goJzPage(p){jzPage=p;renderJinZhu();}
-
 async function renderDaShi(){
   const user=getUser();let list=await fetchDaShi();let emptyMsg='';
   const banner=document.getElementById('dashi-match-banner');
-  if(matchContext&&matchContext.type==='jinzhu'){banner.innerHTML=`<div class="match-banner">匹配来源：金主「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">清除匹配</a></div>`;list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);}
-  else{banner.innerHTML='';if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}else if(user.role==='ai'){list=list.filter(d=>String(d.phone)===String(user.phone));if(!list.length)emptyMsg='<div class="empty-tip">您还没有发布工具</div>';}}
+  if(matchContext&&matchContext.type==='jinzhu'){
+    banner.innerHTML=`<div class="match-banner">匹配来源：金主「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">清除匹配</a></div>`;
+    list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);
+  }else{
+    banner.innerHTML='';
+    if(!user){
+      // 未登录仍提示登录（登录后会进本页）
+      emptyMsg='<div class="empty-tip">请先登录后查看超级智能中心</div>';
+      list=[];
+    }
+    // 133：已登录任意角色均可查看全部 SI；AI 公司编辑权限仍由 canEdit 控制
+  }
   if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('ds-q')||{}).value||''),dsPage,PAGE_SIZE);dsPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
@@ -605,7 +622,7 @@ async function renderDaShi(){
       ${renderBizCard(d.card)}
       ${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon case" onclick="openSendMsgDirect('case_request','${pn}','${nm}')">📄</button><button class="x-icon trial" onclick="openSendMsgDirect('trial_request','${pn}','${nm}')">🧪</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}
     </div></div>`;
-  }).join(''):emptyMsg;
+  }).join(''):emptyMsg||'<div class="empty-tip">暂无超级智能工具</div>';
   renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
   if(focusDashiId){const el=document.getElementById('dashi-card-'+focusDashiId)||document.getElementById('dashi-card-'+String(focusDashiId));if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),80);}
 }
