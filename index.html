@@ -51,10 +51,7 @@ button,input,select,textarea{font:inherit}
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
 .section-title{font-size:18px;font-weight:700;color:#f8fafc}
 .search-bar{margin-bottom:12px}
-.search-bar input{
-  width:100%;max-width:480px;padding:10px 14px;border-radius:24px;border:1px solid #334155;
-  background:#0f172a;color:#e2e8f0;outline:none;
-}
+.search-bar input{width:100%;max-width:480px;padding:10px 14px;border-radius:24px;border:1px solid #334155;background:#0f172a;color:#e2e8f0;outline:none}
 .search-bar input:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.2)}
 .pager{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 20px;font-size:13px}
 .pager a,.pager span{display:inline-flex;min-width:32px;height:32px;align-items:center;justify-content:center;padding:0 8px;border-radius:6px;text-decoration:none}
@@ -98,13 +95,8 @@ button,input,select,textarea{font:inherit}
 .member-chip{display:inline-flex;align-items:center;gap:6px;background:#1e293b;border:1px solid #334155;border-radius:999px;padding:4px 10px 4px 4px;font-size:12px}
 .member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#334155}
 .member-chip .power-icon{color:#fbbf24;font-size:11px}
-.member-x,.team-x{
-  opacity:0;pointer-events:none;width:22px;height:22px;border:none;border-radius:50%;
-  background:#dc2626;color:#fff;cursor:pointer;font-size:14px;line-height:1;margin-left:2px;
-  transition:opacity .15s;
-}
-.team-title:hover .team-x,.team-title:focus-within .team-x,
-.member-chip:hover .member-x,.team-show-kick .member-x{opacity:1;pointer-events:auto}
+.member-x,.team-x{opacity:0;pointer-events:none;width:22px;height:22px;border:none;border-radius:50%;background:#dc2626;color:#fff;cursor:pointer;font-size:14px;line-height:1;margin-left:2px;transition:opacity .15s}
+.team-title:hover .team-x,.team-title:focus-within .team-x,.member-chip:hover .member-x,.team-show-kick .member-x{opacity:1;pointer-events:auto}
 .team-progress-box{margin-top:10px;padding:10px 12px;background:#0f172a;border:1px solid #334155;border-radius:10px}
 .team-progress-box h5{font-size:13px;color:#fbbf24;margin-bottom:6px}
 .prog-item{font-size:12px;color:#94a3b8;margin:3px 0}
@@ -114,9 +106,7 @@ button,input,select,textarea{font:inherit}
 .modal h3{margin-bottom:14px;font-size:17px}
 .form-group{margin-bottom:12px}
 .form-group label{display:block;font-size:12px;color:#94a3b8;margin-bottom:4px}
-.form-group input,.form-group select,.form-group textarea{
-  width:100%;padding:8px 10px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#e2e8f0;
-}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#e2e8f0}
 .form-group textarea{min-height:72px;resize:vertical}
 .form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap}
 .dynamic-item{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:10px;margin-bottom:8px;position:relative}
@@ -149,70 +139,40 @@ table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:8px;border-bottom:1px solid #334155;text-align:left}
 th{color:#94a3b8;font-weight:500}
 
-/* ===== 137 首页拼图 ===== */
-.puzzle-home{max-width:420px;margin:0 auto 24px;padding:0 8px}
-.puzzle-home .puzzle-title{text-align:center;font-size:15px;color:#e2e8f0;margin-bottom:10px;line-height:1.5}
-.puzzle-home .puzzle-title b{color:#fbbf24}
-.puzzle-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:6px;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 12px 40px rgba(15,23,42,.45);
-  background:#0f172a;
-}
-.puzzle-piece{
-  position:relative;
-  display:block;
-  min-height:88px;
+/* 137 首页：背景 + 五步入口 */
+.home-hero{
+  position:relative;max-width:420px;margin:0 auto 20px;border-radius:16px;overflow:hidden;
+  box-shadow:0 12px 40px rgba(15,23,42,.5);
+  background:#0f172a center top/cover no-repeat;
   background-image:url('poster-vertical.jpg');
-  background-size:200% auto;
-  background-repeat:no-repeat;
-  border:1px solid rgba(251,191,36,.25);
-  border-radius:10px;
-  text-decoration:none;
-  overflow:hidden;
-  transition:transform .15s,box-shadow .15s,border-color .15s;
+  min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 12px 20px;
 }
-.puzzle-piece:active{transform:scale(.98)}
-.puzzle-piece:hover,.puzzle-piece:focus{
-  border-color:#fbbf24;
-  box-shadow:0 0 0 2px rgba(251,191,36,.35);
-  z-index:2;
+.home-hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 0%,transparent 38%,rgba(15,23,42,.55) 55%,rgba(15,23,42,.88) 100%);
 }
-.puzzle-piece .piece-label{
-  position:absolute;left:0;right:0;bottom:0;
-  padding:8px 6px 6px;
-  background:linear-gradient(transparent,rgba(15,23,42,.92));
-  color:#f8fafc;font-size:11px;font-weight:600;text-align:center;
-  line-height:1.3;pointer-events:none;
+.home-steps{position:relative;z-index:2;display:flex;flex-direction:column;gap:8px}
+.home-step{
+  display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;
+  border:1px solid rgba(251,191,36,.45);background:rgba(15,23,42,.82);color:#f8fafc;
+  text-decoration:none;font-size:13px;font-weight:600;transition:border-color .15s,transform .15s,background .15s;
 }
-.puzzle-piece.p1{background-position:0% 0%;min-height:100px}
-.puzzle-piece.p2{background-position:100% 0%;min-height:100px}
-.puzzle-piece.p3{background-position:0% 18%;min-height:92px}
-.puzzle-piece.p4{background-position:100% 18%;min-height:92px}
-.puzzle-piece.p5{background-position:0% 36%}
-.puzzle-piece.p6{background-position:100% 36%}
-.puzzle-piece.p7{background-position:0% 52%}
-.puzzle-piece.p8{background-position:100% 52%}
-.puzzle-piece.p9{background-position:0% 68%}
-.puzzle-piece.p10{background-position:100% 68%}
-.puzzle-piece.p11{background-position:0% 86%}
-.puzzle-piece.p12{background-position:100% 86%}
-@media(min-width:768px){
-  .puzzle-home{max-width:480px}
-  .puzzle-piece{min-height:100px}
-  .puzzle-piece .piece-label{font-size:12px}
+.home-step:hover,.home-step:focus{border-color:#fbbf24;background:rgba(30,41,59,.95);transform:translateY(-1px)}
+.home-step .step-ico{
+  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(251,191,36,.15);font-size:14px;flex-shrink:0;
 }
+.home-step .step-arrow{margin-left:auto;color:#fbbf24;font-size:12px;opacity:.8}
 .home-sections{margin-top:8px}
-
+@media(min-width:768px){
+  .home-hero{max-width:480px;min-height:560px}
+  .home-step{font-size:14px;padding:12px 16px}
+}
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:translateX(0)}
   .main{margin-left:0}
   #btnMenu{display:inline-block}
-  .card{flex-direction:row}
 }
 </style>
 </head>
@@ -245,23 +205,24 @@ th{color:#94a3b8;font-weight:500}
       <div id="userArea"></div>
     </div>
     <div class="content">
-      <!-- 首页：137 拼图 + 列表 -->
       <div id="view-home" class="view active">
-        <div class="puzzle-home">
-          <div class="puzzle-title">点击拼图进入对应能力 · <b>梦想显化器</b></div>
-          <div class="puzzle-grid" id="puzzle-grid">
-            <a href="javascript:void(0)" class="puzzle-piece p1" onclick="onPuzzleClick('focus')"><span class="piece-label">梦想显化器 · 当前显化</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p2" onclick="onPuzzleClick('dashi')"><span class="piece-label">超级智能中心</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p3" onclick="onPuzzleClick('qgen')"><span class="piece-label">宇宙法则 · 问卷生成</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p4" onclick="onPuzzleClick('diagnosis')"><span class="piece-label">诊断问卷 · 需求诊断</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p5" onclick="onPuzzleClick('hero')"><span class="piece-label">超级精英中心</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p6" onclick="onPuzzleClick('team')"><span class="piece-label">超级精英团队</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p7" onclick="onPuzzleClick('jinzhu')"><span class="piece-label">金主需求 · 送客户</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p8" onclick="onPuzzleClick('dashi')"><span class="piece-label">兵器库 · 智能工具</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p9" onclick="onPuzzleClick('diagnosis')"><span class="piece-label">门诊部 · 诊断报告</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p10" onclick="onPuzzleClick('qgen')"><span class="piece-label">图书馆 · 知识问卷</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p11" onclick="onPuzzleClick('team')"><span class="piece-label">动力马达 · 我的团队</span></a>
-            <a href="javascript:void(0)" class="puzzle-piece p12" onclick="onPuzzleClick('inbox')"><span class="piece-label">站内信 · 进展同步</span></a>
+        <div class="home-hero">
+          <div class="home-steps">
+            <a href="javascript:void(0)" class="home-step" onclick="onPuzzleClick('focus')">
+              <span class="step-ico">✦</span><span>1. 宇宙法则指引方向</span><span class="step-arrow">›</span>
+            </a>
+            <a href="javascript:void(0)" class="home-step" onclick="onPuzzleClick('dashi')">
+              <span class="step-ico">⚙</span><span>2. 超级智能 · 零成本自动化工具</span><span class="step-arrow">›</span>
+            </a>
+            <a href="javascript:void(0)" class="home-step" onclick="onPuzzleClick('diagnosis')">
+              <span class="step-ico">?</span><span>3. 诊断问卷找出问题</span><span class="step-arrow">›</span>
+            </a>
+            <a href="javascript:void(0)" class="home-step" onclick="onPuzzleClick('team')">
+              <span class="step-ico">👥</span><span>4. 自动组合超级精英团队</span><span class="step-arrow">›</span>
+            </a>
+            <a href="javascript:void(0)" class="home-step" onclick="onPuzzleClick('jinzhu')">
+              <span class="step-ico">♥</span><span>5. 自动把客户送到企业怀抱</span><span class="step-arrow">›</span>
+            </a>
           </div>
         </div>
         <div class="home-sections">
@@ -280,7 +241,6 @@ th{color:#94a3b8;font-weight:500}
         <div class="section-head"><span class="section-title">当前显化中心</span></div>
         <div id="focus-list"></div>
       </div>
-
       <div id="view-team" class="view">
         <div class="section-head">
           <span class="section-title">我的超级团队</span>
@@ -290,7 +250,6 @@ th{color:#94a3b8;font-weight:500}
         <div id="team-list"></div>
         <div id="team-pager" class="pager"></div>
       </div>
-
       <div id="view-jinzhu" class="view">
         <div class="section-head">
           <span class="section-title">金主需求中心</span>
@@ -301,7 +260,6 @@ th{color:#94a3b8;font-weight:500}
         <div id="jinzhu-list"></div>
         <div id="jz-pager" class="pager"></div>
       </div>
-
       <div id="view-dashi" class="view">
         <div class="section-head">
           <span class="section-title">超级智能中心</span>
@@ -312,7 +270,6 @@ th{color:#94a3b8;font-weight:500}
         <div id="dashi-list"></div>
         <div id="ds-pager" class="pager"></div>
       </div>
-
       <div id="view-hero" class="view">
         <div class="section-head">
           <span class="section-title">超级精英中心</span>
@@ -322,7 +279,6 @@ th{color:#94a3b8;font-weight:500}
         <div id="hero-list"></div>
         <div id="hero-pager" class="pager"></div>
       </div>
-
       <div id="view-qgen" class="view">
         <div class="section-head">
           <span class="section-title">问卷生成中心</span>
@@ -333,19 +289,16 @@ th{color:#94a3b8;font-weight:500}
         <div id="qgen-list"></div>
         <div id="qgen-pager" class="pager"></div>
       </div>
-
       <div id="view-diagnosis" class="view">
         <div class="section-head"><span class="section-title">需求诊断中心</span></div>
         <div class="search-bar"><input id="diag-q" placeholder="搜索诊断…" oninput="diagPage=1;renderDiagnosis()"></div>
         <div id="diagnosis-list"></div>
         <div id="diag-pager" class="pager"></div>
       </div>
-
       <div id="view-inbox" class="view">
         <div class="section-head"><span class="section-title">站内信</span></div>
         <div id="inbox-list"></div>
       </div>
-
       <div id="view-coop" class="view">
         <div class="section-head"><span class="section-title">商务合作</span></div>
         <div class="card"><div class="card-content">
@@ -358,7 +311,6 @@ th{color:#94a3b8;font-weight:500}
           <button type="button" class="btn btn-primary" onclick="submitCoop()">提交</button>
         </div></div>
       </div>
-
       <div id="view-chat" class="view">
         <div class="section-head"><span class="section-title">在线客服</span></div>
         <div id="chatMessages"></div>
@@ -367,7 +319,6 @@ th{color:#94a3b8;font-weight:500}
           <button type="button" class="btn btn-primary" onclick="sendChat()">发送</button>
         </div>
       </div>
-
       <div id="view-users" class="view">
         <div class="section-head"><span class="section-title">用户管理</span></div>
         <div style="overflow-x:auto">
@@ -375,12 +326,10 @@ th{color:#94a3b8;font-weight:500}
           <tbody id="users-tbody"></tbody></table>
         </div>
       </div>
-
       <div id="view-coop-list" class="view">
         <div class="section-head"><span class="section-title">商务合作汇总</span></div>
         <div id="coop-list"></div>
       </div>
-
       <div id="view-chat-list" class="view">
         <div class="section-head"><span class="section-title">在线客服汇总</span></div>
         <div id="chat-list"></div>
@@ -388,13 +337,8 @@ th{color:#94a3b8;font-weight:500}
     </div>
   </div>
 </div>
-
-<div class="modal-mask" id="modalMask">
-  <div class="modal" id="modalBox"></div>
-</div>
-
+<div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
-
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
