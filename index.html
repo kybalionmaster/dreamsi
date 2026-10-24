@@ -19,14 +19,14 @@ button,input,select,textarea{font:inherit}
 .btn-outline:hover{border-color:#94a3b8}
 .btn-edit{background:#0ea5e9;color:#fff}
 .btn-del,.btn-danger{background:#dc2626;color:#fff}
-.btn-warn{background:#d97706;color:#fff}
+.btn-warn{background:#d97706;color:#color:#fff}
 .btn-savior{background:#7c3aed;color:#fff}
 .btn-caishen{background:#c026d3;color:#fff}
 .btn-team{background:#059669;color:#fff}
 .btn-survey{background:#0f766e;color:#fff;border:none}
 .btn-icon-sm{width:28px;height:28px;padding:0;border-radius:8px;border:1px solid #475569;background:#1e293b;color:#e2e8f0;cursor:pointer;font-size:14px;line-height:1}
 .btn-icon-sm:hover{border-color:#fbbf24;background:#334155}
-.layout{{display:flex;min-height:100vh}
+.layout{display:flex;min-height:100vh}
 .sidebar{width:220px;background:#020617;border-right:1px solid #1e293b;padding:16px 12px;position:fixed;top:0;left:0;bottom:0;z-index:50;overflow-y:auto;transition:transform .2s}
 .sidebar .brand{font-size:16px;font-weight:700;color:#fbbf24;padding:8px 10px 16px;letter-spacing:.02em}
 .menu-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;color:#94a3b8;cursor:pointer;font-size:13px;margin-bottom:2px}
@@ -122,7 +122,7 @@ button,input,select,textarea{font:inherit}
 .msg-type{font-size:11px;background:#334155;padding:2px 6px;border-radius:4px;margin-right:6px}
 .qgen-section-box{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:12px;margin-bottom:12px;position:relative}
 .qgen-q-row{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:10px;margin:8px 0;position:relative}
-.qgen-toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qgen-toolbar{display:flex;flex-<br>wrap:wrap;gap:6px;margin-top:8px}
 .survey-wrap{color:#e2e8f0}
 .survey-header h2{font-size:18px;margin-bottom:6px}
 .survey-section{margin:16px 0}
@@ -139,13 +139,14 @@ table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:8px;border-bottom:1px solid #334155;text-align:left}
 th{color:#94a3b8;font-weight:500}
 
-/* 137 首页：海报 + 底部小图标 */
+/* 今日首页：海报 + 底部小图标 */
 .home-hero{
   position:relative;max-width:420px;margin:0 auto 20px;border-radius:18px;overflow:hidden;
   box-shadow:0 12px 40px rgba(0,0,0,.45);
-  background:#0b1220 center top/cover no-repeat;
+  background:#0b1220 center top / cover no-repeat;
   background-image:url('poster-vertical.jpg');
-  min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
+  min-height:520px;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
   padding:0 12px 18px;
 }
 .home-hero::before{
@@ -154,17 +155,15 @@ th{color:#94a3b8;font-weight:500}
 }
 .home-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .home-step-icon{
-  width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
   border:1px solid rgba(251,191,36,.65);
   background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);
   color:#1c1917;font-size:18px;text-decoration:none;
-  box-shadow:0 2px 12px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.12) inset;
+  box-shadow:0 2px 12px rgba(0,0,0,.35);
   transition:transform .15s,box-shadow .15s;cursor:pointer;
 }
-.home-step-icon:hover,.home-step-icon:focus{
-  transform:translateY(-2px) scale(1.06);
-  box-shadow:0 6px 18px rgba(251,191,36,.4);
-}
+.home-step-icon:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 6px 18px rgba(251,191,36,.4)}
 .home-sections{margin-top:8px}
 @media(min-width:768px){
   .home-hero{max-width:480px;min-height:600px}
@@ -232,38 +231,33 @@ th{color:#94a3b8;font-weight:500}
       <div id="view-focus" class="view"><div class="section-head"><span class="section-title">当前显化中心</span></div><div id="focus-list"></div></div>
       <div id="view-team" class="view">
         <div class="section-head"><span class="section-title">我的超级团队</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-team" style="display:none" onclick="openAddTeam()">+ 创建团队</button>
-        </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-add-team" style="display:none" onclick="openAddTeam()">+ 创建团队</button></div>
         <div class="search-bar"><input id="team-q" placeholder="搜索团队…" oninput="teamPage=1;renderTeam()"></div>
         <div id="team-list"></div><div id="team-pager" class="pager"></div>
       </div>
       <div id="view-jinzhu" class="view">
         <div class="section-head"><span class="section-title">金主需求中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-jinzhu" style="display:none" onclick="openAddJinZhu()">+ 发布需求</button>
-        </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-add-jinzhu" style="display:none" onclick="openAddJinZhu()">+ 发布需求</button></div>
         <div id="jinzhu-match-banner"></div>
         <div class="search-bar"><input id="jz-q" placeholder="搜索金主需求…" oninput="jzPage=1;renderJinZhu()"></div>
         <div id="jinzhu-list"></div><div id="jz-pager" class="pager"></div>
       </div>
       <div id="view-dashi" class="view">
         <div class="section-head"><span class="section-title">超级智能中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-dashi" style="display:none" onclick="openAddDaShi()">+ 发布工具</button>
-        </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-add-dashi" style="display:none" onclick="openAddDaShi()">+ 发布工具</button></div>
         <div id="dashi-match-banner"></div>
         <div class="search-bar"><input id="ds-q" placeholder="搜索超级智能…" oninput="dsPage=1;renderDaShi()"></div>
         <div id="dashi-list"></div><div id="ds-pager" class="pager"></div>
       </div>
       <div id="view-hero" class="view">
         <div class="section-head"><span class="section-title">超级精英中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-hero" style="display:none" onclick="openAddHero()">+ 发布精英</button>
-        </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-add-hero" style="display:none" onclick="openAddHero()">+ 发布精英</button></div>
         <div class="search-bar"><input id="hero-q" placeholder="搜索超级精英…" oninput="heroPage=1;renderHero()"></div>
         <div id="hero-list"></div><div id="hero-pager" class="pager"></div>
       </div>
       <div id="view-qgen" class="view">
         <div class="section-head"><span class="section-title">问卷生成中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-qgen" style="display:none" onclick="openAddQgen()">+ 新建问卷</button>
-        </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-add-qgen" style="display:none" onclick="openAddQgen()">+ 新建问卷</button></div>
         <div id="qgen-team-tip" style="display:none;margin-bottom:10px;font-size:13px;color:#94a3b8"></div>
         <div class="search-bar"><input id="qgen-q" placeholder="搜索问卷…" oninput="qgenPage=1;renderQgen()"></div>
         <div id="qgen-list"></div><div id="qgen-pager" class="pager"></div>
@@ -278,7 +272,6 @@ th{color:#94a3b8;font-weight:500}
         <div class="section-head"><span class="section-title">商务合作</span></div>
         <div class="card"><div class="card-content">
           <div class="form-group"><label>名称 *</label><input id="coop-name"></div>
-
           <div class="form-group"><label>联系方式 *</label><input id="coop-contact"></div>
           <div class="form-group"><label>类型</label><select id="coop-type"><option>商务合作</option><option>广告投放</option><option>其它</option></select></div>
           <div class="form-group"><label>说明</label><textarea id="coop-desc"></textarea></div>
@@ -289,7 +282,7 @@ th{color:#94a3b8;font-weight:500}
         <div class="section-head"><span class="section-title">在线客服</span></div>
         <div id="chatMessages"></div>
         <div style="display:flex;gap:8px">
-          <input id="chatInput" placeholder="输入消息…" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#e2e8f0" onkeydown="if(event.key==='Enter')sendChat()">
+          <input id="chatInput" placeholder="输入入消息…" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#e2e8f0" onkeydown="if(event.key==='Enter')sendChat()">
           <button type="button" class="btn btn-primary" onclick="sendChat()">发送</button>
         </div>
       </div>
