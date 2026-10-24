@@ -2,312 +2,287 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>梦想显化器</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>𝕏</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC",sans-serif;background:#f3f4f6;color:#1f2937;line-height:1.5;min-height:100vh}
-a{color:#2563eb}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.5}
+a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 12px;border-radius:8px;border:1px solid transparent;cursor:pointer;font-size:13px;font-weight:500;transition:.15s}
-.btn-sm{padding:4px 8px;font-size:12px}
-.btn-primary{background:#2563eb;color:#fff}
-.btn-primary:hover{background:#1d4ed8}
-.btn-outline{background:#fff;border-color:#d1d5db;color:#374151}
-.btn-outline:hover{background:#f9fafb;border-color:#9ca3af}
-.btn-edit{background:#0ea5e9;color:#fff}
-.btn-del,.btn-danger{background:#dc2626;color:#fff}
-.btn-warn{background:#d97706;color:#fff}
-.btn-savior{background:#7c3aed;color:#fff}
-.btn-caishen{background:#c026d3;color:#fff}
-.btn-team{background:#059669;color:#fff}
-.btn-survey{background:#0f766e;color:#fff;border:none}
-.btn-icon-sm{width:28px;height:28px;padding:0;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:#374151;cursor:pointer;font-size:14px;line-height:1}
-.btn-icon-sm:hover{border-color:#fbbf24;background:#fffbeb}
-.layout{display:flex;min-height:100vh}
-/* 深色侧栏 */
-.sidebar{width:220px;background:#0f172a;border-right:1px solid #1e293b;padding:16px 12px;position:fixed;top:0;left:0;bottom:0;z-index:50;overflow-y:auto;transition:transform .2s}
-.sidebar .brand{font-size:16px;font-weight:700;color:#fbbf24;padding:8px 10px 16px}
-.menu-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;color:#94a3b8;cursor:pointer;font-size:13px;margin-bottom:2px}
-.menu-item:hover{background:#1e293b;color:#e2e8f0}
-.menu-item.active{background:#1e3a5f;color:#fbbf24}
+.app{display:flex;min-height:100vh}
+.sidebar{width:240px;background:linear-gradient(180deg,#0f172a,#1e293b);color:#e2e8f0;padding:16px 12px;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:40;transition:transform .25s}
+.sidebar .logo{display:flex;align-items:center;gap:10px;padding:8px 10px 18px;font-weight:700;font-size:16px;color:#fbbf24}
+.sidebar .logo span{width:32px;height:32px;border-radius:50%;background:#fbbf24;color:#0f172a;display:flex;align-items:center;justify-content:center;font-size:14px}
+.menu-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px;margin-bottom:2px;color:#cbd5e1}
+.menu-item:hover,.menu-item.active{background:rgba(251,191,36,.15);color:#fbbf24}
 .menu-item.admin-only{display:none}
-/* 主区白底 */
-.main{flex:1;margin-left:220px;min-height:100vh;display:flex;flex-direction:column;background:#f3f4f6}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#ffffff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:40}
-.topbar-left{display:flex;align-items:center;gap:8px}
-#btnMenu{display:none;background:#fff;border:1px solid #e5e7eb;color:#374151;padding:6px 10px;border-radius:8px;cursor:pointer}
-.user-info{display:flex;align-items:center;gap:8px;font-size:13px;color:#374151}
-.role-badge{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600}
-.role-jinzhu{background:#ffedd5;color:#c2410c}
-.role-ai{background:#dbeafe;color:#1d4ed8}
-.role-admin{background:#ede9fe;color:#6d28d9}
-.role-kefu{background:#ccfbf1;color:#0f766e}
-.role-shenhe{background:#f3f4f6;color:#4b5563}
-.role-yingxiao{background:#fce7f3;color:#be185d}
-.quick-badges{display:none;gap:6px;margin-right:8px}
-.quick-badges span{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#78350f;background:#fbbf24;cursor:pointer;border:none}
-.content{padding:16px;flex:1;background:#f3f4f6}
-.view{display:none}
-.view.active{display:block}
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
-.section-title{font-size:18px;font-weight:700;color:#111827}
-.search-bar{margin-bottom:12px}
-.search-bar input{width:100%;max-width:480px;padding:10px 14px;border-radius:24px;border:1px solid #e5e7eb;background:#fff;color:#111827;outline:none}
-.search-bar input:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
-.pager{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 20px;font-size:13px}
-.pager a,.pager span{display:inline-flex;min-width:32px;height:32px;align-items:center;justify-content:center;padding:0 8px;border-radius:6px;text-decoration:none}
-.pager a{color:#2563eb;border:1px solid #e5e7eb;background:#fff}
-.pager a:hover{background:#f9fafb}
-.pager .cur{background:#2563eb;color:#fff;border:1px solid #2563eb}
-.pager .disabled{color:#9ca3af;border:1px solid #f3f4f6}
-.pager .next{margin-left:4px}
-.card{display:flex;gap:12px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card.focus-card{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,191,36,.3)}
-.card.priority-card{border-color:#a78bfa;box-shadow:0 0 0 1px rgba(167,139,250,.25)}
-.avatar{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-.avatar-jinzhu{background:#ffedd5;color:#c2410c}
-.avatar-dashi{background:#dbeafe;color:#1d4ed8}
-.avatar-hero{background:#fce7f3;color:#be185d}
-.avatar-team{background:#ccfbf1;color:#0f766e}
-.avatar-diag{background:#ede9fe;color:#6d28d9}
+.main{flex:1;margin-left:240px;min-width:0}
+.topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30}
+.topbar .brand{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.user-area{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.user-info{display:flex;align-items:center;gap:8px;font-size:13px}
+.content{padding:16px;max-width:1100px}
+.view{display:none}.view.active{display:block}
+.view-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.view-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.btn{border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:4px;transition:.15s}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-primary{background:#2563eb;color:#fff}.btn-primary:hover{background:#1d4ed8}
+.btn-outline{background:#fff;border:1px solid #cbd5e1;color:#334155}.btn-outline:hover{background:#f8fafc}
+.btn-edit{background:#e0e7ff;color:#3730a3}.btn-del{background:#fee2e2;color:#b91c1c}
+.btn-team{background:#d1fae5;color:#047857}.btn-savior{background:#fef3c7;color:#b45309}
+.btn-caishen{background:#fce7f3;color:#9d174d}.btn-survey{background:#ede9fe;color:#5b21b6}
+.btn-danger{background:#dc2626;color:#fff}.btn-warn{background:#f59e0b;color:#fff}
+.btn-icon-sm{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:16px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.btn-icon-sm:hover{background:#f1f5f9;border-color:#94a3b8}
+.search-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:160px;padding:10px 14px;border:1px solid #cbd5e1;border-radius:24px;font-size:14px;outline:none}
+.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.pager{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:14px}
+.pager a,.pager span{padding:6px 12px;border-radius:4px;color:#1a0dab}
+.pager a:hover{text-decoration:underline}
+.pager .cur{color:#000;font-weight:700}
+.pager .disabled{color:#9ca3af;cursor:default}
+.pager .next{margin-left:8px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card.focus-card,.card.priority-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.2)}
+.avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.avatar-jinzhu{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.avatar-dashi{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+.avatar-hero{background:linear-gradient(135deg,#ec4899,#be185d)}
+.avatar-team{background:linear-gradient(135deg,#10b981,#047857)}
+.avatar-diag{background:linear-gradient(135deg,#0ea5e9,#0369a1)}
 .card-content{flex:1;min-width:0}
-.card-title{font-weight:600;font-size:15px;margin-bottom:6px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:#111827}
-.card-desc{font-size:13px;color:#6b7280;margin-bottom:4px;word-break:break-word}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;background:#f3f4f6;color:#374151}
+.card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
+.card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
+.tag-industry{background:#ecfdf5;color:#047857}
+.tag-diff{background:#fff7ed;color:#c2410c}
 .tag-power{background:#fef3c7;color:#b45309}
-.tag-diff{background:#dbeafe;color:#1d4ed8}
-.tag-reward{background:#fae8ff;color:#a21caf}
-.tag-industry{background:#dcfce7;color:#047857}
-.match-score{font-size:11px;color:#059669;margin-left:4px}
-.match-banner{background:#ecfdf5;color:#047857;padding:10px 14px;border-radius:10px;margin-bottom:12px;font-size:13px;border:1px solid #a7f3d0}
-.empty-tip{text-align:center;color:#9ca3af;padding:32px 16px;font-size:14px}
-.biz-card{display:flex;gap:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px;font-size:12px;color:#6b7280}
-.biz-info{flex:1}
-.qr-box img{width:72px;height:72px;border-radius:6px;background:#fff}
-.x-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.x-icon{width:32px;height:32px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center}
-.x-icon:hover{border-color:#fbbf24;background:#fffbeb}
-.x-icon.pull{background:#ecfdf5;border-color:#6ee7b7}
-.team-box{background:#f8fafc;border:1px solid #e5e7;border-radius:12px;padding:12px;margin-top:10px}
-.team-title{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
-.member-header{font-size:12px;color:#6b7280;margin:8px 0 6px}
+.tag-reward{background:#fce7f3;color:#9d174d}
+.match-score{font-size:12px;color:#059669;font-weight:600}
+.match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
+.empty-tip{text-align:center;color:#94a3b8;padding:40px 16px;font-size:14px}
+.role-badge{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+.role-jinzhu{background:#fef3c7;color:#b45309}.role-ai{background:#ede9fe;color:#6d28d9}
+.role-admin{background:#fee2e2;color:#b91c1c}.role-yingxiao{background:#fce7f3;color:#9d174d}
+.role-kefu,.role-shenhe{background:#e0f2fe;color:#0369a1}
+.biz-card{display:flex;gap:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-top:8px;font-size:12px}
+.biz-info{flex:1}.qr-box img{width:72px;height:72px;border-radius:6px}
+.x-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.x-icon{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;font-size:14px;background:#f1f5f9}
+.x-icon:hover{transform:scale(1.08)}.x-icon.pull{background:#dbeafe}
+.team-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:12px;margin-top:10px}
+.team-title{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.member-header{display:flex;align-items:center;gap:8px;margin:8px 0 6px;font-size:13px}
 .member-list{display:flex;flex-wrap:wrap;gap:8px}
-.member-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e5e7eb;border-radius:999px;padding:4px 10px 4px 4px;font-size:12px}
-.member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#f3f4f6}
-.member-chip .power-icon{color:#b45309;font-size:11px}
-.member-x,.team-x{opacity:0;pointer-events:none;width:22px;height:22px;border:none;border-radius:50%;background:#dc2626;color:#fff;cursor:pointer;font-size:14px;line-height:1;margin-left:2px;transition:opacity .15s}
-.team-title:hover .team-x,.team-title:focus-within .team-x,.member-chip:hover .member-x,.team-show-kick .member-x{opacity:1;pointer-events:auto}
-.team-progress-box{margin-top:10px;padding:10px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px}
-.team-progress-box h5{font-size:13px;color:#b45309;margin-bottom:6px}
-.prog-item{font-size:12px;color:#4b5563;margin:3px 0}
-.modal-mask{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:100;align-items:flex-start;justify-content:center;padding:24px 12px;overflow-y:auto}
-.modal{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;width:100%;max-width:440px;color:#1f2937;box-shadow:0 20px 50px rgba(0,0,0,.12)}
-.modal.wide{max-width:640px}
-.modal h3{margin-bottom:14px;font-size:17px;color:#111827}
+.member-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:4px 10px 4px 4px;font-size:12px}
+.member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#e2e8f0}
+.member-chip img.clickable{cursor:pointer}
+.member-chip img.clickable:hover{outline:2px solid #2563eb;outline-offset:1px}
+.member-chip .power-icon{color:#b45309;font-weight:600}
+.member-x,.team-x{width:22px;height:22px;border-radius:50%;border:none;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px;line-height:1;opacity:0;transition:opacity .15s}
+.team-show-kick .member-x,.team-title:hover .team-x,.team-box:hover .team-x{opacity:1}
+@media (hover:none){.team-show-kick .member-x{opacity:1}}
+.team-progress-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:10px}
+.team-progress-box h5{font-size:13px;margin-bottom:8px;color:#0f172a}
+.prog-item{font-size:13px;color:#334155;margin:4px 0}
+.modal-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.modal.wide{max-width:720px}
+.modal h3{margin-bottom:14px;font-size:17px}
 .form-group{margin-bottom:12px}
-.form-group label{display:block;font-size:12px;color:#6b7280;margin-bottom:4px}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#111827}
+.form-group label{display:block;font-size:12px;font-weight:600;color:#64748b;margin-bottom:4px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px}
 .form-group textarea{min-height:72px;resize:vertical}
-.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap}
-.dynamic-item{background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-bottom:8px;position:relative}
-.dynamic-item .remove-btn{position:absolute;top:8px;right:8px}
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:45}
-.sidebar-overlay.open{display:block}
-.status-published{color:#059669;font-size:12px}
-.status-draft{color:#6b7280;font-size:12px}
-.badge-ok{color:#059669}
-.badge-pending{color:#d97706}
-.badge-black{color:#dc2626}
-.msg-item{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:10px}
-.msg-type{font-size:11px;background:#f3f4f6;padding:2px 6px;border-radius:4px;margin-right:6px}
-.qgen-section-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:12px;position:relative}
-.qgen-q-row{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:10px;margin:8px 0;position:relative}
-.qgen-toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.survey-wrap{color:#1f2937}
-.survey-header h2{font-size:18px;margin-bottom:6px}
-}
-.survey-section{margin:16px 0}
-.survey-section h4{font-size:15px;margin-bottom:10px;color:#b45309}
-.survey-section .num{display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;background:#2563eb;color:#fff;border-radius:6px;font-size:12px;margin-right:6px}
-.survey-q{margin-bottom:14px}
-.survey-q .q-label{display:block;font-size:13px;margin-bottom:6px;color:#374151}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.dynamic-item,.qgen-section-box,.qgen-q-row{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
+.remove-btn{position:absolute;top:8px;right:8px}
+.qgen-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.status-published{color:#047857;font-size:12px;font-weight:600}
+.status-draft{color:#94a3b8;font-size:12px}
+.badge-ok{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
+.badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
+.badge-black{background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:999px;font-size:11px}
+.survey-wrap{}.survey-header{margin-bottom:16px}.survey-header h2{font-size:18px;margin-bottom:6px}
+.survey-section{margin-bottom:18px}.survey-section h4{font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.survey-section .num{width:24px;height:24px;border-radius:50%;background:#2563eb;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.survey-q{margin-bottom:12px}.q-label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
 .survey-options{display:flex;flex-direction:column;gap:6px;font-size:13px}
-.survey-options label{display:flex;align-items:center;gap:6px}
-#chatMessages{max-height:280px;overflow-y:auto;background:#f9fafb;border-radius:10px;padding:12px;margin-bottom:10px;border:1px solid #e5e7eb}
+.msg-item{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px}
+.msg-type{font-size:11px;background:#e0e7ff;color:#3730a3;padding:2px 6px;border-radius:4px;margin-right:6px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{background:#f8fafc;font-weight:600}
+.fab-menu{display:none;position:fixed;bottom:20px;right:16px;z-index:50}
+.fab-menu button{width:48px;height:48px;border-radius:50%;border:none;background:#fbbf24;color:#0f172a;font-size:20px;box-shadow:0 4px 12px rgba(0,0,0,.2);cursor:pointer}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}
+@media (max-width:768px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}.fab-menu{display:block}
+  .sidebar-overlay.open{display:block}
+  .quick-icons{display:none!important}
+}
+.quick-icons{display:flex;gap:6px;margin-right:8px}
+.quick-icons button{width:36px;height:36px;border-radius:50%;border:none;background:#fbbf24;color:#0f172a;font-size:11px;font-weight:700;cursor:pointer}
+#chatMessages{height:240px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
 .msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
-.msg.bot{text-align:left;margin:6px 0;color:#0f766e}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:8px;border-bottom:1px solid #e5e7eb;text-align:left}
-th{color:#6b7280;font-weight:500}
-
-/* 首页海报 + 底部小图标 */
-.home-hero{
-  position:relative;max-width:420px;margin:0 auto 20px;border-radius:18px;overflow:hidden;
-  box-shadow:0 8px 32px rgba(15,23,42,.12);
-  background:#0b1220 center top/cover no-repeat;
-  background-image:url('poster-vertical.jpg');
-  min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
-  padding:0 12px 18px;
-}
-.home-hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.3) 70%,rgba(8,12,28,.55) 100%);
-}
-.home-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.home-step-icon{
-  width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-  border:1px solid rgba(251,191,36,.65);
-  background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);
-  color:#1c1917;font-size:18px;text-decoration:none;
-  box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .15s,box-shadow .15s;cursor:pointer;
-}
-.home-step-icon:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 6px 18px rgba(251,191,36,.4)}
-.home-sections{margin-top:8px}
-@media(min-width:768px){
-  .home-hero{max-width:480px;min-height:600px}
-  .home-step-icon{width:48px;height:48px;font-size:20px}
-  .quick-badges{display:inline-flex}
-}
-@media(max-width:768px){
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0}
-  #btnMenu{display:inline-block}
-  .quick-badges{display:none!important}
-}
+.msg.bot{text-align:left;margin:6px 0;color:#334155}
 </style>
 </head>
 <body>
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
-<div class="layout">
+<div class="app">
   <aside class="sidebar" id="sidebar">
-    <div class="brand">✦ 梦想显化器</div>
+    <div class="logo"><span>显</span>梦想显化器</div>
     <div class="menu-item active" data-view="home">🏠 首页</div>
     <div class="menu-item" data-view="focus">🎯 当前显化中心</div>
     <div class="menu-item" data-view="team">👥 我的超级团队</div>
-    <div class="menu-item" data-view="jinzhu">💼 金主需求中心</div>
+    <div class="menu-item" data-view="jinzhu">💰 金主需求中心</div>
     <div class="menu-item" data-view="dashi">🤖 超级智能中心</div>
     <div class="menu-item" data-view="hero">⭐ 超级精英中心</div>
     <div class="menu-item" data-view="qgen">📋 问卷生成中心</div>
-    <div class="menu-item" data-view="diagnosis">🩺 需求诊断中心</div>
+    <div class="menu-item" data-view="diagnosis">🔎 需求诊断中心</div>
     <div class="menu-item" data-view="inbox">📬 站内信</div>
     <div class="menu-item" data-view="coop">🤝 商务合作</div>
     <div class="menu-item" data-view="chat">💬 在线客服</div>
-    <div class="menu-item admin-only" data-view="users">👤 用户管理</div>
     <div class="menu-item admin-only" data-view="coop-list">📑 商务合作汇总</div>
     <div class="menu-item admin-only" data-view="chat-list">🗂 在线客服汇总</div>
+    <div class="menu-item admin-only" data-view="users">👤 用户管理</div>
+    <div class="menu-item admin-only" data-view="settings">⚙️ 设置</div>
   </aside>
   <div class="main">
     <div class="topbar">
-      <div class="topbar-left">
-        <button type="button" id="btnMenu" onclick="toggleSidebar(true)">☰</button>
-        <span style="font-size:13px;color:#6b7280">用宇宙法则，创造人类幸福</span>
+      <div class="brand">
+        <button class="btn btn-outline btn-sm" style="display:none" id="btnMenu" onclick="toggleSidebar(true)">☰</button>
+        <span id="topTitle">梦想显化器</span>
       </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div class="quick-badges">
-          <span title="金主需求" onclick="switchView('jinzhu')">金主</span>
-          <span title="超级智能" onclick="switchView('dashi')">SI</span>
-          <span title="超级精英" onclick="switchView('hero')">精英</span>
-          <span title="超级团队" onclick="switchView('team')">团队</span>
-          <span title="需求诊断" onclick="switchView('diagnosis')">诊</span>
+      <div style="display:flex;align-items:center">
+        <div class="quick-icons">
+
+          <button title="金主" onclick="switchView('jinzhu')">金主</button>
+          <button title="SI" onclick="switchView('dashi')">SI</button>
+          <button title="精英" onclick="switchView('hero')">精英</button>
+          <button title="团队" onclick="switchView('team')">团队</button>
+          <button title="诊" onclick="switchView('diagnosis')">诊</button>
         </div>
-        <div id="userArea"></div>
+        <div class="user-area" id="userArea"></div>
       </div>
     </div>
     <div class="content">
-      <div id="view-home" class="view active">
-        <div class="home-hero">
-          <div class="home-step-icons">
-            <a href="javascript:void(0)" class="home-step-icon" title="1. 宇宙法则指引方向" onclick="onPuzzleClick('focus')">✦</a>
-            <a href="javascript:void(0)" class="home-step-icon" title="2. 超级智能 · 零成本自动化工具" onclick="onPuzzleClick('dashi')">⚙</a>
-            <a href="javascript:void(0)" class="home-step-icon" title="3. 诊断问卷找出问题" onclick="onPuzzleClick('diagnosis')">📡</a>
-            <a href="javascript:void(0)" class="home-step-icon" title="4. 自动组合超级精英团队" onclick="onPuzzleClick('team')">👥</a>
-            <a href="javascript:void(0)" class="home-step-icon" title="5. 自动把客户送到企业怀抱" onclick="onPuzzleClick('jinzhu')">♥</a>
-          </div>
-        </div>
-        <div class="home-sections">
-          <div class="section-head"><span class="section-title">金主需求</span></div>
-          <div class="search-bar"><input id="home-jz-q" placeholder="搜索金主需求…" oninput="homeJzPage=1;renderHome()"></div>
-          <div id="home-jinzhu-list"></div>
-          <div id="home-jz-pager" class="pager"></div>
-          <div class="section-head" style="margin-top:20px"><span class="section-title">超级智能</span></div>
-          <div class="search-bar"><input id="home-ds-q" placeholder="搜索超级智能…" oninput="homeDsPage=1;renderHome()"></div>
-          <div id="home-dashi-list"></div>
-          <div id="home-ds-pager" class="pager"></div>
-        </div>
+      <div class="view active" id="view-home">
+        <div class="view-header"><h2>🏠 首页</h2></div>
+        <h3 style="font-size:15px;margin:12px 0 8px">金主用户需求</h3>
+        <div class="search-bar"><input id="home-jz-q" placeholder="搜索金主名字、介绍、网址…" oninput="homeJzPage=1;renderHome()"></div>
+        <div id="home-jinzhu-list"></div>
+        <div class="pager" id="home-jz-pager"></div>
+        <h3 style="font-size:15px;margin:20px 0 8px">超级智能工具</h3>
+        <div class="search-bar"><input id="home-ds-q" placeholder="搜索工具名字、介绍、网址…" oninput="homeDsPage=1;renderHome()"></div>
+        <div id="home-dashi-list"></div>
+        <div class="pager" id="home-ds-pager"></div>
       </div>
-
-      <div id="view-focus" class="view"><div class="section-head"><span class="section-title">🎯 当前显化中心</span><button type="button" class="btn btn-outline btn-sm" onclick="switchView('team')">查看全部团队</button></div><div id="focus-list"></div></div>
-      <div id="view-team" class="view">
-        <div class="section-head"><span class="section-title">我的超级团队</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-team" style="display:none" onclick="openAddTeam()">+ 创建团队</button></div>
+      <div class="view" id="view-focus">
+        <div class="view-header">
+          <h2>🎯 当前显化中心</h2>
+          <button class="btn btn-outline btn-sm" onclick="switchView('team')">查看全部团队</button>
+        </div>
+        <div id="focus-list"></div>
+      </div>
+      <div class="view" id="view-team">
+        <div class="view-header">
+          <h2>👥 我的超级团队</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-team" onclick="openAddTeam()">+ 创建团队</button>
+        </div>
         <div class="search-bar"><input id="team-q" placeholder="搜索团队…" oninput="teamPage=1;renderTeam()"></div>
-        <div id="team-list"></div><div id="team-pager" class="pager"></div>
+        <div id="team-list"></div>
+        <div class="pager" id="team-pager"></div>
       </div>
-      <div id="view-jinzhu" class="view">
-        <div class="section-head"><span class="section-title">金主需求中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-jinzhu" style="display:none" onclick="openAddJinZhu()">+ 发布需求</button></div>
+      <div class="view" id="view-jinzhu">
+        <div class="view-header">
+          <h2>💰 金主需求中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-jinzhu" onclick="openAddJinZhu()">+ 发布需求</button>
+        </div>
         <div id="jinzhu-match-banner"></div>
-        <div class="search-bar"><input id="jz-q" placeholder="搜索金主需求…" oninput="jzPage=1;renderJinZhu()"></div>
-        <div id="jinzhu-list"></div><div id="jz-pager" class="pager"></div>
+        <div class="search-bar"><input id="jz-q" placeholder="搜索…" oninput="jzPage=1;renderJinZhu()"></div>
+        <div id="jinzhu-list"></div>
+        <div class="pager" id="jz-pager"></div>
       </div>
-      <div id="view-dashi" class="view">
-        <div class="section-head"><span class="section-title">超级智能中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-dashi" style="display:none" onclick="openAddDaShi()">+ 发布工具</button></div>
+      <div class="view" id="view-dashi">
+        <div class="view-header">
+          <h2>🤖 超级智能中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-dashi" onclick="openAddDaShi()">+ 发布工具</button>
+        </div>
         <div id="dashi-match-banner"></div>
-        <div class="search-bar"><input id="ds-q" placeholder="搜索超级智能…" oninput="dsPage=1;renderDaShi()"></div>
-        <div id="dashi-list"></div><div id="ds-pager" class="pager"></div>
+        <div class="search-bar"><input id="ds-q" placeholder="搜索…" oninput="dsPage=1;renderDaShi()"></div>
+        <div id="dashi-list"></div>
+        <div class="pager" id="ds-pager"></div>
       </div>
-      <div id="view-hero" class="view">
-        <div class="section-head"><span class="section-title">超级精英中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-hero" style="display:none" onclick="openAddHero()">+ 发布精英</button></div>
-        <div class="search-bar"><input id="hero-q" placeholder="搜索超级精英…" oninput="heroPage=1;renderHero()"></div>
-        <div id="hero-list"></div><div id="hero-pager" class="pager"></div>
+      <div class="view" id="view-hero">
+        <div class="view-header">
+          <h2>⭐ 超级精英中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-hero" onclick="openAddHero()">+ 发布精英</button>
+        </div>
+        <div class="search-bar"><input id="hero-q" placeholder="搜索…" oninput="heroPage=1;renderHero()"></div>
+        <div id="hero-list"></div>
+        <div class="pager" id="hero-pager"></div>
       </div>
-      <div id="view-qgen" class="view">
-        <div class="section-head"><span class="section-title">问卷生成中心</span>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-add-qgen" style="display:none" onclick="openAddQgen()">+ 新建问卷</button></div>
-        <div id="qgen-team-tip" style="display:none;margin-bottom:10px;font-size:13px;color:#6b7280"></div>
+      <div class="view" id="view-qgen">
+        <div class="view-header">
+          <h2>📋 问卷生成中心</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-qgen" onclick="openAddQgen()">+ 新建问卷</button>
+        </div>
+        <div id="qgen-team-tip" class="match-banner" style="display:none"></div>
         <div class="search-bar"><input id="qgen-q" placeholder="搜索问卷…" oninput="qgenPage=1;renderQgen()"></div>
-        <div id="qgen-list"></div><div id="qgen-pager" class="pager"></div>
+        <div id="qgen-list"></div>
+        <div class="pager" id="qgen-pager"></div>
       </div>
-      <div id="view-diagnosis" class="view">
-        <div class="section-head"><span class="section-title">需求诊断中心</span></div>
-        <div class="search-bar"><input id="diag-q" placeholder="搜索诊断…" oninput="diagPage=1;renderDiagnosis()"></div>
-        <div id="diagnosis-list"></div><div id="diag-pager" class="pager"></div>
+      <div class="view" id="view-diagnosis">
+        <div class="view-header"><h2>🔎 需求诊断中心</h2></div>
+        <div class="search-bar"><input id="diag-q" placeholder="搜索…" oninput="diagPage=1;renderDiagnosis()"></div>
+        <div id="diagnosis-list"></div>
+        <div class="pager" id="diag-pager"></div>
       </div>
-      <div id="view-inbox" class="view"><div class="section-head"><span class="section-title">站内信</span></div><div id="inbox-list"></div></div>
-      <div id="view-coop" class="view">
-        <div class="section-head"><span class="section-title">商务合作</span></div>
+      <div class="view" id="view-inbox">
+        <div class="view-header"><h2>📬 站内信</h2></div>
+        <div id="inbox-list"></div>
+      </div>
+      <div class="view" id="view-coop">
+        <div class="view-header"><h2>🤝 商务合作</h2></div>
         <div class="card"><div class="card-content">
           <div class="form-group"><label>名称 *</label><input id="coop-name"></div>
           <div class="form-group"><label>联系方式 *</label><input id="coop-contact"></div>
-          <div class="form-group"><label>类型</label><select id="coop-type"><option>商务合作</option><option>广告投放</option><option>其它</option></select></div>
+          <div class="form-group"><label>类型</label><select id="coop-type"><option>商务合作</option><option>资源互换</option><option>其他</option></select></div>
           <div class="form-group"><label>说明</label><textarea id="coop-desc"></textarea></div>
-          <button type="button" class="btn btn-primary" onclick="submitCoop()">提交</button>
+          <button class="btn btn-primary" onclick="submitCoop()">提交</button>
         </div></div>
       </div>
-      <div id="view-chat" class="view">
-        <div class="section-head"><span class="section-title">在线客服</span></div>
+      <div class="view" id="view-chat">
+        <div class="view-header"><h2>💬 在线客服</h2></div>
         <div id="chatMessages"></div>
-        <div style="display:flex;gap:8px">
-          <input id="chatInput" placeholder="输入消息…" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#111827" onkeydown="if(event.key==='Enter')sendChat()">
-          <button type="button" class="btn btn-primary" onclick="sendChat()">发送</button>
-        </div>
+        <div style="display:flex;gap:8px"><input id="chatInput" style="flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px" placeholder="输入消息…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-primary" onclick="sendChat()">发送</button></div>
       </div>
-      <div id="view-users" class="view">
-        <div class="section-head"><span class="section-title">用户管理</span></div>
-        <div style="overflow-x:auto"><table><thead><tr><th>手机号</th><th>角色</th><th>注册时间</th><th>状态</th><th>操作</th></tr></thead><tbody id="users-tbody"></tbody></table></div>
+      <div class="view" id="view-coop-list">
+        <div class="view-header"><h2>📑 商务合作汇总</h2></div>
+        <div id="coop-list"></div>
       </div>
-      <div id="view-coop-list" class="view"><div class="section-head"><span class="section-title">商务合作汇总</span></div><div id="coop-list"></div></div>
-      <div id="view-chat-list" class="view"><div class="section-head"><span class="section-title">在线客服汇总</span></div><div id="chat-list"></div></div>
+      <div class="view" id="view-chat-list">
+        <div class="view-header"><h2>🗂 在线客服汇总</h2></div>
+        <div id="chat-list"></div>
+      </div>
+      <div class="view" id="view-users">
+        <div class="view-header"><h2>👤 用户管理</h2></div>
+        <table><thead><tr><th>手机号</th><th>角色</th><th>注册日期</th><th>状态</th><th>操作</th></tr></thead><tbody id="users-tbody"></tbody></table>
+      </div>
+      <div class="view" id="view-settings">
+        <div class="view-header"><h2>⚙️ 设置</h2></div>
+        <div class="empty-tip">管理员设置（预留）</div>
+      </div>
     </div>
   </div>
 </div>
+<div class="fab-menu"><button onclick="toggleSidebar(true)">☰</button></div>
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
@@ -364,7 +339,6 @@ function memberAvatarUrl(m){
   if(m&&m.type==='hero')return `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=fce7f3`;
   return DEFAULT_AVATAR;
 }
-/* 131 头像点击 */
 function goMemberProfile(type,id){
   id=String(id);
   if(type==='dashi'){focusDashiId=id;focusHeroId=null;switchView('dashi');}
@@ -389,6 +363,35 @@ function memberChipHtml(m,isOwner,teamId){
     <span class="power-icon">⚡${Number(m.power)||0}</span>
     ${isOwner?`<button class="member-x" title="移除成员" onclick="kickMember(${teamId},'${safeId}','${type}')">×</button>`:''}
   </span>`;
+}
+/* 134/136 判重与身份 */
+function isAlreadyInTeam(members,id,type){
+  const sid=String(id);
+  if(!(members&&members.length))return false;
+  if(members.some(m=>String(m.id)===sid))return true;
+  const st=type||'member';
+  return members.some(m=>String(m.id)===sid&&(m.type||'member')===st);
+}
+async function resolveJoinIdentity(user){
+  let displayName=user.phone,memberType='member',power=0,id=user.phone;
+  if(user.role==='yingxiao'){
+    const heroes=await fetchHero();
+    const mine=heroes.find(h=>String(h.phone)===String(user.phone));
+    if(mine){displayName=mine.name||user.phone;memberType='hero';power=Number(mine.power)||0;id=mine.id;}
+  }else if(user.role==='ai'){
+    const tools=await fetchDaShi();
+    const mine=tools.find(d=>String(d.phone)===String(user.phone));
+    if(mine){displayName=mine.name||user.phone;memberType='dashi';power=Number(mine.power)||0;id=mine.id;}
+  }
+  return {displayName,memberType,power,id};
+}
+function memberMatchesUser(m,user,heroIds,dashiIds){
+  if(!user||!m)return false;
+  if(String(m.id)===String(user.phone))return true;
+  if(m.phone&&String(m.phone)===String(user.phone))return true;
+  if((m.type==='hero'||m.type==='yingxiao')&&heroIds&&heroIds.has(String(m.id)))return true;
+  if((m.type==='dashi'||m.type==='si')&&dashiIds&&dashiIds.has(String(m.id)))return true;
+  return false;
 }
 function toggleTeamKick(teamId){teamKickVisible[teamId]=!teamKickVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
 function toggleTeamCard(teamId){teamCardVisible[teamId]=!teamCardVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
@@ -441,22 +444,39 @@ async function doLogin(){
   const {data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();
   if(error)return alert('登录失败：'+error.message);if(!data)return alert('用户不存在');if(data.blacklisted)return alert('已列入黑名单');if(data.pwd!==pwd)return alert('密码错误');
   setUser({phone:data.phone,role:data.role});closeModal();
+  switchView('dashi');
 }
-async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert('请输入');if(pwd!==pwd2)return alert('两次密码不一致');if(pwd.length<4)return alert('密码至少4位');if(!['jinzhu','ai','yingxiao'].includes(role))return alert('仅支持金主、AI公司或行业精英');const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('该手机号已注册');const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();}
+async function doRegister(){
+  const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;
+  if(!phone||!pwd)return alert('请输入');if(pwd!==pwd2)return alert('两次密码不一致');if(pwd.length<4)return alert('密码至少4位');
+  if(!['jinzhu','ai','yingxiao'].includes(role))return alert('仅支持金主、AI公司或行业精英');
+  const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('该手机号已注册');
+  const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});
+  if(error)return alert(error.message);
+  setUser({phone,role});closeModal();
+  switchView('dashi');
+}
 function renderBizCard(card){if(!card)return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${site.replace(/</g,'&lt;')}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${card.person||'-'}</b> · ${card.title||''}</div><div>📱 ${card.phone||'-'}</div><div>✉️ ${card.email||'-'}</div><div>💬 微信：${card.wechat||'-'}</div><div>🟢 WhatsApp：${card.whatsapp||'-'}</div><div>🌐 公司网址：${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;}
+
 async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){
-  const user=getUser();if(!user)return alert('请先登录');if(user.role!=='jinzhu'&&user.role!=='admin')return alert('仅金主和管理员可用');
-  const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(t=>String(t.phone)===String(user.phone));
+  const user=getUser();if(!user)return alert('请先登录');
+  if(user.role!=='jinzhu'&&user.role!=='admin')return alert('仅金主和管理员可用');
+  const teams=await fetchTeam();
+  let targetTeams=user.role==='admin'?teams:teams.filter(t=>String(t.phone)===String(user.phone));
   if(!targetTeams.length)return alert('请先创建超级团队');
-  let added=0;
+  let added=0,skipped=0;
   for(const team of targetTeams){
     let members=Array.isArray(team.members)?[...team.members]:[];
-    if(members.some(m=>String(m.id)===String(targetId)&&m.type===targetType))continue;
-    members.push({id:targetId,type:targetType,name:targetName||String(targetId),power:Number(targetPower)||0});
-    const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;
+    if(isAlreadyInTeam(members,targetId,targetType)){skipped++;continue;}
+    members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});
+    const {error}=await sb.from('team').update({members}).eq('id',team.id);
+    if(!error)added++;
   }
-  alert(added>0?`已拉入 ${added} 个超级团队`:'该成员已在团队中');renderTeam();renderJinZhu();renderFocus();
+  if(added>0)alert(`已拉入 ${added} 个超级团队`+(skipped?`（${skipped} 个团队中已存在该成员）`:''));
+  else alert(skipped?'该成员已在相关团队中':'拉入失败');
+  renderTeam();renderJinZhu();renderFocus();
 }
+
 async function openSendMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return alert('请先登录');if(!toPhone)return alert('对方手机号未知');const defaults={greeting:{title:'美好的问候',content:'您好！看到您的信息，特来打个招呼。'},progress:{title:'成功进展报告',content:'向您同步一下我们这边的进展。'},event:{title:'活动邀请',content:'诚邀您参加我们的交流活动。'},case_request:{title:'索取成功案例',content:'希望了解贵司相关成功案例。'},trial_request:{title:'请求试用',content:'希望试用贵司的方案/工具。'}};const d0=defaults[msgType]||{title:'',content:''};document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${MSG_TYPE_LABEL[msgType]||msgType}</h3><p style="font-size:13px;color:#6b7280;margin-bottom:12px">发送给：<b>${toName||''}</b>（${toPhone}）</p><div class="form-group"><label>标题</label><input id="msg-title" value="${d0.title}"></div><div class="form-group"><label>内容</label><textarea id="msg-content">${d0.content}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="submitMsgDirect('${msgType}','${escapeAttr(toPhone)}','${escapeAttr(toName)}')">发送</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function submitMsgDirect(msgType,toPhone,toName){const user=getUser();if(!user)return;const title=document.getElementById('msg-title').value.trim(),content=document.getElementById('msg-content').value.trim();if(!content)return alert('请填写内容');const {error}=await sb.from('messages').insert({id:Date.now(),from_phone:user.phone,from_name:user.phone,from_role:user.role,to_phone:toPhone,msg_type:msgType,title:title||MSG_TYPE_LABEL[msgType]||'',content,related_name:toName||''});if(error)return alert(error.message);closeModal();alert('已发送');}
 async function reportTarget(reportedPhone,reportedName){const user=getUser();if(!user)return alert('请先登录');const reason=prompt('请简要说明举报原因：');if(!reason||!reason.trim())return;const {data:admins}=await sb.from('app_users').select('phone').eq('role','admin');if(!admins?.length)return alert('暂无管理员');const content=`【用户举报】\n举报人：${user.phone}\n被举报：${reportedName||''}（${reportedPhone}）\n原因：${reason.trim()}`;for(const a of admins)await sb.from('messages').insert({id:Date.now()+Math.floor(Math.random()*9999),from_phone:user.phone,from_name:user.phone,from_role:user.role,to_phone:a.phone,msg_type:'greeting',title:'用户举报',content,related_name:reportedName||''});alert('举报已提交');}
@@ -468,13 +488,15 @@ function renderOneTeamCard(t,linkedJin,user,opts){
   opts=opts||{};
   const members=t.members||[];
   const isOwner=user&&(String(t.phone)===String(user.phone)||isAdmin());
-  const isMember=user&&members.some(m=>String(m.id)===String(user.phone)||String(m.id)===String(user.phone));
+  const isMember=opts.isMember!=null?!!opts.isMember:(user&&members.some(m=>String(m.id)===String(user.phone)||(m.phone&&String(m.phone)===String(user.phone))));
   const industry=linkedJin?(linkedJin.type||'待填'):'待填';
   const difficulty=linkedJin?(Number(linkedJin.difficulty)||0):0;
   const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
   const showKick=!!teamKickVisible[t.id];
   const showCard=!!teamCardVisible[t.id];
   const isPri=!!opts.isPriority;
+  const canSeeProgress=user&&(user.role==='jinzhu'||user.role==='admin');
+  const canJoin=user&&!isMember&&!isOwner;
   const perfs=Array.isArray(t.performances)?t.performances:[];
   const perfHtml=perfs.length
     ? perfs.map(p=>`<div class="prog-item">• <b>${(p.title||'').replace(/</g,'&lt;')}</b>：${(p.desc||'').replace(/</g,'&lt;')}</div>`).join('')
@@ -490,21 +512,21 @@ function renderOneTeamCard(t,linkedJin,user,opts){
         ${user?`<button type="button" class="btn-icon-sm" title="设为最高优先级并进入显化中心" onclick="setPriorityTeam(${t.id})">🎯</button>`:''}
         ${isOwner?`<button type="button" class="btn-icon-sm" title="${showKick?'结束重组':'开始重组'}" onclick="toggleTeamKick(${t.id})">${showKick?'✅':'🔀'}</button>`:''}
         <button type="button" class="btn-icon-sm" title="${showCard?'隐藏金主名片':'显示金主名片'}" onclick="toggleTeamCard(${t.id})">${showCard?'🪪':'📇'}</button>
+        ${canJoin?`<button type="button" class="btn-icon-sm" title="加入团队" onclick="joinTeam(${t.id})" style="background:#d1fae5;border-color:#6ee7b7">➕</button>`:''}
         ${canEdit(t)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${t.id})">编辑</button>`:''}
         ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${t.id})">×</button>`:''}
       </div>
       <div class="card-desc">行业 <span class="tag tag-industry">${industry}</span></div>
       <div class="card-desc">需求 <span class="tag tag-diff">◆${difficulty}</span>：${t.demand||(linkedJin&&linkedJin.detail)||'-'}</div>
       <div class="team-box ${showKick?'team-show-kick':''}">
-        <div style="margin-bottom:6px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${t.id})">加入团队</button>`:''}</div>
         <div class="member-header"><b>队员清单</b></div>
         <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,t.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
       </div>
-      <div class="team-progress-box">
+      ${canSeeProgress?`<div class="team-progress-box">
         <h5>📈 团队进展与业绩　战力 ⚡${sum}</h5>
         ${perfHtml}
         ${t.dream&&t.dream!=='待填'?`<div class="prog-item" style="margin-top:8px;color:#64748b">梦想：${String(t.dream).replace(/</g,'&lt;')}</div>`:''}
-      </div>
+      </div>`:''}
       ${showCard?(jinCard?`<div style="margin-top:8px;font-size:12px;color:#64748b;margin-bottom:4px">金主名片</div>${renderBizCard(jinCard)}`:'<div class="card-desc" style="color:#94a3b8">暂无关联金主名片</div>'):''}
     </div>
   </div>`;
@@ -528,7 +550,11 @@ async function renderFocus(){
   }
   const allJinZhu=await fetchJinZhu();
   const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
-  box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true});
+  let heroIds=new Set(),dashiIds=new Set();
+  const heroes=await fetchHero();heroes.filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
+  const tools=await fetchDaShi();tools.filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
+  const isMember=(t.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds));
+  box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true,isMember});
 }
 
 async function renderHome(){
@@ -543,14 +569,16 @@ async function renderHome(){
 }
 function goHomeJzPage(p){homeJzPage=p;renderHome();}function goHomeDsPage(p){homeDsPage=p;renderHome();}
 
-function teamBlockHtml(team,j,user){
+function teamBlockHtml(team,j,user,heroIds,dashiIds){
   if(!team)return '';
   const members=team.members||[];
   const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
-  const isMember=user&&members.some(m=>String(m.id)===String(user.phone));
+  const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));
   const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
   const showKick=!!teamKickVisible[team.id];
   const showCard=!!teamCardVisible[team.id];
+  const canSeeProgress=user&&(user.role==='jinzhu'||user.role==='admin');
+  const canJoin=user&&!isMember&&!isOwner;
   const perfs=Array.isArray(team.performances)?team.performances:[];
   const perfHtml=perfs.length
     ? perfs.map(p=>`<div class="prog-item">• <b>${(p.title||'').replace(/</g,'&lt;')}</b>：${(p.desc||'').replace(/</g,'&lt;')}</div>`).join('')
@@ -563,17 +591,17 @@ function teamBlockHtml(team,j,user){
       ${user?`<button type="button" class="btn-icon-sm" title="设为最高优先级" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
       ${isOwner?`<button type="button" class="btn-icon-sm" title="${showKick?'结束重组':'开始重组'}" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}
       <button type="button" class="btn-icon-sm" title="${showCard?'隐藏金主名片':'显示金主名片'}" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>
+      ${canJoin?`<button type="button" class="btn-icon-sm" title="加入团队" onclick="joinTeam(${team.id})" style="background:#d1fae5;border-color:#6ee7b7">➕</button>`:''}
       ${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">编辑</button>`:''}
       ${isOwner?`<button class="team-x" title="解散整个团队" onclick="disbandTeam(${team.id})">×</button>`:''}
     </div>
     <div class="card-desc" style="margin-top:6px">行业 <span class="tag tag-industry">${(j&&j.type)||'待填'}</span>　需求 <span class="tag tag-diff">◆${j?Number(j.difficulty)||0:0}</span>：${team.demand||(j&&j.detail)||(j&&j.type)||'-'}</div>
-    <div style="margin-top:8px">${user&&!isMember&&!isOwner?`<button class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">加入团队</button>`:''}</div>
     <div class="member-header"><b>队员清单</b></div>
     <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'<span style="color:#9ca3af;font-size:12px">暂无队员</span>'}</div>
-    <div class="team-progress-box">
+    ${canSeeProgress?`<div class="team-progress-box">
       <h5>📈 团队进展与业绩　战力 ⚡${sum}</h5>
       ${perfHtml}
-    </div>
+    </div>`:''}
     ${showCard&&j&&j.card?`<div style="margin-top:8px;font-size:12px;color:#64748b">金主名片</div>${renderBizCard(j.card)}`:''}
   </div>`;
 }
@@ -583,6 +611,11 @@ async function renderJinZhu(){
   const banner=document.getElementById('jinzhu-match-banner');
   if(matchContext&&matchContext.type==='dashi'){banner.innerHTML=`<div class="match-banner">匹配来源：超级智能「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">清除匹配</a></div>`;list=list.map(j=>({...j,_matchScore:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._matchScore-a._matchScore);}
   else{banner.innerHTML='';if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}else if(user.role==='jinzhu'){list=list.filter(j=>String(j.phone)===String(user.phone));if(!list.length)emptyMsg='<div class="empty-tip">您还没有发布需求</div>';}}
+  let heroIds=new Set(),dashiIds=new Set();
+  if(user){
+    const heroes=await fetchHero();heroes.filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
+    const tools=await fetchDaShi();tools.filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
+  }
   const pg=paginate(filterByQ(list,(document.getElementById('jz-q')||{}).value||''),jzPage,PAGE_SIZE);jzPage=pg.page;
   document.getElementById('jinzhu-list').innerHTML=pg.slice.length?pg.slice.map(j=>{
     const showInteract=user&&(user.role==='ai'||user.role==='admin'||user.role==='yingxiao');
@@ -599,7 +632,7 @@ async function renderJinZhu(){
       <div class="card-desc"><span class="tag tag-diff">◆难度：${Number(j.difficulty)||0}</span> <span class="tag tag-reward">重奖：${j.reward||'待填'}</span></div>
       <div class="card-desc"><b>痛点：</b></div>${(j.pains||[]).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${p.title}</b>：${p.desc}</div>`).join('')}
       ${(isAdmin()||canEdit(j))?renderBizCard(j.card):''}
-      ${teamBlockHtml(team,j,user)}
+      ${teamBlockHtml(team,j,user,heroIds,dashiIds)}
       ${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon progress" onclick="openSendMsgDirect('progress','${pn}','${nm}')">📈</button><button class="x-icon event" onclick="openSendMsgDirect('event','${pn}','${nm}')">📅</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
     </div></div>`;
   }).join(''):emptyMsg;
@@ -610,8 +643,13 @@ function goJzPage(p){jzPage=p;renderJinZhu();}
 async function renderDaShi(){
   const user=getUser();let list=await fetchDaShi();let emptyMsg='';
   const banner=document.getElementById('dashi-match-banner');
-  if(matchContext&&matchContext.type==='jinzhu'){banner.innerHTML=`<div class="match-banner">匹配来源：金主「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">清除匹配</a></div>`;list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);}
-  else{banner.innerHTML='';if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}else if(user.role==='ai'){list=list.filter(d=>String(d.phone)===String(user.phone));if(!list.length)emptyMsg='<div class="empty-tip">您还没有发布工具</div>';}}
+  if(matchContext&&matchContext.type==='jinzhu'){
+    banner.innerHTML=`<div class="match-banner">匹配来源：金主「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">清除匹配</a></div>`;
+    list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);
+  }else{
+    banner.innerHTML='';
+    if(!user){emptyMsg='<div class="empty-tip">请先登录后查看超级智能中心</div>';list=[];}
+  }
   if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('ds-q')||{}).value||''),dsPage,PAGE_SIZE);dsPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
@@ -630,7 +668,7 @@ async function renderDaShi(){
       ${renderBizCard(d.card)}
       ${showInteract?`<div class="x-actions"><button class="x-icon greet" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon case" onclick="openSendMsgDirect('case_request','${pn}','${nm}')">📄</button><button class="x-icon trial" onclick="openSendMsgDirect('trial_request','${pn}','${nm}')">🧪</button><button class="x-icon report" onclick="reportTarget('${pn}','${nm}')">🚩</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}
     </div></div>`;
-  }).join(''):emptyMsg;
+  }).join(''):(emptyMsg||'<div class="empty-tip">暂无超级智能工具</div>');
   renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
   if(focusDashiId){const el=document.getElementById('dashi-card-'+focusDashiId)||document.getElementById('dashi-card-'+String(focusDashiId));if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),80);}
 }
@@ -663,19 +701,28 @@ async function renderHero(){
 }
 function goHeroPage(p){heroPage=p;renderHero();}
 
+/* 135：全部团队对所有登录角色可见 */
 async function renderTeam(){
   const user=getUser();let list=await fetchTeam();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
-  else if(!isAdmin()){
-    list=list.filter(t=>String(t.phone)===String(user.phone)||(t.members||[]).some(m=>String(m.id)===String(user.phone)));
-    if(!list.length)emptyMsg='<div class="empty-tip">暂无团队</div>';
+  else if(!list.length)emptyMsg='<div class="empty-tip">暂无团队</div>';
+
+  let heroIds=new Set(),dashiIds=new Set();
+  if(user){
+    const heroes=await fetchHero();
+    heroes.filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
+    const tools=await fetchDaShi();
+    tools.filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
   }
+
   const pid=await getPriorityTeamId();
   const pg=paginate(filterByQ(list,(document.getElementById('team-q')||{}).value||''),teamPage,PAGE_SIZE);teamPage=pg.page;
   const allJinZhu=await fetchJinZhu();
   document.getElementById('team-list').innerHTML=pg.slice.length?pg.slice.map(t=>{
     const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
-    return renderOneTeamCard(t,linkedJin,user,{isPriority:pid&&String(t.id)===String(pid)});
+    const members=t.members||[];
+    const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds,dashiIds));
+    return renderOneTeamCard(t,linkedJin,user,{isPriority:pid&&String(t.id)===String(pid),isMember});
   }).join(''):emptyMsg;
   renderPager('team-pager',pg.page,pg.pages,'goTeamPage');
 }
@@ -927,7 +974,6 @@ function showJinZhuForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:''),isNew=!item;
   document.getElementById('modalBox').className='modal';
   if(isNew){
-    /* 127 去掉召集超级团队按钮 */
     document.getElementById('modalBox').innerHTML=`<h3>发布需求</h3><div class="form-group"><label>行业 *</label><input id="jz-type"></div><div class="form-group"><label>详情</label><textarea id="jz-detail" style="min-height:80px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">取消</button><button class="btn btn-primary" onclick="saveJinZhu()">保存并发布</button></div>`;
     document.getElementById('modalMask').style.display='flex';return;
   }
@@ -1083,23 +1129,16 @@ async function saveTeam(){
   let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));
   if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();renderFocus();alert('保存成功');
 }
+/* 134 行业精英可正确加入 */
 async function joinTeam(teamId){
   const user=getUser();if(!user)return alert('请先登录');
   const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;
   let members=Array.isArray(team.members)?[...team.members]:[];
-  if(members.some(m=>String(m.id)===String(user.phone)&&(m.type==='member'||!m.type)))return alert('已在队伍中');
-  let displayName=user.phone, memberType='member', power=0, id=user.phone;
-  if(user.role==='yingxiao'){
-    const heroes=await fetchHero();
-    const mine=heroes.find(h=>String(h.phone)===String(user.phone));
-    if(mine){displayName=mine.name||user.phone;memberType='hero';power=Number(mine.power)||0;id=mine.id;}
-  }else if(user.role==='ai'){
-    const tools=await fetchDaShi();
-    const mine=tools.find(d=>String(d.phone)===String(user.phone));
-    if(mine){displayName=mine.name||user.phone;memberType='dashi';power=Number(mine.power)||0;id=mine.id;}
-  }
-  members.push({id,type:memberType,name:displayName,power});
-  await sb.from('team').update({members}).eq('id',teamId);
+  const ident=await resolveJoinIdentity(user);
+  if(isAlreadyInTeam(members,ident.id,ident.memberType))return alert('您已在该团队中');
+  members.push({id:ident.id,type:ident.memberType,name:ident.displayName,power:ident.power,phone:user.phone});
+  const {error}=await sb.from('team').update({members}).eq('id',teamId);
+  if(error)return alert('加入失败：'+error.message);
   alert('已加入');renderTeam();renderJinZhu();renderFocus();
 }
 async function kickMember(teamId,memberId,memberType){if(!confirm('确定移除该成员？'))return;const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)&&(m.type||'member')===memberType));await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
@@ -1119,4 +1158,3 @@ renderUserArea();updateButtons();updateAdminMenus();renderAll();
 </script>
 </body>
 </html>
-
