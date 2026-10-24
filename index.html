@@ -442,32 +442,56 @@ function openModal(type, data){
 function closeModal(){ $('modalMask').style.display='none'; $('modalBox').innerHTML=''; }
 
 /* 139 登录后进入超级智能中心 */
+/* 登录：用 pwd */
 async function doLogin(){
   const phone = ($('m-phone').value||'').trim();
   const pass = ($('m-pass').value||'').trim();
   if(!phone||!pass){ alert('请填写手机号和密码'); return; }
   try{
-    const {data, error} = await sb.from('app_users').select('*').eq('phone',phone).eq('password',pass).maybeSingle();
+    const {data, error} = await sb.from('app_users')
+      .select('*')
+      .eq('phone', phone)
+      .eq('pwd', pass)          // ← pwd
+      .maybeSingle();
     if(error) throw error;
     if(!data){ alert('账号或密码错误'); return; }
-    setUser(data); closeModal(); renderUserArea();
-    switchView('dashi');
-  }catch(e){ console.error(e); alert('登录失败: '+(e.message||e)); }
+    if(data.blacklisted){ alert('账号已被禁用'); return; }
+    setUser(data);
+    closeModal();
+    renderUserArea();
+    switchView('dashi');       // 139 登录进超级智能中心
+  }catch(e){
+    console.error(e);
+    alert('登录失败: '+(e.message||e));
+  }
 }
 
+/* 注册：写入 pwd */
 async function doRegister(){
   const phone = ($('m-phone').value||'').trim();
   const pass = ($('m-pass').value||'').trim();
   const role = ($('m-role').value||'jinzhu');
   if(!phone||!pass){ alert('请填写手机号和密码'); return; }
   try{
-    const row = {id:nowId(), phone, password:pass, role, status:'ok', created_at:new Date().toISOString()};
+    const row = {
+      id: nowId(),
+      phone,
+      pwd: pass,               // ← pwd
+      role,
+      blacklisted: false,
+      created_at: new Date().toISOString()
+    };
     const {error} = await sb.from('app_users').insert(row);
     if(error) throw error;
-    setUser(row); closeModal(); renderUserArea(); switchView('dashi');
-  }catch(e){ console.error(e); alert('注册失败: '+(e.message||e)); }
+    setUser(row);
+    closeModal();
+    renderUserArea();
+    switchView('dashi');
+  }catch(e){
+    console.error(e);
+    alert('注册失败: '+(e.message||e));
+  }
 }
-
 function renderPager(elId, page, total){
   const el = $(elId); if(!el) return;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
