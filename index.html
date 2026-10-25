@@ -345,11 +345,19 @@ function isAdmin(){const u=getUser();return u&&u.role==='admin';}
 function canEdit(item){const user=getUser();if(!user)return false;if(user.role==='admin')return true;return String(item.phone)===String(user.phone);}
 function escapeAttr(s){return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 function linkify(text){if(!text)return '';const e=String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');return e.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">$1</a>').replace(/\n/g,'<br>');}
+function renderToolUrl(url){
+  const u=(url||'').trim();
+  if(!u)return '-';
+  let href=u;
+  if(!/^https?:\/\//i.test(href))href='https://'+href;
+  return `<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${u.replace(/</g,'&lt;')}</a>`;
+}
 function accumulatePains(jin){return (jin.pains||[]).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ');}
 function accumulateTools(d){return (d.tools||[]).map(t=>(t.title||'')+' '+(t.desc||'')).join(' ');}
 function textMatch(t1,t2){if(!t1||!t2)return 0;t1=(t1+'').toLowerCase();t2=(t2+'').toLowerCase();let s=0;['销售','预测','跟进','自动化','客户','画像','话术','方案','转化','获客','私域','复购','流量','数据','ai','智能'].forEach(k=>{if(t1.includes(k)&&t2.includes(k))s+=2;});if(t1.includes(t2)||t2.includes(t1))s+=3;return s;}
 function searchText(item){
   return ((item.name||'')+' '+(item.intro||'')+' '+((item.card&&item.card.website)||'')+' '
+    +(item.tool_url||'')+' '
     +(item.major_category||'')+' '+(item.minor_category||'')+' '
     +(item.type||'')+' '+(item.detail||'')+' '+(item.industry||'')+' '
     +(item.skill_title||'')+' '+(item.demand||'')+' '+(item.dream||'')+' '
@@ -614,13 +622,12 @@ async function renderFocus(){
   box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true,isMember});
 }
 
-/* 150 首页仅超级智能 */
 async function renderHome(){
   const dashi=await fetchDaShi(),admin=isAdmin();
   const pd=paginate(filterByQ(dashi,(document.getElementById('home-ds-q')||{}).value||''),homeDsPage,PAGE_SIZE);
   homeDsPage=pd.page;
   const box=document.getElementById('home-dashi-list');
-  if(box) box.innerHTML=pd.slice.length?pd.slice.map(d=>`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.major_category?` <span class="tag">${d.major_category}</span>`:''}${d.minor_category?` <span class="tag tag-sub">${d.minor_category}</span>`:''}<span class="tag tag-power">⚡${Number(d.power)||0}</span>${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div><div class="card-desc">${d.intro||''}</div>${admin?renderBizCard(d.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
+  if(box) box.innerHTML=pd.slice.length?pd.slice.map(d=>`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.major_category?` <span class="tag">${d.major_category}</span>`:''}${d.minor_category?` <span class="tag tag-sub">${d.minor_category}</span>`:''}<span class="tag tag-power">⚡${Number(d.power)||0}</span>${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div><div class="card-desc">${d.intro||''}</div><div class="card-desc"><b>工具网址：</b>${renderToolUrl(d.tool_url)}</div>${admin?renderBizCard(d.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
 }
 function goHomeDsPage(p){homeDsPage=p;renderHome();}
@@ -719,6 +726,7 @@ async function renderDaShi(){
       </div>
       <div class="card-desc"><b>简介：</b>${d.intro||''}</div>
       <div class="card-desc"><b>大分类：</b>${d.major_category||'-'}　<b>小分类：</b>${d.minor_category||'-'}　<b>战力：</b>⚡${power}</div>
+      <div class="card-desc"><b>工具网址：</b>${renderToolUrl(d.tool_url)}</div>
       <div class="card-desc"><b>座右铭：</b>${d.motto||'-'}</div>
       <div class="card-desc"><b>工具：</b></div>${(d.tools||[]).map(t=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${t.title}</b>：${t.desc}</div>`).join('')}
       ${renderBizCard(d.card)}
@@ -781,7 +789,6 @@ async function renderTeam(){
 }
 function goTeamPage(p){teamPage=p;renderTeam();}
 
-/* 151 大分类小分类 */
 function parseSubs(c){
   if(Array.isArray(c.subs))return c.subs;
   if(typeof c.subs==='string'){try{return JSON.parse(c.subs)||[];}catch(e){return [];}}
@@ -1173,6 +1180,7 @@ function showDaShiForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:'');
   const major=item?(item.major_category||''):'';
   const minor=item?(item.minor_category||''):'';
+  const toolUrl=item?(item.tool_url||(item.card&&item.card.website)||''):'';
   document.getElementById('modalBox').className='modal';
   document.getElementById('modalBox').innerHTML=`<h3>${item?'编辑超级智能工具':'发布超级智能工具'}</h3>
     <div class="form-group"><label>AI公司名/姓名 *</label><input id="ds-name" value="${item?item.name:''}"></div>
@@ -1181,6 +1189,7 @@ function showDaShiForm(item=null){
     <div class="form-group"><label>小分类</label><select id="ds-minor"><option value="">请选择小分类</option></select></div>
     <div class="form-group"><label>战力（数字）</label><input id="ds-power" type="number" value="${Number(item?.power)||0}"></div>
     <div class="form-group"><label>座右铭</label><input id="ds-motto" value="${item?(item.motto||''):''}"></div>
+    <div class="form-group"><label>工具网址</label><input id="ds-tool-url" value="${String(toolUrl).replace(/"/g,'&quot;')}" placeholder="https://"></div>
     <div style="display:flex;justify-content:space-between;margin:14px 0 8px"><b>工具装备</b><button type="button" class="btn btn-outline btn-sm" onclick="addToolItem()">+ 添加工具</button></div><div id="tool-list"></div>
     <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb"><div style="font-weight:600;margin-bottom:8px">名片</div>
     <div class="form-group"><label>名片姓名 *</label><input id="ds-person" value="${item&&item.card?item.card.person:''}"></div>
@@ -1201,6 +1210,7 @@ async function saveDaShi(){
   if(!name||!person||!phone||!wechat)return alert('必填项不能为空');
   const major=(document.getElementById('ds-major').value||'').trim();
   const minor=(document.getElementById('ds-minor').value||'').trim();
+  const tool_url=(document.getElementById('ds-tool-url').value||'').trim();
   const tools=[];document.querySelectorAll('#tool-list .dynamic-item').forEach(item=>{const t=item.querySelector('.tool-title').value.trim(),d=item.querySelector('.tool-desc').value.trim();if(t)tools.push({title:t,desc:d});});
   const row={
     id:editingDaShiId||Date.now(),
@@ -1208,6 +1218,7 @@ async function saveDaShi(){
     intro:document.getElementById('ds-intro').value,
     major_category:major,
     minor_category:minor,
+    tool_url,
     power:parseInt(document.getElementById('ds-power').value)||0,
     motto:document.getElementById('ds-motto').value,
     phone,
