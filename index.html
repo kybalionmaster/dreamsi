@@ -130,17 +130,38 @@ th{background:#f8fafc;font-weight:600}
 #chatMessages{height:240px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
 .msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
 .msg.bot{text-align:left;margin:6px 0;color:#334155}
-/* 145 宇宙法则指引 */
-.kybalion-page{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 20px;gap:28px}
-.kyb-line{letter-spacing:.14em}
-.kyb-title{font-size:28px;font-weight:700;color:#b45309}
-.kyb-link a{font-size:22px;color:#2563eb;text-decoration:none;border-bottom:1px solid rgba(37,99,235,.35)}
-.kyb-link a:hover{border-bottom-color:#2563eb}
-.kyb-sub{font-size:18px;color:#64748b}
+
+/* 146/147 宇宙法则指引：海报 + 五按钮 + 底注 */
+.kybalion-wrap{max-width:480px;margin:0 auto}
+.kyb-hero{
+  position:relative;border-radius:18px;overflow:hidden;
+  box-shadow:0 8px 32px rgba(15,23,42,.14);
+  background:#0b1220 center top/cover no-repeat;
+  background-image:url('poster-vertical.jpg');
+  min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
+  padding:0 12px 18px;
+}
+.kyb-hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%);
+}
+.kyb-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.kyb-step-icon{
+  width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid rgba(251,191,36,.65);
+  background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);
+  color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer;
+  box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .15s,box-shadow .15s;
+}
+.kyb-step-icon:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 6px 18px rgba(251,191,36,.4)}
+.kyb-footnote{
+  margin-top:14px;text-align:center;font-size:12px;color:#64748b;letter-spacing:.04em;line-height:1.6;
+}
+.kyb-footnote a{color:#2563eb;text-decoration:none;border-bottom:1px solid rgba(37,99,235,.3)}
+.kyb-footnote a:hover{border-bottom-color:#2563eb}
 @media(min-width:768px){
-  .kyb-title{font-size:36px}
-  .kyb-link a{font-size:28px}
-  .kyb-sub{font-size:22px}
+  .kyb-hero{min-height:600px}
+  .kyb-step-icon{width:48px;height:48px;font-size:20px}
 }
 </style>
 </head>
@@ -196,11 +217,19 @@ th{background:#f8fafc;font-weight:600}
         <div class="pager" id="home-ds-pager"></div>
       </div>
 
+      <!-- 146/147 宇宙法则指引：海报 + 五按钮 + 底注 -->
       <div class="view" id="view-kybalion">
-        <div class="kybalion-page">
-          <div class="kyb-line kyb-title">宇宙法则</div>
-          <div class="kyb-line kyb-link"><a href="https://www.kybalion.com" target="_blank" rel="noopener">www.kybalion.com</a></div>
-          <div class="kyb-line kyb-sub">有缘者联系管理员</div>
+        <div class="kybalion-wrap">
+          <div class="kyb-hero">
+            <div class="kyb-step-icons">
+              <a href="javascript:void(0)" class="kyb-step-icon" title="当前显化中心" onclick="switchView('focus')">✦</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" title="超级智能中心" onclick="switchView('dashi')">⚙</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" title="需求诊断中心" onclick="switchView('diagnosis')">📡</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" title="我的超级团队" onclick="switchView('team')">👥</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" title="金主需求中心" onclick="switchView('jinzhu')">♥</a>
+            </div>
+          </div>
+          <div class="kyb-footnote">宇宙法则：<a href="https://www.kybalion.org" target="_blank" rel="noopener">www.kybalion.org</a>，有缘者联系管理员。</div>
         </div>
       </div>
 
@@ -1185,4 +1214,3 @@ renderUserArea();updateButtons();updateAdminMenus();renderAll();
 </script>
 </body>
 </html>
-
