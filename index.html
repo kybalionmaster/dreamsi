@@ -26,26 +26,20 @@ button,input,select,textarea{font:inherit}
 .content{padding:16px;max-width:1100px}
 .view{display:none}.view.active{display:block}
 .view-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
-.view-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
-.btn{border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:4px;transition:.15s}
+.view-header h2{font-size:18px}
+.btn{border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
 .btn-sm{padding:4px 10px;font-size:12px}
-.btn-primary{background:#2563eb;color:#fff}.btn-primary:hover{background:#1d4ed8}
-.btn-outline{background:#fff;border:1px solid #cbd5e1;color:#334155}.btn-outline:hover{background:#f8fafc}
+.btn-primary{background:#2563eb;color:#fff}.btn-outline{background:#fff;border:1px solid #cbd5e1;color:#334155}
 .btn-edit{background:#e0e7ff;color:#3730a3}.btn-del{background:#fee2e2;color:#b91c1c}
 .btn-team{background:#d1fae5;color:#047857}.btn-savior{background:#fef3c7;color:#b45309}
 .btn-caishen{background:#fce7f3;color:#9d174d}.btn-survey{background:#ede9fe;color:#5b21b6}
 .btn-danger{background:#dc2626;color:#fff}.btn-warn{background:#f59e0b;color:#fff}
 .btn-icon-sm{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:16px;display:inline-flex;align-items:center;justify-content:center;padding:0}
-.btn-icon-sm:hover{background:#f1f5f9;border-color:#94a3b8}
 .search-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .search-bar input{flex:1;min-width:160px;padding:10px 14px;border:1px solid #cbd5e1;border-radius:24px;font-size:14px;outline:none}
-.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 .pager{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:14px}
 .pager a,.pager span{padding:6px 12px;border-radius:4px;color:#1a0dab}
-.pager a:hover{text-decoration:underline}
-.pager .cur{color:#000;font-weight:700}
-.pager .disabled{color:#9ca3af;cursor:default}
-.pager .next{margin-left:8px}
+.pager .cur{color:#000;font-weight:700}.pager .disabled{color:#9ca3af}
 .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .card.focus-card,.card.priority-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.2)}
 .avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
@@ -54,15 +48,14 @@ button,input,select,textarea{font:inherit}
 .avatar-hero{background:linear-gradient(135deg,#ec4899,#be185d)}
 .avatar-team{background:linear-gradient(135deg,#10b981,#047857)}
 .avatar-diag{background:linear-gradient(135deg,#0ea5e9,#0369a1)}
+.avatar-cat{background:linear-gradient(135deg,#64748b,#334155)}
 .card-content{flex:1;min-width:0}
 .card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
 .card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
 .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
-.tag-industry{background:#ecfdf5;color:#047857}
-.tag-diff{background:#fff7ed;color:#c2410c}
-.tag-power{background:#fef3c7;color:#b45309}
-.tag-reward{background:#fce7f3;color:#9d174d}
-.match-score{font-size:12px;color:#059669;font-weight:600}
+.tag-industry{background:#ecfdf5;color:#047857}.tag-diff{background:#fff7ed;color:#c2410c}
+.tag-power{background:#fef3c7;color:#b45309}.tag-reward{background:#fce7f3;color:#9d174d}
+.tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
 .empty-tip{text-align:center;color:#94a3b8;padding:40px 16px;font-size:14px}
 .role-badge{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
@@ -73,7 +66,7 @@ button,input,select,textarea{font:inherit}
 .biz-info{flex:1}.qr-box img{width:72px;height:72px;border-radius:6px}
 .x-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .x-icon{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;font-size:14px;background:#f1f5f9}
-.x-icon:hover{transform:scale(1.08)}.x-icon.pull{background:#dbeafe}
+.x-icon.pull{background:#dbeafe}
 .team-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:12px;margin-top:10px}
 .team-title{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .member-header{display:flex;align-items:center;gap:8px;margin:8px 0 6px;font-size:13px}
@@ -81,13 +74,12 @@ button,input,select,textarea{font:inherit}
 .member-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:4px 10px 4px 4px;font-size:12px}
 .member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#e2e8f0}
 .member-chip img.clickable{cursor:pointer}
-.member-chip img.clickable:hover{outline:2px solid #2563eb;outline-offset:1px}
 .member-chip .power-icon{color:#b45309;font-weight:600}
 .member-x,.team-x{width:22px;height:22px;border-radius:50%;border:none;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px;line-height:1;opacity:0;transition:opacity .15s}
 .team-show-kick .member-x,.team-title:hover .team-x,.team-box:hover .team-x{opacity:1}
 @media (hover:none){.team-show-kick .member-x{opacity:1}}
 .team-progress-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:10px}
-.team-progress-box h5{font-size:13px;margin-bottom:8px;color:#0f172a}
+.team-progress-box h5{font-size:13px;margin-bottom:8px}
 .prog-item{font-size:13px;color:#334155;margin:4px 0}
 .modal-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
 .modal{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -106,7 +98,6 @@ button,input,select,textarea{font:inherit}
 .badge-ok{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-black{background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:999px;font-size:11px}
-.survey-wrap{}.survey-header{margin-bottom:16px}.survey-header h2{font-size:18px;margin-bottom:6px}
 .survey-section{margin-bottom:18px}.survey-section h4{font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .survey-section .num{width:24px;height:24px;border-radius:50%;background:#2563eb;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
 .survey-q{margin-bottom:12px}.q-label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
@@ -130,8 +121,6 @@ th{background:#f8fafc;font-weight:600}
 #chatMessages{height:240px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
 .msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
 .msg.bot{text-align:left;margin:6px 0;color:#334155}
-
-/* 146/147 宇宙法则指引：海报 + 五按钮 + 底注 */
 .kybalion-wrap{max-width:480px;margin:0 auto}
 .kyb-hero{
   position:relative;border-radius:18px;overflow:hidden;
@@ -154,15 +143,9 @@ th{background:#f8fafc;font-weight:600}
   box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .15s,box-shadow .15s;
 }
 .kyb-step-icon:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 6px 18px rgba(251,191,36,.4)}
-.kyb-footnote{
-  margin-top:14px;text-align:center;font-size:12px;color:#64748b;letter-spacing:.04em;line-height:1.6;
-}
+.kyb-footnote{margin-top:14px;text-align:center;font-size:12px;color:#64748b;letter-spacing:.04em;line-height:1.6}
 .kyb-footnote a{color:#2563eb;text-decoration:none;border-bottom:1px solid rgba(37,99,235,.3)}
-.kyb-footnote a:hover{border-bottom-color:#2563eb}
-@media(min-width:768px){
-  .kyb-hero{min-height:600px}
-  .kyb-step-icon{width:48px;height:48px;font-size:20px}
-}
+@media(min-width:768px){.kyb-hero{min-height:600px}.kyb-step-icon{width:48px;height:48px;font-size:20px}}
 </style>
 </head>
 <body>
@@ -182,6 +165,7 @@ th{background:#f8fafc;font-weight:600}
     <div class="menu-item" data-view="inbox">📬 站内信</div>
     <div class="menu-item" data-view="coop">🤝 商务合作</div>
     <div class="menu-item" data-view="chat">💬 在线客服</div>
+    <div class="menu-item admin-only" data-view="categories">🗂 大分类小分类</div>
     <div class="menu-item admin-only" data-view="coop-list">📑 商务合作汇总</div>
     <div class="menu-item admin-only" data-view="chat-list">🗂 在线客服汇总</div>
     <div class="menu-item admin-only" data-view="users">👤 用户管理</div>
@@ -205,25 +189,22 @@ th{background:#f8fafc;font-weight:600}
       </div>
     </div>
     <div class="content">
+      <!-- 150 首页不再展示金主需求 -->
       <div class="view active" id="view-home">
         <div class="view-header"><h2>🏠 首页</h2></div>
-        <h3 style="font-size:15px;margin:12px 0 8px">金主用户需求</h3>
-        <div class="search-bar"><input id="home-jz-q" placeholder="搜索金主名字、介绍、网址…" oninput="homeJzPage=1;renderHome()"></div>
-        <div id="home-jinzhu-list"></div>
-        <div class="pager" id="home-jz-pager"></div>
-        <h3 style="font-size:15px;margin:20px 0 8px">超级智能工具</h3>
+        <h3 style="font-size:15px;margin:12px 0 8px">超级智能工具</h3>
         <div class="search-bar"><input id="home-ds-q" placeholder="搜索工具名字、介绍、网址…" oninput="homeDsPage=1;renderHome()"></div>
         <div id="home-dashi-list"></div>
         <div class="pager" id="home-ds-pager"></div>
       </div>
 
-      <!-- 146/147 宇宙法则指引：海报 + 五按钮 + 底注 -->
+      <!-- 152 宇宙法则指引 -->
       <div class="view" id="view-kybalion">
         <div class="kybalion-wrap">
           <div class="kyb-hero">
             <div class="kyb-step-icons">
             <a href="javascript:void(0)" class="kyb-step-icon" title="1. 宇宙法则指引方向" onclick="switchView('kybalion')">✦</a>
-            <a href="javascript:void(0)" class="kyb-step-icon" title="2. 超级智能 · 零成本自动化工具" onclick="switchView('dashi')">⚙</a>
+            <a href="javascript:void(0)" class="kyb-step-icon" title="2. 超级智能零成本自动化执行" onclick="switchView('dashi')">⚙</a>
             <a href="javascript:void(0)" class="kyb-step-icon" title="3. 诊断问卷找出问题" onclick="switchView('diagnosis')">📡</a>
             <a href="javascript:void(0)" class="kyb-step-icon" title="4. 自动组合超级精英团队" onclick="switchView('team')">👥</a>
             <a href="javascript:void(0)" class="kyb-step-icon" title="5. 自动把客户送到企业怀抱" onclick="switchView('jinzhu')">♥</a>
@@ -313,6 +294,17 @@ th{background:#f8fafc;font-weight:600}
         <div id="chatMessages"></div>
         <div style="display:flex;gap:8px"><input id="chatInput" style="flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px" placeholder="输入消息…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-primary" onclick="sendChat()">发送</button></div>
       </div>
+
+      <!-- 151 大分类小分类（管理员） -->
+      <div class="view" id="view-categories">
+        <div class="view-header">
+          <h2>🗂 大分类小分类</h2>
+          <button class="btn btn-primary btn-sm" id="btn-add-cat" onclick="openAddCategory()">+ 新增大分类</button>
+        </div>
+        <div class="search-bar"><input id="cat-q" placeholder="搜索大分类 / 小分类…" oninput="renderCategories()"></div>
+        <div id="categories-list"></div>
+      </div>
+
       <div class="view" id="view-coop-list">
         <div class="view-header"><h2>📑 商务合作汇总</h2></div>
         <div id="coop-list"></div>
@@ -339,11 +331,11 @@ const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
 const DEFAULT_AVATAR='https://api.dicebear.com/7.x/avataaars/svg?seed=dreamsi-default&backgroundColor=e0e7ff';
-let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null;
+let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null;
 let focusDashiId=null,focusHeroId=null,qgenTeamContext=null;
 const teamKickVisible={};
 const teamCardVisible={};
-const PAGE_SIZE=8; let homeJzPage=1,homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1;
+const PAGE_SIZE=8; let homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1;
 const MSG_TYPE_LABEL={greeting:'美好的问候',progress:'成功进展报告',event:'活动邀请',case_request:'索取成功案例',trial_request:'请求试用'};
 const ROLE_MAP={jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'};
 const ROLE_CLS={jinzhu:'role-jinzhu',ai:'role-ai',admin:'role-admin',kefu:'role-kefu',shenhe:'role-shenhe',yingxiao:'role-yingxiao'};
@@ -459,6 +451,7 @@ async function fetchHero(){const {data,error}=await sb.from('hero').select('*').
 async function fetchTeam(){const {data,error}=await sb.from('team').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
 async function fetchDiagnosis(){const {data,error}=await sb.from('diagnosis_surveys').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
 async function fetchQgen(){const {data,error}=await sb.from('questionnaire_templates').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
+async function fetchCategories(){const {data,error}=await sb.from('categories').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
 async function fetchMessagesToMe(){const user=getUser();if(!user)return[];const {data,error}=await sb.from('messages').select('*').eq('to_phone',user.phone).order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
 function goSavior(jinId){fetchJinZhu().then(list=>{const jin=list.find(j=>j.id===jinId);if(!jin)return alert('未找到');matchContext={type:'jinzhu',id:jin.id,name:jin.name,text:accumulatePains(jin)};switchView('dashi');});}
 function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return alert('未找到');matchContext={type:'dashi',id:d.id,name:d.name,text:accumulateTools(d)};switchView('jinzhu');});}
@@ -482,7 +475,7 @@ function switchView(view){
   if(view==='users')renderUsers();
   if(view==='coop-list')renderCoopList();
   if(view==='chat-list')renderChatList();
-  /* kybalion 为静态页，无需 render */
+  if(view==='categories')renderCategories();
 }
 function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">登录</button><button class="btn btn-primary" onclick="openModal('register')">注册</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||'role-jinzhu'}">${ROLE_MAP[user.role]||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">退出</button></div>`;}
 function updateButtons(){
@@ -540,7 +533,7 @@ async function submitMsgDirect(msgType,toPhone,toName){const user=getUser();if(!
 async function reportTarget(reportedPhone,reportedName){const user=getUser();if(!user)return alert('请先登录');const reason=prompt('请简要说明举报原因：');if(!reason||!reason.trim())return;const {data:admins}=await sb.from('app_users').select('phone').eq('role','admin');if(!admins?.length)return alert('暂无管理员');const content=`【用户举报】\n举报人：${user.phone}\n被举报：${reportedName||''}（${reportedPhone}）\n原因：${reason.trim()}`;for(const a of admins)await sb.from('messages').insert({id:Date.now()+Math.floor(Math.random()*9999),from_phone:user.phone,from_name:user.phone,from_role:user.role,to_phone:a.phone,msg_type:'greeting',title:'用户举报',content,related_name:reportedName||''});alert('举报已提交');}
 async function renderInbox(){const user=getUser(),box=document.getElementById('inbox-list');if(!user){box.innerHTML='<div class="empty-tip">请先登录</div>';return;}const list=await fetchMessagesToMe();box.innerHTML=list.length?list.map(m=>`<div class="msg-item"><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><span class="msg-type">${m.title==='用户举报'?'用户举报':(MSG_TYPE_LABEL[m.msg_type]||m.msg_type)}</span><b>${m.title||''}</b></div><button class="btn btn-del btn-sm" onclick="deleteMsg(${m.id})">删除</button></div><div class="card-desc" style="margin-top:8px">${linkify(m.content||'')}</div><div class="card-desc" style="font-size:12px;color:#9ca3af">来自：${m.from_phone}</div></div>`).join(''):'<div class="empty-tip">暂无信息</div>';}
 async function deleteMsg(id){if(!confirm('确定删除？'))return;await sb.from('messages').delete().eq('id',id);renderInbox();}
-async function renderAll(){await renderHome();await renderJinZhu();await renderDaShi();}
+async function renderAll(){await renderHome();await renderDaShi();}
 
 function renderOneTeamCard(t,linkedJin,user,opts){
   opts=opts||{};
@@ -615,17 +608,16 @@ async function renderFocus(){
   box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true,isMember});
 }
 
+/* 150 首页仅超级智能 */
 async function renderHome(){
-  const jinzhu=await fetchJinZhu(),dashi=await fetchDaShi(),admin=isAdmin();
-  const pj=paginate(filterByQ(jinzhu,(document.getElementById('home-jz-q')||{}).value||''),homeJzPage,PAGE_SIZE);
+  const dashi=await fetchDaShi(),admin=isAdmin();
   const pd=paginate(filterByQ(dashi,(document.getElementById('home-ds-q')||{}).value||''),homeDsPage,PAGE_SIZE);
-  homeJzPage=pj.page;homeDsPage=pd.page;
-  document.getElementById('home-jinzhu-list').innerHTML=pj.slice.length?pj.slice.map(j=>`<div class="card"><div class="avatar avatar-jinzhu">金主</div><div class="card-content"><div class="card-title">${j.name}${admin?` <button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">删除</button>`:''}</div><div class="card-desc">${j.intro||''}</div><div class="tags"><span class="tag tag-industry">${j.type||'待填'}</span><span class="tag tag-diff">◆难度:${Number(j.difficulty)||0}</span>${j.reward?`<span class="tag tag-reward">重奖:${j.reward}</span>`:''}</div>${admin?renderBizCard(j.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
-  renderPager('home-jz-pager',pj.page,pj.pages,'goHomeJzPage');
-  document.getElementById('home-dashi-list').innerHTML=pd.slice.length?pd.slice.map(d=>`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.category?` <span class="tag">${d.category}</span>`:''}<span class="tag tag-power">⚡${Number(d.power)||0}</span>${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div><div class="card-desc">${d.intro||''}</div>${admin?renderBizCard(d.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
+  homeDsPage=pd.page;
+  const box=document.getElementById('home-dashi-list');
+  if(box) box.innerHTML=pd.slice.length?pd.slice.map(d=>`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.category?` <span class="tag">${d.category}</span>`:''}<span class="tag tag-power">⚡${Number(d.power)||0}</span>${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div><div class="card-desc">${d.intro||''}</div>${admin?renderBizCard(d.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
 }
-function goHomeJzPage(p){homeJzPage=p;renderHome();}function goHomeDsPage(p){homeDsPage=p;renderHome();}
+function goHomeDsPage(p){homeDsPage=p;renderHome();}
 
 function teamBlockHtml(team,j,user,heroIds,dashiIds){
   if(!team)return '';
@@ -763,7 +755,6 @@ async function renderTeam(){
   const user=getUser();let list=await fetchTeam();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
   else if(!list.length)emptyMsg='<div class="empty-tip">暂无团队</div>';
-
   let heroIds=new Set(),dashiIds=new Set();
   if(user){
     const heroes=await fetchHero();
@@ -771,7 +762,6 @@ async function renderTeam(){
     const tools=await fetchDaShi();
     tools.filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
   }
-
   const pid=await getPriorityTeamId();
   const pg=paginate(filterByQ(list,(document.getElementById('team-q')||{}).value||''),teamPage,PAGE_SIZE);teamPage=pg.page;
   const allJinZhu=await fetchJinZhu();
@@ -784,6 +774,70 @@ async function renderTeam(){
   renderPager('team-pager',pg.page,pg.pages,'goTeamPage');
 }
 function goTeamPage(p){teamPage=p;renderTeam();}
+
+/* 151 大分类小分类 */
+function parseSubs(c){
+  if(Array.isArray(c.subs))return c.subs;
+  if(typeof c.subs==='string'){try{return JSON.parse(c.subs)||[];}catch(e){return [];}}
+  return [];
+}
+async function renderCategories(){
+  if(!isAdmin()){switchView('home');return;}
+  const q=((document.getElementById('cat-q')||{}).value||'').trim().toLowerCase();
+  let list=await fetchCategories();
+  if(q) list=list.filter(c=>{
+    const subs=parseSubs(c).join(' ');
+    return ((c.name||'')+' '+subs).toLowerCase().includes(q);
+  });
+  const box=document.getElementById('categories-list');
+  if(!box)return;
+  box.innerHTML=list.length?list.map(c=>{
+    const subs=parseSubs(c);
+    return `<div class="card"><div class="avatar avatar-cat">类</div><div class="card-content">
+      <div class="card-title">${(c.name||'').replace(/</g,'&lt;')}
+        <button class="btn btn-edit btn-sm" onclick="editCategory(${c.id})">编辑</button>
+        <button class="btn btn-del btn-sm" onclick="deleteCategory(${c.id})">删除</button>
+      </div>
+      <div class="card-desc">${subs.length?subs.map(s=>`<span class="tag tag-sub">${String(s).replace(/</g,'&lt;')}</span>`).join(''):'<span style="color:#94a3b8">暂无小分类</span>'}</div>
+    </div></div>`;
+  }).join(''):'<div class="empty-tip">暂无大分类。点击「+ 新增大分类」添加。</div>';
+}
+function openAddCategory(){editingCategoryId=null;showCategoryForm(null);}
+async function editCategory(id){
+  const item=(await fetchCategories()).find(c=>Number(c.id)===Number(id));
+  if(!item)return;
+  editingCategoryId=id;
+  showCategoryForm(item);
+}
+function showCategoryForm(item){
+  const subs=item?parseSubs(item):[];
+  document.getElementById('modalBox').className='modal';
+  document.getElementById('modalBox').innerHTML=`<h3>${item?'编辑大分类':'新增大分类'}</h3>
+    <div class="form-group"><label>大分类名称 *</label><input id="cat-name" value="${item?(item.name||'').replace(/"/g,'&quot;'):''}"></div>
+    <div class="form-group"><label>小分类（每行一个）</label><textarea id="cat-subs" style="min-height:120px">${subs.join('\n')}</textarea></div>
+    <div class="form-actions">
+      <button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveCategory()">保存</button>
+    </div>`;
+  document.getElementById('modalMask').style.display='flex';
+}
+async function saveCategory(){
+  if(!isAdmin())return alert('仅管理员可操作');
+  const name=(document.getElementById('cat-name').value||'').trim();
+  if(!name)return alert('请填写大分类名称');
+  const subs=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
+  let error;
+  if(editingCategoryId)({error}=await sb.from('categories').update({name,subs}).eq('id',editingCategoryId));
+  else({error}=await sb.from('categories').insert({id:Date.now(),name,subs}));
+  if(error)return alert('保存失败：'+error.message);
+  closeModal();renderCategories();alert('保存成功');
+}
+async function deleteCategory(id){
+  if(!isAdmin())return;
+  if(!confirm('确定删除该大分类？'))return;
+  await sb.from('categories').delete().eq('id',id);
+  renderCategories();
+}
 
 async function renderQgen(){
   const user=getUser();const box=document.getElementById('qgen-list');
