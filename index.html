@@ -34,9 +34,12 @@ button,input,select,textarea{font:inherit}
 .btn-team{background:#d1fae5;color:#047857}.btn-savior{background:#fef3c7;color:#b45309}
 .btn-caishen{background:#fce7f3;color:#9d174d}.btn-survey{background:#ede9fe;color:#5b21b6}
 .btn-danger{background:#dc2626;color:#fff}.btn-warn{background:#f59e0b;color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
 .btn-icon-sm{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:16px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.btn-icon-sm:hover{background:#f1f5f9;border-color:#94a3b8}
 .search-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .search-bar input{flex:1;min-width:160px;padding:10px 14px;border:1px solid #cbd5e1;border-radius:24px;font-size:14px;outline:none}
+.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 .pager{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:14px}
 .pager a,.pager span{padding:6px 12px;border-radius:4px;color:#1a0dab}
 .pager .cur{color:#000;font-weight:700}.pager .disabled{color:#9ca3af}
@@ -56,6 +59,9 @@ button,input,select,textarea{font:inherit}
 .tag-industry{background:#ecfdf5;color:#047857}.tag-diff{background:#fff7ed;color:#c2410c}
 .tag-power{background:#fef3c7;color:#b45309}.tag-reward{background:#fce7f3;color:#9d174d}
 .tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
+.home-cat-tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;cursor:pointer;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
+.home-cat-tag:hover{background:#e0e7ff;border-color:#a5b4fc;color:#3730a3}
+.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
 .empty-tip{text-align:center;color:#94a3b8;padding:40px 16px;font-size:14px}
 .role-badge{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
@@ -189,11 +195,19 @@ th{background:#f8fafc;font-weight:600}
       </div>
     </div>
     <div class="content">
-      <!-- 150 首页不再展示金主需求 -->
+      <!-- 156/157/158 首页 -->
       <div class="view active" id="view-home">
         <div class="view-header"><h2>🏠 首页</h2></div>
         <h3 style="font-size:15px;margin:12px 0 8px">超级智能工具</h3>
-        <div class="search-bar"><input id="home-ds-q" placeholder="搜索工具名字、介绍、网址…" oninput="homeDsPage=1;renderHome()"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+          <span style="font-size:13px;color:#64748b;font-weight:600">全部工具大分类</span>
+          <button type="button" class="btn-icon-sm" id="home-cat-toggle" title="展开/收起大分类" onclick="toggleHomeCats()">📂</button>
+        </div>
+        <div id="home-major-tags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
+        <div id="home-minor-tags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
+        <div class="search-bar">
+          <input id="home-ds-q" placeholder="搜索工具名字、介绍、网址、大分类、小分类…" oninput="homeDsPage=1;renderHome()">
+        </div>
         <div id="home-dashi-list"></div>
         <div class="pager" id="home-ds-pager"></div>
       </div>
@@ -294,8 +308,6 @@ th{background:#f8fafc;font-weight:600}
         <div id="chatMessages"></div>
         <div style="display:flex;gap:8px"><input id="chatInput" style="flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px" placeholder="输入消息…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-primary" onclick="sendChat()">发送</button></div>
       </div>
-
-      <!-- 151 大分类小分类（管理员） -->
       <div class="view" id="view-categories">
         <div class="view-header">
           <h2>🗂 大分类小分类</h2>
@@ -304,7 +316,6 @@ th{background:#f8fafc;font-weight:600}
         <div class="search-bar"><input id="cat-q" placeholder="搜索大分类 / 小分类…" oninput="renderCategories()"></div>
         <div id="categories-list"></div>
       </div>
-
       <div class="view" id="view-coop-list">
         <div class="view-header"><h2>📑 商务合作汇总</h2></div>
         <div id="coop-list"></div>
@@ -333,6 +344,7 @@ const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
 const DEFAULT_AVATAR='https://api.dicebear.com/7.x/avataaars/svg?seed=dreamsi-default&backgroundColor=e0e7ff';
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null;
 let focusDashiId=null,focusHeroId=null,qgenTeamContext=null;
+let homeCatsOpen=false, homeActiveMajor='';
 const teamKickVisible={};
 const teamCardVisible={};
 const PAGE_SIZE=8; let homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1;
@@ -351,6 +363,13 @@ function renderToolUrl(url){
   let href=u;
   if(!/^https?:\/\//i.test(href))href='https://'+href;
   return `<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${u.replace(/</g,'&lt;')}</a>`;
+}
+function openToolUrl(url){
+  const u=(url||'').trim();
+  if(!u)return alert('暂无工具网址');
+  let href=u;
+  if(!/^https?:\/\//i.test(href))href='https://'+href;
+  window.open(href,'_blank','noopener');
 }
 function accumulatePains(jin){return (jin.pains||[]).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ');}
 function accumulateTools(d){return (d.tools||[]).map(t=>(t.title||'')+' '+(t.desc||'')).join(' ');}
@@ -549,6 +568,68 @@ async function renderInbox(){const user=getUser(),box=document.getElementById('i
 async function deleteMsg(id){if(!confirm('确定删除？'))return;await sb.from('messages').delete().eq('id',id);renderInbox();}
 async function renderAll(){await renderHome();await renderDaShi();}
 
+/* 156 首页大分类 / 小分类标签 */
+async function toggleHomeCats(){
+  homeCatsOpen=!homeCatsOpen;
+  const majorBox=document.getElementById('home-major-tags');
+  const minorBox=document.getElementById('home-minor-tags');
+  if(!majorBox||!minorBox)return;
+  if(!homeCatsOpen){
+    majorBox.style.display='none';
+    minorBox.style.display='none';
+    homeActiveMajor='';
+    return;
+  }
+  const cats=await fetchCategories();
+  majorBox.style.display='flex';
+  majorBox.innerHTML=cats.length
+    ? cats.map(c=>{
+        const n=String(c.name||'');
+        const act=homeActiveMajor===n?' active':'';
+        return `<span class="home-cat-tag${act}" onclick="pickHomeMajor('${escapeAttr(n)}')">${n.replace(/</g,'&lt;')}</span>`;
+      }).join('')
+    : '<span style="font-size:12px;color:#94a3b8">暂无大分类（管理员可在「大分类小分类」中维护）</span>';
+  if(homeActiveMajor) await pickHomeMajor(homeActiveMajor,true);
+  else minorBox.style.display='none';
+}
+async function pickHomeMajor(name,keepOpen){
+  homeActiveMajor=name||'';
+  const qEl=document.getElementById('home-ds-q');
+  if(qEl&&name){qEl.value=name;homeDsPage=1;}
+  if(!homeCatsOpen&&!keepOpen) homeCatsOpen=true;
+  const cats=await fetchCategories();
+  const majorBox=document.getElementById('home-major-tags');
+  const minorBox=document.getElementById('home-minor-tags');
+  if(majorBox){
+    majorBox.style.display='flex';
+    majorBox.innerHTML=cats.map(c=>{
+      const n=String(c.name||'');
+      const act=homeActiveMajor===n?' active':'';
+      return `<span class="home-cat-tag${act}" onclick="pickHomeMajor('${escapeAttr(n)}')">${n.replace(/</g,'&lt;')}</span>`;
+    }).join('');
+  }
+  const cat=cats.find(c=>String(c.name)===String(name));
+  const subs=cat?parseSubs(cat):[];
+  if(minorBox){
+    if(subs.length){
+      minorBox.style.display='flex';
+      minorBox.innerHTML=subs.map(s=>{
+        const sn=String(s);
+        return `<span class="home-cat-tag" onclick="pickHomeMinor('${escapeAttr(sn)}')">${sn.replace(/</g,'&lt;')}</span>`;
+      }).join('');
+    }else{
+      minorBox.style.display='none';
+      minorBox.innerHTML='';
+    }
+  }
+  renderHome();
+}
+function pickHomeMinor(name){
+  const qEl=document.getElementById('home-ds-q');
+  if(qEl&&name){qEl.value=name;homeDsPage=1;}
+  renderHome();
+}
+
 function renderOneTeamCard(t,linkedJin,user,opts){
   opts=opts||{};
   const members=t.members||[];
@@ -622,12 +703,32 @@ async function renderFocus(){
   box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true,isMember});
 }
 
+/* 156/157/158 首页 */
 async function renderHome(){
   const dashi=await fetchDaShi(),admin=isAdmin();
-  const pd=paginate(filterByQ(dashi,(document.getElementById('home-ds-q')||{}).value||''),homeDsPage,PAGE_SIZE);
+  const q=(document.getElementById('home-ds-q')||{}).value||'';
+  const pd=paginate(filterByQ(dashi,q),homeDsPage,PAGE_SIZE);
   homeDsPage=pd.page;
   const box=document.getElementById('home-dashi-list');
-  if(box) box.innerHTML=pd.slice.length?pd.slice.map(d=>`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${d.name}${d.major_category?` <span class="tag">${d.major_category}</span>`:''}${d.minor_category?` <span class="tag tag-sub">${d.minor_category}</span>`:''}<span class="tag tag-power">⚡${Number(d.power)||0}</span>${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}</div><div class="card-desc">${d.intro||''}</div><div class="card-desc"><b>工具网址：</b>${renderToolUrl(d.tool_url)}</div>${admin?renderBizCard(d.card):''}</div></div>`).join(''):'<div class="empty-tip">暂无数据</div>';
+  if(box) box.innerHTML=pd.slice.length?pd.slice.map(d=>{
+    const hasUrl=!!((d.tool_url||'').trim());
+    return `<div class="card">
+      <div class="avatar avatar-dashi">SI</div>
+      <div class="card-content">
+        <div class="card-title">${d.name||''}
+          ${d.major_category?` <span class="tag">${d.major_category}</span>`:''}
+          ${d.minor_category?` <span class="tag tag-sub">${d.minor_category}</span>`:''}
+          <span class="tag tag-power">⚡${Number(d.power)||0}</span>
+          ${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">删除</button>`:''}
+        </div>
+        <div class="card-desc">${d.intro||''}</div>
+        ${admin?`<div class="card-desc"><b>工具网址：</b>${renderToolUrl(d.tool_url)}</div>`:''}
+        <div style="margin-top:8px">
+          <button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">Visit 访问</button>
+        </div>
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty-tip">暂无数据</div>';
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
 }
 function goHomeDsPage(p){homeDsPage=p;renderHome();}
