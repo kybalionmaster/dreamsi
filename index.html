@@ -130,6 +130,18 @@ th{background:#f8fafc;font-weight:600}
 #chatMessages{height:240px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
 .msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
 .msg.bot{text-align:left;margin:6px 0;color:#334155}
+/* 145 宇宙法则指引 */
+.kybalion-page{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 20px;gap:28px}
+.kyb-line{letter-spacing:.14em}
+.kyb-title{font-size:28px;font-weight:700;color:#b45309}
+.kyb-link a{font-size:22px;color:#2563eb;text-decoration:none;border-bottom:1px solid rgba(37,99,235,.35)}
+.kyb-link a:hover{border-bottom-color:#2563eb}
+.kyb-sub{font-size:18px;color:#64748b}
+@media(min-width:768px){
+  .kyb-title{font-size:36px}
+  .kyb-link a{font-size:28px}
+  .kyb-sub{font-size:22px}
+}
 </style>
 </head>
 <body>
@@ -138,6 +150,7 @@ th{background:#f8fafc;font-weight:600}
   <aside class="sidebar" id="sidebar">
     <div class="logo"><span>显</span>梦想显化器</div>
     <div class="menu-item active" data-view="home">🏠 首页</div>
+    <div class="menu-item" data-view="kybalion">📖 宇宙法则指引</div>
     <div class="menu-item" data-view="focus">🎯 当前显化中心</div>
     <div class="menu-item" data-view="team">👥 我的超级团队</div>
     <div class="menu-item" data-view="jinzhu">💰 金主需求中心</div>
@@ -161,7 +174,6 @@ th{background:#f8fafc;font-weight:600}
       </div>
       <div style="display:flex;align-items:center">
         <div class="quick-icons">
-
           <button title="金主" onclick="switchView('jinzhu')">金主</button>
           <button title="SI" onclick="switchView('dashi')">SI</button>
           <button title="精英" onclick="switchView('hero')">精英</button>
@@ -183,6 +195,15 @@ th{background:#f8fafc;font-weight:600}
         <div id="home-dashi-list"></div>
         <div class="pager" id="home-ds-pager"></div>
       </div>
+
+      <div class="view" id="view-kybalion">
+        <div class="kybalion-page">
+          <div class="kyb-line kyb-title">宇宙法则</div>
+          <div class="kyb-line kyb-link"><a href="https://www.kybalion.com" target="_blank" rel="noopener">www.kybalion.com</a></div>
+          <div class="kyb-line kyb-sub">有缘者联系管理员</div>
+        </div>
+      </div>
+
       <div class="view" id="view-focus">
         <div class="view-header">
           <h2>🎯 当前显化中心</h2>
@@ -364,7 +385,6 @@ function memberChipHtml(m,isOwner,teamId){
     ${isOwner?`<button class="member-x" title="移除成员" onclick="kickMember(${teamId},'${safeId}','${type}')">×</button>`:''}
   </span>`;
 }
-/* 134/136 判重与身份 */
 function isAlreadyInTeam(members,id,type){
   const sid=String(id);
   if(!(members&&members.length))return false;
@@ -421,10 +441,19 @@ function switchView(view){
   toggleSidebar(false);
   if(view!=='dashi')focusDashiId=null;
   if(view!=='hero')focusHeroId=null;
-  if(view==='home')renderHome();if(view==='focus')renderFocus();if(view==='jinzhu')renderJinZhu();if(view==='dashi')renderDaShi();
-  if(view==='hero')renderHero();if(view==='team')renderTeam();if(view==='diagnosis')renderDiagnosis();
-  if(view==='qgen')renderQgen();if(view==='inbox')renderInbox();if(view==='users')renderUsers();
-  if(view==='coop-list')renderCoopList();if(view==='chat-list')renderChatList();
+  if(view==='home')renderHome();
+  if(view==='focus')renderFocus();
+  if(view==='jinzhu')renderJinZhu();
+  if(view==='dashi')renderDaShi();
+  if(view==='hero')renderHero();
+  if(view==='team')renderTeam();
+  if(view==='diagnosis')renderDiagnosis();
+  if(view==='qgen')renderQgen();
+  if(view==='inbox')renderInbox();
+  if(view==='users')renderUsers();
+  if(view==='coop-list')renderCoopList();
+  if(view==='chat-list')renderChatList();
+  /* kybalion 为静态页，无需 render */
 }
 function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">登录</button><button class="btn btn-primary" onclick="openModal('register')">注册</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||'role-jinzhu'}">${ROLE_MAP[user.role]||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">退出</button></div>`;}
 function updateButtons(){
@@ -701,7 +730,6 @@ async function renderHero(){
 }
 function goHeroPage(p){heroPage=p;renderHero();}
 
-/* 135：全部团队对所有登录角色可见 */
 async function renderTeam(){
   const user=getUser();let list=await fetchTeam();let emptyMsg='';
   if(!user){emptyMsg='<div class="empty-tip">请先登录</div>';list=[];}
@@ -1129,7 +1157,6 @@ async function saveTeam(){
   let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));
   if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();renderFocus();alert('保存成功');
 }
-/* 134 行业精英可正确加入 */
 async function joinTeam(teamId){
   const user=getUser();if(!user)return alert('请先登录');
   const team=(await fetchTeam()).find(t=>t.id===teamId);if(!team)return;
@@ -1158,3 +1185,4 @@ renderUserArea();updateButtons();updateAdminMenus();renderAll();
 </script>
 </body>
 </html>
+
