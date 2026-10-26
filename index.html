@@ -20,7 +20,6 @@ button,input,select,textarea{font:inherit}
 .menu-item.admin-only{display:none}
 .main{flex:1;margin-left:240px;min-width:0}
 .topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;gap:8px}
-.topbar .brand{display:flex;align-items:center;gap:8px;min-width:0}
 .user-area{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .user-info{display:flex;align-items:center;gap:8px;font-size:13px}
 .content{padding:16px;max-width:1100px}
@@ -59,8 +58,8 @@ button,input,select,textarea{font:inherit}
 .tag-industry{background:#ecfdf5;color:#047857}
 .tag-power{background:#fef3c7;color:#b45309}.tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
 .tag-draft{background:#f1f5f9;color:#64748b}.tag-published{background:#d1fae5;color:#047857}
-.tag-unread{background:#fee2e2;color:#b91c1c}
-.tag-read{background:#f1f5f9;color:#64748b}
+.tag-unread{background:#fee2e2;color:#b91c1c}.tag-read{background:#f1f5f9;color:#64748b}
+.tag-skill{background:#fce7f3;color:#9d174d}
 .badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-reviewing{background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-completed{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
@@ -131,11 +130,8 @@ th{background:#f8fafc;font-weight:600}
 .lang-hint b{color:#2563eb}
 .qgen-section{border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin-bottom:14px;background:#f8fafc}
 .qgen-section-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.qgen-section-hd h4{font-size:14px;margin:0}
 .qgen-q{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
-.qgen-opts{margin-top:8px}
-.qgen-opt-row{display:flex;gap:6px;margin-bottom:6px;align-items:center}
-.qgen-opt-row input{flex:1}
+.qgen-opts{margin-top:8px}.qgen-opt-row{display:flex;gap:6px;margin-bottom:6px;align-items:center}.qgen-opt-row input{flex:1}
 .qgen-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .preview-q{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #f1f5f9}
 .preview-q label.q-label{font-weight:600;font-size:14px;display:block;margin-bottom:8px}
@@ -145,9 +141,8 @@ th{background:#f8fafc;font-weight:600}
 .diag-answer .a{font-size:14px;color:#0f172a;white-space:pre-wrap;word-break:break-word}
 .diag-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;font-size:13px;color:#475569}
 .diag-report-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px;margin-top:12px}
-.diag-report-box h4{font-size:14px;margin-bottom:8px;color:#92400e}
-.user-del-btn{width:28px;height:28px;border:none;border-radius:6px;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px;line-height:1}
-.user-del-btn:hover{background:#fecaca}
+.user-del-btn{width:28px;height:28px;border:none;border-radius:6px;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px}
+.hero-highlight{outline:2px solid #ec4899;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -169,7 +164,6 @@ th{background:#f8fafc;font-weight:600}
     <div class="menu-item admin-only" data-view="categories" data-i18n="menu.categories">🗂 大分类小分类</div>
     <div class="menu-item admin-only" data-view="coop-list" data-i18n="menu.coopList">🏢 商务合作中心</div>
     <div class="menu-item admin-only" data-view="users" data-i18n="menu.users">👤 用户管理</div>
-    <!-- 174 已去掉：设置 -->
   </aside>
   <div class="main">
     <div class="topbar">
@@ -194,7 +188,7 @@ th{background:#f8fafc;font-weight:600}
         <h3 style="font-size:15px;margin:12px 0 8px" data-i18n="home.siTools">超级智能工具</h3>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
           <span style="font-size:13px;color:#64748b;font-weight:600" data-i18n="home.allCats">全部工具大分类</span>
-          <button type="button" class="btn-icon-sm" data-i18n-title="home.toggleCats" onclick="toggleHomeCats()">📂</button>
+          <button type="button" class="btn-icon-sm" onclick="toggleHomeCats()">📂</button>
         </div>
         <div id="home-major-tags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
         <div id="home-minor-tags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
@@ -208,11 +202,11 @@ th{background:#f8fafc;font-weight:600}
         <div class="kybalion-wrap">
           <div class="kyb-hero">
             <div class="kyb-step-icons">
-              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s1" onclick="switchView('kybalion')">✦</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s2" onclick="switchView('dashi')">⚙</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s3" onclick="switchView('diagnosis')">📡</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s4" onclick="switchView('team')">👥</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s5" onclick="switchView('jinzhu')">♥</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('kybalion')">✦</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('dashi')">⚙</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('diagnosis')">📡</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('team')">👥</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('jinzhu')">♥</a>
             </div>
           </div>
           <div class="kyb-footnote" data-i18n-html="kyb.footnote">宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a></div>
@@ -254,15 +248,25 @@ th{background:#f8fafc;font-weight:600}
         <div id="dashi-list"></div>
         <div class="pager" id="ds-pager"></div>
       </div>
+
+      <!-- 176 超级精英中心 -->
       <div class="view" id="view-hero">
         <div class="view-header">
           <h2 data-i18n="menu.hero">⭐ 超级精英中心</h2>
           <button class="btn btn-primary btn-sm" id="btn-add-hero" data-i18n="btn.postHero" onclick="openAddHero()">+ 发布精英</button>
         </div>
-        <div class="search-bar"><input id="hero-q" data-i18n-placeholder="search.generic" placeholder="搜索…" oninput="heroPage=1;renderHero()"></div>
+        <div class="search-bar">
+          <input id="hero-q" data-i18n-placeholder="search.hero" placeholder="搜索姓名、技能、简介…" oninput="heroPage=1;renderHero()">
+          <select id="hero-sort" onchange="heroPage=1;renderHero()">
+            <option value="new">最新</option>
+            <option value="power">战力从高到低</option>
+            <option value="name">名称</option>
+          </select>
+        </div>
         <div id="hero-list"></div>
         <div class="pager" id="hero-pager"></div>
       </div>
+
       <div class="view" id="view-qgen">
         <div class="view-header">
           <h2 data-i18n="menu.qgen">📋 问卷生成中心</h2>
@@ -274,9 +278,7 @@ th{background:#f8fafc;font-weight:600}
         <div class="pager" id="qgen-pager"></div>
       </div>
       <div class="view" id="view-diagnosis">
-        <div class="view-header">
-          <h2 data-i18n="menu.diagnosis">🔎 需求诊断中心</h2>
-        </div>
+        <div class="view-header"><h2 data-i18n="menu.diagnosis">🔎 需求诊断中心</h2></div>
         <div class="search-bar">
           <input id="diag-q" data-i18n-placeholder="search.generic" placeholder="搜索…" oninput="diagPage=1;renderDiagnosis()">
           <select id="diag-status-filter" onchange="diagPage=1;renderDiagnosis()">
@@ -290,8 +292,6 @@ th{background:#f8fafc;font-weight:600}
         <div id="diagnosis-list"></div>
         <div class="pager" id="diag-pager"></div>
       </div>
-
-      <!-- 175 脉冲互动中心（原站内信） -->
       <div class="view" id="view-inbox">
         <div class="view-header">
           <h2 data-i18n="menu.inbox">⚡ 脉冲互动中心</h2>
@@ -302,7 +302,7 @@ th{background:#f8fafc;font-weight:600}
           <button type="button" class="pulse-tab" id="pulse-tab-out" onclick="setPulseTab('out')">已发送</button>
         </div>
         <div class="search-bar">
-          <input id="pulse-q" data-i18n-placeholder="pulse.searchPh" placeholder="搜索内容 / 对方手机号…" oninput="pulsePage=1;renderInbox()">
+          <input id="pulse-q" data-i18n-placeholder="pulse.searchPh" placeholder="搜索…" oninput="pulsePage=1;renderInbox()">
           <select id="pulse-type-filter" onchange="pulsePage=1;renderInbox()">
             <option value="">全部类型</option>
             <option value="greeting">问候</option>
@@ -315,31 +315,26 @@ th{background:#f8fafc;font-weight:600}
         <div id="inbox-list"></div>
         <div class="pager" id="pulse-pager"></div>
       </div>
-
-      <!-- 175 商务合作（用户提交） -->
       <div class="view" id="view-coop">
-        <div class="view-header">
-          <h2 data-i18n="menu.coop">🤝 商务合作</h2>
-        </div>
+        <div class="view-header"><h2 data-i18n="menu.coop">🤝 商务合作</h2></div>
         <div class="card"><div class="card-content">
           <p class="card-desc" style="margin-bottom:12px" data-i18n="coop.intro">填写合作意向，管理员将在商务合作中心跟进。</p>
           <div class="form-group"><label data-i18n="coop.name">名称 / 公司 *</label><input id="coop-name"></div>
-          <div class="form-group"><label data-i18n="coop.contact">联系方式 *</label><input id="coop-contact" placeholder="手机 / 微信 / 邮箱"></div>
+          <div class="form-group"><label data-i18n="coop.contact">联系方式 *</label><input id="coop-contact"></div>
           <div class="form-group"><label data-i18n="coop.type">合作类型</label>
             <select id="coop-type">
-              <option value="商务合作" data-i18n="coop.t1">商务合作</option>
-              <option value="资源互换" data-i18n="coop.t2">资源互换</option>
-              <option value="渠道代理" data-i18n="coop.t4">渠道代理</option>
-              <option value="其他" data-i18n="coop.t3">其他</option>
+              <option value="商务合作">商务合作</option>
+              <option value="资源互换">资源互换</option>
+              <option value="渠道代理">渠道代理</option>
+              <option value="其他">其他</option>
             </select>
           </div>
-          <div class="form-group"><label data-i18n="coop.desc">合作说明</label><textarea id="coop-desc" placeholder="简述合作内容与期望…"></textarea></div>
+          <div class="form-group"><label data-i18n="coop.desc">合作说明</label><textarea id="coop-desc"></textarea></div>
           <button class="btn btn-primary" data-i18n="btn.submit" onclick="submitCoop()">提交</button>
         </div></div>
         <h3 style="font-size:15px;margin:20px 0 10px" data-i18n="coop.myList">我的提交</h3>
         <div id="coop-my-list"></div>
       </div>
-
       <div class="view" id="view-categories">
         <div class="view-header">
           <h2 data-i18n="menu.categories">🗂 大分类小分类</h2>
@@ -348,14 +343,10 @@ th{background:#f8fafc;font-weight:600}
         <div class="search-bar"><input id="cat-q" data-i18n-placeholder="search.cat" placeholder="搜索…" oninput="renderCategories()"></div>
         <div id="categories-list"></div>
       </div>
-
-      <!-- 175 商务合作中心（管理员，原商务合作汇总） -->
       <div class="view" id="view-coop-list">
-        <div class="view-header">
-          <h2 data-i18n="menu.coopList">🏢 商务合作中心</h2>
-        </div>
+        <div class="view-header"><h2 data-i18n="menu.coopList">🏢 商务合作中心</h2></div>
         <div class="search-bar">
-          <input id="coop-list-q" placeholder="搜索名称 / 联系方式…" oninput="coopListPage=1;renderCoopList()">
+          <input id="coop-list-q" placeholder="搜索…" oninput="coopListPage=1;renderCoopList()">
           <select id="coop-list-status" onchange="coopListPage=1;renderCoopList()">
             <option value="">全部状态</option>
             <option value="pending">待处理</option>
@@ -368,31 +359,26 @@ th{background:#f8fafc;font-weight:600}
         <div id="coop-list"></div>
         <div class="pager" id="coop-list-pager"></div>
       </div>
-
       <div class="view" id="view-users">
         <div class="view-header"><h2 data-i18n="menu.users">👤 用户管理</h2></div>
         <div class="search-bar">
-          <input id="users-q" placeholder="搜索手机号 / 角色…" oninput="usersPage=1;renderUsers()">
+          <input id="users-q" placeholder="搜索…" oninput="usersPage=1;renderUsers()">
           <select id="users-role-filter" onchange="usersPage=1;renderUsers()">
             <option value="">全部角色</option>
             <option value="jinzhu">金主</option>
             <option value="ai">AI公司</option>
             <option value="yingxiao">行业精英</option>
             <option value="admin">管理员</option>
-            <option value="kefu">客服</option>
-            <option value="shenhe">审核员</option>
           </select>
         </div>
         <table>
-          <thead>
-            <tr>
-              <th data-i18n="users.phone">手机号</th>
-              <th data-i18n="users.role">角色</th>
-              <th data-i18n="users.date">注册日期</th>
-              <th data-i18n="users.status">状态</th>
-              <th data-i18n="users.action">操作</th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th data-i18n="users.phone">手机号</th>
+            <th data-i18n="users.role">角色</th>
+            <th data-i18n="users.date">注册日期</th>
+            <th data-i18n="users.status">状态</th>
+            <th data-i18n="users.action">操作</th>
+          </tr></thead>
           <tbody id="users-tbody"></tbody>
         </table>
         <div class="pager" id="users-pager"></div>
@@ -433,8 +419,8 @@ function getInitialLang(){
   return detectBrowserLang();
 }
 const i18n={
-zh:{brand:'梦想显化器',menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},home:{siTools:'超级智能工具',allCats:'全部工具大分类',toggleCats:'展开/收起大分类',searchPh:'搜索工具名字、介绍、网址、大分类、小分类…'},kyb:{s1:'1. 宇宙法则指引方向',s2:'2. 超级智能零成本自动化执行',s3:'3. 诊断问卷找出问题',s4:'4. 自动组合超级精英团队',s5:'5. 自动把客户送到企业怀抱',footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>，有缘者联系管理员。'},btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit 访问',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',draft:'存草稿',addSection:'+ 添加分区',addQuestion:'+ 添加题目',addOption:'+ 选项',reply:'回复'},search:{generic:'搜索…',team:'搜索团队…',survey:'搜索问卷…',cat:'搜索大分类 / 小分类…'},coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',t1:'商务合作',t2:'资源互换',t3:'其他',t4:'渠道代理',desc:'合作说明',intro:'填写合作意向，管理员将在商务合作中心跟进。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无商务合作记录'},pulse:{compose:'+ 发脉冲',searchPh:'搜索内容 / 对方手机号…',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲消息',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',read:'已读',sendOk:'发送成功',needLogin:'请先登录'},users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',searchPh:'搜索手机号 / 角色…',allRoles:'全部角色',blacklist:'拉黑',unban:'解除拉黑',delConfirm:'确定删除该用户？仅删除账号，业务数据保留。',noSelfDel:'不能删除当前登录账号',ok:'已更新'},tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无超级智能工具',noTeams:'暂无团队',saved:'保存成功',needSection:'请至少添加一个分区和一道题目',noReportLink:'尚未填写报告链接'},role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},form:{name:'名称 *',intro:'简介',major:'大分类',minor:'小分类',power:'战力',motto:'座右铭',toolUrl:'工具网址',tools:'工具装备',card:'名片',person:'名片姓名 *',title:'职位',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'公司网址',loginTitle:'手机号登录',regTitle:'手机号注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填写您会的语言即可，其它语言可由他人或之后补全。',skill:'技能',skillDesc:'技能详情',industry:'行业',detail:'详情',dream:'梦想',difficulty:'难度',reward:'重奖',pains:'痛点',subs:'小分类（每行一个）'},label:{intro:'简介',major:'大分类',minor:'小分类',power:'战力',toolUrl:'工具网址',motto:'座右铭',tools:'工具',industry:'行业',detail:'详情',dream:'梦想',pains:'痛点',skill:'技能',skillDesc:'技能详情'},qgen:{title:'问卷编辑',name:'问卷名称 *',industry:'适用行业',desc:'说明',sections:'问卷分区',secTitle:'分区标题',qLabel:'题目标题 *',qType:'题型',required:'必填',options:'选项',previewTitle:'问卷预览',statusDraft:'草稿',statusPub:'已发布',type_text:'单行文本',type_textarea:'多行文本',type_radio:'单选',type_checkbox:'多选',type_select:'下拉',type_number:'数字',type_rating:'评分(1-5)',fillSubmit:'提交答卷',qCount:'题',secCount:'区'},diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',answers:'答卷内容',report:'诊断报告',reportLink:'报告链接',saveReport:'保存报告',viewReport:'查看诊断报告',noAnswers:'暂无答卷内容',phone:'提交人',template:'关联问卷',team:'团队ID',changeStatus:'更改状态',view:'查看详情',empty:'暂无诊断记录',answerN:'答',qLabel:'问题',aLabel:'回答'}},
-en:{brand:'Dream Manifestor',menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Current Focus',team:'👥 My Super Team',jinzhu:'💰 Demand Center',dashi:'🤖 Super Intelligence',hero:'⭐ Elite Center',qgen:'📋 Survey Builder',diagnosis:'🔎 Diagnosis Center',inbox:'⚡ Pulse Hub',coop:'🤝 Business Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},home:{siTools:'Super Intelligence Tools',allCats:'All major categories',toggleCats:'Expand/collapse',searchPh:'Search name, intro, URL, category…'},kyb:{s1:'1. Cosmic laws guide direction',s2:'2. Zero-cost SI automation',s3:'3. Diagnosis finds problems',s4:'4. Auto-assemble elite team',s5:'5. Deliver customers with love',footnote:'Cosmic Laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Create Team',postDemand:'+ Post Demand',postTool:'+ Post Tool',postHero:'+ Post Elite',newSurvey:'+ New Survey',addMajor:'+ Add Category',viewAllTeams:'View all teams',preview:'Preview',publish:'Publish',draft:'Save draft',addSection:'+ Add section',addQuestion:'+ Add question',addOption:'+ Option',reply:'Reply'},search:{generic:'Search…',team:'Search teams…',survey:'Search surveys…',cat:'Search categories…'},coop:{name:'Name / Company *',contact:'Contact *',type:'Type',t1:'Business',t2:'Resource swap',t3:'Other',t4:'Channel',desc:'Description',intro:'Submit a partnership request. Admins follow up in Coop Center.',myList:'My submissions',empty:'No submissions',status:'Status',note:'Note',pending:'Pending',contacted:'Contacted',progress:'In progress',done:'Won',closed:'Closed',centerEmpty:'No coop records'},pulse:{compose:'+ Compose',searchPh:'Search content / phone…',inbox:'Inbox',sent:'Sent',toPhone:'To phone *',content:'Content *',type:'Type',empty:'No messages',from:'From',to:'To',markRead:'Mark read',unread:'Unread',read:'Read',sendOk:'Sent',needLogin:'Please log in'},users:{phone:'Phone',role:'Role',date:'Registered',status:'Status',action:'Actions',searchPh:'Search phone / role…',allRoles:'All roles',blacklist:'Block',unban:'Unblock',delConfirm:'Delete this user account only?',noSelfDel:'Cannot delete your own account',ok:'Updated'},tip:{noData:'No data',loginFirst:'Please log in first',noTools:'No SI tools yet',noTeams:'No teams yet',saved:'Saved',needSection:'Add at least one section and one question',noReportLink:'No report link yet'},role:{jinzhu:'Client',ai:'AI Company',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},form:{name:'Name *',intro:'Intro',major:'Major category',minor:'Minor category',power:'Power',motto:'Motto',toolUrl:'Tool URL',tools:'Tools',card:'Business card',person:'Contact name *',title:'Title',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',loginTitle:'Phone login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm password *',roleLabel:'Role',langHint:'Input language: ',langHint2:'Fill only the language you know.',skill:'Skill',skillDesc:'Skill detail',industry:'Industry',detail:'Detail',dream:'Dream',difficulty:'Difficulty',reward:'Reward',pains:'Pains',subs:'Subcategories (one per line)'},label:{intro:'Intro',major:'Major',minor:'Minor',power:'Power',toolUrl:'Tool URL',motto:'Motto',tools:'Tools',industry:'Industry',detail:'Detail',dream:'Dream',pains:'Pains',skill:'Skill',skillDesc:'Skill detail'},qgen:{title:'Survey editor',name:'Survey name *',industry:'Industry',desc:'Description',sections:'Sections',secTitle:'Section title',qLabel:'Question *',qType:'Type',required:'Required',options:'Options',previewTitle:'Preview',statusDraft:'Draft',statusPub:'Published',type_text:'Text',type_textarea:'Long text',type_radio:'Single choice',type_checkbox:'Multiple choice',type_select:'Dropdown',type_number:'Number',type_rating:'Rating 1-5',fillSubmit:'Submit answers',qCount:'Q',secCount:'Sec'},diag:{allStatus:'All status',pending:'Pending',reviewing:'In review',completed:'Completed',archived:'Archived',detail:'Diagnosis detail',answers:'Answers',report:'Report',reportLink:'Report link',saveReport:'Save report',viewReport:'View report',noAnswers:'No answers',phone:'Submitter',template:'Survey',team:'Team ID',changeStatus:'Status',view:'View',empty:'No diagnosis records',answerN:'Ans',qLabel:'Question',aLabel:'Answer'}}
+zh:{brand:'梦想显化器',menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},home:{siTools:'超级智能工具',allCats:'全部工具大分类',searchPh:'搜索…'},kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit 访问',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',draft:'存草稿',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复'},search:{generic:'搜索…',team:'搜索团队…',survey:'搜索问卷…',cat:'搜索…',hero:'搜索姓名、技能、简介…'},coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录'},pulse:{compose:'+ 发脉冲',searchPh:'搜索…',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',read:'已读',sendOk:'发送成功',needLogin:'请先登录'},users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除该用户？',noSelfDel:'不能删除自己',ok:'已更新'},tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',needSection:'请添加分区和题目',noReportLink:'无报告链接',noHeroes:'暂无超级精英'},role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',skillDesc:'技能详情',subs:'小分类（每行一个）',industry:'行业',detail:'详情',major:'大分类',minor:'小分类',toolUrl:'工具网址',motto:'座右铭',tools:'工具'},label:{intro:'简介',power:'战力',skill:'技能',skillDesc:'技能详情',industry:'行业',toolUrl:'工具网址'},qgen:{title:'问卷编辑',name:'问卷名称 *',industry:'行业',desc:'说明',sections:'分区',secTitle:'分区标题',qLabel:'题目 *',qType:'题型',required:'必填',previewTitle:'预览',statusDraft:'草稿',statusPub:'已发布',type_text:'单行',type_textarea:'多行',type_radio:'单选',type_checkbox:'多选',type_select:'下拉',type_number:'数字',type_rating:'评分',fillSubmit:'提交答卷',qCount:'题',secCount:'区'},diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',answers:'答卷',report:'报告',reportLink:'报告链接',saveReport:'保存报告',viewReport:'查看诊断报告',noAnswers:'暂无答卷',phone:'提交人',template:'问卷',view:'查看详情',empty:'暂无诊断',answerN:'答',qLabel:'问题',aLabel:'回答',changeStatus:'状态'},hero:{sortNew:'最新',sortPower:'战力从高到低',sortName:'名称',pull:'拉入团队',emptyMine:'您还没有发布精英档案，点击右上角发布。'}},
+en:{brand:'Dream Manifestor',menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 Team',jinzhu:'💰 Demands',dashi:'🤖 SI',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},home:{siTools:'SI Tools',allCats:'Categories',searchPh:'Search…'},kyb:{footnote:'<a href="http://www.kybalion.org/" target="_blank" rel="noopener">kybalion.org</a>'},btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Team',postDemand:'+ Demand',postTool:'+ Tool',postHero:'+ Elite',newSurvey:'+ Survey',addMajor:'+ Cat',viewAllTeams:'Teams',preview:'Preview',publish:'Publish',draft:'Draft',addSection:'+ Section',addQuestion:'+ Question',reply:'Reply'},search:{generic:'Search…',team:'Teams…',survey:'Surveys…',cat:'Cats…',hero:'Search name, skill…'},coop:{name:'Name *',contact:'Contact *',type:'Type',desc:'Desc',intro:'Submit partnership.',myList:'My list',empty:'Empty',status:'Status',note:'Note',pending:'Pending',contacted:'Contacted',progress:'Progress',done:'Done',closed:'Closed',centerEmpty:'Empty'},pulse:{compose:'+ Compose',searchPh:'Search…',inbox:'Inbox',sent:'Sent',toPhone:'To *',content:'Content *',type:'Type',empty:'Empty',from:'From',to:'To',markRead:'Read',unread:'Unread',read:'Read',sendOk:'Sent',needLogin:'Login'},users:{phone:'Phone',role:'Role',date:'Date',status:'Status',action:'Actions',blacklist:'Block',unban:'Unban',delConfirm:'Delete?',noSelfDel:'No self delete',ok:'OK'},tip:{noData:'No data',loginFirst:'Login first',noTools:'No tools',noTeams:'No teams',saved:'Saved',needSection:'Need section',noReportLink:'No link',noHeroes:'No elites'},role:{jinzhu:'Client',ai:'AI',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},form:{name:'Name *',intro:'Intro',power:'Power',person:'Person *',title:'Title',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Web',loginTitle:'Login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm *',roleLabel:'Role',langHint:'Lang: ',langHint2:'Fill known language only.',skill:'Skill *',skillDesc:'Skill detail',subs:'Subs',industry:'Industry',detail:'Detail',major:'Major',minor:'Minor',toolUrl:'URL',motto:'Motto',tools:'Tools'},label:{intro:'Intro',power:'Power',skill:'Skill',skillDesc:'Detail',industry:'Industry',toolUrl:'URL'},qgen:{title:'Editor',name:'Name *',industry:'Industry',desc:'Desc',sections:'Sections',secTitle:'Title',qLabel:'Question *',qType:'Type',required:'Required',previewTitle:'Preview',statusDraft:'Draft',statusPub:'Published',type_text:'Text',type_textarea:'Long',type_radio:'Radio',type_checkbox:'Check',type_select:'Select',type_number:'Number',type_rating:'Rating',fillSubmit:'Submit',qCount:'Q',secCount:'S'},diag:{allStatus:'All',pending:'Pending',reviewing:'Review',completed:'Done',archived:'Archived',detail:'Detail',answers:'Answers',report:'Report',reportLink:'Link',saveReport:'Save',viewReport:'View report',noAnswers:'None',phone:'Phone',template:'Survey',view:'View',empty:'Empty',answerN:'A',qLabel:'Q',aLabel:'A',changeStatus:'Status'},hero:{sortNew:'Newest',sortPower:'Power high→low',sortName:'Name',pull:'Pull to team',emptyMine:'No elite profile yet. Publish one.'}}
 };
 ['de','fr','ru','ja'].forEach(L=>{i18n[L]=JSON.parse(JSON.stringify(i18n.en));});
 let currentLang=getInitialLang();
@@ -466,14 +452,13 @@ function tlStrict(val,lang){
 }
 function mergeI18n(oldObj,lang,text){
   const base=(oldObj&&typeof oldObj==='object'&&!Array.isArray(oldObj))?{...oldObj}:{};
-  if(typeof oldObj==='string'&&oldObj){base.zh=base.zh||oldObj;}
+  if(typeof oldObj==='string'&&oldObj)base.zh=base.zh||oldObj;
   base[lang]=(text||'').trim();
   return base;
 }
 function langHintHtml(){return `<div class="lang-hint">${t('form.langHint')}<b>${LANG_LABEL[currentLang]||currentLang}</b>。${t('form.langHint2')}</div>`;}
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null;
-let focusDashiId=null,focusHeroId=null,qgenTeamContext=null,homeCatsOpen=false,homeActiveMajor='',qgenDraftSections=[];
-let pulseTab='in';
+let focusDashiId=null,focusHeroId=null,qgenTeamContext=null,homeCatsOpen=false,homeActiveMajor='',qgenDraftSections=[],pulseTab='in';
 const teamKickVisible={},teamCardVisible={};
 const PAGE_SIZE=8;let homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1,usersPage=1,pulsePage=1,coopListPage=1;
 const MSG_TYPE_LABEL={greeting:'问候',progress:'进展',event:'活动',case_request:'案例',trial_request:'试用'};
@@ -488,7 +473,7 @@ function canEdit(item){const user=getUser();if(!user)return false;if(user.role==
 function escapeAttr(s){return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function uid(){return 'id_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);}
-function renderToolUrl(url){const u=(url||'').trim();if(!u)return '-';let href=u;if(!/^https?:\/\//i.test(href))href='https://'+href;return `<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${escapeHtml(u)}</a>`;}
+function renderToolUrl(url){const u=(url||'').trim();if(!u)return '-';let href=u;if(!/^https?:\/\//i.test(href))href='https://'+href;return `<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;word-break:break-all">${escapeHtml(u)}</a>`;}
 function openToolUrl(url){const u=(url||'').trim();if(!u)return;let href=u;if(!/^https?:\/\//i.test(href))href='https://'+href;window.open(href,'_blank','noopener');}
 function normalizeExternalUrl(url){const u=(url||'').trim();if(!u)return '';if(/^https?:\/\//i.test(u))return u;return 'https://'+u;}
 function paginate(arr,page,size){const total=arr.length,pages=Math.max(1,Math.ceil(total/size));page=Math.min(Math.max(1,page),pages);return{page,pages,slice:arr.slice((page-1)*size,page*size)};}
@@ -497,26 +482,40 @@ function textBlob(obj){if(obj==null)return '';if(typeof obj==='string'||typeof o
 function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;return list.filter(item=>textBlob(item).toLowerCase().includes(q));}
 function dashiDisplayName(d){return tl(d.name_i18n,d.name)||'';}
 function dashiDisplayIntro(d){return tl(d.intro_i18n,d.intro)||'';}
-function dashiDisplayMotto(d){return tl(d.motto_i18n,d.motto)||'';}
 function dashiDisplayMajor(d){return tl(d.major_category_i18n,d.major_category)||'';}
 function dashiDisplayMinor(d){return tl(d.minor_category_i18n,d.minor_category)||'';}
 function dashiTools(d){const src=Array.isArray(d.tools_i18n)?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')}));}
 function catNameStrict(c){const ni=c.name_i18n;if(ni&&typeof ni==='object'&&!Array.isArray(ni)){const v=ni[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}if(currentLang==='zh'&&(ni==null||ni==='')&&c.name)return String(c.name);return '';}
-function catSubsStrict(c){if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length){return c.subs_i18n.map(s=>{if(s&&typeof s==='object'&&!Array.isArray(s)){const v=s[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}return currentLang==='zh'&&typeof s==='string'?s:'';}).filter(Boolean);}if(currentLang==='zh'&&Array.isArray(c.subs)&&!(c.subs_i18n&&c.subs_i18n.length)){return c.subs.map(s=>typeof s==='string'?s:'').filter(Boolean);}return [];}
+function catSubsStrict(c){if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>{if(s&&typeof s==='object'){const v=s[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}return currentLang==='zh'&&typeof s==='string'?s:'';}).filter(Boolean);if(currentLang==='zh'&&Array.isArray(c.subs))return c.subs.filter(s=>typeof s==='string');return [];}
 function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
 function jinzhuDisplayIntro(j){return tl(j.intro_i18n,j.intro)||'';}
 function jinzhuDisplayDetail(j){return tl(j.detail_i18n,j.detail)||'';}
-function jinzhuDisplayDream(j){return tl(j.dream_i18n,j.dream)||'';}
 function jinzhuDisplayType(j){return tl(j.type_i18n,j.type)||'';}
-function jinzhuPains(j){const src=Array.isArray(j.pains_i18n)?j.pains_i18n:(Array.isArray(j.pains)?j.pains:[]);return src.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')}));}
+function jinzhuPains(j){const src=Array.isArray(j.pains_i18n)?j.pains_i18n:(Array.isArray(j.pains)?j.pains:[]);return src.map(p=>({title:tl(p.title,''),desc:tl(p.desc,'')}));}
+/* ========== 176 超级精英显示 ========== */
 function heroDisplayName(h){return tl(h.name_i18n,h.name)||'';}
 function heroDisplayIntro(h){return tl(h.intro_i18n,h.intro)||'';}
 function heroDisplaySkillTitle(h){return tl(h.skill_title_i18n,h.skill_title)||'';}
 function heroDisplaySkillDesc(h){return tl(h.skill_desc_i18n,h.skill_desc)||'';}
+function heroSearchText(h){
+  if(!h)return '';
+  const parts=[];
+  const push=v=>{if(v==null||v==='')return;if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}if(Array.isArray(v)){v.forEach(push);return;}if(typeof v==='object')Object.values(v).forEach(push);};
+  push(h.name);push(h.name_i18n);push(h.intro);push(h.intro_i18n);
+  push(h.skill_title);push(h.skill_title_i18n);push(h.skill_desc);push(h.skill_desc_i18n);
+  push(h.phone);if(h.card)push(h.card);
+  return parts.join(' ').toLowerCase();
+}
+function filterHeroByQ(list,q){
+  q=(q||'').trim().toLowerCase();
+  if(!q)return list;
+  const keys=q.split(/\s+/).filter(Boolean);
+  return list.filter(h=>{const blob=heroSearchText(h);return keys.every(k=>blob.includes(k));});
+}
 function qgenDisplayName(tpl){return tl(tpl.name_i18n,tpl.name)||'';}
 function qgenDisplayIndustry(tpl){return tl(tpl.industry_i18n,tpl.industry)||'';}
 function qgenDisplayDesc(tpl){return tl(tpl.description_i18n,tpl.description)||'';}
-function dashiSearchText(d){if(!d)return '';const parts=[];const push=v=>{if(v==null||v==='')return;if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}if(Array.isArray(v)){v.forEach(push);return;}if(typeof v==='object')Object.keys(v).forEach(k=>push(v[k]));};push(d.name);push(d.name_i18n);push(d.intro);push(d.intro_i18n);push(d.motto);push(d.motto_i18n);push(d.major_category);push(d.major_category_i18n);push(d.minor_category);push(d.minor_category_i18n);push(d.tool_url);push(d.tools);push(d.tools_i18n);return parts.join(' ').toLowerCase();}
+function dashiSearchText(d){if(!d)return '';const parts=[];const push=v=>{if(v==null||v==='')return;if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}if(Array.isArray(v)){v.forEach(push);return;}if(typeof v==='object')Object.values(v).forEach(push);};push(d.name);push(d.name_i18n);push(d.intro);push(d.intro_i18n);push(d.major_category);push(d.major_category_i18n);push(d.tool_url);return parts.join(' ').toLowerCase();}
 function filterDaShiByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(d=>{const blob=dashiSearchText(d);return keys.every(k=>blob.includes(k));});}
 function setLanguage(lang){
   if(!SUPPORTED_LANGS.includes(lang))lang=detectBrowserLang();
@@ -524,7 +523,6 @@ function setLanguage(lang){
   const sel=document.getElementById('langSelect');if(sel)sel.value=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const text=t(el.getAttribute('data-i18n'));if(typeof text==='string')el.textContent=text;});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});
-  document.querySelectorAll('[data-i18n-title]').forEach(el=>{const text=t(el.getAttribute('data-i18n-title'));if(typeof text==='string')el.title=text;});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});
   document.title=t('brand');homeActiveMajor='';renderUserArea();updateButtons();renderAll();
 }
@@ -534,7 +532,7 @@ async function getPriorityTeamId(){const user=getUser();if(user){try{const {data
 async function setPriorityTeam(teamId){const user=getUser();if(!user)return alert(t('tip.loginFirst'));setLocalPriorityTeamId(Number(teamId));try{await sb.from('app_users').update({priority_team_id:Number(teamId)}).eq('phone',user.phone);}catch(e){}switchView('focus');}
 function memberAvatarUrl(m){if(m&&m.avatar)return m.avatar;const seed=encodeURIComponent((m&&(m.name||m.id))||'member');if(m&&m.type==='dashi')return `https://api.dicebear.com/7.x/bottts/svg?seed=${seed}&backgroundColor=fef3c7`;if(m&&m.type==='hero')return `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=fce7f3`;return DEFAULT_AVATAR;}
 function goMemberProfile(type,id){id=String(id);if(type==='dashi'){focusDashiId=id;focusHeroId=null;switchView('dashi');}else if(type==='hero'){focusHeroId=id;focusDashiId=null;switchView('hero');}}
-function memberChipHtml(m,isOwner,teamId){if(!m)return '';let type=(m.type||'member')+'';if(type==='si'||type==='SI'||type==='tool')type='dashi';if(type==='yingxiao'||type==='elite')type='hero';const isDashi=type==='dashi',isHero=type==='hero',clickable=isDashi||isHero;const safeId=escapeAttr(String(m.id));const onClick=isDashi?`goMemberProfile('dashi','${safeId}')`:(isHero?`goMemberProfile('hero','${safeId}')`:'');const typeTag=isDashi?'SI':(isHero?'Elite':'M');const label=escapeHtml(m.name||m.id||'');const av=memberAvatarUrl(Object.assign({},m,{type}));return `<span class="member-chip"><img src="${av}" ${clickable?`onclick="${onClick}" style="cursor:pointer"`:''} onerror="this.src='${DEFAULT_AVATAR}'"><span>${label}<small style="opacity:.75">(${typeTag})</small></span><span class="power-icon">⚡${Number(m.power)||0}</span>${isOwner?`<button class="member-x" onclick="kickMember(${teamId},'${safeId}')">×</button>`:''}</span>`;}
+function memberChipHtml(m,isOwner,teamId){if(!m)return '';let type=(m.type||'member')+'';if(type==='si'||type==='SI')type='dashi';if(type==='yingxiao'||type==='elite')type='hero';const isDashi=type==='dashi',isHero=type==='hero';const safeId=escapeAttr(String(m.id));const onClick=isDashi?`goMemberProfile('dashi','${safeId}')`:(isHero?`goMemberProfile('hero','${safeId}')`:'');const typeTag=isDashi?'SI':(isHero?'Elite':'M');const av=memberAvatarUrl(Object.assign({},m,{type}));return `<span class="member-chip"><img src="${av}" ${isDashi||isHero?`onclick="${onClick}" style="cursor:pointer"`:''} onerror="this.src='${DEFAULT_AVATAR}'"><span>${escapeHtml(m.name||m.id||'')}<small style="opacity:.75">(${typeTag})</small></span><span class="power-icon">⚡${Number(m.power)||0}</span>${isOwner?`<button class="member-x" onclick="kickMember(${teamId},'${safeId}')">×</button>`:''}</span>`;}
 function isAlreadyInTeam(members,id){return !!(members&&members.some(m=>String(m.id)===String(id)));}
 async function resolveJoinIdentity(user){let displayName=user.phone,memberType='member',power=0,id=user.phone;if(user.role==='yingxiao'){const heroes=await fetchHero();const mine=heroes.find(h=>String(h.phone)===String(user.phone));if(mine){displayName=heroDisplayName(mine)||user.phone;memberType='hero';power=Number(mine.power)||0;id=mine.id;}}else if(user.role==='ai'){const tools=await fetchDaShi();const mine=tools.find(d=>String(d.phone)===String(user.phone));if(mine){displayName=dashiDisplayName(mine)||user.phone;memberType='dashi';power=Number(mine.power)||0;id=mine.id;}}return {displayName,memberType,power,id};}
 function memberMatchesUser(m,user,heroIds,dashiIds){if(!user||!m)return false;if(String(m.id)===String(user.phone))return true;if(m.phone&&String(m.phone)===String(user.phone))return true;if((m.type==='hero'||m.type==='yingxiao')&&heroIds&&heroIds.has(String(m.id)))return true;if((m.type==='dashi'||m.type==='si')&&dashiIds&&dashiIds.has(String(m.id)))return true;return false;}
@@ -542,18 +540,18 @@ function toggleTeamKick(teamId){teamKickVisible[teamId]=!teamKickVisible[teamId]
 function toggleTeamCard(teamId){teamCardVisible[teamId]=!teamCardVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
 function goQgenFromTeam(teamId,teamName){qgenTeamContext={teamId,teamName:teamName||''};switchView('qgen');}
 function toggleSidebar(open){const sbEl=document.getElementById('sidebar'),ov=document.getElementById('sidebarOverlay');if(open){sbEl.classList.add('open');ov.classList.add('open');}else{sbEl.classList.remove('open');ov.classList.remove('open');}}
-async function fetchJinZhu(){const {data,error}=await sb.from('jinzhu').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
-async function fetchDaShi(){const {data,error}=await sb.from('dashi').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
-async function fetchUsers(){const {data,error}=await sb.from('app_users').select('*').order('phone');if(error){console.error(error);return[];}return data||[];}
-async function fetchCoop(){const {data,error}=await sb.from('coop_records').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-async function fetchHero(){const {data,error}=await sb.from('hero').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+async function fetchJinZhu(){const {data,error}=await sb.from('jinzhu').select('*').order('id');if(error)return[];return data||[];}
+async function fetchDaShi(){const {data,error}=await sb.from('dashi').select('*').order('id');if(error)return[];return data||[];}
+async function fetchUsers(){const {data,error}=await sb.from('app_users').select('*').order('phone');if(error)return[];return data||[];}
+async function fetchCoop(){const {data,error}=await sb.from('coop_records').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+async function fetchHero(){const {data,error}=await sb.from('hero').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
 async function fetchTeam(){const {data,error}=await sb.from('team').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchDiagnosis(){const {data,error}=await sb.from('diagnosis_surveys').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchQgen(){const {data,error}=await sb.from('questionnaire_templates').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchCategories(){const {data,error}=await sb.from('categories').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
-async function fetchAllMessages(){const {data,error}=await sb.from('messages').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+jinzhuDisplayDetail(j)+' '+jinzhuDisplayType(j);}
-function accumulateTools(d){return dashiTools(d).map(x=>(x.title||'')+' '+(x.desc||'')).join(' ')+' '+dashiDisplayIntro(d)+' '+dashiDisplayName(d);}
+async function fetchAllMessages(){const {data,error}=await sb.from('messages').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+jinzhuDisplayDetail(j);}
+function accumulateTools(d){return dashiTools(d).map(x=>(x.title||'')+' '+(x.desc||'')).join(' ')+' '+dashiDisplayIntro(d);}
 function textMatch(a,b){const A=(a||'').toLowerCase().split(/\s+/).filter(Boolean);const B=(b||'').toLowerCase();let s=0;A.forEach(w=>{if(w.length>1&&B.includes(w))s++;});return s;}
 function goSavior(jinId){fetchJinZhu().then(list=>{const jin=list.find(j=>j.id===jinId);if(!jin)return;matchContext={type:'jinzhu',id:jin.id,name:jinzhuDisplayName(jin),text:accumulatePains(jin)};switchView('dashi');});}
 function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return;matchContext={type:'dashi',id:d.id,name:dashiDisplayName(d),text:accumulateTools(d)};switchView('jinzhu');});}
@@ -563,338 +561,320 @@ function switchView(view){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const el=document.getElementById('view-'+view);if(el)el.classList.add('active');
   toggleSidebar(false);
-  if(view!=='dashi')focusDashiId=null;if(view!=='hero')focusHeroId=null;
-  const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,categories:renderCategories,coop:()=>{renderCoopFormPage();}};
+  if(view!=='dashi')focusDashiId=null;
+  if(view!=='hero')focusHeroId=null;
+  const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,categories:renderCategories,coop:renderCoopFormPage};
   if(map[view])map[view]();
 }
 function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">${t('btn.login')}</button><button class="btn btn-primary" onclick="openModal('register')">${t('btn.register')}</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||''}">${t('role.'+user.role)||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;}
-function updateButtons(){const user=getUser();const bj=document.getElementById('btn-add-jinzhu');if(bj)bj.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'))?'inline-block':'none';const bd=document.getElementById('btn-add-dashi');if(bd)bd.style.display=(user&&(user.role==='ai'||user.role==='admin'))?'inline-block':'none';const bh=document.getElementById('btn-add-hero');if(bh)bh.style.display=(user&&(user.role==='yingxiao'||user.role==='admin'))?'inline-block':'none';const bt=document.getElementById('btn-add-team');if(bt)bt.style.display=(user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'))?'inline-block':'none';const bq=document.getElementById('btn-add-qgen');if(bq)bq.style.display=user?'inline-block':'none';const bp=document.getElementById('btn-pulse-compose');if(bp)bp.style.display=user?'inline-block':'none';}
+function updateButtons(){
+  const user=getUser();
+  const set=(id,show)=>{const el=document.getElementById(id);if(el)el.style.display=show?'inline-block':'none';};
+  set('btn-add-jinzhu',user&&(user.role==='jinzhu'||user.role==='admin'));
+  set('btn-add-dashi',user&&(user.role==='ai'||user.role==='admin'));
+  set('btn-add-hero',user&&(user.role==='yingxiao'||user.role==='admin'));
+  set('btn-add-team',user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'));
+  set('btn-add-qgen',!!user);
+  set('btn-pulse-compose',!!user);
+}
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
 function openModal(type){const box=document.getElementById('modalBox');box.className='modal';if(type==='login')box.innerHTML=`<h3>${t('form.loginTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="login-phone"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="login-pwd"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doLogin()">${t('btn.login')}</button></div>`;else box.innerHTML=`<h3>${t('form.regTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="reg-phone"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="reg-pwd"></div><div class="form-group"><label>${t('form.pwd2')}</label><input type="password" id="reg-pwd2"></div><div class="form-group"><label>${t('form.roleLabel')}</label><select id="reg-role"><option value="jinzhu">${t('role.jinzhu')}</option><option value="ai">${t('role.ai')}</option><option value="yingxiao">${t('role.yingxiao')}</option></select></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doRegister()">${t('btn.register')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 function closeModal(){document.getElementById('modalMask').style.display='none';}
 async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.loginFirst'));const {data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert('User not found');if(data.blacklisted)return alert('Blacklisted');if(data.pwd!==pwd)return alert('Wrong password');setUser({phone:data.phone,role:data.role});closeModal();switchView('dashi');}
 async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert('Required');if(pwd!==pwd2)return alert('Mismatch');if(pwd.length<4)return alert('Min 4');const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('Exists');const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('dashi');}
-function renderBizCard(card){if(!card)return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb">${escapeHtml(site)}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${escapeHtml(card.person||'-')}</b> · ${escapeHtml(card.title||'')}</div><div>📱 ${escapeHtml(card.phone||'-')}</div><div>✉️ ${escapeHtml(card.email||'-')}</div><div>💬 ${escapeHtml(card.wechat||'-')}</div><div>🟢 ${escapeHtml(card.whatsapp||'-')}</div><div>🌐 ${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;}
-async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert('Only client/admin');const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(tm=>String(tm.phone)===String(user.phone));if(!targetTeams.length)return alert('Create team first');let added=0,skipped=0;for(const team of targetTeams){let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,targetId)){skipped++;continue;}members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;}alert(added?`OK ${added}`:(skipped?'Already in':'Fail'));renderTeam();renderJinZhu();renderFocus();}
-async function kickMember(teamId,memberId){const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team||!canEdit(team))return;const members=(team.members||[]).filter(m=>String(m.id)!==String(memberId));await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
+function renderBizCard(card){if(!card||(!card.person&&!card.phone&&!card.wechat))return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb">${escapeHtml(site)}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${escapeHtml(card.person||'-')}</b> · ${escapeHtml(card.title||'')}</div><div>📱 ${escapeHtml(card.phone||'-')}</div><div>✉️ ${escapeHtml(card.email||'-')}</div><div>💬 ${escapeHtml(card.wechat||'-')}</div><div>🟢 ${escapeHtml(card.whatsapp||'-')}</div><div>🌐 ${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(card.wechat||'wechat')}" alt="QR" onerror="this.style.display='none'"></div></div>`;}
+async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert('Only client/admin');const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(tm=>String(tm.phone)===String(user.phone));if(!targetTeams.length)return alert('Create team first');let added=0,skipped=0;for(const team of targetTeams){let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,targetId)){skipped++;continue;}members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;}alert(added?`OK ${added}`:(skipped?'Already in':'Fail'));renderTeam();renderJinZhu();renderFocus();renderHero();}
+async function kickMember(teamId,memberId){const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team||!canEdit(team))return;await sb.from('team').update({members:(team.members||[]).filter(m=>String(m.id)!==String(memberId))}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
 async function joinTeam(teamId){const user=getUser();if(!user)return alert(t('tip.loginFirst'));const ident=await resolveJoinIdentity(user);const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team)return;let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,ident.id))return alert('Already');members.push({id:ident.id,type:ident.memberType,name:ident.displayName,power:ident.power});await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderFocus();}
 async function disbandTeam(teamId){if(!confirm('OK?'))return;await sb.from('team').delete().eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
 function generateTeamName(phone){return 'Team-'+(phone||'').slice(-4)+'-'+Date.now().toString().slice(-4);}
 
-/* ========== 175 脉冲互动中心 ========== */
-function msgTypeLabel(tp){return MSG_TYPE_LABEL[tp]||tp||'greeting';}
-function setPulseTab(tab){
-  pulseTab=tab==='out'?'out':'in';
-  pulsePage=1;
-  const tin=document.getElementById('pulse-tab-in'),tout=document.getElementById('pulse-tab-out');
-  if(tin)tin.classList.toggle('active',pulseTab==='in');
-  if(tout)tout.classList.toggle('active',pulseTab==='out');
-  renderInbox();
-}
-async function renderInbox(){
+/* ========== 176 超级精英中心 ========== */
+async function renderHero(){
   const user=getUser();
-  const box=document.getElementById('inbox-list');
+  const box=document.getElementById('hero-list');
   if(!box)return;
-  if(!user){box.innerHTML=`<div class="empty-tip">${t('pulse.needLogin')}</div>`;return;}
-  const tin=document.getElementById('pulse-tab-in'),tout=document.getElementById('pulse-tab-out');
-  if(tin){tin.textContent=t('pulse.inbox');tin.classList.toggle('active',pulseTab==='in');}
-  if(tout){tout.textContent=t('pulse.sent');tout.classList.toggle('active',pulseTab==='out');}
-  let list=await fetchAllMessages();
-  if(pulseTab==='in')list=list.filter(m=>String(m.to_phone)===String(user.phone));
-  else list=list.filter(m=>String(m.from_phone)===String(user.phone));
-  const typeF=(document.getElementById('pulse-type-filter')||{}).value||'';
-  if(typeF)list=list.filter(m=>(m.msg_type||'')===typeF);
-  const q=(document.getElementById('pulse-q')||{}).value||'';
-  if(q.trim()){
-    const ql=q.trim().toLowerCase();
-    list=list.filter(m=>[m.content,m.from_phone,m.to_phone,m.msg_type].join(' ').toLowerCase().includes(ql));
+  let list=await fetchHero();
+  let emptyMsg='';
+
+  // 权限：未登录提示；行业精英默认只看自己的（可看公开列表也可只看自己——按原约定只看自己）
+  // 金主/AI/管理员：可浏览全部；行业精英：看自己的；管理员看全部
+  if(!user){
+    emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;
+    list=[];
+  }else if(user.role==='yingxiao'){
+    list=list.filter(h=>String(h.phone)===String(user.phone));
+    if(!list.length)emptyMsg=`<div class="empty-tip">${t('hero.emptyMine')}</div>`;
   }
-  const pg=paginate(list,pulsePage,PAGE_SIZE);
-  pulsePage=pg.page;
-  box.innerHTML=pg.slice.length?pg.slice.map(m=>{
-    const unread=pulseTab==='in'&&!m.read;
-    const peer=pulseTab==='in'?m.from_phone:m.to_phone;
-    return `<div class="card" style="${unread?'border-color:#fca5a5':''}">
-      <div class="avatar avatar-pulse">⚡</div>
+
+  // 搜索
+  list=filterHeroByQ(list,(document.getElementById('hero-q')||{}).value||'');
+
+  // 排序
+  const sort=(document.getElementById('hero-sort')||{}).value||'new';
+  if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));
+  else if(sort==='name')list=list.slice().sort((a,b)=>heroDisplayName(a).localeCompare(heroDisplayName(b),'zh'));
+  else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
+
+  // 焦点精英置顶
+  if(focusHeroId){
+    const fid=String(focusHeroId);
+    const idx=list.findIndex(h=>String(h.id)===fid);
+    if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}
+  }
+
+  const pg=paginate(list,heroPage,PAGE_SIZE);
+  heroPage=pg.page;
+  const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
+  const canInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='ai'||user.role==='yingxiao');
+
+  // 排序下拉文案
+  const sortSel=document.getElementById('hero-sort');
+  if(sortSel&&sortSel.options.length>=3){
+    const cur=sortSel.value;
+    sortSel.options[0].text=t('hero.sortNew');
+    sortSel.options[1].text=t('hero.sortPower');
+    sortSel.options[2].text=t('hero.sortName');
+    sortSel.value=cur;
+  }
+
+  box.innerHTML=pg.slice.length?pg.slice.map(h=>{
+    const pn=escapeAttr(h.phone||'');
+    const nm=escapeAttr(heroDisplayName(h));
+    const power=Number(h.power)||0;
+    const isFocus=focusHeroId&&String(h.id)===String(focusHeroId);
+    const skill=heroDisplaySkillTitle(h);
+    const skillDesc=heroDisplaySkillDesc(h);
+    return `<div class="card ${isFocus?'hero-highlight':''}" id="hero-card-${h.id}">
+      <div class="avatar avatar-hero">★</div>
       <div class="card-content">
         <div class="card-title">
-          <span class="msg-type">${escapeHtml(msgTypeLabel(m.msg_type))}</span>
-          ${unread?`<span class="tag tag-unread">${t('pulse.unread')}</span>`:`<span class="tag tag-read">${t('pulse.read')}</span>`}
-          <span class="tag">#${m.id||''}</span>
+          ${escapeHtml(heroDisplayName(h)||'-')}
+          <span class="tag tag-power">⚡${power}</span>
+          ${skill?`<span class="tag tag-skill">${escapeHtml(skill)}</span>`:''}
+          ${canEdit(h)?`
+            <button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button>
+            <button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>
+          `:''}
         </div>
-        <div class="card-desc"><b>${pulseTab==='in'?t('pulse.from'):t('pulse.to')}：</b>${escapeHtml(peer||'-')}</div>
-        <div class="card-desc">${escapeHtml(m.content||'')}</div>
-        <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">
-          ${pulseTab==='in'&&unread?`<button class="btn btn-outline btn-sm" onclick="markPulseRead(${m.id})">${t('pulse.markRead')}</button>`:''}
-          ${pulseTab==='in'?`<button class="btn btn-primary btn-sm" onclick="replyPulse('${escapeAttr(m.from_phone||'')}','${escapeAttr(m.msg_type||'greeting')}')">${t('btn.reply')}</button>`:''}
-          ${(isAdmin()||String(m.from_phone)===String(user.phone))?`<button class="btn btn-del btn-sm" onclick="deletePulse(${m.id})">${t('btn.del')}</button>`:''}
-        </div>
+        <div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(heroDisplayIntro(h)||'-')}</div>
+        ${skillDesc?`<div class="card-desc"><b>${t('label.skillDesc')}：</b>${escapeHtml(skillDesc)}</div>`:''}
+        ${renderBizCard(h.card)}
+        ${canInteract?`<div class="x-actions">
+          <button class="x-icon" title="脉冲" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>
+          ${canPull?`<button class="x-icon pull" title="${t('hero.pull')}" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}
+        </div>`:''}
       </div>
     </div>`;
-  }).join(''):`<div class="empty-tip">${t('pulse.empty')}</div>`;
-  renderPager('pulse-pager',pg.page,pg.pages,'goPulsePage');
+  }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noHeroes')}</div>`);
+
+  renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');
+
+  if(focusHeroId){
+    setTimeout(()=>{
+      const el=document.getElementById('hero-card-'+focusHeroId);
+      if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+    },100);
+  }
 }
-function goPulsePage(p){pulsePage=p;renderInbox();}
-function openComposePulse(preTo='',preType='greeting'){
+function goHeroPage(p){heroPage=p;renderHero();}
+
+function openAddHero(){
   const user=getUser();
-  if(!user)return alert(t('pulse.needLogin'));
-  const typeOpts=Object.keys(MSG_TYPE_LABEL).map(k=>`<option value="${k}" ${k===preType?'selected':''}>${MSG_TYPE_LABEL[k]}</option>`).join('');
+  if(!user)return alert(t('tip.loginFirst'));
+  if(user.role!=='yingxiao'&&user.role!=='admin')return alert('Only elite/admin');
+  editingHeroId=null;
+  showHeroForm(null);
+}
+async function editHero(id){
+  const item=(await fetchHero()).find(h=>h.id===id);
+  if(!item)return alert('Not found');
+  if(!canEdit(item))return alert('No permission');
+  editingHeroId=id;
+  showHeroForm(item);
+}
+function showHeroForm(item){
+  const user=getUser();
+  const phoneVal=item?(item.phone||''):(user?user.phone:'');
+  const card=item&&item.card?item.card:{};
   document.getElementById('modalBox').className='modal';
-  document.getElementById('modalBox').innerHTML=`<h3>${t('pulse.compose')}</h3>
-    <div class="form-group"><label>${t('pulse.toPhone')}</label><input id="pulse-to" value="${escapeHtml(preTo)}" placeholder="手机号"></div>
-    <div class="form-group"><label>${t('pulse.type')}</label><select id="pulse-type">${typeOpts}</select></div>
-    <div class="form-group"><label>${t('pulse.content')}</label><textarea id="pulse-content" style="min-height:100px"></textarea></div>
+  document.getElementById('modalBox').innerHTML=`
+    <h3>${item?t('btn.edit'):t('btn.postHero')}</h3>
+    ${langHintHtml()}
+    <div class="form-group"><label>${t('form.name')}</label><input id="hero-name" value="${escapeHtml(item?heroDisplayName(item):'')}" placeholder="精英名称"></div>
+    <div class="form-group"><label>${t('form.intro')}</label><textarea id="hero-intro">${escapeHtml(item?heroDisplayIntro(item):'')}</textarea></div>
+    <div class="form-group"><label>${t('form.skill')}</label><input id="hero-skill" value="${escapeHtml(item?heroDisplaySkillTitle(item):'')}" placeholder="如：增长黑客"></div>
+    <div class="form-group"><label>${t('form.skillDesc')}</label><textarea id="hero-skilldesc">${escapeHtml(item?heroDisplaySkillDesc(item):'')}</textarea></div>
+    <div class="form-group"><label>${t('form.power')}</label><input id="hero-power" type="number" min="0" value="${Number(item&&item.power)||0}"></div>
+    <hr style="border:none;border-top:1px solid #e2e8f0;margin:12px 0">
+    <div class="form-group"><label>${t('form.person')}</label><input id="hero-person" value="${escapeHtml(card.person||'')}"></div>
+    <div class="form-group"><label>${t('form.title')}</label><input id="hero-title" value="${escapeHtml(card.title||'')}"></div>
+    <div class="form-group"><label>${t('form.phone')}</label><input id="hero-phone" value="${escapeHtml(phoneVal)}" readonly style="background:#f3f4f6"></div>
+    <div class="form-group"><label>${t('form.wechat')}</label><input id="hero-wechat" value="${escapeHtml(card.wechat||'')}"></div>
+    <div class="form-group"><label>${t('form.email')}</label><input id="hero-email" value="${escapeHtml(card.email||'')}"></div>
+    <div class="form-group"><label>${t('form.whatsapp')}</label><input id="hero-whatsapp" value="${escapeHtml(card.whatsapp||'')}"></div>
+    <div class="form-group"><label>${t('form.website')}</label><input id="hero-website" value="${escapeHtml(card.website||'')}" placeholder="https://"></div>
     <div class="form-actions">
       <button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>
-      <button class="btn btn-primary" onclick="sendPulse()">${t('btn.send')}</button>
+      <button class="btn btn-primary" onclick="saveHero()">${t('btn.save')}</button>
     </div>`;
   document.getElementById('modalMask').style.display='flex';
 }
-async function sendPulse(){
+async function saveHero(){
   const user=getUser();
-  if(!user)return alert(t('pulse.needLogin'));
-  const to=(document.getElementById('pulse-to').value||'').trim();
-  const content=(document.getElementById('pulse-content').value||'').trim();
-  const msg_type=(document.getElementById('pulse-type').value||'greeting');
-  if(!to||!content)return alert('Required');
-  if(String(to)===String(user.phone))return alert('Cannot send to self');
-  const row={id:Date.now(),from_phone:user.phone,to_phone:to,msg_type,content,read:false,created_at:new Date().toISOString()};
-  const {error}=await sb.from('messages').insert(row);
+  if(!user)return alert(t('tip.loginFirst'));
+  const name=(document.getElementById('hero-name').value||'').trim();
+  const intro=(document.getElementById('hero-intro').value||'').trim();
+  const skill=(document.getElementById('hero-skill').value||'').trim();
+  const skillDesc=(document.getElementById('hero-skilldesc').value||'').trim();
+  const person=(document.getElementById('hero-person').value||'').trim();
+  const phone=(document.getElementById('hero-phone').value||'').trim();
+  const wechat=(document.getElementById('hero-wechat').value||'').trim();
+  if(!name)return alert(t('form.name'));
+  if(!skill)return alert(t('form.skill'));
+  if(!person||!phone||!wechat)return alert(t('form.person')+' / '+t('form.wechat'));
+
+  let old=null;
+  if(editingHeroId){
+    old=(await fetchHero()).find(h=>h.id===editingHeroId);
+    if(!old)return alert('Not found');
+    if(!canEdit(old))return alert('No permission');
+  }
+
+  const name_i18n=mergeI18n(old?.name_i18n||old?.name,currentLang,name);
+  const intro_i18n=mergeI18n(old?.intro_i18n||old?.intro,currentLang,intro);
+  const skill_title_i18n=mergeI18n(old?.skill_title_i18n||old?.skill_title,currentLang,skill);
+  const skill_desc_i18n=mergeI18n(old?.skill_desc_i18n||old?.skill_desc,currentLang,skillDesc);
+  const power=parseInt(document.getElementById('hero-power').value,10)||0;
+  const title=(document.getElementById('hero-title').value||'').trim();
+  const email=(document.getElementById('hero-email').value||'').trim();
+  const whatsapp=(document.getElementById('hero-whatsapp').value||'').trim();
+  const website=(document.getElementById('hero-website').value||'').trim();
+
+  const row={
+    id:editingHeroId||Date.now(),
+    name:name_i18n.zh||name_i18n.en||name,
+    intro:intro_i18n.zh||intro_i18n.en||intro,
+    skill_title:skill_title_i18n.zh||skill_title_i18n.en||skill,
+    skill_desc:skill_desc_i18n.zh||skill_desc_i18n.en||skillDesc,
+    name_i18n,intro_i18n,skill_title_i18n,skill_desc_i18n,
+    power,
+    phone:old?.phone||phone,
+    card:{
+      person,title,phone:old?.phone||phone,email,wechat,whatsapp,website,
+      qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`
+    }
+  };
+
+  let error;
+  if(editingHeroId)({error}=await sb.from('hero').update(row).eq('id',editingHeroId));
+  else({error}=await sb.from('hero').insert(row));
   if(error)return alert(error.message);
   closeModal();
-  alert(t('pulse.sendOk'));
-  pulseTab='out';
-  renderInbox();
+  renderHero();
+  alert(t('tip.saved'));
 }
-function replyPulse(toPhone,msgType){openComposePulse(toPhone,msgType||'greeting');}
-async function markPulseRead(id){
-  const {error}=await sb.from('messages').update({read:true}).eq('id',id);
-  if(error)return alert(error.message);
-  renderInbox();
-}
-async function deletePulse(id){
+async function deleteHero(id){
+  const item=(await fetchHero()).find(h=>h.id===id);
+  if(!item||!canEdit(item))return alert('No permission');
   if(!confirm('Delete?'))return;
-  const {error}=await sb.from('messages').delete().eq('id',id);
+  const {error}=await sb.from('hero').delete().eq('id',id);
   if(error)return alert(error.message);
-  renderInbox();
-}
-function openSendMsgDirect(type,toPhone,toName){
-  openComposePulse(toPhone,type||'greeting');
+  renderHero();
 }
 
-/* ========== 175 商务合作 + 商务合作中心 ========== */
-function coopStatusLabel(st){
-  const m={pending:t('coop.pending'),contacted:t('coop.contacted'),progress:t('coop.progress'),done:t('coop.done'),closed:t('coop.closed')};
-  return m[st]||st||t('coop.pending');
-}
-function coopStatusBadge(st){
-  const s=st||'pending';
-  const cls={pending:'badge-pending',contacted:'badge-reviewing',progress:'badge-reviewing',done:'badge-completed',closed:'badge-archived'}[s]||'badge-pending';
-  return `<span class="${cls}">${escapeHtml(coopStatusLabel(s))}</span>`;
-}
+/* 脉冲 / 合作（与 175 一致） */
+function msgTypeLabel(tp){return MSG_TYPE_LABEL[tp]||tp||'greeting';}
+function setPulseTab(tab){pulseTab=tab==='out'?'out':'in';pulsePage=1;const tin=document.getElementById('pulse-tab-in'),tout=document.getElementById('pulse-tab-out');if(tin)tin.classList.toggle('active',pulseTab==='in');if(tout)tout.classList.toggle('active',pulseTab==='out');renderInbox();}
+async function renderInbox(){const user=getUser();const box=document.getElementById('inbox-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('pulse.needLogin')}</div>`;return;}let list=await fetchAllMessages();list=pulseTab==='in'?list.filter(m=>String(m.to_phone)===String(user.phone)):list.filter(m=>String(m.from_phone)===String(user.phone));const typeF=(document.getElementById('pulse-type-filter')||{}).value||'';if(typeF)list=list.filter(m=>(m.msg_type||'')===typeF);const q=(document.getElementById('pulse-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(m=>[m.content,m.from_phone,m.to_phone].join(' ').toLowerCase().includes(ql));}const pg=paginate(list,pulsePage,PAGE_SIZE);pulsePage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(m=>{const unread=pulseTab==='in'&&!m.read;const peer=pulseTab==='in'?m.from_phone:m.to_phone;return `<div class="card"><div class="avatar avatar-pulse">⚡</div><div class="card-content"><div class="card-title"><span class="msg-type">${escapeHtml(msgTypeLabel(m.msg_type))}</span>${unread?`<span class="tag tag-unread">${t('pulse.unread')}</span>`:''}</div><div class="card-desc"><b>${pulseTab==='in'?t('pulse.from'):t('pulse.to')}：</b>${escapeHtml(peer||'-')}</div><div class="card-desc">${escapeHtml(m.content||'')}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${pulseTab==='in'&&unread?`<button class="btn btn-outline btn-sm" onclick="markPulseRead(${m.id})">${t('pulse.markRead')}</button>`:''}${pulseTab==='in'?`<button class="btn btn-primary btn-sm" onclick="replyPulse('${escapeAttr(m.from_phone||'')}')">${t('btn.reply')}</button>`:''}${(isAdmin()||String(m.from_phone)===String(user.phone))?`<button class="btn btn-del btn-sm" onclick="deletePulse(${m.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('pulse.empty')}</div>`;renderPager('pulse-pager',pg.page,pg.pages,'goPulsePage');}
+function goPulsePage(p){pulsePage=p;renderInbox();}
+function openComposePulse(preTo='',preType='greeting'){const user=getUser();if(!user)return alert(t('pulse.needLogin'));const typeOpts=Object.keys(MSG_TYPE_LABEL).map(k=>`<option value="${k}" ${k===preType?'selected':''}>${MSG_TYPE_LABEL[k]}</option>`).join('');document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${t('pulse.compose')}</h3><div class="form-group"><label>${t('pulse.toPhone')}</label><input id="pulse-to" value="${escapeHtml(preTo)}"></div><div class="form-group"><label>${t('pulse.type')}</label><select id="pulse-type">${typeOpts}</select></div><div class="form-group"><label>${t('pulse.content')}</label><textarea id="pulse-content" style="min-height:100px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="sendPulse()">${t('btn.send')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function sendPulse(){const user=getUser();if(!user)return;const to=(document.getElementById('pulse-to').value||'').trim();const content=(document.getElementById('pulse-content').value||'').trim();const msg_type=document.getElementById('pulse-type').value||'greeting';if(!to||!content)return alert('Required');const {error}=await sb.from('messages').insert({id:Date.now(),from_phone:user.phone,to_phone:to,msg_type,content,read:false});if(error)return alert(error.message);closeModal();alert(t('pulse.sendOk'));pulseTab='out';renderInbox();}
+function replyPulse(toPhone){openComposePulse(toPhone,'greeting');}
+function openSendMsgDirect(type,toPhone){openComposePulse(toPhone,type||'greeting');}
+async function markPulseRead(id){await sb.from('messages').update({read:true}).eq('id',id);renderInbox();}
+async function deletePulse(id){if(!confirm('Delete?'))return;await sb.from('messages').delete().eq('id',id);renderInbox();}
+function coopStatusLabel(st){const m={pending:t('coop.pending'),contacted:t('coop.contacted'),progress:t('coop.progress'),done:t('coop.done'),closed:t('coop.closed')};return m[st]||st||t('coop.pending');}
+function coopStatusBadge(st){const s=st||'pending';const cls={pending:'badge-pending',contacted:'badge-reviewing',progress:'badge-reviewing',done:'badge-completed',closed:'badge-archived'}[s]||'badge-pending';return `<span class="${cls}">${escapeHtml(coopStatusLabel(s))}</span>`;}
 function coopDesc(r){return r.desc||r.description||'';}
-async function renderCoopFormPage(){
-  await renderCoopMyList();
-}
-async function renderCoopMyList(){
-  const box=document.getElementById('coop-my-list');
-  if(!box)return;
-  const user=getUser();
-  if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}
-  let list=await fetchCoop();
-  list=list.filter(r=>String(r.phone)===String(user.phone)||String(r.contact)===String(user.phone));
-  box.innerHTML=list.length?list.map(r=>`<div class="card">
-    <div class="avatar avatar-coop">合</div>
-    <div class="card-content">
-      <div class="card-title">${escapeHtml(r.name||'-')} ${coopStatusBadge(r.status)}
-        <span class="tag">${escapeHtml(r.type||'')}</span>
-      </div>
-      <div class="card-desc"><b>${t('coop.contact')}：</b>${escapeHtml(r.contact||'')}</div>
-      <div class="card-desc">${escapeHtml(coopDesc(r))}</div>
-      ${r.note?`<div class="card-desc" style="color:#0f766e"><b>${t('coop.note')}：</b>${escapeHtml(r.note)}</div>`:''}
-    </div>
-  </div>`).join(''):`<div class="empty-tip">${t('coop.empty')}</div>`;
-}
-async function submitCoop(){
-  const user=getUser();
-  const name=(document.getElementById('coop-name').value||'').trim();
-  const contact=(document.getElementById('coop-contact').value||'').trim();
-  const type=(document.getElementById('coop-type').value||'').trim();
-  const desc=(document.getElementById('coop-desc').value||'').trim();
-  if(!name||!contact)return alert('Required');
-  const row={
-    id:Date.now(),
-    name,contact,type,
-    desc,description:desc,
-    status:'pending',
-    phone:user?user.phone:contact,
-    note:'',
-    created_at:new Date().toISOString()
-  };
-  const {error}=await sb.from('coop_records').insert(row);
-  if(error)return alert(error.message);
-  alert(t('tip.saved'));
-  document.getElementById('coop-name').value='';
-  document.getElementById('coop-contact').value='';
-  document.getElementById('coop-desc').value='';
-  renderCoopMyList();
-}
-async function renderCoopList(){
-  if(!isAdmin()){
-    document.getElementById('coop-list').innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;
-    return;
-  }
-  let list=await fetchCoop();
-  const stF=(document.getElementById('coop-list-status')||{}).value||'';
-  if(stF)list=list.filter(r=>(r.status||'pending')===stF);
-  const q=(document.getElementById('coop-list-q')||{}).value||'';
-  if(q.trim()){
-    const ql=q.trim().toLowerCase();
-    list=list.filter(r=>[r.name,r.contact,r.type,r.phone,coopDesc(r),r.note].join(' ').toLowerCase().includes(ql));
-  }
-  const pg=paginate(list,coopListPage,PAGE_SIZE);
-  coopListPage=pg.page;
-  const box=document.getElementById('coop-list');
-  box.innerHTML=pg.slice.length?pg.slice.map(r=>{
-    const stOpts=COOP_STATUS.map(s=>`<option value="${s}" ${(r.status||'pending')===s?'selected':''}>${coopStatusLabel(s)}</option>`).join('');
-    return `<div class="card">
-      <div class="avatar avatar-coop">合</div>
-      <div class="card-content">
-        <div class="card-title">${escapeHtml(r.name||'-')} ${coopStatusBadge(r.status)}
-          <span class="tag">${escapeHtml(r.type||'')}</span>
-          <span class="tag">#${r.id||''}</span>
-        </div>
-        <div class="card-desc"><b>${t('coop.contact')}：</b>${escapeHtml(r.contact||'')}</div>
-        <div class="card-desc"><b>Phone：</b>${escapeHtml(r.phone||'-')}</div>
-        <div class="card-desc">${escapeHtml(coopDesc(r))}</div>
-        <div class="form-group" style="margin-top:8px">
-          <label>${t('coop.status')}</label>
-          <select onchange="updateCoopStatus(${r.id},this.value)" style="max-width:200px">${stOpts}</select>
-        </div>
-        <div class="form-group">
-          <label>${t('coop.note')}</label>
-          <textarea id="coop-note-${r.id}" style="min-height:56px">${escapeHtml(r.note||'')}</textarea>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button class="btn btn-primary btn-sm" onclick="saveCoopNote(${r.id})">${t('btn.save')}</button>
-          <button class="btn btn-del btn-sm" onclick="deleteCoop(${r.id})">${t('btn.del')}</button>
-        </div>
-      </div>
-    </div>`;
-  }).join(''):`<div class="empty-tip">${t('coop.centerEmpty')}</div>`;
-  renderPager('coop-list-pager',pg.page,pg.pages,'goCoopListPage');
-}
+async function renderCoopFormPage(){await renderCoopMyList();}
+async function renderCoopMyList(){const box=document.getElementById('coop-my-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=(await fetchCoop()).filter(r=>String(r.phone)===String(user.phone)||String(r.contact)===String(user.phone));box.innerHTML=list.length?list.map(r=>`<div class="card"><div class="avatar avatar-coop">合</div><div class="card-content"><div class="card-title">${escapeHtml(r.name||'-')} ${coopStatusBadge(r.status)}</div><div class="card-desc">${escapeHtml(coopDesc(r))}</div></div></div>`).join(''):`<div class="empty-tip">${t('coop.empty')}</div>`;}
+async function submitCoop(){const user=getUser();const name=(document.getElementById('coop-name').value||'').trim(),contact=(document.getElementById('coop-contact').value||'').trim();if(!name||!contact)return alert('Required');const desc=(document.getElementById('coop-desc').value||'').trim();const {error}=await sb.from('coop_records').insert({id:Date.now(),name,contact,type:document.getElementById('coop-type').value,desc,description:desc,status:'pending',phone:user?user.phone:contact,note:''});if(error)return alert(error.message);alert(t('tip.saved'));document.getElementById('coop-name').value='';document.getElementById('coop-contact').value='';document.getElementById('coop-desc').value='';renderCoopMyList();}
+async function renderCoopList(){if(!isAdmin()){document.getElementById('coop-list').innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchCoop();const stF=(document.getElementById('coop-list-status')||{}).value||'';if(stF)list=list.filter(r=>(r.status||'pending')===stF);const q=(document.getElementById('coop-list-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(r=>[r.name,r.contact,coopDesc(r)].join(' ').toLowerCase().includes(ql));}const pg=paginate(list,coopListPage,PAGE_SIZE);coopListPage=pg.page;document.getElementById('coop-list').innerHTML=pg.slice.length?pg.slice.map(r=>{const stOpts=COOP_STATUS.map(s=>`<option value="${s}" ${(r.status||'pending')===s?'selected':''}>${coopStatusLabel(s)}</option>`).join('');return `<div class="card"><div class="avatar avatar-coop">合</div><div class="card-content"><div class="card-title">${escapeHtml(r.name||'-')} ${coopStatusBadge(r.status)}</div><div class="card-desc">${escapeHtml(coopDesc(r))}</div><select onchange="updateCoopStatus(${r.id},this.value)">${stOpts}</select><textarea id="coop-note-${r.id}" style="width:100%;margin:8px 0;min-height:48px">${escapeHtml(r.note||'')}</textarea><button class="btn btn-primary btn-sm" onclick="saveCoopNote(${r.id})">${t('btn.save')}</button> <button class="btn btn-del btn-sm" onclick="deleteCoop(${r.id})">${t('btn.del')}</button></div></div>`;}).join(''):`<div class="empty-tip">${t('coop.centerEmpty')}</div>`;renderPager('coop-list-pager',pg.page,pg.pages,'goCoopListPage');}
 function goCoopListPage(p){coopListPage=p;renderCoopList();}
-async function updateCoopStatus(id,status){
-  if(!isAdmin())return;
-  const {error}=await sb.from('coop_records').update({status}).eq('id',id);
-  if(error)return alert(error.message);
-  renderCoopList();
-}
-async function saveCoopNote(id){
-  if(!isAdmin())return;
-  const note=(document.getElementById('coop-note-'+id)||{}).value||'';
-  const {error}=await sb.from('coop_records').update({note}).eq('id',id);
-  if(error)return alert(error.message);
-  alert(t('tip.saved'));
-  renderCoopList();
-}
-async function deleteCoop(id){
-  if(!isAdmin())return;
-  if(!confirm('Delete?'))return;
-  const {error}=await sb.from('coop_records').delete().eq('id',id);
-  if(error)return alert(error.message);
-  renderCoopList();
-}
+async function updateCoopStatus(id,status){if(!isAdmin())return;await sb.from('coop_records').update({status}).eq('id',id);renderCoopList();}
+async function saveCoopNote(id){if(!isAdmin())return;const note=(document.getElementById('coop-note-'+id)||{}).value||'';await sb.from('coop_records').update({note}).eq('id',id);alert(t('tip.saved'));renderCoopList();}
+async function deleteCoop(id){if(!isAdmin())return;if(!confirm('Delete?'))return;await sb.from('coop_records').delete().eq('id',id);renderCoopList();}
 
-/* ===== 以下与 171-173 相同的核心模块（精简保留）===== */
+/* 首页 / 团队 / 金主 / SI / 问卷 / 诊断 / 用户 / 分类（精简完整） */
 async function renderFocus(){const box=document.getElementById('focus-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}const pid=await getPriorityTeamId();const teams=await fetchTeam();const allJinZhu=await fetchJinZhu();const tm=teams.find(x=>Number(x.id)===Number(pid));if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);}
 async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
 async function renderHomeCats(){const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;const visible=cats.map(c=>({c,name:catNameStrict(c)})).filter(x=>x.name);maj.innerHTML=visible.map(({name})=>`<span class="home-cat-tag ${homeActiveMajor===name?'active':''}" onclick="selectHomeMajor('${escapeAttr(name)}')">${escapeHtml(name)}</span>`).join('')||`<span style="font-size:12px;color:#94a3b8">${t('tip.noData')}</span>`;if(homeActiveMajor){const hit=visible.find(x=>x.name===homeActiveMajor);const subs=hit?catSubsStrict(hit.c):[];if(min)min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${escapeHtml(s)}</span>`).join('');}else if(min)min.innerHTML='';}
 function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
 function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
-async function renderHome(){let list=await fetchDaShi();const admin=isAdmin();if(homeActiveMajor){list=list.filter(d=>{const maj=dashiDisplayMajor(d);const allMaj=SUPPORTED_LANGS.map(k=>tlStrict(d.major_category_i18n,k)).filter(Boolean);return maj===homeActiveMajor||allMaj.includes(homeActiveMajor)||d.major_category===homeActiveMajor;});}const q=(document.getElementById('home-ds-q')||{}).value||'';list=filterDaShiByQ(list,q);const pd=paginate(list,homeDsPage,PAGE_SIZE);homeDsPage=pd.page;const box=document.getElementById('home-dashi-list');if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{const hasUrl=!!((d.tool_url||'').trim());return `<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d))}${dashiDisplayMajor(d)?`<span class="tag">${escapeHtml(dashiDisplayMajor(d))}</span>`:''}${dashiDisplayMinor(d)?`<span class="tag tag-sub">${escapeHtml(dashiDisplayMinor(d))}</span>`:''}<span class="tag tag-power">⚡${Number(d.power)||0}</span>${admin?`<button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d))}</div><div style="margin-top:8px"><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button></div></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');if(homeCatsOpen)renderHomeCats();}
+async function renderHome(){let list=await fetchDaShi();if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor||d.major_category===homeActiveMajor);list=filterDaShiByQ(list,(document.getElementById('home-ds-q')||{}).value||'');const pd=paginate(list,homeDsPage,PAGE_SIZE);homeDsPage=pd.page;const box=document.getElementById('home-dashi-list');if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{const hasUrl=!!((d.tool_url||'').trim());return `<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d))}<span class="tag tag-power">⚡${Number(d.power)||0}</span></div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d))}</div><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');if(homeCatsOpen)renderHomeCats();}
 function goHomeDsPage(p){homeDsPage=p;renderHome();}
-function teamBlockHtml(team,j,user,heroIds,dashiIds){if(!team)return '';const members=team.members||[];const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);const showKick=!!teamKickVisible[team.id],showCard=!!teamCardVisible[team.id];const canSeeProgress=user&&(user.role==='jinzhu'||user.role==='admin');const canJoin=user&&!isMember&&!isOwner;const perfs=Array.isArray(team.performances)?team.performances:[];const perfHtml=perfs.length?perfs.map(p=>`<div class="prog-item">• <b>${escapeHtml(p.title||'')}</b>：${escapeHtml(p.desc||'')}</div>`).join(''):`<div class="prog-item" style="color:#94a3b8">${t('tip.noData')}</div>`;return `<div class="team-box ${showKick?'team-show-kick':''}"><div class="team-title"><h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4><span class="tag tag-power">⚡${sum}</span>${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">Survey</button>`:''}${user?`<button type="button" class="btn-icon-sm" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}${isOwner?`<button type="button" class="btn-icon-sm" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}<button type="button" class="btn-icon-sm" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>${canJoin?`<button type="button" class="btn-icon-sm" onclick="joinTeam(${team.id})" style="background:#d1fae5">➕</button>`:''}${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">${t('btn.edit')}</button>`:''}${isOwner?`<button class="team-x" onclick="disbandTeam(${team.id})">×</button>`:''}</div><div class="card-desc" style="margin-top:6px"><span class="tag tag-industry">${escapeHtml(j?jinzhuDisplayType(j):'-')}</span> ◆${j?Number(j.difficulty)||0:0}</div><div class="member-header"><b>Members</b></div><div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>${canSeeProgress?`<div class="team-progress-box"><h5>📈 ⚡${sum}</h5>${perfHtml}</div>`:''}${showCard&&j&&j.card?renderBizCard(j.card):''}</div>`;}
-async function renderJinZhu(){const user=getUser();let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';const banner=document.getElementById('jinzhu-match-banner');if(matchContext&&matchContext.type==='dashi'){banner.innerHTML=`<div class="match-banner">SI「${escapeHtml(matchContext.name)}」· <a href="javascript:clearMatchContext()">clear</a></div>`;list=list.map(j=>({...j,_matchScore:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._matchScore-a._matchScore);}else{banner.innerHTML='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='jinzhu'){list=list.filter(j=>String(j.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('tip.noData')}</div>`;}}let heroIds=new Set(),dashiIds=new Set();if(user){(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));}const pg=paginate(filterByQ(list,(document.getElementById('jz-q')||{}).value||''),jzPage,PAGE_SIZE);jzPage=pg.page;document.getElementById('jinzhu-list').innerHTML=pg.slice.length?pg.slice.map(j=>{const showInteract=user&&(user.role==='ai'||user.role==='admin'||user.role==='yingxiao');const pn=escapeAttr(j.phone),nm=escapeAttr(jinzhuDisplayName(j));const team=teams.find(tm=>String(tm.jinzhu_id)===String(j.id));return `<div class="card"><div class="avatar avatar-jinzhu">金</div><div class="card-content"><div class="card-title">${escapeHtml(jinzhuDisplayName(j))}${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button><button class="btn btn-savior btn-sm" onclick="goSavior(${j.id})">SI</button>${!team?`<button class="btn btn-team btn-sm" onclick="conveneTeam(${j.id})">Team</button>`:''}`:''}</div><div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(jinzhuDisplayIntro(j))}</div><div class="card-desc"><b>${t('label.industry')}：</b><span class="tag tag-industry">${escapeHtml(jinzhuDisplayType(j)||'-')}</span></div>${(isAdmin()||canEdit(j))?renderBizCard(j.card):''}${teamBlockHtml(team,j,user,heroIds,dashiIds)}${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button></div>`:''}</div></div>`;}).join(''):emptyMsg;renderPager('jz-pager',pg.page,pg.pages,'goJzPage');}
+function teamBlockHtml(team,j,user,heroIds,dashiIds){if(!team)return '';const members=team.members||[];const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);const showKick=!!teamKickVisible[team.id],showCard=!!teamCardVisible[team.id];const canJoin=user&&!isMember&&!isOwner;return `<div class="team-box ${showKick?'team-show-kick':''}"><div class="team-title"><h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4><span class="tag tag-power">⚡${sum}</span>${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">Survey</button><button type="button" class="btn-icon-sm" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}${isOwner?`<button type="button" class="btn-icon-sm" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}<button type="button" class="btn-icon-sm" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>${canJoin?`<button type="button" class="btn-icon-sm" onclick="joinTeam(${team.id})" style="background:#d1fae5">➕</button>`:''}${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">${t('btn.edit')}</button>`:''}${isOwner?`<button class="team-x" onclick="disbandTeam(${team.id})">×</button>`:''}</div><div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>${showCard&&j&&j.card?renderBizCard(j.card):''}</div>`;}
+async function renderJinZhu(){const user=getUser();let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';const banner=document.getElementById('jinzhu-match-banner');if(banner)banner.innerHTML='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='jinzhu')list=list.filter(j=>String(j.phone)===String(user.phone));const pg=paginate(filterByQ(list,(document.getElementById('jz-q')||{}).value||''),jzPage,PAGE_SIZE);jzPage=pg.page;document.getElementById('jinzhu-list').innerHTML=pg.slice.length?pg.slice.map(j=>{const team=teams.find(tm=>String(tm.jinzhu_id)===String(j.id));return `<div class="card"><div class="avatar avatar-jinzhu">金</div><div class="card-content"><div class="card-title">${escapeHtml(jinzhuDisplayName(j))}${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(jinzhuDisplayIntro(j))}</div>${teamBlockHtml(team,j,user,new Set(),new Set())}</div></div>`;}).join(''):emptyMsg||`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('jz-pager',pg.page,pg.pages,'goJzPage');}
 function goJzPage(p){jzPage=p;renderJinZhu();}
-async function renderDaShi(){const user=getUser();let list=await fetchDaShi();let emptyMsg='';const banner=document.getElementById('dashi-match-banner');if(matchContext&&matchContext.type==='jinzhu'){banner.innerHTML=`<div class="match-banner">「${escapeHtml(matchContext.name)}」· <a href="javascript:clearMatchContext()">clear</a></div>`;list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);}else{banner.innerHTML='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}}if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');document.getElementById('dashi-list').innerHTML=pg.slice.length?pg.slice.map(d=>{const showInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao');const pn=escapeAttr(d.phone),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;const tools=dashiTools(d);return `<div class="card" id="dashi-card-${d.id}"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d))}${dashiDisplayMajor(d)?`<span class="tag">${escapeHtml(dashiDisplayMajor(d))}</span>`:''}${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button><button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">$</button>`:''}</div><div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(dashiDisplayIntro(d))}</div><div class="card-desc"><b>${t('label.toolUrl')}：</b>${renderToolUrl(d.tool_url)}</div>${tools.map(x=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${escapeHtml(x.title||'')}</b>：${escapeHtml(x.desc||'')}</div>`).join('')}${renderBizCard(d.card)}${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);renderPager('ds-pager',pg.page,pg.pages,'goDsPage');}
+async function renderDaShi(){const user=getUser();let list=await fetchDaShi();let emptyMsg='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');document.getElementById('dashi-list').innerHTML=pg.slice.length?pg.slice.map(d=>{const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;return `<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d))}${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d))}</div><div class="card-desc">${renderToolUrl(d.tool_url)}</div>${renderBizCard(d.card)}${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`;renderPager('ds-pager',pg.page,pg.pages,'goDsPage');}
 function goDsPage(p){dsPage=p;renderDaShi();}
-async function renderHero(){const user=getUser();let list=await fetchHero();let emptyMsg='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='yingxiao'){list=list.filter(x=>String(x.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('tip.noData')}</div>`;}const pg=paginate(filterByQ(list,(document.getElementById('hero-q')||{}).value||''),heroPage,PAGE_SIZE);heroPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');document.getElementById('hero-list').innerHTML=pg.slice.length?pg.slice.map(h=>{const pn=escapeAttr(h.phone),nm=escapeAttr(heroDisplayName(h)),power=Number(h.power)||0;const showInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='ai');return `<div class="card"><div class="avatar avatar-hero">★</div><div class="card-content"><div class="card-title">${escapeHtml(heroDisplayName(h))}${canEdit(h)?`<button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(heroDisplayIntro(h))}</div><div class="card-desc"><b>${t('label.skill')}：</b>${escapeHtml(heroDisplaySkillTitle(h)||'-')}　⚡${power}</div>${renderBizCard(h.card)}${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):emptyMsg;renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');}
-function goHeroPage(p){heroPage=p;renderHero();}
 async function renderTeam(){const user=getUser();const box=document.getElementById('team-list');if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchTeam();const allJin=await fetchJinZhu();let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));if(user.role!=='admin')list=list.filter(tm=>String(tm.phone)===String(user.phone)||(tm.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds)));const pg=paginate(filterByQ(list,(document.getElementById('team-q')||{}).value||''),teamPage,PAGE_SIZE);teamPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(tm=>{const j=allJin.find(x=>String(x.id)===String(tm.jinzhu_id));return `<div class="card"><div class="avatar avatar-team">T</div><div class="card-content">${teamBlockHtml(tm,j,user,heroIds,dashiIds)}</div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noTeams')}</div>`;renderPager('team-pager',pg.page,pg.pages,'goTeamPage');}
 function goTeamPage(p){teamPage=p;renderTeam();}
-/* 问卷/诊断/用户/分类/金主达人保存 —— 与 170-173 相同，保留调用入口 */
 function countQgen(tpl){const secs=Array.isArray(tpl.sections)?tpl.sections:[];let q=0;secs.forEach(s=>q+=(s.questions||[]).length);return{sec:secs.length,q};}
-async function renderQgen(){const user=getUser();const box=document.getElementById('qgen-list');if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchQgen();if(user.role!=='admin')list=list.filter(x=>String(x.phone)===String(user.phone)||x.status==='published');const tip=document.getElementById('qgen-team-tip');if(qgenTeamContext){tip.style.display='block';tip.textContent='Team: '+(qgenTeamContext.teamName||qgenTeamContext.teamId);}else tip.style.display='none';list=filterByQ(list,(document.getElementById('qgen-q')||{}).value||'');const pg=paginate(list,qgenPage,PAGE_SIZE);qgenPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(tpl=>{const can=canEdit({phone:tpl.phone})||isAdmin();const st=tpl.status==='published'?t('qgen.statusPub'):t('qgen.statusDraft');const stCls=tpl.status==='published'?'tag-published':'tag-draft';const cq=countQgen(tpl);return `<div class="card"><div class="avatar avatar-diag">Q</div><div class="card-content"><div class="card-title">${escapeHtml(qgenDisplayName(tpl))}<span class="tag ${stCls}">${st}</span><span class="tag">${cq.sec}${t('qgen.secCount')} · ${cq.q}${t('qgen.qCount')}</span></div><div class="card-desc">${escapeHtml(qgenDisplayDesc(tpl)||'')}</div><div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${tpl.id})">${t('btn.edit')}</button>`:''}<button class="btn btn-primary btn-sm" onclick="previewQgen(${tpl.id})">${t('btn.preview')}</button>${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${tpl.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');}
+async function renderQgen(){const user=getUser();const box=document.getElementById('qgen-list');if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchQgen();if(user.role!=='admin')list=list.filter(x=>String(x.phone)===String(user.phone)||x.status==='published');const pg=paginate(filterByQ(list,(document.getElementById('qgen-q')||{}).value||''),qgenPage,PAGE_SIZE);qgenPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(tpl=>{const can=canEdit({phone:tpl.phone})||isAdmin();return `<div class="card"><div class="avatar avatar-diag">Q</div><div class="card-content"><div class="card-title">${escapeHtml(qgenDisplayName(tpl))}</div><div style="margin-top:8px">${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${tpl.id})">${t('btn.edit')}</button>`:''}<button class="btn btn-primary btn-sm" onclick="previewQgen(${tpl.id})">${t('btn.preview')}</button>${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${tpl.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');}
 function goQgenPage(p){qgenPage=p;renderQgen();}
-function openAddQgen(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingQgenId=null;qgenDraftSections=[{id:uid(),title:mergeI18n(null,currentLang,'Section 1'),questions:[{id:uid(),type:'textarea',label:mergeI18n(null,currentLang,'Q1'),required:true,options:[]}]}];showQgenForm(null);}
+function openAddQgen(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingQgenId=null;qgenDraftSections=[{id:uid(),title:mergeI18n(null,currentLang,'S1'),questions:[{id:uid(),type:'textarea',label:mergeI18n(null,currentLang,'Q1'),required:true,options:[]}]}];showQgenForm(null);}
 async function editQgen(id){const item=(await fetchQgen()).find(x=>x.id===id);if(!item)return;editingQgenId=id;qgenDraftSections=normalizeSections(item.sections);showQgenForm(item);}
-function normalizeSections(raw){if(!Array.isArray(raw)||!raw.length)return[{id:uid(),title:mergeI18n(null,currentLang,'S1'),questions:[]}];return raw.map(s=>({id:s.id||uid(),title:typeof s.title==='object'?s.title:mergeI18n(null,'zh',s.title||''),questions:(s.questions||[]).map(q=>({id:q.id||uid(),type:Q_TYPES.includes(q.type)?q.type:'text',label:typeof q.label==='object'?q.label:mergeI18n(null,'zh',q.label||''),required:!!q.required,options:Array.isArray(q.options)?q.options.map(o=>typeof o==='object'?o:mergeI18n(null,'zh',String(o))):[]}))}));}
-function showQgenForm(item){document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('qgen.title')}</h3>${langHintHtml()}<div class="form-group"><label>${t('qgen.name')}</label><input id="qg-name" value="${escapeHtml(item?qgenDisplayName(item):'')}"></div><div class="form-group"><label>${t('qgen.industry')}</label><input id="qg-industry" value="${escapeHtml(item?qgenDisplayIndustry(item):'')}"></div><div class="form-group"><label>${t('qgen.desc')}</label><textarea id="qg-desc">${escapeHtml(item?qgenDisplayDesc(item):'')}</textarea></div><div class="qgen-toolbar"><button type="button" class="btn btn-outline btn-sm" onclick="qgenAddSection()">${t('btn.addSection')}</button></div><div id="qgen-sections-editor"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-outline" onclick="saveQgen('draft')">${t('btn.draft')}</button><button class="btn btn-primary" onclick="saveQgen('published')">${t('btn.publish')}</button></div>`;document.getElementById('modalMask').style.display='flex';renderQgenSectionsEditor();}
-function renderQgenSectionsEditor(){const box=document.getElementById('qgen-sections-editor');if(!box)return;box.innerHTML=qgenDraftSections.map((sec,si)=>{const title=tl(sec.title,'');const qs=(sec.questions||[]).map((q,qi)=>{const label=tl(q.label,'');const typeOpts=Q_TYPES.map(tp=>`<option value="${tp}" ${q.type===tp?'selected':''}>${t('qgen.type_'+tp)}</option>`).join('');return `<div class="qgen-q"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="qgenRemoveQuestion(${si},${qi})">×</button><div class="form-group"><label>${t('qgen.qLabel')}</label><input value="${escapeHtml(label)}" onchange="qgenSetQLabel(${si},${qi},this.value)"></div><div class="form-group"><label>${t('qgen.qType')}</label><select onchange="qgenSetQType(${si},${qi},this.value)">${typeOpts}</select></div></div>`;}).join('');return `<div class="qgen-section"><div class="qgen-section-hd"><h4>#${si+1}</h4><button type="button" class="btn btn-del btn-sm" onclick="qgenRemoveSection(${si})">${t('btn.del')}</button></div><div class="form-group"><label>${t('qgen.secTitle')}</label><input value="${escapeHtml(title)}" onchange="qgenSetSecTitle(${si},this.value)"></div>${qs}<button type="button" class="btn btn-outline btn-sm" onclick="qgenAddQuestion(${si})">${t('btn.addQuestion')}</button></div>`;}).join('');}
+function normalizeSections(raw){if(!Array.isArray(raw)||!raw.length)return[{id:uid(),title:mergeI18n(null,currentLang,'S1'),questions:[]}];return raw.map(s=>({id:s.id||uid(),title:typeof s.title==='object'?s.title:mergeI18n(null,'zh',s.title||''),questions:(s.questions||[]).map(q=>({id:q.id||uid(),type:Q_TYPES.includes(q.type)?q.type:'text',label:typeof q.label==='object'?q.label:mergeI18n(null,'zh',q.label||''),required:!!q.required,options:Array.isArray(q.options)?q.options:[]}))}));}
+function showQgenForm(item){document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('qgen.title')}</h3>${langHintHtml()}<div class="form-group"><label>${t('qgen.name')}</label><input id="qg-name" value="${escapeHtml(item?qgenDisplayName(item):'')}"></div><div class="form-group"><label>${t('qgen.desc')}</label><textarea id="qg-desc">${escapeHtml(item?qgenDisplayDesc(item):'')}</textarea></div><div id="qgen-sections-editor"></div><button type="button" class="btn btn-outline btn-sm" onclick="qgenAddSection()">${t('btn.addSection')}</button><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveQgen('published')">${t('btn.publish')}</button></div>`;document.getElementById('modalMask').style.display='flex';renderQgenSectionsEditor();}
+function renderQgenSectionsEditor(){const box=document.getElementById('qgen-sections-editor');if(!box)return;box.innerHTML=qgenDraftSections.map((sec,si)=>`<div class="qgen-section"><input value="${escapeHtml(tl(sec.title,''))}" onchange="qgenSetSecTitle(${si},this.value)"> ${(sec.questions||[]).map((q,qi)=>`<div class="qgen-q"><input value="${escapeHtml(tl(q.label,''))}" onchange="qgenSetQLabel(${si},${qi},this.value)"><button type="button" class="btn btn-del btn-sm" onclick="qgenRemoveQuestion(${si},${qi})">×</button></div>`).join('')} <button type="button" class="btn btn-outline btn-sm" onclick="qgenAddQuestion(${si})">${t('btn.addQuestion')}</button></div>`).join('');}
 function qgenAddSection(){qgenDraftSections.push({id:uid(),title:mergeI18n(null,currentLang,'S'),questions:[]});renderQgenSectionsEditor();}
-function qgenRemoveSection(si){qgenDraftSections.splice(si,1);renderQgenSectionsEditor();}
 function qgenSetSecTitle(si,val){if(qgenDraftSections[si])qgenDraftSections[si].title=mergeI18n(qgenDraftSections[si].title,currentLang,val);}
 function qgenAddQuestion(si){const sec=qgenDraftSections[si];if(!sec)return;if(!sec.questions)sec.questions=[];sec.questions.push({id:uid(),type:'text',label:mergeI18n(null,currentLang,''),required:false,options:[]});renderQgenSectionsEditor();}
 function qgenRemoveQuestion(si,qi){qgenDraftSections[si]?.questions?.splice(qi,1);renderQgenSectionsEditor();}
 function qgenSetQLabel(si,qi,val){const q=qgenDraftSections[si]?.questions?.[qi];if(q)q.label=mergeI18n(q.label,currentLang,val);}
-function qgenSetQType(si,qi,val){const q=qgenDraftSections[si]?.questions?.[qi];if(q)q.type=val;}
-async function saveQgen(status){const user=getUser();if(!user)return;const name=(document.getElementById('qg-name').value||'').trim();if(!name)return alert(t('qgen.name'));let old=null;if(editingQgenId)old=(await fetchQgen()).find(x=>x.id===editingQgenId);const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const industry_i18n=mergeI18n(old?.industry_i18n,currentLang,(document.getElementById('qg-industry').value||'').trim());const description_i18n=mergeI18n(old?.description_i18n,currentLang,(document.getElementById('qg-desc').value||'').trim());const row={id:editingQgenId||Date.now(),name:name_i18n.zh||name,industry:industry_i18n.zh||'',description:description_i18n.zh||'',name_i18n,industry_i18n,description_i18n,sections:JSON.parse(JSON.stringify(qgenDraftSections)),status:status||'draft',phone:old?.phone||user.phone,team_id:qgenTeamContext?qgenTeamContext.teamId:null};let error;if(editingQgenId)({error}=await sb.from('questionnaire_templates').update(row).eq('id',editingQgenId));else({error}=await sb.from('questionnaire_templates').insert(row));if(error)return alert(error.message);closeModal();renderQgen();alert(t('tip.saved'));}
+async function saveQgen(status){const user=getUser();if(!user)return;const name=(document.getElementById('qg-name').value||'').trim();if(!name)return alert(t('qgen.name'));let old=editingQgenId?(await fetchQgen()).find(x=>x.id===editingQgenId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const description_i18n=mergeI18n(old?.description_i18n,currentLang,(document.getElementById('qg-desc').value||'').trim());const row={id:editingQgenId||Date.now(),name:name_i18n.zh||name,name_i18n,description:description_i18n.zh||'',description_i18n,sections:JSON.parse(JSON.stringify(qgenDraftSections)),status:status||'draft',phone:old?.phone||user.phone};let error;if(editingQgenId)({error}=await sb.from('questionnaire_templates').update(row).eq('id',editingQgenId));else({error}=await sb.from('questionnaire_templates').insert(row));if(error)return alert(error.message);closeModal();renderQgen();}
 async function deleteQgen(id){if(!confirm('Delete?'))return;await sb.from('questionnaire_templates').delete().eq('id',id);renderQgen();}
-async function previewQgen(id){const tpl=(await fetchQgen()).find(x=>x.id===id);if(!tpl)return;const sections=normalizeSections(tpl.sections);let body='';sections.forEach((sec,si)=>{(sec.questions||[]).forEach((q,qi)=>{const qid=`pq_${si}_${qi}`;body+=`<div class="preview-q" data-type="${q.type}" data-req="${q.required?1:0}" data-qid="${qid}"><label class="q-label">${escapeHtml(tl(q.label,''))}</label><textarea id="${qid}" style="width:100%;min-height:60px;padding:8px;border:1px solid #cbd5e1;border-radius:8px"></textarea></div>`;});});document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('qgen.previewTitle')}</h3><div id="qgen-preview-body">${body}</div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button><button class="btn btn-primary" onclick="submitFilledQgen(${tpl.id},${tpl.team_id||0})">${t('qgen.fillSubmit')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
-async function submitFilledQgen(tplId,teamId){const user=getUser();if(!user)return alert(t('tip.loginFirst'));const answers={};document.querySelectorAll('#qgen-preview-body .preview-q').forEach(el=>{const qid=el.dataset.qid;const inp=document.getElementById(qid);answers[qid]={type:el.dataset.type,value:inp?inp.value:'',label:(el.querySelector('.q-label')||{}).textContent||''};});const {error}=await sb.from('diagnosis_surveys').insert({id:Date.now(),template_id:tplId,team_id:teamId||null,phone:user.phone,industry:'survey',answers,status:'pending',report:'',report_link:''});if(error)return alert(error.message);closeModal();switchView('diagnosis');alert(t('tip.saved'));}
-function diagStatusLabel(st){const m={pending:t('diag.pending'),reviewing:t('diag.reviewing'),completed:t('diag.completed'),archived:t('diag.archived')};return m[st]||st||t('diag.pending');}
+async function previewQgen(id){const tpl=(await fetchQgen()).find(x=>x.id===id);if(!tpl)return;const sections=normalizeSections(tpl.sections);let body='';sections.forEach((sec,si)=>{(sec.questions||[]).forEach((q,qi)=>{const qid=`pq_${si}_${qi}`;body+=`<div class="preview-q" data-qid="${qid}" data-type="textarea"><label class="q-label">${escapeHtml(tl(q.label,''))}</label><textarea id="${qid}" style="width:100%;min-height:60px;padding:8px;border:1px solid #cbd5e1;border-radius:8px"></textarea></div>`;});});document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('qgen.previewTitle')}</h3><div id="qgen-preview-body">${body}</div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button><button class="btn btn-primary" onclick="submitFilledQgen(${tpl.id},0)">${t('qgen.fillSubmit')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function submitFilledQgen(tplId){const user=getUser();if(!user)return alert(t('tip.loginFirst'));const answers={};document.querySelectorAll('#qgen-preview-body .preview-q').forEach(el=>{const qid=el.dataset.qid;const inp=document.getElementById(qid);answers[qid]={type:'textarea',value:inp?inp.value:'',label:(el.querySelector('.q-label')||{}).textContent||''};});const {error}=await sb.from('diagnosis_surveys').insert({id:Date.now(),template_id:tplId,phone:user.phone,answers,status:'pending',report:'',report_link:''});if(error)return alert(error.message);closeModal();switchView('diagnosis');alert(t('tip.saved'));}
+function diagStatusLabel(st){const m={pending:t('diag.pending'),reviewing:t('diag.reviewing'),completed:t('diag.completed'),archived:t('diag.archived')};return m[st]||st;}
 function diagStatusBadge(st){const s=st||'pending';const cls={pending:'badge-pending',reviewing:'badge-reviewing',completed:'badge-completed',archived:'badge-archived'}[s]||'badge-pending';return `<span class="${cls}">${escapeHtml(diagStatusLabel(s))}</span>`;}
 function formatAnswerValue(val){if(val==null||val==='')return '—';if(Array.isArray(val))return val.join('、');return String(val);}
-function renderAnswersReadable(answers){if(!answers||typeof answers!=='object')return `<div class="empty-tip">${t('diag.noAnswers')}</div>`;const keys=Object.keys(answers);if(!keys.length)return `<div class="empty-tip">${t('diag.noAnswers')}</div>`;return keys.map((k,i)=>{const item=answers[k]||{};return `<div class="diag-answer"><div class="q">${escapeHtml(t('diag.qLabel'))} ${i+1} · ${escapeHtml(String(item.label||k))}</div><div class="a"><b>${escapeHtml(t('diag.aLabel'))}：</b>${escapeHtml(formatAnswerValue(item.value))}</div></div>`;}).join('');}
-async function resolveTemplateName(templateId){if(!templateId)return '';const list=await fetchQgen();const tpl=list.find(x=>String(x.id)===String(templateId));return tpl?qgenDisplayName(tpl):('#'+templateId);}
-async function renderDiagnosis(){const user=getUser();const box=document.getElementById('diagnosis-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchDiagnosis();if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));const stFilter=(document.getElementById('diag-status-filter')||{}).value||'';if(stFilter)list=list.filter(d=>(d.status||'pending')===stFilter);const q=(document.getElementById('diag-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(d=>JSON.stringify(d).toLowerCase().includes(ql));}const tpls=await fetchQgen();const nameMap={};tpls.forEach(tp=>{nameMap[String(tp.id)]=qgenDisplayName(tp);});const pg=paginate(list,diagPage,PAGE_SIZE);diagPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(d=>{const tplName=nameMap[String(d.template_id)]||'—';const ansCount=d.answers&&typeof d.answers==='object'?Object.keys(d.answers).length:0;return `<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">#${d.id} ${diagStatusBadge(d.status)}<span class="tag">${ansCount} ${t('diag.answerN')}</span></div><div class="card-desc"><b>${t('diag.phone')}：</b>${escapeHtml(d.phone||'-')}</div><div class="card-desc"><b>${t('diag.template')}：</b>${escapeHtml(tplName)}</div><div style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="viewDiagnosis(${d.id})">${t('diag.view')}</button> ${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('diag.empty')}</div>`;renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');}
+function renderAnswersReadable(answers){if(!answers||typeof answers!=='object')return `<div class="empty-tip">${t('diag.noAnswers')}</div>`;return Object.keys(answers).map((k,i)=>{const item=answers[k]||{};return `<div class="diag-answer"><div class="q">${i+1}. ${escapeHtml(String(item.label||k))}</div><div class="a">${escapeHtml(formatAnswerValue(item.value))}</div></div>`;}).join('')||`<div class="empty-tip">${t('diag.noAnswers')}</div>`;}
+async function renderDiagnosis(){const user=getUser();const box=document.getElementById('diagnosis-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchDiagnosis();if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));const stF=(document.getElementById('diag-status-filter')||{}).value||'';if(stF)list=list.filter(d=>(d.status||'pending')===stF);const pg=paginate(list,diagPage,PAGE_SIZE);diagPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(d=>`<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">#${d.id} ${diagStatusBadge(d.status)}</div><div class="card-desc">${escapeHtml(d.phone||'')}</div><button class="btn btn-primary btn-sm" onclick="viewDiagnosis(${d.id})">${t('diag.view')}</button></div></div>`).join(''):`<div class="empty-tip">${t('diag.empty')}</div>`;renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');}
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
-async function viewDiagnosis(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;const user=getUser();if(!user)return;if(user.role!=='admin'&&String(d.phone)!==String(user.phone))return alert('No permission');const tplName=await resolveTemplateName(d.template_id);const admin=isAdmin();const hasLink=!!((d.report_link||'').trim());const statusOpts=['pending','reviewing','completed','archived'].map(s=>`<option value="${s}" ${(d.status||'pending')===s?'selected':''}>${diagStatusLabel(s)}</option>`).join('');let mid='';if(admin){mid=`<div class="diag-report-box"><h4>${t('diag.report')}</h4><div class="form-group"><label>${t('diag.changeStatus')}</label><select id="diag-edit-status">${statusOpts}</select></div><div class="form-group"><label>${t('diag.report')}</label><textarea id="diag-edit-report" style="min-height:100px">${escapeHtml(d.report||'')}</textarea></div><div class="form-group"><label>${t('diag.reportLink')}</label><input id="diag-edit-link" value="${escapeHtml(d.report_link||'')}"></div></div>`;}const actions=admin?`<button class="btn btn-primary" onclick="saveDiagnosisReport(${d.id})">${t('diag.saveReport')}</button><button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>`:`<button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>`;document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('diag.detail')} #${d.id}</h3><div class="diag-meta">${diagStatusBadge(d.status)} ${escapeHtml(d.phone||'')} · ${escapeHtml(tplName)}</div><h4 style="font-size:14px;margin:12px 0 8px">${t('diag.answers')}</h4>${renderAnswersReadable(d.answers)}${mid}<div class="form-actions">${actions}</div>`;document.getElementById('modalMask').style.display='flex';}
-async function openDiagnosisReport(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;const link=normalizeExternalUrl(d.report_link||'');if(!link)return alert(t('tip.noReportLink'));window.open(link,'_blank','noopener');}
-async function saveDiagnosisReport(id){if(!isAdmin())return;const status=(document.getElementById('diag-edit-status')||{}).value||'pending';const report=(document.getElementById('diag-edit-report')||{}).value||'';const report_link=(document.getElementById('diag-edit-link')||{}).value||'';const {error}=await sb.from('diagnosis_surveys').update({status,report,report_link}).eq('id',id);if(error)return alert(error.message);alert(t('tip.saved'));viewDiagnosis(id);renderDiagnosis();}
-async function deleteDiagnosis(id){if(!isAdmin())return;if(!confirm('Delete?'))return;await sb.from('diagnosis_surveys').delete().eq('id',id);renderDiagnosis();}
-function formatUserDate(u){const raw=u.created_at||'';if(!raw)return '-';try{return new Date(raw).toLocaleString();}catch(e){return String(raw).slice(0,19);}}
-async function renderUsers(){if(!isAdmin()){document.getElementById('users-tbody').innerHTML=`<tr><td colspan="5">${t('tip.loginFirst')}</td></tr>`;return;}const me=getUser();let list=await fetchUsers();const roleF=(document.getElementById('users-role-filter')||{}).value||'';if(roleF)list=list.filter(u=>(u.role||'')===roleF);const q=(document.getElementById('users-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(u=>[u.phone,u.role].join(' ').toLowerCase().includes(ql));}const pg=paginate(list,usersPage,PAGE_SIZE);usersPage=pg.page;document.getElementById('users-tbody').innerHTML=pg.slice.length?pg.slice.map(u=>{const isSelf=me&&String(me.phone)===String(u.phone);const roleOpts=ROLE_KEYS.map(r=>`<option value="${r}" ${(u.role||'')===r?'selected':''}>${t('role.'+r)}</option>`).join('');const bl=!!u.blacklisted;return `<tr><td>${escapeHtml(u.phone||'')}</td><td><select onchange="changeUserRole('${escapeAttr(u.phone)}',this.value)">${roleOpts}</select></td><td>${escapeHtml(formatUserDate(u))}</td><td>${bl?'🚫':'OK'}</td><td><button class="btn btn-sm btn-outline" onclick="toggleUserBlacklist('${escapeAttr(u.phone)}',${!bl})">${bl?t('users.unban'):t('users.blacklist')}</button> <button class="user-del-btn" ${isSelf?'disabled':''} onclick="deleteUser('${escapeAttr(u.phone)}')">🗑</button></td></tr>`;}).join(''):`<tr><td colspan="5">${t('tip.noData')}</td></tr>`;renderPager('users-pager',pg.page,pg.pages,'goUsersPage');}
+async function viewDiagnosis(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;const admin=isAdmin();const hasLink=!!((d.report_link||'').trim());const statusOpts=['pending','reviewing','completed','archived'].map(s=>`<option value="${s}" ${(d.status||'pending')===s?'selected':''}>${diagStatusLabel(s)}</option>`).join('');const mid=admin?`<div class="diag-report-box"><select id="diag-edit-status">${statusOpts}</select><textarea id="diag-edit-report" style="width:100%;min-height:80px;margin:8px 0">${escapeHtml(d.report||'')}</textarea><input id="diag-edit-link" value="${escapeHtml(d.report_link||'')}" placeholder="https://" style="width:100%"></div>`:'';const actions=admin?`<button class="btn btn-primary" onclick="saveDiagnosisReport(${d.id})">${t('diag.saveReport')}</button><button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>`:`<button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>`;document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('diag.detail')} #${d.id}</h3>${renderAnswersReadable(d.answers)}${mid}<div class="form-actions">${actions}</div>`;document.getElementById('modalMask').style.display='flex';}
+async function openDiagnosisReport(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);const link=normalizeExternalUrl(d&&d.report_link);if(!link)return alert(t('tip.noReportLink'));window.open(link,'_blank','noopener');}
+async function saveDiagnosisReport(id){if(!isAdmin())return;const status=(document.getElementById('diag-edit-status')||{}).value||'pending';const report=(document.getElementById('diag-edit-report')||{}).value||'';const report_link=(document.getElementById('diag-edit-link')||{}).value||'';await sb.from('diagnosis_surveys').update({status,report,report_link}).eq('id',id);alert(t('tip.saved'));viewDiagnosis(id);renderDiagnosis();}
+async function renderUsers(){if(!isAdmin()){document.getElementById('users-tbody').innerHTML=`<tr><td colspan="5">${t('tip.loginFirst')}</td></tr>`;return;}const me=getUser();let list=await fetchUsers();const roleF=(document.getElementById('users-role-filter')||{}).value||'';if(roleF)list=list.filter(u=>(u.role||'')===roleF);const q=(document.getElementById('users-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(u=>String(u.phone).includes(ql));}const pg=paginate(list,usersPage,PAGE_SIZE);usersPage=pg.page;document.getElementById('users-tbody').innerHTML=pg.slice.length?pg.slice.map(u=>{const isSelf=me&&String(me.phone)===String(u.phone);const roleOpts=ROLE_KEYS.map(r=>`<option value="${r}" ${(u.role||'')===r?'selected':''}>${t('role.'+r)}</option>`).join('');return `<tr><td>${escapeHtml(u.phone||'')}</td><td><select onchange="changeUserRole('${escapeAttr(u.phone)}',this.value)">${roleOpts}</select></td><td>-</td><td>${u.blacklisted?'🚫':'OK'}</td><td><button class="btn btn-sm btn-outline" onclick="toggleUserBlacklist('${escapeAttr(u.phone)}',${!u.blacklisted})">${u.blacklisted?t('users.unban'):t('users.blacklist')}</button> <button class="user-del-btn" ${isSelf?'disabled':''} onclick="deleteUser('${escapeAttr(u.phone)}')">🗑</button></td></tr>`;}).join(''):`<tr><td colspan="5">${t('tip.noData')}</td></tr>`;renderPager('users-pager',pg.page,pg.pages,'goUsersPage');}
 function goUsersPage(p){usersPage=p;renderUsers();}
-async function changeUserRole(phone,role){if(!isAdmin())return;const {error}=await sb.from('app_users').update({role}).eq('phone',phone);if(error)return alert(error.message);const me=getUser();if(me&&String(me.phone)===String(phone))setUser({phone:me.phone,role});renderUsers();}
-async function toggleUserBlacklist(phone,flag){if(!isAdmin())return;const me=getUser();if(me&&String(me.phone)===String(phone))return alert(t('users.noSelfDel'));const {error}=await sb.from('app_users').update({blacklisted:!!flag}).eq('phone',phone);if(error)return alert(error.message);renderUsers();}
-async function deleteUser(phone){if(!isAdmin())return;const me=getUser();if(me&&String(me.phone)===String(phone))return alert(t('users.noSelfDel'));if(!confirm(t('users.delConfirm')))return;const {error}=await sb.from('app_users').delete().eq('phone',phone);if(error)return alert(error.message);renderUsers();}
-async function renderCategories(){const list=await fetchCategories();const q=(document.getElementById('cat-q')||{}).value||'';let visible=list.filter(c=>!!catNameStrict(c));if(q.trim()){const ql=q.trim().toLowerCase();visible=visible.filter(c=>catNameStrict(c).toLowerCase().includes(ql));}document.getElementById('categories-list').innerHTML=visible.length?visible.map(c=>`<div class="card"><div class="avatar avatar-cat">C</div><div class="card-content"><div class="card-title">${escapeHtml(catNameStrict(c))}${isAdmin()?`<button class="btn btn-edit btn-sm" onclick="editCategory(${c.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteCategory(${c.id})">${t('btn.del')}</button>`:''}</div><div>${catSubsStrict(c).map(s=>`<span class="tag tag-sub">${escapeHtml(s)}</span>`).join('')}</div></div></div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
+async function changeUserRole(phone,role){if(!isAdmin())return;await sb.from('app_users').update({role}).eq('phone',phone);const me=getUser();if(me&&String(me.phone)===String(phone))setUser({phone:me.phone,role});renderUsers();}
+async function toggleUserBlacklist(phone,flag){if(!isAdmin())return;const me=getUser();if(me&&String(me.phone)===String(phone))return alert(t('users.noSelfDel'));await sb.from('app_users').update({blacklisted:!!flag}).eq('phone',phone);renderUsers();}
+async function deleteUser(phone){if(!isAdmin())return;const me=getUser();if(me&&String(me.phone)===String(phone))return alert(t('users.noSelfDel'));if(!confirm(t('users.delConfirm')))return;await sb.from('app_users').delete().eq('phone',phone);renderUsers();}
+async function renderCategories(){const list=await fetchCategories();let visible=list.filter(c=>!!catNameStrict(c));const q=(document.getElementById('cat-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();visible=visible.filter(c=>catNameStrict(c).toLowerCase().includes(ql));}document.getElementById('categories-list').innerHTML=visible.length?visible.map(c=>`<div class="card"><div class="avatar avatar-cat">C</div><div class="card-content"><div class="card-title">${escapeHtml(catNameStrict(c))}${isAdmin()?`<button class="btn btn-edit btn-sm" onclick="editCategory(${c.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteCategory(${c.id})">${t('btn.del')}</button>`:''}</div><div>${catSubsStrict(c).map(s=>`<span class="tag tag-sub">${escapeHtml(s)}</span>`).join('')}</div></div></div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
 function openAddCategory(){editingCategoryId=null;showCategoryForm();}
 async function editCategory(id){const item=(await fetchCategories()).find(c=>c.id===id);if(!item)return;editingCategoryId=id;showCategoryForm(item);}
-function showCategoryForm(item=null){const nameVal=item?catNameStrict(item):'';const subs=item?catSubsStrict(item):[];document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>Category</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="cat-name" value="${escapeHtml(nameVal)}"></div><div class="form-group"><label>${t('form.subs')}</label><textarea id="cat-subs">${escapeHtml(subs.join('\n'))}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveCategory()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
-async function saveCategory(){const name=(document.getElementById('cat-name').value||'').trim();if(!name)return alert('Required');const lines=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);let old=null;if(editingCategoryId)old=(await fetchCategories()).find(c=>c.id===editingCategoryId);const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const prev=Array.isArray(old?.subs_i18n)?old.subs_i18n:[];const subs_i18n=lines.map((line,i)=>mergeI18n(prev[i]&&typeof prev[i]==='object'?prev[i]:{},currentLang,line));const subs=subs_i18n.map(s=>s.zh||s.en||'');const row={id:editingCategoryId||Date.now(),name:name_i18n.zh||name,name_i18n,subs,subs_i18n};let error;if(editingCategoryId)({error}=await sb.from('categories').update(row).eq('id',editingCategoryId));else({error}=await sb.from('categories').insert(row));if(error)return alert(error.message);closeModal();renderCategories();}
+function showCategoryForm(item=null){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>Category</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="cat-name" value="${escapeHtml(item?catNameStrict(item):'')}"></div><div class="form-group"><label>${t('form.subs')}</label><textarea id="cat-subs">${escapeHtml(item?catSubsStrict(item).join('\n'):'')}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveCategory()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function saveCategory(){const name=(document.getElementById('cat-name').value||'').trim();if(!name)return alert('Required');const lines=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);let old=editingCategoryId?(await fetchCategories()).find(c=>c.id===editingCategoryId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const prev=Array.isArray(old?.subs_i18n)?old.subs_i18n:[];const subs_i18n=lines.map((line,i)=>mergeI18n(prev[i]&&typeof prev[i]==='object'?prev[i]:{},currentLang,line));const row={id:editingCategoryId||Date.now(),name:name_i18n.zh||name,name_i18n,subs:subs_i18n.map(s=>s.zh||s.en||''),subs_i18n};let error;if(editingCategoryId)({error}=await sb.from('categories').update(row).eq('id',editingCategoryId));else({error}=await sb.from('categories').insert(row));if(error)return alert(error.message);closeModal();renderCategories();}
 async function deleteCategory(id){if(!confirm('Delete?'))return;await sb.from('categories').delete().eq('id',id);renderCategories();}
-function addPainItem(title='',desc=''){const box=document.getElementById('pain-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="pain-title" value="${escapeHtml(title)}"></div><div class="form-group"><label>Desc</label><textarea class="pain-desc">${escapeHtml(desc)}</textarea></div>`;box.appendChild(div);}
-function addToolItem(title='',desc=''){const box=document.getElementById('tool-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="tool-title" value="${escapeHtml(title)}"></div><div class="form-group"><label>Desc</label><textarea class="tool-desc">${escapeHtml(desc)}</textarea></div>`;box.appendChild(div);}
-function addPerfItem(title='',desc=''){const box=document.getElementById('perf-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="perf-title" value="${escapeHtml(title)}"></div><div class="form-group"><label>Desc</label><textarea class="perf-desc">${escapeHtml(desc)}</textarea></div>`;box.appendChild(div);}
 function openAddJinZhu(){editingJinZhuId=null;showJinZhuForm();}
 async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;editingJinZhuId=id;showJinZhuForm(item);}
-function showJinZhuForm(item=null){const user=getUser();const isNew=!item;document.getElementById('modalBox').className='modal';if(isNew){document.getElementById('modalBox').innerHTML=`<h3>${t('btn.postDemand')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.industry')} *</label><input id="jz-type"></div><div class="form-group"><label>${t('form.detail')}</label><textarea id="jz-detail"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;}else{document.getElementById('modalBox').innerHTML=`<h3>${t('btn.edit')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="jz-name" value="${escapeHtml(jinzhuDisplayName(item))}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="jz-intro">${escapeHtml(jinzhuDisplayIntro(item))}</textarea></div><div class="form-group"><label>${t('form.industry')}</label><input id="jz-type" value="${escapeHtml(jinzhuDisplayType(item))}"></div><div class="form-group"><label>${t('form.detail')}</label><textarea id="jz-detail">${escapeHtml(jinzhuDisplayDetail(item))}</textarea></div><div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${escapeHtml(item.card?item.card.person:'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="jz-phone" value="${escapeHtml(item.phone||'')}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="jz-wechat" value="${escapeHtml(item.card?(item.card.wechat||''):'')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;}document.getElementById('modalMask').style.display='flex';}
-async function saveJinZhu(){const user=getUser();if(!user)return;const isSimple=!editingJinZhuId&&!document.getElementById('jz-name');let type=(document.getElementById('jz-type').value||'').trim();if(!type)return alert('Required');let row;if(isSimple){const detail=(document.getElementById('jz-detail').value||'').trim()||'-';const type_i18n=mergeI18n(null,currentLang,type);const detail_i18n=mergeI18n(null,currentLang,detail);row={id:Date.now(),name:'-',intro:'-',type:type_i18n.zh||type,detail:detail_i18n.zh||detail,dream:'-',phone:user.phone,pains:[{title:'-',desc:'-'}],difficulty:0,reward:'-',name_i18n:mergeI18n(null,currentLang,'-'),intro_i18n:mergeI18n(null,currentLang,'-'),type_i18n,detail_i18n,dream_i18n:mergeI18n(null,currentLang,'-'),pains_i18n:[{title:mergeI18n(null,currentLang,'-'),desc:mergeI18n(null,currentLang,'-')}],card:{person:'-',phone:user.phone,wechat:'-',email:'',title:'',whatsapp:'',website:'',qr:''}};}else{const name=(document.getElementById('jz-name').value||'').trim();const person=(document.getElementById('jz-person').value||'').trim();const wechat=(document.getElementById('jz-wechat').value||'').trim();if(!name||!person||!wechat)return alert('Required');let old=(await fetchJinZhu()).find(j=>j.id===editingJinZhuId);const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const type_i18n=mergeI18n(old?.type_i18n,currentLang,type);row={...old,name:name_i18n.zh||name,type:type_i18n.zh||type,name_i18n,type_i18n,intro:mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('jz-intro').value||'').trim()).zh||'',detail:mergeI18n(old?.detail_i18n,currentLang,(document.getElementById('jz-detail').value||'').trim()).zh||'',card:{...(old.card||{}),person,wechat,phone:old.phone}};}let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));if(error)return alert(error.message);if(!editingJinZhuId)await autoCreateTeamForJinZhu(row);closeModal();renderAll();alert(t('tip.saved'));}
-async function autoCreateTeamForJinZhu(jin){const teams=await fetchTeam();if(teams.some(tm=>String(tm.jinzhu_id)===String(jin.id)))return;await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(jin.phone),demand:jin.detail||'',dream:jin.dream||'-',power:0,performances:[],phone:jin.phone,card:jin.card||{},members:[],jinzhu_id:jin.id});}
-async function conveneTeam(jinId){const jin=(await fetchJinZhu()).find(j=>j.id===jinId);if(jin)await autoCreateTeamForJinZhu(jin);renderJinZhu();renderTeam();}
+function showJinZhuForm(item=null){const user=getUser();document.getElementById('modalBox').className='modal';if(!item){document.getElementById('modalBox').innerHTML=`<h3>${t('btn.postDemand')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.industry')} *</label><input id="jz-type"></div><div class="form-group"><label>${t('form.detail')}</label><textarea id="jz-detail"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;}else{document.getElementById('modalBox').innerHTML=`<h3>${t('btn.edit')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="jz-name" value="${escapeHtml(jinzhuDisplayName(item))}"></div><div class="form-group"><label>${t('form.industry')}</label><input id="jz-type" value="${escapeHtml(jinzhuDisplayType(item))}"></div><div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${escapeHtml(item.card?item.card.person:'')}"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="jz-wechat" value="${escapeHtml(item.card?(item.card.wechat||''):'')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;}document.getElementById('modalMask').style.display='flex';}
+async function saveJinZhu(){const user=getUser();if(!user)return;const isNew=!editingJinZhuId;const type=(document.getElementById('jz-type').value||'').trim();if(!type)return alert('Required');let row;if(isNew){const type_i18n=mergeI18n(null,currentLang,type);const detail_i18n=mergeI18n(null,currentLang,(document.getElementById('jz-detail').value||'').trim()||'-');row={id:Date.now(),name:'-',intro:'-',type:type_i18n.zh||type,detail:detail_i18n.zh||'-',phone:user.phone,pains:[],type_i18n,detail_i18n,name_i18n:mergeI18n(null,currentLang,'-'),card:{person:'-',phone:user.phone,wechat:'-'}};}else{const old=(await fetchJinZhu()).find(j=>j.id===editingJinZhuId);const name=(document.getElementById('jz-name').value||'').trim();const person=(document.getElementById('jz-person').value||'').trim();const wechat=(document.getElementById('jz-wechat').value||'').trim();row={...old,name,type,name_i18n:mergeI18n(old.name_i18n,currentLang,name),type_i18n:mergeI18n(old.type_i18n,currentLang,type),card:{...(old.card||{}),person,wechat,phone:old.phone}};}let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));if(error)return alert(error.message);if(isNew)await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(user.phone),phone:user.phone,members:[],jinzhu_id:row.id,demand:type,performances:[]});closeModal();renderAll();}
 async function deleteJinZhu(id){if(!confirm('Delete?'))return;await sb.from('jinzhu').delete().eq('id',id);renderAll();}
 function openAddDaShi(){editingDaShiId=null;showDaShiForm();}
 async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;editingDaShiId=id;showDaShiForm(item);}
-function showDaShiForm(item=null){const user=getUser();document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item?.power)||0}"></div><div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(item&&item.card?item.card.person:'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(item?item.phone:(user?user.phone:''))}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(item&&item.card?(item.card.wechat||''):'')}"></div><div id="tool-list"></div><button type="button" class="btn btn-outline btn-sm" onclick="addToolItem()">+ tool</button><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';if(item)dashiTools(item).forEach(x=>addToolItem(x.title,x.desc));else addToolItem();}
-async function saveDaShi(){const name=(document.getElementById('ds-name').value||'').trim();const person=(document.getElementById('ds-person').value||'').trim();const phone=(document.getElementById('ds-phone').value||'').trim();const wechat=(document.getElementById('ds-wechat').value||'').trim();if(!name||!person||!phone||!wechat)return alert('Required');let old=null;if(editingDaShiId)old=(await fetchDaShi()).find(d=>d.id===editingDaShiId);const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());const tools=[],tools_i18n=[];document.querySelectorAll('#tool-list .dynamic-item').forEach((el,i)=>{const tt=el.querySelector('.tool-title').value.trim(),td=el.querySelector('.tool-desc').value.trim();if(tt){tools.push({title:tt,desc:td});tools_i18n.push({title:mergeI18n(null,currentLang,tt),desc:mergeI18n(null,currentLang,td)});}});const row={id:editingDaShiId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',name_i18n,intro_i18n,tool_url:(document.getElementById('ds-tool-url').value||'').trim(),power:parseInt(document.getElementById('ds-power').value)||0,tools,tools_i18n,phone,card:{person,phone,wechat,email:'',title:'',whatsapp:'',website:'',qr:''},major_category:old?.major_category||'',minor_category:old?.minor_category||'',major_category_i18n:old?.major_category_i18n||{},minor_category_i18n:old?.minor_category_i18n||{}};let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));if(error)return alert(error.message);closeModal();renderAll();alert(t('tip.saved'));}
+function showDaShiForm(item=null){const user=getUser();document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item?.power)||0}"></div><div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(item&&item.card?item.card.person:'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(item?item.phone:(user?user.phone:''))}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(item&&item.card?(item.card.wechat||''):'')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function saveDaShi(){const name=(document.getElementById('ds-name').value||'').trim();const person=(document.getElementById('ds-person').value||'').trim();const phone=(document.getElementById('ds-phone').value||'').trim();const wechat=(document.getElementById('ds-wechat').value||'').trim();if(!name||!person||!phone||!wechat)return alert('Required');let old=editingDaShiId?(await fetchDaShi()).find(d=>d.id===editingDaShiId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());const row={id:editingDaShiId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',name_i18n,intro_i18n,tool_url:(document.getElementById('ds-tool-url').value||'').trim(),power:parseInt(document.getElementById('ds-power').value)||0,phone,card:{person,phone,wechat,email:'',title:'',whatsapp:'',website:'',qr:''},tools:[],tools_i18n:[]};let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));if(error)return alert(error.message);closeModal();renderAll();}
 async function deleteDaShi(id){if(!confirm('Delete?'))return;await sb.from('dashi').delete().eq('id',id);renderAll();}
-function openAddHero(){editingHeroId=null;showHeroForm();}
-async function editHero(id){const item=(await fetchHero()).find(h=>h.id===id);if(!item||!canEdit(item))return;editingHeroId=id;showHeroForm(item);}
-function showHeroForm(item=null){const user=getUser();document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postHero')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="hero-name" value="${escapeHtml(item?heroDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="hero-intro">${escapeHtml(item?heroDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.skill')}</label><input id="hero-skill" value="${escapeHtml(item?heroDisplaySkillTitle(item):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="hero-power" type="number" value="${Number(item?.power)||0}"></div><div class="form-group"><label>${t('form.person')}</label><input id="hero-person" value="${escapeHtml(item&&item.card?item.card.person:'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="hero-phone" value="${escapeHtml(item?item.phone:(user?user.phone:''))}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="hero-wechat" value="${escapeHtml(item&&item.card?(item.card.wechat||''):'')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveHero()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
-async function saveHero(){const name=(document.getElementById('hero-name').value||'').trim();const person=(document.getElementById('hero-person').value||'').trim();const phone=(document.getElementById('hero-phone').value||'').trim();const wechat=(document.getElementById('hero-wechat').value||'').trim();if(!name||!person||!phone||!wechat)return alert('Required');let old=null;if(editingHeroId)old=(await fetchHero()).find(h=>h.id===editingHeroId);const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const row={id:editingHeroId||Date.now(),name:name_i18n.zh||name,name_i18n,intro:mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('hero-intro').value||'').trim()).zh||'',skill_title:mergeI18n(old?.skill_title_i18n,currentLang,(document.getElementById('hero-skill').value||'').trim()).zh||'',power:parseInt(document.getElementById('hero-power').value)||0,phone,card:{person,phone,wechat,email:'',title:'',whatsapp:'',website:'',qr:''}};let error;if(editingHeroId)({error}=await sb.from('hero').update(row).eq('id',editingHeroId));else({error}=await sb.from('hero').insert(row));if(error)return alert(error.message);closeModal();renderHero();}
-async function deleteHero(id){if(!confirm('Delete?'))return;await sb.from('hero').delete().eq('id',id);renderHero();}
 function openAddTeam(){editingTeamId=null;showTeamForm();}
 async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);if(!item||!canEdit(item))return;editingTeamId=id;showTeamForm(item);}
-function showTeamForm(item=null){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>Team</h3><div class="form-group"><label>Name *</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div><div class="form-group"><label>Demand</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div><div id="perf-list"></div><button type="button" class="btn btn-outline btn-sm" onclick="addPerfItem()">+</button><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';if(item?.performances)item.performances.forEach(p=>addPerfItem(p.title,p.desc));}
-async function saveTeam(){const user=getUser();if(!user)return;const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert('Required');const performances=[];document.querySelectorAll('#perf-list .dynamic-item').forEach(el=>{const pt=el.querySelector('.perf-title').value.trim(),pd=el.querySelector('.perf-desc').value.trim();if(pt)performances.push({title:pt,desc:pd});});const row={id:editingTeamId||Date.now(),name,demand:(document.getElementById('tm-demand').value||'').trim(),performances,phone:user.phone,members:[]};if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members;row.jinzhu_id=old.jinzhu_id;}}let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));if(error)return alert(error.message);closeModal();renderTeam();}
+function showTeamForm(item=null){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>Team</h3><div class="form-group"><label>Name *</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div><div class="form-group"><label>Demand</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function saveTeam(){const user=getUser();if(!user)return;const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert('Required');const row={id:editingTeamId||Date.now(),name,demand:(document.getElementById('tm-demand').value||'').trim(),phone:user.phone,members:[],performances:[]};if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members;row.jinzhu_id=old.jinzhu_id;}}let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));if(error)return alert(error.message);closeModal();renderTeam();}
 function renderAll(){renderHome();renderJinZhu();renderDaShi();renderHero();renderTeam();renderFocus();}
 document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click',()=>{const v=el.dataset.view;if(v)switchView(v);});});
 (function init(){const sel=document.getElementById('langSelect');if(sel)sel.value=currentLang;setLanguage(currentLang);renderUserArea();updateButtons();updateAdminMenus();switchView('home');})();
 </script>
 </body>
 </html>
-
