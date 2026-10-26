@@ -19,8 +19,8 @@ button,input,select,textarea{font:inherit}
 .menu-item:hover,.menu-item.active{background:rgba(251,191,36,.15);color:#fbbf24}
 .menu-item.admin-only{display:none}
 .main{flex:1;margin-left:240px;min-width:0}
-.topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30}
-.topbar .brand{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;gap:8px}
+.topbar .brand{display:flex;align-items:center;gap:8px;min-width:0}
 .user-area{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .user-info{display:flex;align-items:center;gap:8px;font-size:13px}
 .content{padding:16px;max-width:1100px}
@@ -55,8 +55,7 @@ button,input,select,textarea{font:inherit}
 .card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
 .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
 .tag-industry{background:#ecfdf5;color:#047857}.tag-diff{background:#fff7ed;color:#c2410c}
-.tag-power{background:#fef3c7;color:#b45309}.tag-reward{background:#fce7f3;color:#9d174d}
-.tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
+.tag-power{background:#fef3c7;color:#b45309}.tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
 .home-cat-tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;cursor:pointer;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
 .home-cat-tag:hover{background:#e0e7ff}.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
@@ -96,12 +95,7 @@ button,input,select,textarea{font:inherit}
 .qgen-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .status-published{color:#047857;font-size:12px;font-weight:600}
 .status-draft{color:#94a3b8;font-size:12px}
-.badge-ok{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
-.survey-section{margin-bottom:18px}.survey-section h4{font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.survey-section .num{width:24px;height:24px;border-radius:50%;background:#2563eb;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
-.survey-q{margin-bottom:12px}.q-label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
-.survey-options{display:flex;flex-direction:column;gap:6px;font-size:13px}
 .msg-item{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px}
 .msg-type{font-size:11px;background:#e0e7ff;color:#3730a3;padding:2px 6px;border-radius:4px;margin-right:6px}
 table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden}
@@ -114,10 +108,8 @@ th{background:#f8fafc;font-weight:600}
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
   .main{margin-left:0}.fab-menu{display:block}
   .sidebar-overlay.open{display:block}
-  .quick-icons{display:none!important}
+  #btnMenu{display:inline-flex!important}
 }
-.quick-icons{display:flex;gap:6px;margin-right:8px}
-.quick-icons button{width:36px;height:36px;border-radius:50%;border:none;background:#fbbf24;color:#0f172a;font-size:11px;font-weight:700;cursor:pointer}
 #chatMessages{height:240px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
 .msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
 .msg.bot{text-align:left;margin:6px 0;color:#334155}
@@ -125,11 +117,11 @@ th{background:#f8fafc;font-weight:600}
 .kyb-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(15,23,42,.14);background:#0b1220 center top/cover no-repeat;background-image:url('poster-vertical.jpg');min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 12px 18px}
 .kyb-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%)}
 .kyb-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.kyb-step-icon{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(251,191,36,.65);background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.kyb-step-icon{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(251,191,36,.65);background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer}
 .kyb-footnote{margin-top:14px;text-align:center;font-size:12px;color:#64748b;line-height:1.6}
 .kyb-footnote a{color:#2563eb}
 @media(min-width:768px){.kyb-hero{min-height:600px}.kyb-step-icon{width:48px;height:48px;font-size:20px}}
-.lang-select{padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;background:#fff;cursor:pointer;margin-right:8px}
+.lang-select{padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;background:#fff;cursor:pointer}
 .lang-hint{font-size:12px;color:#64748b;background:#f1f5f9;border-radius:8px;padding:8px 10px;margin-bottom:12px}
 .lang-hint b{color:#2563eb}
 </style>
@@ -158,23 +150,16 @@ th{background:#f8fafc;font-weight:600}
     <div class="menu-item admin-only" data-view="settings" data-i18n="menu.settings">⚙️ 设置</div>
   </aside>
   <div class="main">
+    <!-- 161：顶栏精简 —— 无标题文案、无五个快捷图标 -->
     <div class="topbar">
       <div class="brand">
-        <button class="btn btn-outline btn-sm" style="display:none" id="btnMenu" onclick="toggleSidebar(true)">☰</button>
-        <span id="topTitle" data-i18n="brand">梦想显化器</span>
+        <button class="btn btn-outline btn-sm" id="btnMenu" style="display:none" onclick="toggleSidebar(true)">☰</button>
       </div>
-      <div style="display:flex;align-items:center">
+      <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
         <select id="langSelect" class="lang-select" onchange="setLanguage(this.value)">
           <option value="zh">中文</option>
           <option value="en">English</option>
         </select>
-        <div class="quick-icons">
-          <button data-i18n-title="quick.jinzhu" onclick="switchView('jinzhu')">金主</button>
-          <button onclick="switchView('dashi')">SI</button>
-          <button data-i18n-title="quick.hero" onclick="switchView('hero')">精英</button>
-          <button data-i18n-title="quick.team" onclick="switchView('team')">团队</button>
-          <button data-i18n-title="quick.diag" onclick="switchView('diagnosis')">诊</button>
-        </div>
         <div class="user-area" id="userArea"></div>
       </div>
     </div>
@@ -321,7 +306,6 @@ th{background:#f8fafc;font-weight:600}
 <div class="fab-menu"><button onclick="toggleSidebar(true)">☰</button></div>
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
-
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
@@ -336,7 +320,6 @@ const i18n={
     kyb:{s1:'1. 宇宙法则指引方向',s2:'2. 超级智能零成本自动化执行',s3:'3. 诊断问卷找出问题',s4:'4. 自动组合超级精英团队',s5:'5. 自动把客户送到企业怀抱',footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>，有缘者联系管理员。'},
     btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit 访问',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队'},
     search:{generic:'搜索…',team:'搜索团队…',survey:'搜索问卷…',cat:'搜索大分类 / 小分类…'},
-    quick:{jinzhu:'金主',hero:'精英',team:'团队',diag:'诊'},
     coop:{name:'名称 *',contact:'联系方式 *',type:'类型',t1:'商务合作',t2:'资源互换',t3:'其他',desc:'说明'},
     chat:{ph:'输入消息…'},
     users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作'},
@@ -353,7 +336,6 @@ const i18n={
     kyb:{s1:'1. Cosmic laws guide direction',s2:'2. Zero-cost SI automation',s3:'3. Diagnosis finds problems',s4:'4. Auto-assemble elite team',s5:'5. Deliver customers with love',footnote:'Cosmic Laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
     btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Create Team',postDemand:'+ Post Demand',postTool:'+ Post Tool',postHero:'+ Post Elite',newSurvey:'+ New Survey',addMajor:'+ Add Category',viewAllTeams:'View all teams'},
     search:{generic:'Search…',team:'Search teams…',survey:'Search surveys…',cat:'Search categories…'},
-    quick:{jinzhu:'Demand',hero:'Elite',team:'Team',diag:'Diag'},
     coop:{name:'Name *',contact:'Contact *',type:'Type',t1:'Business',t2:'Resource swap',t3:'Other',desc:'Description'},
     chat:{ph:'Type a message…'},
     users:{phone:'Phone',role:'Role',date:'Registered',status:'Status',action:'Actions'},
@@ -377,12 +359,21 @@ function tl(val, fallback=''){
   if(val==null||val==='')return fallback||'';
   if(typeof val==='string')return val;
   if(typeof val==='object'){
-    const v=val[currentLang]||val.zh||val.en||Object.values(val).find(x=>x)||'';
+    const v=val[currentLang]||val.zh||val.en||Object.values(val).find(x=>x&&String(x).trim())||'';
     return (v==null||v==='')?(fallback||''):String(v);
   }
   return String(val);
 }
-/** 只更新某一语种，保留其它语种 */
+function tlStrict(val, lang){
+  lang=lang||currentLang;
+  if(val==null||val==='')return '';
+  if(typeof val==='string')return lang==='zh'?String(val):'';
+  if(typeof val==='object'){
+    const v=val[lang];
+    return (v!=null&&String(v).trim()!=='')?String(v).trim():'';
+  }
+  return '';
+}
 function mergeI18n(oldObj, lang, text){
   const base=(oldObj&&typeof oldObj==='object'&&!Array.isArray(oldObj))?{...oldObj}:{};
   if(typeof oldObj==='string'&&oldObj){base.zh=base.zh||oldObj;}
@@ -399,7 +390,6 @@ let homeCatsOpen=false, homeActiveMajor='';
 const teamKickVisible={},teamCardVisible={};
 const PAGE_SIZE=8; let homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1;
 const MSG_TYPE_LABEL={greeting:'问候',progress:'进展',event:'活动',case_request:'案例',trial_request:'试用'};
-const ROLE_MAP={jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'};
 const ROLE_CLS={jinzhu:'role-jinzhu',ai:'role-ai',admin:'role-admin',kefu:'role-kefu',shenhe:'role-shenhe',yingxiao:'role-yingxiao'};
 
 function getUser(){const u=localStorage.getItem('user');return u?JSON.parse(u):null;}
@@ -440,9 +430,20 @@ function dashiTools(d){
   return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')}));
 }
 function catDisplayName(c){return tl(c.name_i18n,c.name)||'';}
+function catNameStrict(c){
+  const s=tlStrict(c.name_i18n,currentLang);
+  if(s)return s;
+  if(currentLang==='zh'&&c.name)return String(c.name);
+  return '';
+}
 function catSubs(c){
-  if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>tl(s,typeof s==='string'?s:''));
-  if(Array.isArray(c.subs))return c.subs.map(s=>typeof s==='string'?s:tl(s,''));
+  if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>tl(s,typeof s==='string'?s:'')).filter(Boolean);
+  if(Array.isArray(c.subs))return c.subs.map(s=>typeof s==='string'?s:tl(s,'')).filter(Boolean);
+  return [];
+}
+function catSubsStrict(c){
+  if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>tlStrict(s,currentLang)).filter(Boolean);
+  if(currentLang==='zh'&&Array.isArray(c.subs))return c.subs.map(s=>typeof s==='string'?s:'').filter(Boolean);
   return [];
 }
 function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
@@ -459,6 +460,33 @@ function heroDisplayIntro(h){return tl(h.intro_i18n,h.intro)||'';}
 function heroDisplaySkillTitle(h){return tl(h.skill_title_i18n,h.skill_title)||'';}
 function heroDisplaySkillDesc(h){return tl(h.skill_desc_i18n,h.skill_desc)||'';}
 
+/** 160 搜索 */
+function dashiSearchText(d){
+  if(!d)return '';
+  const parts=[];
+  const push=v=>{
+    if(!v)return;
+    if(typeof v==='string'){parts.push(v);return;}
+    if(typeof v==='object')Object.values(v).forEach(x=>{if(x)parts.push(String(x));});
+  };
+  push(d.name_i18n);if(d.name)parts.push(d.name);
+  push(d.intro_i18n);if(d.intro)parts.push(d.intro);
+  push(d.motto_i18n);if(d.motto)parts.push(d.motto);
+  push(d.major_category_i18n);if(d.major_category)parts.push(d.major_category);
+  push(d.minor_category_i18n);if(d.minor_category)parts.push(d.minor_category);
+  if(d.tool_url)parts.push(d.tool_url);
+  const tools=Array.isArray(d.tools_i18n)?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);
+  tools.forEach(x=>{push(x.title);push(x.desc);});
+  parts.push(dashiDisplayName(d),dashiDisplayIntro(d),dashiDisplayMajor(d),dashiDisplayMinor(d));
+  return parts.join(' ').toLowerCase();
+}
+function filterDaShiByQ(list,q){
+  q=(q||'').trim().toLowerCase();
+  if(!q)return list;
+  const keys=q.split(/\s+/).filter(Boolean);
+  return list.filter(d=>{const blob=dashiSearchText(d);return keys.every(k=>blob.includes(k));});
+}
+
 function setLanguage(lang){
   if(!i18n[lang])lang='zh';
   currentLang=lang;
@@ -470,6 +498,7 @@ function setLanguage(lang){
   document.querySelectorAll('[data-i18n-title]').forEach(el=>{const text=t(el.getAttribute('data-i18n-title'));if(typeof text==='string')el.title=text;});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});
   document.title=t('brand');
+  homeActiveMajor='';
   renderUserArea();updateButtons();renderAll();
 }
 
@@ -505,9 +534,9 @@ function memberChipHtml(m,isOwner,teamId){
   const typeTag=isDashi?'SI':(isHero?'Elite':'M');
   const label=String(m.name||m.id||'').replace(/</g,'&lt;');
   const av=memberAvatarUrl(Object.assign({},m,{type}));
-  return `<span class="member-chip"><img class="${clickable?'clickable':''}" src="${av}" ${clickable?`onclick="${onClick}" style="cursor:pointer"`:''} onerror="this.src='${DEFAULT_AVATAR}'"><span>${label}<small style="opacity:.75">(${typeTag})</small></span><span class="power-icon">⚡${Number(m.power)||0}</span>${isOwner?`<button class="member-x" onclick="kickMember(${teamId},'${safeId}','${type}')">×</button>`:''}</span>`;
+  return `<span class="member-chip"><img src="${av}" ${clickable?`onclick="${onClick}" style="cursor:pointer"`:''} onerror="this.src='${DEFAULT_AVATAR}'"><span>${label}<small style="opacity:.75">(${typeTag})</small></span><span class="power-icon">⚡${Number(m.power)||0}</span>${isOwner?`<button class="member-x" onclick="kickMember(${teamId},'${safeId}')">×</button>`:''}</span>`;
 }
-function isAlreadyInTeam(members,id,type){const sid=String(id);if(!(members&&members.length))return false;return members.some(m=>String(m.id)===sid);}
+function isAlreadyInTeam(members,id){return !!(members&&members.some(m=>String(m.id)===String(id)));}
 async function resolveJoinIdentity(user){
   let displayName=user.phone,memberType='member',power=0,id=user.phone;
   if(user.role==='yingxiao'){const heroes=await fetchHero();const mine=heroes.find(h=>String(h.phone)===String(user.phone));if(mine){displayName=heroDisplayName(mine)||user.phone;memberType='hero';power=Number(mine.power)||0;id=mine.id;}}
@@ -602,16 +631,16 @@ async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){
   let added=0,skipped=0;
   for(const team of targetTeams){
     let members=Array.isArray(team.members)?[...team.members]:[];
-    if(isAlreadyInTeam(members,targetId,targetType)){skipped++;continue;}
+    if(isAlreadyInTeam(members,targetId)){skipped++;continue;}
     members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});
     const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;
   }
   alert(added?`OK ${added}`:(skipped?'Already in':'Fail'));
   renderTeam();renderJinZhu();renderFocus();
 }
-async function kickMember(teamId,memberId,type){
+async function kickMember(teamId,memberId){
   const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team||!canEdit(team))return;
-  const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)));
+  const members=(team.members||[]).filter(m=>String(m.id)!==String(memberId));
   await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();
 }
 async function joinTeam(teamId){
@@ -619,7 +648,7 @@ async function joinTeam(teamId){
   const ident=await resolveJoinIdentity(user);
   const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team)return;
   let members=Array.isArray(team.members)?[...team.members]:[];
-  if(isAlreadyInTeam(members,ident.id,ident.memberType))return alert('Already');
+  if(isAlreadyInTeam(members,ident.id))return alert('Already');
   members.push({id:ident.id,type:ident.memberType,name:ident.displayName,power:ident.power});
   await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderFocus();
 }
@@ -639,21 +668,44 @@ async function renderFocus(){
   box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);
 }
 
-async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
+async function toggleHomeCats(){
+  homeCatsOpen=!homeCatsOpen;
+  const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');
+  if(maj)maj.style.display=homeCatsOpen?'flex':'none';
+  if(min)min.style.display=homeCatsOpen?'flex':'none';
+  if(homeCatsOpen)await renderHomeCats();
+}
+/** 159 只显示当前语言大分类 */
 async function renderHomeCats(){
-  const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;
-  maj.innerHTML=cats.map(c=>{const n=catDisplayName(c);return `<span class="home-cat-tag ${homeActiveMajor===n?'active':''}" onclick="selectHomeMajor('${escapeAttr(n)}')">${n.replace(/</g,'&lt;')}</span>`;}).join('');
-  if(homeActiveMajor){const c=cats.find(x=>catDisplayName(x)===homeActiveMajor);const subs=c?catSubs(c):[];min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${String(s).replace(/</g,'&lt;')}</span>`).join('');}
-  else min.innerHTML='';
+  const cats=await fetchCategories();
+  const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');
+  if(!maj)return;
+  const visible=cats.map(c=>({c,name:catNameStrict(c)})).filter(x=>x.name);
+  maj.innerHTML=visible.map(({name})=>
+    `<span class="home-cat-tag ${homeActiveMajor===name?'active':''}" onclick="selectHomeMajor('${escapeAttr(name)}')">${name.replace(/</g,'&lt;')}</span>`
+  ).join('')||`<span style="font-size:12px;color:#94a3b8">${t('tip.noData')}</span>`;
+  if(homeActiveMajor){
+    const hit=visible.find(x=>x.name===homeActiveMajor);
+    const subs=hit?catSubsStrict(hit.c):[];
+    if(min)min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${String(s).replace(/</g,'&lt;')}</span>`).join('');
+  }else if(min)min.innerHTML='';
 }
 function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
 function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
 
+/** 160 正确搜索 */
 async function renderHome(){
   let list=await fetchDaShi();const admin=isAdmin();
-  if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor);
+  if(homeActiveMajor){
+    list=list.filter(d=>{
+      const maj=dashiDisplayMajor(d);
+      const majStrict=tlStrict(d.major_category_i18n,currentLang)||(currentLang==='zh'?(d.major_category||''):'');
+      return maj===homeActiveMajor||majStrict===homeActiveMajor||d.major_category===homeActiveMajor;
+    });
+  }
   const q=(document.getElementById('home-ds-q')||{}).value||'';
-  const pd=paginate(filterByQ(list.map(d=>({...d,_search:dashiDisplayName(d)+' '+dashiDisplayIntro(d)+' '+(d.tool_url||'')+' '+dashiDisplayMajor(d)+' '+dashiDisplayMinor(d)})),q),homeDsPage,PAGE_SIZE);
+  list=filterDaShiByQ(list,q);
+  const pd=paginate(list,homeDsPage,PAGE_SIZE);
   homeDsPage=pd.page;
   const box=document.getElementById('home-dashi-list');
   if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{
@@ -724,11 +776,9 @@ async function renderJinZhu(){
       <div class="card-desc"><b>${t('label.intro')}：</b>${jinzhuDisplayIntro(j).replace(/</g,'&lt;')}</div>
       <div class="card-desc"><b>${t('label.industry')}：</b><span class="tag tag-industry">${jinzhuDisplayType(j).replace(/</g,'&lt;')||'-'}</span></div>
       <div class="card-desc"><b>${t('label.detail')}：</b>${jinzhuDisplayDetail(j).replace(/</g,'&lt;')||'-'}</div>
-      <div class="card-desc"><b>${t('label.dream')}：</b>${jinzhuDisplayDream(j).replace(/</g,'&lt;')||'-'}</div>
-      <div class="card-desc"><b>${t('label.pains')}：</b></div>${jinzhuPains(j).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${(p.title||'').replace(/</g,'&lt;')}</b>：${(p.desc||'').replace(/</g,'&lt;')}</div>`).join('')}
       ${(isAdmin()||canEdit(j))?renderBizCard(j.card):''}
       ${teamBlockHtml(team,j,user,heroIds,dashiIds)}
-      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
+      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button></div>`:''}
     </div></div>`;
   }).join(''):emptyMsg;
   renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
@@ -741,24 +791,22 @@ async function renderDaShi(){
   if(matchContext&&matchContext.type==='jinzhu'){banner.innerHTML=`<div class="match-banner">「${matchContext.name}」· <a href="javascript:clearMatchContext()">clear</a></div>`;list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);}
   else{banner.innerHTML='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}}
   if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
-  const pg=paginate(filterByQ(list,(document.getElementById('ds-q')||{}).value||''),dsPage,PAGE_SIZE);dsPage=pg.page;
+  list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');
+  const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
   document.getElementById('dashi-list').innerHTML=pg.slice.length?pg.slice.map(d=>{
     const showInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao');
     const pn=escapeAttr(d.phone),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;
-    const focused=focusDashiId&&String(d.id)===String(focusDashiId);
     const tools=dashiTools(d);
-    return `<div class="card ${focused?'focus-card':''}" id="dashi-card-${d.id}"><div class="avatar avatar-dashi">SI</div><div class="card-content">
-      <div class="card-title">${dashiDisplayName(d).replace(/</g,'&lt;')}${dashiDisplayMajor(d)?`<span class="tag">${dashiDisplayMajor(d).replace(/</g,'&lt;')}</span>`:''}${dashiDisplayMinor(d)?`<span class="tag tag-sub">${dashiDisplayMinor(d).replace(/</g,'&lt;')}</span>`:''}
+    return `<div class="card" id="dashi-card-${d.id}"><div class="avatar avatar-dashi">SI</div><div class="card-content">
+      <div class="card-title">${dashiDisplayName(d).replace(/</g,'&lt;')}${dashiDisplayMajor(d)?`<span class="tag">${dashiDisplayMajor(d).replace(/</g,'&lt;')}</span>`:''}
         ${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button><button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">$</button>`:''}
       </div>
       <div class="card-desc"><b>${t('label.intro')}：</b>${dashiDisplayIntro(d).replace(/</g,'&lt;')}</div>
-      <div class="card-desc"><b>${t('label.major')}：</b>${dashiDisplayMajor(d)||'-'}　<b>${t('label.minor')}：</b>${dashiDisplayMinor(d)||'-'}　⚡${power}</div>
       <div class="card-desc"><b>${t('label.toolUrl')}：</b>${renderToolUrl(d.tool_url)}</div>
-      <div class="card-desc"><b>${t('label.motto')}：</b>${dashiDisplayMotto(d).replace(/</g,'&lt;')||'-'}</div>
       <div class="card-desc"><b>${t('label.tools')}：</b></div>${tools.map(x=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${(x.title||'').replace(/</g,'&lt;')}</b>：${(x.desc||'').replace(/</g,'&lt;')}</div>`).join('')}
       ${renderBizCard(d.card)}
-      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}<button class="x-icon" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
+      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}
     </div></div>`;
   }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);
   renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
@@ -769,17 +817,15 @@ async function renderHero(){
   const user=getUser();let list=await fetchHero();let emptyMsg='';
   if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
   else if(user.role==='yingxiao'){list=list.filter(x=>String(x.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('tip.noData')}</div>`;}
-  if(focusHeroId){const fid=String(focusHeroId);const idx=list.findIndex(x=>String(x.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('hero-q')||{}).value||''),heroPage,PAGE_SIZE);heroPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
   document.getElementById('hero-list').innerHTML=pg.slice.length?pg.slice.map(h=>{
     const pn=escapeAttr(h.phone),nm=escapeAttr(heroDisplayName(h)),power=Number(h.power)||0;
     const showInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='ai');
-    return `<div class="card" id="hero-card-${h.id}"><div class="avatar avatar-hero">★</div><div class="card-content">
+    return `<div class="card"><div class="avatar avatar-hero">★</div><div class="card-content">
       <div class="card-title">${heroDisplayName(h).replace(/</g,'&lt;')}${canEdit(h)?`<button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>`:''}</div>
       <div class="card-desc"><b>${t('label.intro')}：</b>${heroDisplayIntro(h).replace(/</g,'&lt;')}</div>
       <div class="card-desc"><b>${t('label.skill')}：</b>${heroDisplaySkillTitle(h).replace(/</g,'&lt;')||'-'}　⚡${power}</div>
-      <div class="card-desc"><b>${t('label.skillDesc')}：</b>${heroDisplaySkillDesc(h).replace(/</g,'&lt;')||'-'}</div>
       ${renderBizCard(h.card)}
       ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}
     </div></div>`;
@@ -813,12 +859,11 @@ async function renderQgen(){
   box.innerHTML=pg.slice.length?pg.slice.map(tpl=>{
     const can=canEdit({phone:tpl.phone})||isAdmin();
     return `<div class="card"><div class="avatar avatar-diag">Q</div><div class="card-content">
-      <div class="card-title">${(tpl.name||'').replace(/</g,'&lt;')} <span class="${tpl.status==='published'?'status-published':'status-draft'}">${tpl.status||''}</span>
+      <div class="card-title">${(tpl.name||'').replace(/</g,'&lt;')}
         ${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${tpl.id})">${t('btn.edit')}</button>`:''}
         <button class="btn btn-primary btn-sm" onclick="previewQgen(${tpl.id})">Preview</button>
         ${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${tpl.id})">${t('btn.del')}</button>`:''}
       </div>
-      <div class="card-desc">${(tpl.description||'').replace(/</g,'&lt;')}</div>
     </div></div>`;
   }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
   renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');
@@ -827,8 +872,8 @@ function goQgenPage(p){qgenPage=p;renderQgen();}
 function openAddQgen(){editingQgenId=null;showQgenForm();}
 async function editQgen(id){const item=(await fetchQgen()).find(x=>x.id===id);if(!item)return;editingQgenId=id;showQgenForm(item);}
 function showQgenForm(item=null){
-  const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<h3>${item?'Edit':'New'} Survey</h3>${langHintHtml()}
+  document.getElementById('modalBox').className='modal wide';
+  document.getElementById('modalBox').innerHTML=`<h3>${item?'Edit':'New'} Survey</h3>${langHintHtml()}
     <div class="form-group"><label>Name *</label><input id="qg-name" value="${item?(item.name||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>Industry</label><input id="qg-industry" value="${item?(item.industry||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>Desc</label><textarea id="qg-desc">${item?(item.description||''):''}</textarea></div>
@@ -846,15 +891,14 @@ async function saveQgen(){
 async function deleteQgen(id){if(!confirm('Delete?'))return;await sb.from('questionnaire_templates').delete().eq('id',id);renderQgen();}
 async function previewQgen(id){
   const tpl=(await fetchQgen()).find(x=>x.id===id);if(!tpl)return;
-  const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<h2>${(tpl.name||'').replace(/</g,'&lt;')}</h2><p>${(tpl.description||'').replace(/</g,'&lt;')}</p>
-    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button><button class="btn btn-primary" onclick="submitFilledQgen(${tpl.id},${tpl.team_id||0})">${t('btn.submit')}</button></div>`;
+  document.getElementById('modalBox').className='modal wide';
+  document.getElementById('modalBox').innerHTML=`<h2>${(tpl.name||'').replace(/</g,'&lt;')}</h2><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button><button class="btn btn-primary" onclick="submitFilledQgen(${tpl.id},${tpl.team_id||0})">${t('btn.submit')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
 }
 async function submitFilledQgen(tplId,teamId){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const row={id:Date.now(),template_id:tplId,team_id:teamId||null,phone:user.phone,industry:'survey',answers:{},status:'pending',report:'',report_link:''};
-  const {error}=await sb.from('diagnosis_surveys').insert(row);if(error)return alert(error.message);closeModal();switchView('diagnosis');
+  const {error}=await sb.from('diagnosis_surveys').insert({id:Date.now(),template_id:tplId,team_id:teamId||null,phone:user.phone,industry:'survey',answers:{},status:'pending',report:'',report_link:''});
+  if(error)return alert(error.message);closeModal();switchView('diagnosis');
 }
 async function renderDiagnosis(){
   const user=getUser();const box=document.getElementById('diagnosis-list');
@@ -867,7 +911,7 @@ async function renderDiagnosis(){
   renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');
 }
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
-async function viewDiagnosis(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;const box=document.getElementById('modalBox');box.className='modal wide';box.innerHTML=`<h3>#${id}</h3><pre style="white-space:pre-wrap;font-size:13px">${JSON.stringify(d.answers,null,2)}</pre><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function viewDiagnosis(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>#${id}</h3><pre style="white-space:pre-wrap;font-size:13px">${JSON.stringify(d.answers,null,2)}</pre><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function deleteDiagnosis(id){if(!confirm('Delete?'))return;await sb.from('diagnosis_surveys').delete().eq('id',id);renderDiagnosis();}
 
 async function renderInbox(){
@@ -881,14 +925,13 @@ function openSendMsgDirect(type,toPhone,toName){
   const content=prompt((MSG_TYPE_LABEL[type]||type)+' → '+(toName||toPhone));if(content==null||!content.trim())return;
   sb.from('messages').insert({id:Date.now(),from_phone:user.phone,to_phone:toPhone,msg_type:type,content:content.trim()}).then(({error})=>{if(error)alert(error.message);else alert('Sent');});
 }
-function reportTarget(phone,name){openSendMsgDirect('report','admin','report:'+(name||phone));}
 async function submitCoop(){
   const name=(document.getElementById('coop-name').value||'').trim(),contact=(document.getElementById('coop-contact').value||'').trim();
   if(!name||!contact)return alert('Required');
   const {error}=await sb.from('coop_records').insert({id:Date.now(),name,contact,type:document.getElementById('coop-type').value,desc:(document.getElementById('coop-desc').value||'').trim()});
   if(error)return alert(error.message);alert(t('tip.saved'));
 }
-async function renderCoopList(){const list=await fetchCoop();document.getElementById('coop-list').innerHTML=list.length?list.map(r=>`<div class="msg-item"><b>${(r.name||'').replace(/</g,'&lt;')}</b> ${ (r.contact||'').replace(/</g,'&lt;')} — ${(r.type||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
+async function renderCoopList(){const list=await fetchCoop();document.getElementById('coop-list').innerHTML=list.length?list.map(r=>`<div class="msg-item"><b>${(r.name||'').replace(/</g,'&lt;')}</b> ${(r.contact||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
 async function sendChat(){
   const user=getUser();const input=document.getElementById('chatInput');const text=(input.value||'').trim();if(!text)return;input.value='';
   await sb.from('chat_records').insert({id:Date.now(),phone:user?user.phone:'guest',content:text,role:'user'});
@@ -897,14 +940,24 @@ async function sendChat(){
 async function renderChatList(){const list=await fetchChat();document.getElementById('chat-list').innerHTML=list.length?list.map(c=>`<div class="msg-item"><b>${(c.phone||'').replace(/</g,'&lt;')}</b>：${(c.content||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
 async function renderUsers(){const list=await fetchUsers();document.getElementById('users-tbody').innerHTML=list.map(u=>`<tr><td>${u.phone}</td><td>${t('role.'+u.role)||u.role}</td><td>${u.created_at||'-'}</td><td>${u.blacklisted?'🚫':'OK'}</td><td></td></tr>`).join('');}
 
+/** 162 只显示当前语言分类 */
 async function renderCategories(){
   const list=await fetchCategories();
   const q=(document.getElementById('cat-q')||{}).value||'';
-  const filtered=filterByQ(list.map(c=>({...c,_s:catDisplayName(c)+' '+catSubs(c).join(' ')})),q);
-  document.getElementById('categories-list').innerHTML=filtered.length?filtered.map(c=>{
-    const subs=catSubs(c);
+  let visible=list.filter(c=>!!catNameStrict(c));
+  if(q.trim()){
+    const ql=q.trim().toLowerCase();
+    visible=visible.filter(c=>{
+      const n=catNameStrict(c).toLowerCase();
+      const subs=catSubsStrict(c).join(' ').toLowerCase();
+      return n.includes(ql)||subs.includes(ql);
+    });
+  }
+  document.getElementById('categories-list').innerHTML=visible.length?visible.map(c=>{
+    const name=catNameStrict(c);
+    const subs=catSubsStrict(c);
     return `<div class="card"><div class="avatar avatar-cat">C</div><div class="card-content">
-      <div class="card-title">${catDisplayName(c).replace(/</g,'&lt;')}
+      <div class="card-title">${name.replace(/</g,'&lt;')}
         ${isAdmin()?`<button class="btn btn-edit btn-sm" onclick="editCategory(${c.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteCategory(${c.id})">${t('btn.del')}</button>`:''}
       </div>
       <div>${subs.map(s=>`<span class="tag tag-sub">${String(s).replace(/</g,'&lt;')}</span>`).join('')}</div>
@@ -914,8 +967,8 @@ async function renderCategories(){
 function openAddCategory(){editingCategoryId=null;showCategoryForm();}
 async function editCategory(id){const item=(await fetchCategories()).find(c=>c.id===id);if(!item)return;editingCategoryId=id;showCategoryForm(item);}
 function showCategoryForm(item=null){
-  const nameVal=item?tl(item.name_i18n,item.name):'';
-  const subs=item?catSubs(item):[];
+  const nameVal=item?(catNameStrict(item)||tl(item.name_i18n,item.name)):'';
+  const subs=item?catSubsStrict(item):[];
   document.getElementById('modalBox').className='modal';
   document.getElementById('modalBox').innerHTML=`<h3>${item?'Edit':'Add'} Category</h3>${langHintHtml()}
     <div class="form-group"><label>${t('form.name')}</label><input id="cat-name" value="${nameVal.replace(/"/g,'&quot;')}"></div>
@@ -928,13 +981,9 @@ async function saveCategory(){
   const lines=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
   let old=null;if(editingCategoryId)old=(await fetchCategories()).find(c=>c.id===editingCategoryId);
   const name_i18n=mergeI18n(old?.name_i18n||old?.name,currentLang,name);
-  let subs_i18n=Array.isArray(old?.subs_i18n)?[...old.subs_i18n]:[];
-  // 当前语言：整表替换为用户输入的小分类列表
-  subs_i18n=lines.map((line,i)=>{
-    const prev=subs_i18n[i];
-    return mergeI18n(prev&&typeof prev==='object'?prev:(prev?{zh:String(prev)}:{}),currentLang,line);
-  });
-  const subs=subs_i18n.map(s=>tl(s,typeof s==='string'?s:''));
+  let prevSubs=Array.isArray(old?.subs_i18n)?[...old.subs_i18n]:[];
+  const subs_i18n=lines.map((line,i)=>mergeI18n(prevSubs[i]&&typeof prevSubs[i]==='object'?prevSubs[i]:{},currentLang,line));
+  const subs=subs_i18n.map(s=>s.zh||s.en||tl(s,''));
   const row={id:editingCategoryId||Date.now(),name:name_i18n.zh||name_i18n.en||name,name_i18n,subs,subs_i18n};
   let error;if(editingCategoryId)({error}=await sb.from('categories').update(row).eq('id',editingCategoryId));else({error}=await sb.from('categories').insert(row));
   if(error)return alert(error.message);closeModal();renderCategories();alert(t('tip.saved'));
@@ -945,7 +994,6 @@ function addPainItem(title='',desc=''){const box=document.getElementById('pain-l
 function addToolItem(title='',desc=''){const box=document.getElementById('tool-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="tool-title" value="${(title||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Desc</label><textarea class="tool-desc">${desc||''}</textarea></div>`;box.appendChild(div);}
 function addPerfItem(title='',desc=''){const box=document.getElementById('perf-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="perf-title" value="${(title||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Desc</label><textarea class="perf-desc">${desc||''}</textarea></div>`;box.appendChild(div);}
 
-/* ========== 158 单栏录入：金主 ========== */
 function openAddJinZhu(){editingJinZhuId=null;showJinZhuForm();}
 async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return alert('No permission');editingJinZhuId=id;showJinZhuForm(item);}
 function showJinZhuForm(item=null){
@@ -967,14 +1015,10 @@ function showJinZhuForm(item=null){
     <div class="form-group"><label>${t('form.difficulty')}</label><input id="jz-difficulty" type="number" value="${Number(item.difficulty)||0}"></div>
     <div class="form-group"><label>${t('form.reward')}</label><input id="jz-reward" value="${(item.reward||'').replace(/"/g,'&quot;')}"></div>
     <div style="margin:14px 0 8px"><b>${t('form.pains')}</b> <button type="button" class="btn btn-outline btn-sm" onclick="addPainItem()">+</button></div><div id="pain-list"></div>
-    <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb"><div style="font-weight:600;margin-bottom:8px">${t('form.card')}</div>
     <div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${item.card?item.card.person:''}"></div>
-    <div class="form-group"><label>${t('form.title')}</label><input id="jz-title" value="${item.card?(item.card.title||''):''}"></div>
     <div class="form-group"><label>${t('form.phone')}</label><input id="jz-phone" value="${phoneVal}" readonly style="background:#f3f4f6"></div>
-    <div class="form-group"><label>${t('form.email')}</label><input id="jz-email" value="${item.card?(item.card.email||''):''}"></div>
     <div class="form-group"><label>${t('form.wechat')}</label><input id="jz-wechat" value="${item.card?(item.card.wechat||''):''}"></div>
-    <div class="form-group"><label>${t('form.whatsapp')}</label><input id="jz-whatsapp" value="${item.card?(item.card.whatsapp||''):''}"></div>
-    <div class="form-group"><label>${t('form.website')}</label><input id="jz-website" value="${item.card?(item.card.website||''):''}"></div>
+    <div class="form-group"><label>${t('form.email')}</label><input id="jz-email" value="${item.card?(item.card.email||''):''}"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
   const pains=jinzhuPains(item);if(pains.length)pains.forEach(p=>addPainItem(p.title,p.desc));else addPainItem();
@@ -1005,7 +1049,7 @@ async function saveJinZhu(){
     person=document.getElementById('jz-person').value.trim();phone=document.getElementById('jz-phone').value.trim();wechat=document.getElementById('jz-wechat').value.trim();
     if(!name||!person||!phone||!wechat||!type)return alert('Required');
     difficulty=parseInt(document.getElementById('jz-difficulty').value)||0;reward=document.getElementById('jz-reward').value||'-';
-    title=document.getElementById('jz-title').value;email=document.getElementById('jz-email').value;whatsapp=document.getElementById('jz-whatsapp').value;website=document.getElementById('jz-website').value.trim();
+    title='';email=document.getElementById('jz-email')?document.getElementById('jz-email').value:'';whatsapp='';website='';
     pains=[];pains_i18n=[];
     const oldPains=Array.isArray(old?.pains_i18n)?old.pains_i18n:[];
     document.querySelectorAll('#pain-list .dynamic-item').forEach((el,i)=>{
@@ -1023,7 +1067,6 @@ async function autoCreateTeamForJinZhu(jin){const teams=await fetchTeam();if(tea
 async function conveneTeam(jinId){const jin=(await fetchJinZhu()).find(j=>j.id===jinId);if(!jin)return;await autoCreateTeamForJinZhu(jin);renderJinZhu();renderTeam();}
 async function deleteJinZhu(id){if(!confirm('Delete?'))return;await sb.from('jinzhu').delete().eq('id',id);renderAll();}
 
-/* ========== 158 单栏录入：SI 工具 ========== */
 function openAddDaShi(){editingDaShiId=null;showDaShiForm();}
 async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return alert('No permission');editingDaShiId=id;showDaShiForm(item);}
 function showDaShiForm(item=null){
@@ -1041,14 +1084,10 @@ function showDaShiForm(item=null){
     <div class="form-group"><label>${t('form.motto')}</label><input id="ds-motto" value="${item?dashiDisplayMotto(item).replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${String(toolUrl).replace(/"/g,'&quot;')}" placeholder="https://"></div>
     <div style="display:flex;justify-content:space-between;margin:14px 0 8px"><b>${t('form.tools')}</b><button type="button" class="btn btn-outline btn-sm" onclick="addToolItem()">+</button></div><div id="tool-list"></div>
-    <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb"><div style="font-weight:600;margin-bottom:8px">${t('form.card')}</div>
     <div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${item&&item.card?item.card.person:''}"></div>
-    <div class="form-group"><label>${t('form.title')}</label><input id="ds-title" value="${item&&item.card?(item.card.title||''):''}"></div>
     <div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${phoneVal}" readonly style="background:#f3f4f6"></div>
-    <div class="form-group"><label>${t('form.email')}</label><input id="ds-email" value="${item&&item.card?(item.card.email||''):''}"></div>
     <div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${item&&item.card?(item.card.wechat||''):''}"></div>
-    <div class="form-group"><label>${t('form.whatsapp')}</label><input id="ds-whatsapp" value="${item&&item.card?(item.card.whatsapp||''):''}"></div>
-    <div class="form-group"><label>${t('form.website')}</label><input id="ds-website" value="${item&&item.card?(item.card.website||''):''}"></div>
+    <div class="form-group"><label>${t('form.email')}</label><input id="ds-email" value="${item&&item.card?(item.card.email||''):''}"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
   const tools=item?dashiTools(item):[];
@@ -1058,11 +1097,13 @@ function showDaShiForm(item=null){
 async function fillDaShiCategorySelects(major,minor){
   const cats=await fetchCategories();
   const majSel=document.getElementById('ds-major'),minSel=document.getElementById('ds-minor');if(!majSel)return;
-  majSel.innerHTML='<option value="">—</option>'+cats.map(c=>{const n=catDisplayName(c);const raw=c.name||n;return `<option value="${String(raw).replace(/"/g,'&quot;')}" ${raw===major||n===major?'selected':''}>${n.replace(/</g,'&lt;')}</option>`;}).join('');
+  const visible=cats.map(c=>({c,label:catNameStrict(c)||catDisplayName(c),raw:c.name||catDisplayName(c)})).filter(x=>x.label);
+  majSel.innerHTML='<option value="">—</option>'+visible.map(x=>`<option value="${String(x.raw).replace(/"/g,'&quot;')}" ${x.raw===major||x.label===major?'selected':''}>${x.label.replace(/</g,'&lt;')}</option>`).join('');
   function fillMin(){
-    const v=majSel.value;const c=cats.find(x=>(x.name===v)||catDisplayName(x)===v);
-    const subs=c?catSubs(c):[];const rawSubs=c&&Array.isArray(c.subs)?c.subs:subs;
-    minSel.innerHTML='<option value="">—</option>'+(rawSubs||[]).map((s,i)=>{const label=subs[i]||s;const val=typeof s==='string'?s:(s.zh||s.en||label);return `<option value="${String(val).replace(/"/g,'&quot;')}" ${val===minor||label===minor?'selected':''}>${String(label).replace(/</g,'&lt;')}</option>`;}).join('');
+    const v=majSel.value;const hit=visible.find(x=>x.raw===v||x.label===v);
+    const subs=hit?catSubsStrict(hit.c):[];
+    const rawSubs=hit&&Array.isArray(hit.c.subs)?hit.c.subs:subs;
+    minSel.innerHTML='<option value="">—</option>'+(rawSubs||[]).map((s,i)=>{const label=subs[i]||(typeof s==='string'?s:tl(s,''));const val=typeof s==='string'?s:(s.zh||s.en||label);return `<option value="${String(val).replace(/"/g,'&quot;')}" ${val===minor||label===minor?'selected':''}>${String(label).replace(/</g,'&lt;')}</option>`;}).join('');
   }
   majSel.onchange=fillMin;fillMin();
 }
@@ -1090,20 +1131,17 @@ async function saveDaShi(){
   });
   const row={
     id:editingDaShiId||Date.now(),
-    name:name_i18n.zh||name_i18n.en||name,
-    intro:intro_i18n.zh||intro_i18n.en||intro,
-    motto:motto_i18n.zh||motto_i18n.en||motto,
+    name:name_i18n.zh||name_i18n.en||name,intro:intro_i18n.zh||intro_i18n.en||intro,motto:motto_i18n.zh||motto_i18n.en||motto,
     major_category:major,minor_category:minor,tool_url,
     name_i18n,intro_i18n,motto_i18n,tools,tools_i18n,major_category_i18n,minor_category_i18n,
     power:parseInt(document.getElementById('ds-power').value)||0,phone,
-    card:{person,title:document.getElementById('ds-title').value,phone,email:document.getElementById('ds-email').value,wechat,whatsapp:document.getElementById('ds-whatsapp').value,website:document.getElementById('ds-website').value.trim(),qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}
+    card:{person,title:'',phone,email:document.getElementById('ds-email').value,wechat,whatsapp:'',website:'',qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}
   };
   let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));
   if(error)return alert(error.message);closeModal();renderAll();alert(t('tip.saved'));
 }
 async function deleteDaShi(id){if(!confirm('Delete?'))return;await sb.from('dashi').delete().eq('id',id);renderAll();}
 
-/* ========== 158 单栏录入：精英 ========== */
 function openAddHero(){editingHeroId=null;showHeroForm();}
 async function editHero(id){const item=(await fetchHero()).find(h=>h.id===id);if(!item||!canEdit(item))return;editingHeroId=id;showHeroForm(item);}
 function showHeroForm(item=null){
