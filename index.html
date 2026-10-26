@@ -92,8 +92,6 @@ button,input,select,textarea{font:inherit}
 .form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
 .dynamic-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
 .remove-btn{position:absolute;top:8px;right:8px}
-.status-published{color:#047857;font-size:12px;font-weight:600}
-.status-draft{color:#94a3b8;font-size:12px}
 .badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
 .msg-item{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px}
 .msg-type{font-size:11px;background:#e0e7ff;color:#3730a3;padding:2px 6px;border-radius:4px;margin-right:6px}
@@ -119,7 +117,7 @@ th{background:#f8fafc;font-weight:600}
 .kyb-footnote{margin-top:14px;text-align:center;font-size:12px;color:#64748b;line-height:1.6}
 .kyb-footnote a{color:#2563eb}
 @media(min-width:768px){.kyb-hero{min-height:600px}.kyb-step-icon{width:48px;height:48px;font-size:20px}}
-.lang-select{padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;background:#fff;cursor:pointer}
+.lang-select{padding:6px 8px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;background:#fff;cursor:pointer;max-width:120px}
 .lang-hint{font-size:12px;color:#64748b;background:#f1f5f9;border-radius:8px;padding:8px 10px;margin-bottom:12px}
 .lang-hint b{color:#2563eb}
 </style>
@@ -156,6 +154,10 @@ th{background:#f8fafc;font-weight:600}
         <select id="langSelect" class="lang-select" onchange="setLanguage(this.value)">
           <option value="zh">中文</option>
           <option value="en">English</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="ru">Русский</option>
+          <option value="ja">日本語</option>
         </select>
         <div class="user-area" id="userArea"></div>
       </div>
@@ -309,8 +311,34 @@ const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
 const DEFAULT_AVATAR='https://api.dicebear.com/7.x/avataaars/svg?seed=dreamsi-default&backgroundColor=e0e7ff';
 
-const LANG_LABEL={zh:'中文',en:'English'};
-const i18n={
+const SUPPORTED_LANGS=['zh','en','de','fr','ru','ja'];
+const LANG_LABEL={zh:'中文',en:'English',de:'Deutsch',fr:'Français',ru:'Русский',ja:'日本語'};
+const LANG_HTML={zh:'zh-CN',en:'en',de:'de',fr:'fr',ru:'ru',ja:'ja'};
+
+/** 浏览器语言 → 支持的语种；不匹配则 en */
+function detectBrowserLang(){
+  const list=[];
+  if(navigator.languages&&navigator.languages.length)list.push(...navigator.languages);
+  if(navigator.language)list.push(navigator.language);
+  if(navigator.userLanguage)list.push(navigator.userLanguage);
+  for(const raw of list){
+    const low=String(raw||'').toLowerCase();
+    if(low.startsWith('zh'))return 'zh';
+    if(low.startsWith('en'))return 'en';
+    if(low.startsWith('de'))return 'de';
+    if(low.startsWith('fr'))return 'fr';
+    if(low.startsWith('ru'))return 'ru';
+    if(low.startsWith('ja'))return 'ja';
+  }
+  return 'en';
+}
+function getInitialLang(){
+  const saved=localStorage.getItem('dreamsi_lang');
+  if(saved&&SUPPORTED_LANGS.includes(saved))return saved;
+  return detectBrowserLang();
+}
+
+const i18nBase={
   zh:{
     brand:'梦想显化器',
     menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'📬 站内信',coop:'🤝 商务合作',chat:'💬 在线客服',categories:'🗂 大分类小分类',coopList:'📑 商务合作汇总',chatList:'🗂 在线客服汇总',users:'👤 用户管理',settings:'⚙️ 设置'},
@@ -342,15 +370,80 @@ const i18n={
     role:{jinzhu:'Client',ai:'AI Company',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},
     form:{name:'Name *',intro:'Intro',major:'Major category',minor:'Minor category',power:'Power',motto:'Motto',toolUrl:'Tool URL',tools:'Tools',card:'Business card',person:'Contact name *',title:'Title',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',loginTitle:'Phone login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm password *',roleLabel:'Role',langHint:'Input language: ',langHint2:'Fill only the language you know. Other languages can be added later.',skill:'Skill',skillDesc:'Skill detail',industry:'Industry',detail:'Detail',dream:'Dream',difficulty:'Difficulty',reward:'Reward',pains:'Pains',subs:'Subcategories (one per line)'},
     label:{intro:'Intro',major:'Major',minor:'Minor',power:'Power',toolUrl:'Tool URL',motto:'Motto',tools:'Tools',industry:'Industry',detail:'Detail',dream:'Dream',pains:'Pains',skill:'Skill',skillDesc:'Skill detail'}
+  },
+  de:{
+    brand:'Traum-Manifestierer',
+    menu:{home:'🏠 Start',kybalion:'📖 Kosmische Gesetze',focus:'🎯 Aktueller Fokus',team:'👥 Mein Superteam',jinzhu:'💰 Nachfragezentrum',dashi:'🤖 Superintelligenz',hero:'⭐ Elitezentrum',qgen:'📋 Umfrage-Builder',diagnosis:'🔎 Diagnosezentrum',inbox:'📬 Posteingang',coop:'🤝 Kooperation',chat:'💬 Live-Chat',categories:'🗂 Kategorien',coopList:'📑 Koop-Übersicht',chatList:'🗂 Chat-Übersicht',users:'👤 Benutzer',settings:'⚙️ Einstellungen'},
+    home:{siTools:'Superintelligenz-Tools',allCats:'Alle Hauptkategorien',toggleCats:'Ein-/Ausklappen',searchPh:'Name, Intro, URL, Kategorie suchen…'},
+    kyb:{s1:'1. Kosmische Gesetze weisen den Weg',s2:'2. Kostenlose SI-Automatisierung',s3:'3. Diagnose findet Probleme',s4:'4. Elite-Team automatisch bilden',s5:'5. Kunden mit Liebe liefern',footnote:'Kosmische Gesetze: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
+    btn:{login:'Anmelden',register:'Registrieren',logout:'Abmelden',submit:'Senden',send:'Senden',save:'Speichern',cancel:'Abbrechen',edit:'Bearbeiten',del:'Löschen',visit:'Besuchen',createTeam:'+ Team erstellen',postDemand:'+ Nachfrage',postTool:'+ Tool',postHero:'+ Elite',newSurvey:'+ Umfrage',addMajor:'+ Kategorie',viewAllTeams:'Alle Teams'},
+    search:{generic:'Suchen…',team:'Teams suchen…',survey:'Umfragen suchen…',cat:'Kategorien suchen…'},
+    coop:{name:'Name *',contact:'Kontakt *',type:'Typ',t1:'Geschäft',t2:'Ressourcentausch',t3:'Sonstiges',desc:'Beschreibung'},
+    chat:{ph:'Nachricht eingeben…'},
+    users:{phone:'Telefon',role:'Rolle',date:'Registriert',status:'Status',action:'Aktionen'},
+    settings:{placeholder:'Admin-Einstellungen'},
+    tip:{noData:'Keine Daten',loginFirst:'Bitte anmelden',noTools:'Noch keine Tools',noTeams:'Noch keine Teams',saved:'Gespeichert'},
+    role:{jinzhu:'Kunde',ai:'KI-Firma',admin:'Admin',kefu:'Support',shenhe:'Prüfer',yingxiao:'Elite'},
+    form:{name:'Name *',intro:'Intro',major:'Hauptkategorie',minor:'Unterkategorie',power:'Power',motto:'Motto',toolUrl:'Tool-URL',tools:'Tools',card:'Visitenkarte',person:'Kontaktname *',title:'Titel',phone:'Telefon *',email:'E-Mail',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',loginTitle:'Telefon-Login',regTitle:'Registrieren',pwd:'Passwort *',pwd2:'Passwort bestätigen *',roleLabel:'Rolle',langHint:'Eingabesprache: ',langHint2:'Nur die Sprache ausfüllen, die Sie beherrschen.',skill:'Fähigkeit',skillDesc:'Fähigkeitsdetail',industry:'Branche',detail:'Detail',dream:'Traum',difficulty:'Schwierigkeit',reward:'Belohnung',pains:'Schmerzpunkte',subs:'Unterkategorien (eine pro Zeile)'},
+    label:{intro:'Intro',major:'Haupt',minor:'Unter',power:'Power',toolUrl:'Tool-URL',motto:'Motto',tools:'Tools',industry:'Branche',detail:'Detail',dream:'Traum',pains:'Schmerzpunkte',skill:'Fähigkeit',skillDesc:'Detail'}
+  },
+  fr:{
+    brand:'Manifesteur de Rêves',
+    menu:{home:'🏠 Accueil',kybalion:'📖 Lois cosmiques',focus:'🎯 Focus actuel',team:'👥 Mon super équipe',jinzhu:'💰 Centre demandes',dashi:'🤖 Super intelligence',hero:'⭐ Centre élite',qgen:'📋 Créateur sondage',diagnosis:'🔎 Centre diagnostic',inbox:'📬 Boîte de réception',coop:'🤝 Coopération',chat:'💬 Chat en direct',categories:'🗂 Catégories',coopList:'📑 Résumé coop',chatList:'🗂 Résumé chat',users:'👤 Utilisateurs',settings:'⚙️ Paramètres'},
+    home:{siTools:'Outils super intelligence',allCats:'Toutes les grandes catégories',toggleCats:'Déplier/replier',searchPh:'Rechercher nom, intro, URL, catégorie…'},
+    kyb:{s1:'1. Les lois cosmiques guident',s2:'2. Automatisation SI sans coût',s3:'3. Le diagnostic trouve les problèmes',s4:'4. Assembler une équipe d\'élite',s5:'5. Livrer les clients avec amour',footnote:'Lois cosmiques : <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
+    btn:{login:'Connexion',register:'S\'inscrire',logout:'Déconnexion',submit:'Envoyer',send:'Envoyer',save:'Enregistrer',cancel:'Annuler',edit:'Modifier',del:'Supprimer',visit:'Visiter',createTeam:'+ Créer équipe',postDemand:'+ Demande',postTool:'+ Outil',postHero:'+ Élite',newSurvey:'+ Sondage',addMajor:'+ Catégorie',viewAllTeams:'Toutes les équipes'},
+    search:{generic:'Rechercher…',team:'Rechercher équipes…',survey:'Rechercher sondages…',cat:'Rechercher catégories…'},
+    coop:{name:'Nom *',contact:'Contact *',type:'Type',t1:'Affaires',t2:'Échange',t3:'Autre',desc:'Description'},
+    chat:{ph:'Écrire un message…'},
+    users:{phone:'Téléphone',role:'Rôle',date:'Inscrit',status:'Statut',action:'Actions'},
+    settings:{placeholder:'Paramètres admin'},
+    tip:{noData:'Aucune donnée',loginFirst:'Veuillez vous connecter',noTools:'Pas encore d\'outils',noTeams:'Pas encore d\'équipes',saved:'Enregistré'},
+    role:{jinzhu:'Client',ai:'Société IA',admin:'Admin',kefu:'Support',shenhe:'Réviseur',yingxiao:'Élite'},
+    form:{name:'Nom *',intro:'Intro',major:'Grande catégorie',minor:'Sous-catégorie',power:'Puissance',motto:'Devise',toolUrl:'URL outil',tools:'Outils',card:'Carte de visite',person:'Nom contact *',title:'Titre',phone:'Téléphone *',email:'E-mail',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Site web',loginTitle:'Connexion téléphone',regTitle:'Inscription',pwd:'Mot de passe *',pwd2:'Confirmer *',roleLabel:'Rôle',langHint:'Langue de saisie : ',langHint2:'Remplissez uniquement la langue que vous connaissez.',skill:'Compétence',skillDesc:'Détail compétence',industry:'Industrie',detail:'Détail',dream:'Rêve',difficulty:'Difficulté',reward:'Récompense',pains:'Douleurs',subs:'Sous-catégories (une par ligne)'},
+    label:{intro:'Intro',major:'Majeur',minor:'Mineur',power:'Puissance',toolUrl:'URL outil',motto:'Devise',tools:'Outils',industry:'Industrie',detail:'Détail',dream:'Rêve',pains:'Douleurs',skill:'Compétence',skillDesc:'Détail'}
+  },
+  ru:{
+    brand:'Манифестор мечты',
+    menu:{home:'🏠 Главная',kybalion:'📖 Космические законы',focus:'🎯 Текущий фокус',team:'👥 Моя суперкоманда',jinzhu:'💰 Центр спроса',dashi:'🤖 Суперинтеллект',hero:'⭐ Центр элиты',qgen:'📋 Конструктор опросов',diagnosis:'🔎 Центр диагностики',inbox:'📬 Входящие',coop:'🤝 Сотрудничество',chat:'💬 Чат',categories:'🗂 Категории',coopList:'📑 Сводка сотрудничества',chatList:'🗂 Сводка чата',users:'👤 Пользователи',settings:'⚙️ Настройки'},
+    home:{siTools:'Инструменты суперинтеллекта',allCats:'Все крупные категории',toggleCats:'Развернуть/свернуть',searchPh:'Поиск: имя, описание, URL, категория…'},
+    kyb:{s1:'1. Космические законы указывают путь',s2:'2. Бесплатная автоматизация СИ',s3:'3. Диагностика находит проблемы',s4:'4. Автосбор элитной команды',s5:'5. Доставка клиентов с любовью',footnote:'Космические законы: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
+    btn:{login:'Войти',register:'Регистрация',logout:'Выйти',submit:'Отправить',send:'Отправить',save:'Сохранить',cancel:'Отмена',edit:'Изменить',del:'Удалить',visit:'Открыть',createTeam:'+ Создать команду',postDemand:'+ Спрос',postTool:'+ Инструмент',postHero:'+ Элита',newSurvey:'+ Опрос',addMajor:'+ Категория',viewAllTeams:'Все команды'},
+    search:{generic:'Поиск…',team:'Поиск команд…',survey:'Поиск опросов…',cat:'Поиск категорий…'},
+    coop:{name:'Имя *',contact:'Контакт *',type:'Тип',t1:'Бизнес',t2:'Обмен',t3:'Другое',desc:'Описание'},
+    chat:{ph:'Введите сообщение…'},
+    users:{phone:'Телефон',role:'Роль',date:'Регистрация',status:'Статус',action:'Действия'},
+    settings:{placeholder:'Настройки администратора'},
+    tip:{noData:'Нет данных',loginFirst:'Сначала войдите',noTools:'Пока нет инструментов',noTeams:'Пока нет команд',saved:'Сохранено'},
+    role:{jinzhu:'Клиент',ai:'ИИ-компания',admin:'Админ',kefu:'Поддержка',shenhe:'Ревизор',yingxiao:'Элита'},
+    form:{name:'Имя *',intro:'Описание',major:'Крупная категория',minor:'Подкатегория',power:'Сила',motto:'Девиз',toolUrl:'URL инструмента',tools:'Инструменты',card:'Визитка',person:'Имя контакта *',title:'Должность',phone:'Телефон *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Сайт',loginTitle:'Вход по телефону',regTitle:'Регистрация',pwd:'Пароль *',pwd2:'Подтвердите пароль *',roleLabel:'Роль',langHint:'Язык ввода: ',langHint2:'Заполните только язык, которым владеете.',skill:'Навык',skillDesc:'Описание навыка',industry:'Отрасль',detail:'Детали',dream:'Мечта',difficulty:'Сложность',reward:'Награда',pains:'Боли',subs:'Подкатегории (по одной в строке)'},
+    label:{intro:'Описание',major:'Крупная',minor:'Под',power:'Сила',toolUrl:'URL',motto:'Девиз',tools:'Инструменты',industry:'Отрасль',detail:'Детали',dream:'Мечта',pains:'Боли',skill:'Навык',skillDesc:'Детали'}
+  },
+  ja:{
+    brand:'夢顕化器',
+    menu:{home:'🏠 ホーム',kybalion:'📖 宇宙法則',focus:'🎯 現在の顕化',team:'👥 マイ・スーパーチーム',jinzhu:'💰 需要センター',dashi:'🤖 スーパー知能',hero:'⭐ エリートセンター',qgen:'📋 アンケート作成',diagnosis:'🔎 診断センター',inbox:'📬 受信箱',coop:'🤝 ビジネス協力',chat:'💬 ライブチャット',categories:'🗂 カテゴリ',coopList:'📑 協力一覧',chatList:'🗂 チャット一覧',users:'👤 ユーザー',settings:'⚙️ 設定'},
+    home:{siTools:'スーパー知能ツール',allCats:'すべての大分類',toggleCats:'展開/折りたたみ',searchPh:'名前・紹介・URL・分類を検索…'},
+    kyb:{s1:'1. 宇宙法則が方向を示す',s2:'2. ゼロコストSI自動化',s3:'3. 診断で問題を発見',s4:'4. エリートチームを自動編成',s5:'5. 愛を込めて顧客を届ける',footnote:'宇宙法則：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
+    btn:{login:'ログイン',register:'登録',logout:'ログアウト',submit:'送信',send:'送信',save:'保存',cancel:'キャンセル',edit:'編集',del:'削除',visit:'訪問',createTeam:'+ チーム作成',postDemand:'+ 需要投稿',postTool:'+ ツール投稿',postHero:'+ エリート投稿',newSurvey:'+ 新規アンケート',addMajor:'+ 大分類追加',viewAllTeams:'すべてのチーム'},
+    search:{generic:'検索…',team:'チーム検索…',survey:'アンケート検索…',cat:'カテゴリ検索…'},
+    coop:{name:'名前 *',contact:'連絡先 *',type:'種類',t1:'ビジネス',t2:'リソース交換',t3:'その他',desc:'説明'},
+    chat:{ph:'メッセージを入力…'},
+    users:{phone:'電話',role:'役割',date:'登録日',status:'状態',action:'操作'},
+    settings:{placeholder:'管理者設定（予約）'},
+    tip:{noData:'データなし',loginFirst:'先にログインしてください',noTools:'ツールがまだありません',noTeams:'チームがまだありません',saved:'保存しました'},
+    role:{jinzhu:'顧客',ai:'AI企業',admin:'管理者',kefu:'サポート',shenhe:'審査',yingxiao:'エリート'},
+    form:{name:'名前 *',intro:'紹介',major:'大分類',minor:'小分類',power:'戦力',motto:'モットー',toolUrl:'ツールURL',tools:'ツール',card:'名刺',person:'連絡先名 *',title:'役職',phone:'電話 *',email:'メール',wechat:'WeChat *',whatsapp:'WhatsApp',website:'ウェブサイト',loginTitle:'電話ログイン',regTitle:'登録',pwd:'パスワード *',pwd2:'パスワード確認 *',roleLabel:'役割',langHint:'入力言語：',langHint2:'分かる言語だけ入力してください。他言語は後から追加できます。',skill:'スキル',skillDesc:'スキル詳細',industry:'業界',detail:'詳細',dream:'夢',difficulty:'難度',reward:'報酬',pains:'課題',subs:'小分類（1行に1つ）'},
+    label:{intro:'紹介',major:'大分類',minor:'小分類',power:'戦力',toolUrl:'ツールURL',motto:'モットー',tools:'ツール',industry:'業界',detail:'詳細',dream:'夢',pains:'課題',skill:'スキル',skillDesc:'詳細'}
   }
 };
+const i18n=i18nBase;
 
-let currentLang=localStorage.getItem('dreamsi_lang')||'zh';
+let currentLang=getInitialLang();
 function t(key){
   const parts=key.split('.');
   let o=i18n[currentLang]||i18n.zh;
   for(const p of parts){o=o?.[p];if(o==null)break;}
-  if(o==null){o=i18n.zh;for(const p of parts){o=o?.[p];if(o==null)return key;}}
+  if(o==null){o=i18n.en||i18n.zh;for(const p of parts){o=o?.[p];if(o==null){o=i18n.zh;for(const p2 of parts){o=o?.[p2];if(o==null)return key;}break;}}}
   return o;
 }
 function tl(val, fallback=''){
@@ -428,14 +521,14 @@ function dashiTools(d){
 }
 function catDisplayName(c){return tl(c.name_i18n,c.name)||'';}
 
-/** 163/165：有 name_i18n 时只认当前语言，禁止回退到 name（避免中文列出英文分类） */
+/** 166：严格只显示当前语言；有 name_i18n 对象时绝不回退 name */
 function catNameStrict(c){
   const ni=c.name_i18n;
   if(ni&&typeof ni==='object'&&!Array.isArray(ni)){
     const v=ni[currentLang];
     return (v!=null&&String(v).trim()!=='')?String(v).trim():'';
   }
-  if(currentLang==='zh'&&c.name)return String(c.name);
+  if(currentLang==='zh'&&(ni==null||ni==='')&&c.name)return String(c.name);
   return '';
 }
 function catSubsStrict(c){
@@ -448,7 +541,7 @@ function catSubsStrict(c){
       return currentLang==='zh'&&typeof s==='string'?s:'';
     }).filter(Boolean);
   }
-  if(currentLang==='zh'&&Array.isArray(c.subs)){
+  if(currentLang==='zh'&&Array.isArray(c.subs)&&!(c.subs_i18n&&c.subs_i18n.length)){
     return c.subs.map(s=>typeof s==='string'?s:'').filter(Boolean);
   }
   return [];
@@ -467,7 +560,6 @@ function heroDisplayIntro(h){return tl(h.intro_i18n,h.intro)||'';}
 function heroDisplaySkillTitle(h){return tl(h.skill_title_i18n,h.skill_title)||'';}
 function heroDisplaySkillDesc(h){return tl(h.skill_desc_i18n,h.skill_desc)||'';}
 
-/** 164 搜索：覆盖 name/name_i18n/分类/工具/URL */
 function dashiSearchText(d){
   if(!d)return '';
   const parts=[];
@@ -477,32 +569,25 @@ function dashiSearchText(d){
     if(Array.isArray(v)){v.forEach(push);return;}
     if(typeof v==='object')Object.keys(v).forEach(k=>push(v[k]));
   };
-  push(d.name);push(d.name_i18n);
-  push(d.intro);push(d.intro_i18n);
-  push(d.motto);push(d.motto_i18n);
-  push(d.major_category);push(d.major_category_i18n);
-  push(d.minor_category);push(d.minor_category_i18n);
-  push(d.tool_url);
+  push(d.name);push(d.name_i18n);push(d.intro);push(d.intro_i18n);
+  push(d.motto);push(d.motto_i18n);push(d.major_category);push(d.major_category_i18n);
+  push(d.minor_category);push(d.minor_category_i18n);push(d.tool_url);
   push(d.tools);push(d.tools_i18n);
-  push(dashiDisplayName(d));push(dashiDisplayIntro(d));
-  push(dashiDisplayMajor(d));push(dashiDisplayMinor(d));
+  push(dashiDisplayName(d));push(dashiDisplayIntro(d));push(dashiDisplayMajor(d));push(dashiDisplayMinor(d));
   return parts.join(' ').toLowerCase();
 }
 function filterDaShiByQ(list,q){
   q=(q||'').trim().toLowerCase();
   if(!q)return list;
   const keys=q.split(/\s+/).filter(Boolean);
-  return list.filter(d=>{
-    const blob=dashiSearchText(d);
-    return keys.every(k=>blob.includes(k));
-  });
+  return list.filter(d=>{const blob=dashiSearchText(d);return keys.every(k=>blob.includes(k));});
 }
 
 function setLanguage(lang){
-  if(!i18n[lang])lang='zh';
+  if(!SUPPORTED_LANGS.includes(lang))lang=detectBrowserLang();
   currentLang=lang;
   localStorage.setItem('dreamsi_lang',lang);
-  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+  document.documentElement.lang=LANG_HTML[lang]||lang;
   const sel=document.getElementById('langSelect');if(sel)sel.value=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const text=t(el.getAttribute('data-i18n'));if(typeof text==='string')el.textContent=text;});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});
@@ -708,9 +793,9 @@ async function renderHome(){
   if(homeActiveMajor){
     list=list.filter(d=>{
       const maj=dashiDisplayMajor(d);
-      const majZh=tlStrict(d.major_category_i18n,'zh')||d.major_category||'';
-      const majEn=tlStrict(d.major_category_i18n,'en');
-      return maj===homeActiveMajor||majZh===homeActiveMajor||majEn===homeActiveMajor||d.major_category===homeActiveMajor;
+      const keys=['zh','en','de','fr','ru','ja'];
+      const allMaj=keys.map(k=>tlStrict(d.major_category_i18n,k)).filter(Boolean);
+      return maj===homeActiveMajor||allMaj.includes(homeActiveMajor)||d.major_category===homeActiveMajor;
     });
   }
   const q=(document.getElementById('home-ds-q')||{}).value||'';
@@ -950,6 +1035,7 @@ async function sendChat(){
 async function renderChatList(){const list=await fetchChat();document.getElementById('chat-list').innerHTML=list.length?list.map(c=>`<div class="msg-item"><b>${(c.phone||'').replace(/</g,'&lt;')}</b>：${(c.content||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
 async function renderUsers(){const list=await fetchUsers();document.getElementById('users-tbody').innerHTML=list.map(u=>`<tr><td>${u.phone}</td><td>${t('role.'+u.role)||u.role}</td><td>${u.created_at||'-'}</td><td>${u.blacklisted?'🚫':'OK'}</td><td></td></tr>`).join('');}
 
+/** 166：分类页只显示当前语言 */
 async function renderCategories(){
   const list=await fetchCategories();
   const q=(document.getElementById('cat-q')||{}).value||'';
@@ -976,7 +1062,7 @@ async function renderCategories(){
 function openAddCategory(){editingCategoryId=null;showCategoryForm();}
 async function editCategory(id){const item=(await fetchCategories()).find(c=>c.id===id);if(!item)return;editingCategoryId=id;showCategoryForm(item);}
 function showCategoryForm(item=null){
-  const nameVal=item?(catNameStrict(item)||tl(item.name_i18n,item.name)):'';
+  const nameVal=item?(catNameStrict(item)||'') :'';
   const subs=item?catSubsStrict(item):[];
   document.getElementById('modalBox').className='modal';
   document.getElementById('modalBox').innerHTML=`<h3>${item?'Edit':'Add'} Category</h3>${langHintHtml()}
@@ -989,10 +1075,10 @@ async function saveCategory(){
   const name=(document.getElementById('cat-name').value||'').trim();if(!name)return alert('Required');
   const lines=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
   let old=null;if(editingCategoryId)old=(await fetchCategories()).find(c=>c.id===editingCategoryId);
-  const name_i18n=mergeI18n(old?.name_i18n||old?.name,currentLang,name);
+  const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);
   let prevSubs=Array.isArray(old?.subs_i18n)?[...old.subs_i18n]:[];
   const subs_i18n=lines.map((line,i)=>mergeI18n(prevSubs[i]&&typeof prevSubs[i]==='object'?prevSubs[i]:{},currentLang,line));
-  const subs=subs_i18n.map(s=>s.zh||s.en||tl(s,''));
+  const subs=subs_i18n.map(s=>s.zh||s.en||Object.values(s).find(Boolean)||'');
   const row={id:editingCategoryId||Date.now(),name:name_i18n.zh||name_i18n.en||name,name_i18n,subs,subs_i18n};
   let error;if(editingCategoryId)({error}=await sb.from('categories').update(row).eq('id',editingCategoryId));else({error}=await sb.from('categories').insert(row));
   if(error)return alert(error.message);closeModal();renderCategories();alert(t('tip.saved'));
@@ -1106,13 +1192,13 @@ function showDaShiForm(item=null){
 async function fillDaShiCategorySelects(major,minor){
   const cats=await fetchCategories();
   const majSel=document.getElementById('ds-major'),minSel=document.getElementById('ds-minor');if(!majSel)return;
-  const visible=cats.map(c=>({c,label:catNameStrict(c)||catDisplayName(c),raw:c.name||catDisplayName(c)})).filter(x=>x.label);
+  const visible=cats.map(c=>({c,label:catNameStrict(c),raw:c.name||catNameStrict(c)})).filter(x=>x.label);
   majSel.innerHTML='<option value="">—</option>'+visible.map(x=>`<option value="${String(x.raw).replace(/"/g,'&quot;')}" ${x.raw===major||x.label===major?'selected':''}>${x.label.replace(/</g,'&lt;')}</option>`).join('');
   function fillMin(){
     const v=majSel.value;const hit=visible.find(x=>x.raw===v||x.label===v);
     const subs=hit?catSubsStrict(hit.c):[];
     const rawSubs=hit&&Array.isArray(hit.c.subs)?hit.c.subs:subs;
-    minSel.innerHTML='<option value="">—</option>'+(rawSubs||[]).map((s,i)=>{const label=subs[i]||(typeof s==='string'?s:tl(s,''));const val=typeof s==='string'?s:(s.zh||s.en||label);return `<option value="${String(val).replace(/"/g,'&quot;')}" ${val===minor||label===minor?'selected':''}>${String(label).replace(/</g,'&lt;')}</option>`;}).join('');
+    minSel.innerHTML='<option value="">—</option>'+(rawSubs||[]).map((s,i)=>{const label=subs[i]||(typeof s==='string'?s:'');const val=typeof s==='string'?s:(s.zh||s.en||label);return `<option value="${String(val).replace(/"/g,'&quot;')}" ${val===minor||label===minor?'selected':''}>${String(label).replace(/</g,'&lt;')}</option>`;}).join('');
   }
   majSel.onchange=fillMin;fillMin();
 }
@@ -1216,7 +1302,8 @@ async function saveTeam(){
 function renderAll(){renderHome();renderJinZhu();renderDaShi();renderHero();renderTeam();renderFocus();}
 document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click',()=>{const v=el.dataset.view;if(v)switchView(v);});});
 (function init(){
-  const sel=document.getElementById('langSelect');if(sel)sel.value=currentLang;
+  const sel=document.getElementById('langSelect');
+  if(sel)sel.value=currentLang;
   setLanguage(currentLang);
   renderUserArea();updateButtons();updateAdminMenus();
   switchView('home');
