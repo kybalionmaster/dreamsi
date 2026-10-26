@@ -14,7 +14,7 @@ button,input,select,textarea{font:inherit}
 .app{display:flex;min-height:100vh}
 .sidebar{width:240px;background:linear-gradient(180deg,#0f172a,#1e293b);color:#e2e8f0;padding:16px 12px;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:40;transition:transform .25s}
 .sidebar .logo{display:flex;align-items:center;gap:10px;padding:8px 10px 18px;font-weight:700;font-size:16px;color:#fbbf24}
-.sidebar .logo span{width:32px;height:32px;border-radius:50%;background:#fbbf24;color:#0f172a;display:flex;align-items:center;justify-content:center;font-size:14px}
+.sidebar .logo span:first-child{width:32px;height:32px;border-radius:50%;background:#fbbf24;color:#0f172a;display:flex;align-items:center;justify-content:center;font-size:14px}
 .menu-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px;margin-bottom:2px;color:#cbd5e1}
 .menu-item:hover,.menu-item.active{background:rgba(251,191,36,.15);color:#fbbf24}
 .menu-item.admin-only{display:none}
@@ -33,18 +33,16 @@ button,input,select,textarea{font:inherit}
 .btn-edit{background:#e0e7ff;color:#3730a3}.btn-del{background:#fee2e2;color:#b91c1c}
 .btn-team{background:#d1fae5;color:#047857}.btn-savior{background:#fef3c7;color:#b45309}
 .btn-caishen{background:#fce7f3;color:#9d174d}.btn-survey{background:#ede9fe;color:#5b21b6}
-.btn-danger{background:#dc2626;color:#fff}.btn-warn{background:#f59e0b;color:#fff}
+.btn-danger{background:#dc2626;color:#fff}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn-icon-sm{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:16px;display:inline-flex;align-items:center;justify-content:center;padding:0}
-.btn-icon-sm:hover{background:#f1f5f9;border-color:#94a3b8}
 .search-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .search-bar input{flex:1;min-width:160px;padding:10px 14px;border:1px solid #cbd5e1;border-radius:24px;font-size:14px;outline:none}
-.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 .pager{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:14px}
 .pager a,.pager span{padding:6px 12px;border-radius:4px;color:#1a0dab}
 .pager .cur{color:#000;font-weight:700}.pager .disabled{color:#9ca3af}
 .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.card.focus-card,.card.priority-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.2)}
+.card.focus-card{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.2)}
 .avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
 .avatar-jinzhu{background:linear-gradient(135deg,#f59e0b,#d97706)}
 .avatar-dashi{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
@@ -60,8 +58,7 @@ button,input,select,textarea{font:inherit}
 .tag-power{background:#fef3c7;color:#b45309}.tag-reward{background:#fce7f3;color:#9d174d}
 .tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
 .home-cat-tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;cursor:pointer;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
-.home-cat-tag:hover{background:#e0e7ff;border-color:#a5b4fc;color:#3730a3}
-.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
+.home-cat-tag:hover{background:#e0e7ff}.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
 .empty-tip{text-align:center;color:#94a3b8;padding:40px 16px;font-size:14px}
 .role-badge{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
@@ -79,11 +76,9 @@ button,input,select,textarea{font:inherit}
 .member-list{display:flex;flex-wrap:wrap;gap:8px}
 .member-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:4px 10px 4px 4px;font-size:12px}
 .member-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#e2e8f0}
-.member-chip img.clickable{cursor:pointer}
 .member-chip .power-icon{color:#b45309;font-weight:600}
 .member-x,.team-x{width:22px;height:22px;border-radius:50%;border:none;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px;line-height:1;opacity:0;transition:opacity .15s}
 .team-show-kick .member-x,.team-title:hover .team-x,.team-box:hover .team-x{opacity:1}
-@media (hover:none){.team-show-kick .member-x{opacity:1}}
 .team-progress-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:10px}
 .team-progress-box h5{font-size:13px;margin-bottom:8px}
 .prog-item{font-size:13px;color:#334155;margin:4px 0}
@@ -103,7 +98,6 @@ button,input,select,textarea{font:inherit}
 .status-draft{color:#94a3b8;font-size:12px}
 .badge-ok{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
-.badge-black{background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:999px;font-size:11px}
 .survey-section{margin-bottom:18px}.survey-section h4{font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .survey-section .num{width:24px;height:24px;border-radius:50%;background:#2563eb;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
 .survey-q{margin-bottom:12px}.q-label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
@@ -128,34 +122,16 @@ th{background:#f8fafc;font-weight:600}
 .msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
 .msg.bot{text-align:left;margin:6px 0;color:#334155}
 .kybalion-wrap{max-width:480px;margin:0 auto}
-.kyb-hero{
-  position:relative;border-radius:18px;overflow:hidden;
-  box-shadow:0 8px 32px rgba(15,23,42,.14);
-  background:#0b1220 center top/cover no-repeat;
-  background-image:url('poster-vertical.jpg');
-  min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
-  padding:0 12px 18px;
-}
-.kyb-hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%);
-}
+.kyb-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(15,23,42,.14);background:#0b1220 center top/cover no-repeat;background-image:url('poster-vertical.jpg');min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 12px 18px}
+.kyb-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%)}
 .kyb-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.kyb-step-icon{
-  width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-  border:1px solid rgba(251,191,36,.65);
-  background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);
-  color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer;
-  box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .15s,box-shadow .15s;
-}
-.kyb-step-icon:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 6px 18px rgba(251,191,36,.4)}
-.kyb-footnote{margin-top:14px;text-align:center;font-size:12px;color:#64748b;letter-spacing:.04em;line-height:1.6}
-.kyb-footnote a{color:#2563eb;text-decoration:none;border-bottom:1px solid rgba(37,99,235,.3)}
+.kyb-step-icon{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(251,191,36,.65);background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.kyb-footnote{margin-top:14px;text-align:center;font-size:12px;color:#64748b;line-height:1.6}
+.kyb-footnote a{color:#2563eb}
 @media(min-width:768px){.kyb-hero{min-height:600px}.kyb-step-icon{width:48px;height:48px;font-size:20px}}
 .lang-select{padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;background:#fff;cursor:pointer;margin-right:8px}
-.i18n-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(max-width:600px){.i18n-pair{grid-template-columns:1fr}}
-.i18n-pair label{font-size:11px;color:#64748b}
+.lang-hint{font-size:12px;color:#64748b;background:#f1f5f9;border-radius:8px;padding:8px 10px;margin-bottom:12px}
+.lang-hint b{color:#2563eb}
 </style>
 </head>
 <body>
@@ -188,16 +164,16 @@ th{background:#f8fafc;font-weight:600}
         <span id="topTitle" data-i18n="brand">梦想显化器</span>
       </div>
       <div style="display:flex;align-items:center">
-        <select id="langSelect" class="lang-select" onchange="setLanguage(this.value)" title="Language">
+        <select id="langSelect" class="lang-select" onchange="setLanguage(this.value)">
           <option value="zh">中文</option>
           <option value="en">English</option>
         </select>
         <div class="quick-icons">
-          <button title="金主" data-i18n-title="quick.jinzhu" onclick="switchView('jinzhu')">金主</button>
-          <button title="SI" onclick="switchView('dashi')">SI</button>
-          <button title="精英" data-i18n-title="quick.hero" onclick="switchView('hero')">精英</button>
-          <button title="团队" data-i18n-title="quick.team" onclick="switchView('team')">团队</button>
-          <button title="诊" data-i18n-title="quick.diag" onclick="switchView('diagnosis')">诊</button>
+          <button data-i18n-title="quick.jinzhu" onclick="switchView('jinzhu')">金主</button>
+          <button onclick="switchView('dashi')">SI</button>
+          <button data-i18n-title="quick.hero" onclick="switchView('hero')">精英</button>
+          <button data-i18n-title="quick.team" onclick="switchView('team')">团队</button>
+          <button data-i18n-title="quick.diag" onclick="switchView('diagnosis')">诊</button>
         </div>
         <div class="user-area" id="userArea"></div>
       </div>
@@ -208,32 +184,30 @@ th{background:#f8fafc;font-weight:600}
         <h3 style="font-size:15px;margin:12px 0 8px" data-i18n="home.siTools">超级智能工具</h3>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
           <span style="font-size:13px;color:#64748b;font-weight:600" data-i18n="home.allCats">全部工具大分类</span>
-          <button type="button" class="btn-icon-sm" id="home-cat-toggle" title="展开/收起大分类" data-i18n-title="home.toggleCats" onclick="toggleHomeCats()">📂</button>
+          <button type="button" class="btn-icon-sm" data-i18n-title="home.toggleCats" onclick="toggleHomeCats()">📂</button>
         </div>
         <div id="home-major-tags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
         <div id="home-minor-tags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
         <div class="search-bar">
-          <input id="home-ds-q" data-i18n-placeholder="home.searchPh" placeholder="搜索工具名字、介绍、网址、大分类、小分类…" oninput="homeDsPage=1;renderHome()">
+          <input id="home-ds-q" data-i18n-placeholder="home.searchPh" placeholder="搜索…" oninput="homeDsPage=1;renderHome()">
         </div>
         <div id="home-dashi-list"></div>
         <div class="pager" id="home-ds-pager"></div>
       </div>
-
       <div class="view" id="view-kybalion">
         <div class="kybalion-wrap">
           <div class="kyb-hero">
             <div class="kyb-step-icons">
-            <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s1" title="1. 宇宙法则指引方向" onclick="switchView('kybalion')">✦</a>
-            <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s2" title="2. 超级智能零成本自动化执行" onclick="switchView('dashi')">⚙</a>
-            <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s3" title="3. 诊断问卷找出问题" onclick="switchView('diagnosis')">📡</a>
-            <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s4" title="4. 自动组合超级精英团队" onclick="switchView('team')">👥</a>
-            <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s5" title="5. 自动把客户送到企业怀抱" onclick="switchView('jinzhu')">♥</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s1" onclick="switchView('kybalion')">✦</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s2" onclick="switchView('dashi')">⚙</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s3" onclick="switchView('diagnosis')">📡</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s4" onclick="switchView('team')">👥</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" data-i18n-title="kyb.s5" onclick="switchView('jinzhu')">♥</a>
             </div>
           </div>
-          <div class="kyb-footnote" data-i18n-html="kyb.footnote">宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>，有缘者联系管理员。</div>
+          <div class="kyb-footnote" data-i18n-html="kyb.footnote">宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a></div>
         </div>
       </div>
-
       <div class="view" id="view-focus">
         <div class="view-header">
           <h2 data-i18n="menu.focus">🎯 当前显化中心</h2>
@@ -312,14 +286,17 @@ th{background:#f8fafc;font-weight:600}
       <div class="view" id="view-chat">
         <div class="view-header"><h2 data-i18n="menu.chat">💬 在线客服</h2></div>
         <div id="chatMessages"></div>
-        <div style="display:flex;gap:8px"><input id="chatInput" style="flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px" data-i18n-placeholder="chat.ph" placeholder="输入消息…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-primary" data-i18n="btn.send" onclick="sendChat()">发送</button></div>
+        <div style="display:flex;gap:8px">
+          <input id="chatInput" style="flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px" data-i18n-placeholder="chat.ph" placeholder="输入消息…" onkeydown="if(event.key==='Enter')sendChat()">
+          <button class="btn btn-primary" data-i18n="btn.send" onclick="sendChat()">发送</button>
+        </div>
       </div>
       <div class="view" id="view-categories">
         <div class="view-header">
           <h2 data-i18n="menu.categories">🗂 大分类小分类</h2>
           <button class="btn btn-primary btn-sm" id="btn-add-cat" data-i18n="btn.addMajor" onclick="openAddCategory()">+ 新增大分类</button>
         </div>
-        <div class="search-bar"><input id="cat-q" data-i18n-placeholder="search.cat" placeholder="搜索大分类 / 小分类…" oninput="renderCategories()"></div>
+        <div class="search-bar"><input id="cat-q" data-i18n-placeholder="search.cat" placeholder="搜索…" oninput="renderCategories()"></div>
         <div id="categories-list"></div>
       </div>
       <div class="view" id="view-coop-list">
@@ -350,7 +327,7 @@ const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
 const DEFAULT_AVATAR='https://api.dicebear.com/7.x/avataaars/svg?seed=dreamsi-default&backgroundColor=e0e7ff';
 
-/* ========== 157 多语言 ========== */
+const LANG_LABEL={zh:'中文',en:'English'};
 const i18n={
   zh:{
     brand:'梦想显化器',
@@ -364,16 +341,16 @@ const i18n={
     chat:{ph:'输入消息…'},
     users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作'},
     settings:{placeholder:'管理员设置（预留）'},
-    tip:{noData:'暂无数据',loginFirst:'请先登录',loading:'加载中…',noTools:'暂无超级智能工具',noTeams:'暂无团队',saved:'保存成功',deleted:'已删除'},
+    tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无超级智能工具',noTeams:'暂无团队',saved:'保存成功'},
     role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},
-    form:{nameZh:'名称（中文）*',nameEn:'名称（English）',introZh:'简介（中文）',introEn:'简介（English）',major:'大分类',minor:'小分类',power:'战力',mottoZh:'座右铭（中文）',mottoEn:'座右铭（English）',toolUrl:'工具网址',tools:'工具装备',card:'名片',person:'名片姓名 *',title:'职位',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'公司网址',loginTitle:'手机号登录',regTitle:'手机号注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色'},
-    label:{intro:'简介',major:'大分类',minor:'小分类',power:'战力',toolUrl:'工具网址',motto:'座右铭',tools:'工具',industry:'行业',detail:'详情',dream:'梦想',difficulty:'难度',reward:'重奖',pains:'痛点',skill:'技能',skillDesc:'技能详情'}
+    form:{name:'名称 *',intro:'简介',major:'大分类',minor:'小分类',power:'战力',motto:'座右铭',toolUrl:'工具网址',tools:'工具装备',card:'名片',person:'名片姓名 *',title:'职位',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'公司网址',loginTitle:'手机号登录',regTitle:'手机号注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填写您会的语言即可，其它语言可由他人或之后补全。',skill:'技能',skillDesc:'技能详情',industry:'行业',detail:'详情',dream:'梦想',difficulty:'难度',reward:'重奖',pains:'痛点',subs:'小分类（每行一个）'},
+    label:{intro:'简介',major:'大分类',minor:'小分类',power:'战力',toolUrl:'工具网址',motto:'座右铭',tools:'工具',industry:'行业',detail:'详情',dream:'梦想',pains:'痛点',skill:'技能',skillDesc:'技能详情'}
   },
   en:{
     brand:'Dream Manifestor',
     menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Current Focus',team:'👥 My Super Team',jinzhu:'💰 Demand Center',dashi:'🤖 Super Intelligence',hero:'⭐ Elite Center',qgen:'📋 Survey Builder',diagnosis:'🔎 Diagnosis Center',inbox:'📬 Inbox',coop:'🤝 Business Coop',chat:'💬 Live Chat',categories:'🗂 Categories',coopList:'📑 Coop Summary',chatList:'🗂 Chat Summary',users:'👤 Users',settings:'⚙️ Settings'},
-    home:{siTools:'Super Intelligence Tools',allCats:'All major categories',toggleCats:'Expand/collapse categories',searchPh:'Search name, intro, URL, category…'},
-    kyb:{s1:'1. Cosmic laws guide direction',s2:'2. Zero-cost SI automation',s3:'3. Diagnosis finds problems',s4:'4. Auto-assemble elite team',s5:'5. Deliver customers with love',footnote:'Cosmic Laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a> — contact admin if destined.'},
+    home:{siTools:'Super Intelligence Tools',allCats:'All major categories',toggleCats:'Expand/collapse',searchPh:'Search name, intro, URL, category…'},
+    kyb:{s1:'1. Cosmic laws guide direction',s2:'2. Zero-cost SI automation',s3:'3. Diagnosis finds problems',s4:'4. Auto-assemble elite team',s5:'5. Deliver customers with love',footnote:'Cosmic Laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
     btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Create Team',postDemand:'+ Post Demand',postTool:'+ Post Tool',postHero:'+ Post Elite',newSurvey:'+ New Survey',addMajor:'+ Add Category',viewAllTeams:'View all teams'},
     search:{generic:'Search…',team:'Search teams…',survey:'Search surveys…',cat:'Search categories…'},
     quick:{jinzhu:'Demand',hero:'Elite',team:'Team',diag:'Diag'},
@@ -381,10 +358,10 @@ const i18n={
     chat:{ph:'Type a message…'},
     users:{phone:'Phone',role:'Role',date:'Registered',status:'Status',action:'Actions'},
     settings:{placeholder:'Admin settings (placeholder)'},
-    tip:{noData:'No data',loginFirst:'Please log in first',loading:'Loading…',noTools:'No SI tools yet',noTeams:'No teams yet',saved:'Saved',deleted:'Deleted'},
+    tip:{noData:'No data',loginFirst:'Please log in first',noTools:'No SI tools yet',noTeams:'No teams yet',saved:'Saved'},
     role:{jinzhu:'Client',ai:'AI Company',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},
-    form:{nameZh:'Name (中文)*',nameEn:'Name (English)',introZh:'Intro (中文)',introEn:'Intro (English)',major:'Major category',minor:'Minor category',power:'Power',mottoZh:'Motto (中文)',mottoEn:'Motto (English)',toolUrl:'Tool URL',tools:'Tools',card:'Business card',person:'Contact name *',title:'Title',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',loginTitle:'Phone login',regTitle:'Phone register',pwd:'Password *',pwd2:'Confirm password *',roleLabel:'Role'},
-    label:{intro:'Intro',major:'Major',minor:'Minor',power:'Power',toolUrl:'Tool URL',motto:'Motto',tools:'Tools',industry:'Industry',detail:'Detail',dream:'Dream',difficulty:'Difficulty',reward:'Reward',pains:'Pains',skill:'Skill',skillDesc:'Skill detail'}
+    form:{name:'Name *',intro:'Intro',major:'Major category',minor:'Minor category',power:'Power',motto:'Motto',toolUrl:'Tool URL',tools:'Tools',card:'Business card',person:'Contact name *',title:'Title',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',loginTitle:'Phone login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm password *',roleLabel:'Role',langHint:'Input language: ',langHint2:'Fill only the language you know. Other languages can be added later.',skill:'Skill',skillDesc:'Skill detail',industry:'Industry',detail:'Detail',dream:'Dream',difficulty:'Difficulty',reward:'Reward',pains:'Pains',subs:'Subcategories (one per line)'},
+    label:{intro:'Intro',major:'Major',minor:'Minor',power:'Power',toolUrl:'Tool URL',motto:'Motto',tools:'Tools',industry:'Industry',detail:'Detail',dream:'Dream',pains:'Pains',skill:'Skill',skillDesc:'Skill detail'}
   }
 };
 
@@ -396,57 +373,32 @@ function t(key){
   if(o==null){o=i18n.zh;for(const p of parts){o=o?.[p];if(o==null)return key;}}
   return o;
 }
-/** 从 jsonb 多语言对象或旧字符串取当前语言文案 */
 function tl(val, fallback=''){
   if(val==null||val==='')return fallback||'';
   if(typeof val==='string')return val;
   if(typeof val==='object'){
-    const v=val[currentLang]||val.zh||val.en||'';
+    const v=val[currentLang]||val.zh||val.en||Object.values(val).find(x=>x)||'';
     return (v==null||v==='')?(fallback||''):String(v);
   }
   return String(val);
 }
-function mkI18n(zh,en){return {zh:(zh||'').trim(),en:(en||'').trim()};}
-function setLanguage(lang){
-  if(!i18n[lang])lang='zh';
-  currentLang=lang;
-  localStorage.setItem('dreamsi_lang',lang);
-  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
-  const sel=document.getElementById('langSelect');
-  if(sel)sel.value=lang;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key=el.getAttribute('data-i18n');
-    const text=t(key);
-    if(typeof text==='string')el.textContent=text;
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
-    const key=el.getAttribute('data-i18n-placeholder');
-    const text=t(key);
-    if(typeof text==='string')el.placeholder=text;
-  });
-  document.querySelectorAll('[data-i18n-title]').forEach(el=>{
-    const key=el.getAttribute('data-i18n-title');
-    const text=t(key);
-    if(typeof text==='string')el.title=text;
-  });
-  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
-    const key=el.getAttribute('data-i18n-html');
-    const text=t(key);
-    if(typeof text==='string')el.innerHTML=text;
-  });
-  document.title=t('brand');
-  renderUserArea();
-  updateButtons();
-  renderAll();
+/** 只更新某一语种，保留其它语种 */
+function mergeI18n(oldObj, lang, text){
+  const base=(oldObj&&typeof oldObj==='object'&&!Array.isArray(oldObj))?{...oldObj}:{};
+  if(typeof oldObj==='string'&&oldObj){base.zh=base.zh||oldObj;}
+  base[lang]=(text||'').trim();
+  return base;
+}
+function langHintHtml(){
+  return `<div class="lang-hint">${t('form.langHint')}<b>${LANG_LABEL[currentLang]||currentLang}</b>。${t('form.langHint2')}</div>`;
 }
 
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null;
 let focusDashiId=null,focusHeroId=null,qgenTeamContext=null;
 let homeCatsOpen=false, homeActiveMajor='';
-const teamKickVisible={};
-const teamCardVisible={};
+const teamKickVisible={},teamCardVisible={};
 const PAGE_SIZE=8; let homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1;
-const MSG_TYPE_LABEL={greeting:'美好的问候',progress:'成功进展报告',event:'活动邀请',case_request:'索取成功案例',trial_request:'请求试用'};
+const MSG_TYPE_LABEL={greeting:'问候',progress:'进展',event:'活动',case_request:'案例',trial_request:'试用'};
 const ROLE_MAP={jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'};
 const ROLE_CLS={jinzhu:'role-jinzhu',ai:'role-ai',admin:'role-admin',kefu:'role-kefu',shenhe:'role-shenhe',yingxiao:'role-yingxiao'};
 
@@ -457,27 +409,16 @@ function canEdit(item){const user=getUser();if(!user)return false;if(user.role==
 function escapeAttr(s){return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 function linkify(text){if(!text)return '';const e=String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');return e.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">$1</a>').replace(/\n/g,'<br>');}
 function renderToolUrl(url){
-  const u=(url||'').trim();
-  if(!u)return '-';
-  let href=u;
-  if(!/^https?:\/\//i.test(href))href='https://'+href;
+  const u=(url||'').trim();if(!u)return '-';
+  let href=u;if(!/^https?:\/\//i.test(href))href='https://'+href;
   return `<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${u.replace(/</g,'&lt;')}</a>`;
 }
-function openToolUrl(url){
-  const u=(url||'').trim();if(!u)return;
-  let href=u;if(!/^https?:\/\//i.test(href))href='https://'+href;
-  window.open(href,'_blank','noopener');
-}
-function paginate(arr,page,size){
-  const total=arr.length,pages=Math.max(1,Math.ceil(total/size));
-  page=Math.min(Math.max(1,page),pages);
-  return {page,pages,slice:arr.slice((page-1)*size,page*size)};
-}
+function openToolUrl(url){const u=(url||'').trim();if(!u)return;let href=u;if(!/^https?:\/\//i.test(href))href='https://'+href;window.open(href,'_blank','noopener');}
+function paginate(arr,page,size){const total=arr.length,pages=Math.max(1,Math.ceil(total/size));page=Math.min(Math.max(1,page),pages);return{page,pages,slice:arr.slice((page-1)*size,page*size)};}
 function renderPager(id,page,pages,fnName){
   const el=document.getElementById(id);if(!el)return;
   if(pages<=1){el.innerHTML='';return;}
-  let h='';
-  h+=page<=1?`<span class="disabled">«</span>`:`<a href="javascript:${fnName}(${page-1})">«</a>`;
+  let h=page<=1?`<span class="disabled">«</span>`:`<a href="javascript:${fnName}(${page-1})">«</a>`;
   for(let i=1;i<=pages;i++){
     if(i===page)h+=`<span class="cur">${i}</span>`;
     else if(pages>7&&Math.abs(i-page)>2&&i!==1&&i!==pages){if(i===2||i===pages-1)h+=`<span>…</span>`;}
@@ -486,22 +427,9 @@ function renderPager(id,page,pages,fnName){
   h+=page>=pages?`<span class="disabled">»</span>`:`<a href="javascript:${fnName}(${page+1})">»</a>`;
   el.innerHTML=h;
 }
-/** 搜索：同时匹配当前语言与 zh/en 及旧字段 */
-function textBlob(obj){
-  if(obj==null)return '';
-  if(typeof obj==='string'||typeof obj==='number')return String(obj);
-  if(Array.isArray(obj))return obj.map(textBlob).join(' ');
-  if(typeof obj==='object')return Object.values(obj).map(textBlob).join(' ');
-  return '';
-}
-function filterByQ(list,q){
-  q=(q||'').trim().toLowerCase();
-  if(!q)return list;
-  return list.filter(item=>{
-    const blob=textBlob(item).toLowerCase();
-    return blob.includes(q);
-  });
-}
+function textBlob(obj){if(obj==null)return '';if(typeof obj==='string'||typeof obj==='number')return String(obj);if(Array.isArray(obj))return obj.map(textBlob).join(' ');if(typeof obj==='object')return Object.values(obj).map(textBlob).join(' ');return '';}
+function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;return list.filter(item=>textBlob(item).toLowerCase().includes(q));}
+
 function dashiDisplayName(d){return tl(d.name_i18n,d.name)||'';}
 function dashiDisplayIntro(d){return tl(d.intro_i18n,d.intro)||'';}
 function dashiDisplayMotto(d){return tl(d.motto_i18n,d.motto)||'';}
@@ -509,10 +437,7 @@ function dashiDisplayMajor(d){return tl(d.major_category_i18n,d.major_category)|
 function dashiDisplayMinor(d){return tl(d.minor_category_i18n,d.minor_category)||'';}
 function dashiTools(d){
   const src=Array.isArray(d.tools_i18n)?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);
-  return src.map(t=>({
-    title:tl(t.title,typeof t.title==='string'?t.title:''),
-    desc:tl(t.desc,typeof t.desc==='string'?t.desc:'')
-  }));
+  return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')}));
 }
 function catDisplayName(c){return tl(c.name_i18n,c.name)||'';}
 function catSubs(c){
@@ -534,26 +459,31 @@ function heroDisplayIntro(h){return tl(h.intro_i18n,h.intro)||'';}
 function heroDisplaySkillTitle(h){return tl(h.skill_title_i18n,h.skill_title)||'';}
 function heroDisplaySkillDesc(h){return tl(h.skill_desc_i18n,h.skill_desc)||'';}
 
+function setLanguage(lang){
+  if(!i18n[lang])lang='zh';
+  currentLang=lang;
+  localStorage.setItem('dreamsi_lang',lang);
+  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+  const sel=document.getElementById('langSelect');if(sel)sel.value=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const text=t(el.getAttribute('data-i18n'));if(typeof text==='string')el.textContent=text;});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{const text=t(el.getAttribute('data-i18n-title'));if(typeof text==='string')el.title=text;});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});
+  document.title=t('brand');
+  renderUserArea();updateButtons();renderAll();
+}
+
 function getLocalPriorityTeamId(){const v=localStorage.getItem('priority_team_id');return v?Number(v):null;}
 function setLocalPriorityTeamId(id){if(id)localStorage.setItem('priority_team_id',String(id));else localStorage.removeItem('priority_team_id');}
 async function getPriorityTeamId(){
   const user=getUser();
-  if(user){
-    try{
-      const {data}=await sb.from('app_users').select('priority_team_id').eq('phone',user.phone).maybeSingle();
-      if(data&&data.priority_team_id)return Number(data.priority_team_id);
-    }catch(e){}
-  }
+  if(user){try{const {data}=await sb.from('app_users').select('priority_team_id').eq('phone',user.phone).maybeSingle();if(data&&data.priority_team_id)return Number(data.priority_team_id);}catch(e){}}
   return getLocalPriorityTeamId();
 }
 async function setPriorityTeam(teamId){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const id=Number(teamId);
-  setLocalPriorityTeamId(id);
-  try{
-    const {error}=await sb.from('app_users').update({priority_team_id:id}).eq('phone',user.phone);
-    if(error)console.warn(error.message);
-  }catch(e){console.warn(e);}
+  setLocalPriorityTeamId(Number(teamId));
+  try{await sb.from('app_users').update({priority_team_id:Number(teamId)}).eq('phone',user.phone);}catch(e){}
   switchView('focus');
 }
 function memberAvatarUrl(m){
@@ -563,49 +493,25 @@ function memberAvatarUrl(m){
   if(m&&m.type==='hero')return `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=fce7f3`;
   return DEFAULT_AVATAR;
 }
-function goMemberProfile(type,id){
-  id=String(id);
-  if(type==='dashi'){focusDashiId=id;focusHeroId=null;switchView('dashi');}
-  else if(type==='hero'){focusHeroId=id;focusDashiId=null;switchView('hero');}
-}
+function goMemberProfile(type,id){id=String(id);if(type==='dashi'){focusDashiId=id;focusHeroId=null;switchView('dashi');}else if(type==='hero'){focusHeroId=id;focusDashiId=null;switchView('hero');}}
 function memberChipHtml(m,isOwner,teamId){
   if(!m)return '';
   let type=(m.type||'member')+'';
   if(type==='si'||type==='SI'||type==='tool')type='dashi';
-  if(type==='yingxiao'||type==='elite'||type==='精英')type='hero';
+  if(type==='yingxiao'||type==='elite')type='hero';
   const isDashi=type==='dashi',isHero=type==='hero',clickable=isDashi||isHero;
   const safeId=escapeAttr(String(m.id));
   const onClick=isDashi?`goMemberProfile('dashi','${safeId}')`:(isHero?`goMemberProfile('hero','${safeId}')`:'');
-  const typeTag=isDashi?'SI':(isHero?(currentLang==='en'?'Elite':'精英'):(currentLang==='en'?'Member':'成员'));
+  const typeTag=isDashi?'SI':(isHero?'Elite':'M');
   const label=String(m.name||m.id||'').replace(/</g,'&lt;');
-  const av=memberAvatarUrl(Object.assign({},m,{type:type}));
-  return `<span class="member-chip">
-    <img class="${clickable?'clickable':''}" src="${av}" alt="" title="${clickable?'':''}"
-      ${clickable?`onclick="${onClick}" style="cursor:pointer"`:''}
-      onerror="this.src='${DEFAULT_AVATAR}'">
-    <span>${label}<small style="opacity:.75">(${typeTag})</small></span>
-    <span class="power-icon">⚡${Number(m.power)||0}</span>
-    ${isOwner?`<button class="member-x" title="×" onclick="kickMember(${teamId},'${safeId}','${type}')">×</button>`:''}
-  </span>`;
+  const av=memberAvatarUrl(Object.assign({},m,{type}));
+  return `<span class="member-chip"><img class="${clickable?'clickable':''}" src="${av}" ${clickable?`onclick="${onClick}" style="cursor:pointer"`:''} onerror="this.src='${DEFAULT_AVATAR}'"><span>${label}<small style="opacity:.75">(${typeTag})</small></span><span class="power-icon">⚡${Number(m.power)||0}</span>${isOwner?`<button class="member-x" onclick="kickMember(${teamId},'${safeId}','${type}')">×</button>`:''}</span>`;
 }
-function isAlreadyInTeam(members,id,type){
-  const sid=String(id);
-  if(!(members&&members.length))return false;
-  if(members.some(m=>String(m.id)===sid))return true;
-  const st=type||'member';
-  return members.some(m=>String(m.id)===sid&&(m.type||'member')===st);
-}
+function isAlreadyInTeam(members,id,type){const sid=String(id);if(!(members&&members.length))return false;return members.some(m=>String(m.id)===sid);}
 async function resolveJoinIdentity(user){
   let displayName=user.phone,memberType='member',power=0,id=user.phone;
-  if(user.role==='yingxiao'){
-    const heroes=await fetchHero();
-    const mine=heroes.find(h=>String(h.phone)===String(user.phone));
-    if(mine){displayName=heroDisplayName(mine)||user.phone;memberType='hero';power=Number(mine.power)||0;id=mine.id;}
-  }else if(user.role==='ai'){
-    const tools=await fetchDaShi();
-    const mine=tools.find(d=>String(d.phone)===String(user.phone));
-    if(mine){displayName=dashiDisplayName(mine)||user.phone;memberType='dashi';power=Number(mine.power)||0;id=mine.id;}
-  }
+  if(user.role==='yingxiao'){const heroes=await fetchHero();const mine=heroes.find(h=>String(h.phone)===String(user.phone));if(mine){displayName=heroDisplayName(mine)||user.phone;memberType='hero';power=Number(mine.power)||0;id=mine.id;}}
+  else if(user.role==='ai'){const tools=await fetchDaShi();const mine=tools.find(d=>String(d.phone)===String(user.phone));if(mine){displayName=dashiDisplayName(mine)||user.phone;memberType='dashi';power=Number(mine.power)||0;id=mine.id;}}
   return {displayName,memberType,power,id};
 }
 function memberMatchesUser(m,user,heroIds,dashiIds){
@@ -619,33 +525,27 @@ function memberMatchesUser(m,user,heroIds,dashiIds){
 function toggleTeamKick(teamId){teamKickVisible[teamId]=!teamKickVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
 function toggleTeamCard(teamId){teamCardVisible[teamId]=!teamCardVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
 function goQgenFromTeam(teamId,teamName){qgenTeamContext={teamId,teamName:teamName||''};switchView('qgen');}
-function toggleSidebar(open){
-  const sbEl=document.getElementById('sidebar'),ov=document.getElementById('sidebarOverlay');
-  if(open){sbEl.classList.add('open');ov.classList.add('open');}
-  else{sbEl.classList.remove('open');ov.classList.remove('open');}
-}
+function toggleSidebar(open){const sbEl=document.getElementById('sidebar'),ov=document.getElementById('sidebarOverlay');if(open){sbEl.classList.add('open');ov.classList.add('open');}else{sbEl.classList.remove('open');ov.classList.remove('open');}}
+
 async function fetchJinZhu(){const {data,error}=await sb.from('jinzhu').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
 async function fetchDaShi(){const {data,error}=await sb.from('dashi').select('*').order('id');if(error){console.error(error);return[];}return data||[];}
-async function fetchUsers(){const {data,error}=await sb.from('app_users').select('*').order('phone');if(error){console.error(error);return[];}return data||[];}
+async function fetchUsers(){const {data,error}=await sb.from('app_users').select('*').order('phone');if(error)return[];return data||[];}
 async function fetchCoop(){const {data,error}=await sb.from('coop_records').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchChat(){const {data,error}=await sb.from('chat_records').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
-async function fetchHero(){const {data,error}=await sb.from('hero').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-async function fetchTeam(){const {data,error}=await sb.from('team').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-async function fetchDiagnosis(){const {data,error}=await sb.from('diagnosis_surveys').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-async function fetchQgen(){const {data,error}=await sb.from('questionnaire_templates').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-async function fetchCategories(){const {data,error}=await sb.from('categories').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-async function fetchMessagesToMe(){const user=getUser();if(!user)return[];const {data,error}=await sb.from('messages').select('*').eq('to_phone',user.phone).order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
+async function fetchHero(){const {data,error}=await sb.from('hero').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+async function fetchTeam(){const {data,error}=await sb.from('team').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+async function fetchDiagnosis(){const {data,error}=await sb.from('diagnosis_surveys').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+async function fetchQgen(){const {data,error}=await sb.from('questionnaire_templates').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+async function fetchCategories(){const {data,error}=await sb.from('categories').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
+async function fetchMessagesToMe(){const user=getUser();if(!user)return[];const {data,error}=await sb.from('messages').select('*').eq('to_phone',user.phone).order('id',{ascending:false});if(error)return[];return data||[];}
 
-function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+(jinzhuDisplayDetail(j)||'')+' '+(jinzhuDisplayType(j)||'');}
-function accumulateTools(d){return dashiTools(d).map(t=>(t.title||'')+' '+(t.desc||'')).join(' ')+' '+(dashiDisplayIntro(d)||'')+' '+(dashiDisplayName(d)||'');}
-function textMatch(a,b){
-  const A=(a||'').toLowerCase().split(/\s+/).filter(Boolean);
-  const B=(b||'').toLowerCase();
-  let s=0;A.forEach(w=>{if(w.length>1&&B.includes(w))s++;});return s;
-}
-function goSavior(jinId){fetchJinZhu().then(list=>{const jin=list.find(j=>j.id===jinId);if(!jin)return alert('Not found');matchContext={type:'jinzhu',id:jin.id,name:jinzhuDisplayName(jin),text:accumulatePains(jin)};switchView('dashi');});}
-function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return alert('Not found');matchContext={type:'dashi',id:d.id,name:dashiDisplayName(d),text:accumulateTools(d)};switchView('jinzhu');});}
+function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+jinzhuDisplayDetail(j)+' '+jinzhuDisplayType(j);}
+function accumulateTools(d){return dashiTools(d).map(x=>(x.title||'')+' '+(x.desc||'')).join(' ')+' '+dashiDisplayIntro(d)+' '+dashiDisplayName(d);}
+function textMatch(a,b){const A=(a||'').toLowerCase().split(/\s+/).filter(Boolean);const B=(b||'').toLowerCase();let s=0;A.forEach(w=>{if(w.length>1&&B.includes(w))s++;});return s;}
+function goSavior(jinId){fetchJinZhu().then(list=>{const jin=list.find(j=>j.id===jinId);if(!jin)return;matchContext={type:'jinzhu',id:jin.id,name:jinzhuDisplayName(jin),text:accumulatePains(jin)};switchView('dashi');});}
+function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return;matchContext={type:'dashi',id:d.id,name:dashiDisplayName(d),text:accumulateTools(d)};switchView('jinzhu');});}
 function clearMatchContext(){matchContext=null;renderJinZhu();renderDaShi();}
+
 function switchView(view){
   document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -653,27 +553,13 @@ function switchView(view){
   toggleSidebar(false);
   if(view!=='dashi')focusDashiId=null;
   if(view!=='hero')focusHeroId=null;
-  if(view==='home')renderHome();
-  if(view==='focus')renderFocus();
-  if(view==='jinzhu')renderJinZhu();
-  if(view==='dashi')renderDaShi();
-  if(view==='hero')renderHero();
-  if(view==='team')renderTeam();
-  if(view==='diagnosis')renderDiagnosis();
-  if(view==='qgen')renderQgen();
-  if(view==='inbox')renderInbox();
-  if(view==='users')renderUsers();
-  if(view==='coop-list')renderCoopList();
-  if(view==='chat-list')renderChatList();
-  if(view==='categories')renderCategories();
+  const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,'chat-list':renderChatList,categories:renderCategories};
+  if(map[view])map[view]();
 }
 function renderUserArea(){
   const area=document.getElementById('userArea'),user=getUser();
   if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">${t('btn.login')}</button><button class="btn btn-primary" onclick="openModal('register')">${t('btn.register')}</button>`;
-  else{
-    const roleLabel=t('role.'+user.role)||ROLE_MAP[user.role]||user.role;
-    area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||'role-jinzhu'}">${roleLabel}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;
-  }
+  else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||''}">${t('role.'+user.role)||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;
 }
 function updateButtons(){
   const user=getUser();
@@ -700,139 +586,88 @@ async function doLogin(){
 }
 async function doRegister(){
   const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;
-  if(!phone||!pwd)return alert('Required');if(pwd!==pwd2)return alert('Password mismatch');if(pwd.length<4)return alert('Min 4 chars');
-  if(!['jinzhu','ai','yingxiao'].includes(role))return alert('Invalid role');
-  const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('Already registered');
+  if(!phone||!pwd)return alert('Required');if(pwd!==pwd2)return alert('Mismatch');if(pwd.length<4)return alert('Min 4');
+  const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('Exists');
   const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});
-  if(error)return alert(error.message);
-  setUser({phone,role});closeModal();switchView('dashi');
+  if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('dashi');
 }
-function renderBizCard(card){if(!card)return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">${site.replace(/</g,'&lt;')}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${card.person||'-'}</b> · ${card.title||''}</div><div>📱 ${card.phone||'-'}</div><div>✉️ ${card.email||'-'}</div><div>💬 WeChat：${card.wechat||'-'}</div><div>🟢 WhatsApp：${card.whatsapp||'-'}</div><div>🌐 ${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;}
+function renderBizCard(card){if(!card)return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb">${site.replace(/</g,'&lt;')}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${card.person||'-'}</b> · ${card.title||''}</div><div>📱 ${card.phone||'-'}</div><div>✉️ ${card.email||'-'}</div><div>💬 ${card.wechat||'-'}</div><div>🟢 ${card.whatsapp||'-'}</div><div>🌐 ${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=wechat'}" alt="QR"></div></div>`;}
 
 async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
   if(user.role!=='jinzhu'&&user.role!=='admin')return alert('Only client/admin');
   const teams=await fetchTeam();
-  let targetTeams=user.role==='admin'?teams:teams.filter(t=>String(t.phone)===String(user.phone));
-  if(!targetTeams.length)return alert('Create a team first');
+  let targetTeams=user.role==='admin'?teams:teams.filter(tm=>String(tm.phone)===String(user.phone));
+  if(!targetTeams.length)return alert('Create team first');
   let added=0,skipped=0;
   for(const team of targetTeams){
     let members=Array.isArray(team.members)?[...team.members]:[];
     if(isAlreadyInTeam(members,targetId,targetType)){skipped++;continue;}
     members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});
-    const {error}=await sb.from('team').update({members}).eq('id',team.id);
-    if(!error)added++;
+    const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;
   }
-  if(added>0)alert(`OK ${added}`+(skipped?` (skip ${skipped})`:''));
-  else alert(skipped?'Already in team':'Failed');
+  alert(added?`OK ${added}`:(skipped?'Already in':'Fail'));
   renderTeam();renderJinZhu();renderFocus();
 }
 async function kickMember(teamId,memberId,type){
-  const teams=await fetchTeam();const team=teams.find(t=>t.id===teamId);if(!team||!canEdit(team))return;
-  const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)&&(m.type||'member')===(type||'member')));
-  await sb.from('team').update({members}).eq('id',teamId);
-  renderTeam();renderJinZhu();renderFocus();
+  const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team||!canEdit(team))return;
+  const members=(team.members||[]).filter(m=>!(String(m.id)===String(memberId)));
+  await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();
 }
 async function joinTeam(teamId){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
   const ident=await resolveJoinIdentity(user);
-  const teams=await fetchTeam();const team=teams.find(t=>t.id===teamId);if(!team)return;
+  const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team)return;
   let members=Array.isArray(team.members)?[...team.members]:[];
-  if(isAlreadyInTeam(members,ident.id,ident.memberType))return alert('Already in team');
+  if(isAlreadyInTeam(members,ident.id,ident.memberType))return alert('Already');
   members.push({id:ident.id,type:ident.memberType,name:ident.displayName,power:ident.power});
-  await sb.from('team').update({members}).eq('id',teamId);
-  renderTeam();renderFocus();
+  await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderFocus();
 }
-async function disbandTeam(teamId){
-  if(!confirm('OK?'))return;
-  await sb.from('team').delete().eq('id',teamId);
-  renderTeam();renderJinZhu();renderFocus();
-}
+async function disbandTeam(teamId){if(!confirm('OK?'))return;await sb.from('team').delete().eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
 function generateTeamName(phone){return 'Team-'+(phone||'').slice(-4)+'-'+Date.now().toString().slice(-4);}
 
 async function renderFocus(){
   const box=document.getElementById('focus-list');if(!box)return;
   const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}
-  const pid=await getPriorityTeamId();
-  const teams=await fetchTeam();
-  const allJinZhu=await fetchJinZhu();
-  let t=teams.find(x=>Number(x.id)===Number(pid));
-  if(!t){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}
-  const linkedJin=allJinZhu.find(j=>String(j.id)===String(t.jinzhu_id));
+  const pid=await getPriorityTeamId();const teams=await fetchTeam();const allJinZhu=await fetchJinZhu();
+  const tm=teams.find(x=>Number(x.id)===Number(pid));
+  if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}
+  const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));
   let heroIds=new Set(),dashiIds=new Set();
-  const heroes=await fetchHero();heroes.filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
-  const tools=await fetchDaShi();tools.filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
-  const isMember=(t.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds));
-  box.innerHTML=renderOneTeamCard(t,linkedJin,user,{isPriority:true,isMember});
-}
-function renderOneTeamCard(team,j,user,opts){
-  return teamBlockHtml(team,j,user,null,null);
+  (await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
+  (await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
+  box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);
 }
 
-async function toggleHomeCats(){
-  homeCatsOpen=!homeCatsOpen;
-  const maj=document.getElementById('home-major-tags');
-  const min=document.getElementById('home-minor-tags');
-  if(maj)maj.style.display=homeCatsOpen?'flex':'none';
-  if(min)min.style.display=homeCatsOpen?'flex':'none';
-  if(homeCatsOpen)await renderHomeCats();
-}
+async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
 async function renderHomeCats(){
-  const cats=await fetchCategories();
-  const maj=document.getElementById('home-major-tags');
-  const min=document.getElementById('home-minor-tags');
-  if(!maj)return;
-  maj.innerHTML=cats.map(c=>{
-    const n=catDisplayName(c);
-    const active=homeActiveMajor===n?'active':'';
-    return `<span class="home-cat-tag ${active}" onclick="selectHomeMajor('${escapeAttr(n)}')">${n.replace(/</g,'&lt;')}</span>`;
-  }).join('')||'';
-  if(homeActiveMajor){
-    const c=cats.find(x=>catDisplayName(x)===homeActiveMajor);
-    const subs=c?catSubs(c):[];
-    min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${String(s).replace(/</g,'&lt;')}</span>`).join('');
-  }else min.innerHTML='';
+  const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;
+  maj.innerHTML=cats.map(c=>{const n=catDisplayName(c);return `<span class="home-cat-tag ${homeActiveMajor===n?'active':''}" onclick="selectHomeMajor('${escapeAttr(n)}')">${n.replace(/</g,'&lt;')}</span>`;}).join('');
+  if(homeActiveMajor){const c=cats.find(x=>catDisplayName(x)===homeActiveMajor);const subs=c?catSubs(c):[];min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${String(s).replace(/</g,'&lt;')}</span>`).join('');}
+  else min.innerHTML='';
 }
 function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
-function filterHomeByMinor(s){
-  const inp=document.getElementById('home-ds-q');
-  if(inp)inp.value=s;
-  homeDsPage=1;renderHome();
-}
+function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
 
 async function renderHome(){
-  const dashi=await fetchDaShi(),admin=isAdmin();
-  let list=dashi;
+  let list=await fetchDaShi();const admin=isAdmin();
   if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor);
   const q=(document.getElementById('home-ds-q')||{}).value||'';
-  const pd=paginate(filterByQ(list.map(d=>({
-    ...d,
-    _search:dashiDisplayName(d)+' '+dashiDisplayIntro(d)+' '+(d.tool_url||'')+' '+dashiDisplayMajor(d)+' '+dashiDisplayMinor(d)+' '+dashiTools(d).map(x=>x.title+' '+x.desc).join(' ')
-  })),q),homeDsPage,PAGE_SIZE);
+  const pd=paginate(filterByQ(list.map(d=>({...d,_search:dashiDisplayName(d)+' '+dashiDisplayIntro(d)+' '+(d.tool_url||'')+' '+dashiDisplayMajor(d)+' '+dashiDisplayMinor(d)})),q),homeDsPage,PAGE_SIZE);
   homeDsPage=pd.page;
   const box=document.getElementById('home-dashi-list');
-  if(box) box.innerHTML=pd.slice.length?pd.slice.map(d=>{
+  if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{
     const hasUrl=!!((d.tool_url||'').trim());
-    const name=dashiDisplayName(d);
-    const intro=dashiDisplayIntro(d);
-    const major=dashiDisplayMajor(d);
-    const minor=dashiDisplayMinor(d);
-    return `<div class="card">
-      <div class="avatar avatar-dashi">SI</div>
-      <div class="card-content">
-        <div class="card-title">${name.replace(/</g,'&lt;')}
-          ${major?` <span class="tag">${major.replace(/</g,'&lt;')}</span>`:''}
-          ${minor?` <span class="tag tag-sub">${minor.replace(/</g,'&lt;')}</span>`:''}
-          <span class="tag tag-power">⚡${Number(d.power)||0}</span>
-          ${admin?` <button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}
-        </div>
-        <div class="card-desc">${intro.replace(/</g,'&lt;')}</div>
-        ${admin?`<div class="card-desc"><b>${t('label.toolUrl')}：</b>${renderToolUrl(d.tool_url)}</div>`:''}
-        <div style="margin-top:8px">
-          <button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>
-        </div>
+    return `<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content">
+      <div class="card-title">${dashiDisplayName(d).replace(/</g,'&lt;')}
+        ${dashiDisplayMajor(d)?`<span class="tag">${dashiDisplayMajor(d).replace(/</g,'&lt;')}</span>`:''}
+        ${dashiDisplayMinor(d)?`<span class="tag tag-sub">${dashiDisplayMinor(d).replace(/</g,'&lt;')}</span>`:''}
+        <span class="tag tag-power">⚡${Number(d.power)||0}</span>
+        ${admin?`<button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}
       </div>
-    </div>`;
+      <div class="card-desc">${dashiDisplayIntro(d).replace(/</g,'&lt;')}</div>
+      <div style="margin-top:8px"><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button></div>
+    </div></div>`;
   }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
   if(homeCatsOpen)renderHomeCats();
@@ -845,15 +680,11 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds){
   const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
   const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));
   const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);
-  const showKick=!!teamKickVisible[team.id];
-  const showCard=!!teamCardVisible[team.id];
+  const showKick=!!teamKickVisible[team.id],showCard=!!teamCardVisible[team.id];
   const canSeeProgress=user&&(user.role==='jinzhu'||user.role==='admin');
   const canJoin=user&&!isMember&&!isOwner;
   const perfs=Array.isArray(team.performances)?team.performances:[];
-  const perfHtml=perfs.length
-    ? perfs.map(p=>`<div class="prog-item">• <b>${(p.title||'').replace(/</g,'&lt;')}</b>：${(p.desc||'').replace(/</g,'&lt;')}</div>`).join('')
-    : `<div class="prog-item" style="color:#94a3b8">${t('tip.noData')}</div>`;
-  const typeLabel=j?jinzhuDisplayType(j):'';
+  const perfHtml=perfs.length?perfs.map(p=>`<div class="prog-item">• <b>${(p.title||'').replace(/</g,'&lt;')}</b>：${(p.desc||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="prog-item" style="color:#94a3b8">${t('tip.noData')}</div>`;
   return `<div class="team-box ${showKick?'team-show-kick':''}">
     <div class="team-title">
       <h4 style="margin:0">👥 ${(team.name||'').replace(/</g,'&lt;')}</h4>
@@ -862,13 +693,13 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds){
       ${user?`<button type="button" class="btn-icon-sm" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
       ${isOwner?`<button type="button" class="btn-icon-sm" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}
       <button type="button" class="btn-icon-sm" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>
-      ${canJoin?`<button type="button" class="btn-icon-sm" onclick="joinTeam(${team.id})" style="background:#d1fae5;border-color:#6ee7b7">➕</button>`:''}
+      ${canJoin?`<button type="button" class="btn-icon-sm" onclick="joinTeam(${team.id})" style="background:#d1fae5">➕</button>`:''}
       ${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">${t('btn.edit')}</button>`:''}
       ${isOwner?`<button class="team-x" onclick="disbandTeam(${team.id})">×</button>`:''}
     </div>
-    <div class="card-desc" style="margin-top:6px"><span class="tag tag-industry">${(typeLabel||'-').replace(/</g,'&lt;')}</span>　<span class="tag tag-diff">◆${j?Number(j.difficulty)||0:0}</span>：${(team.demand||(j&&jinzhuDisplayDetail(j))||'-').toString().replace(/</g,'&lt;')}</div>
+    <div class="card-desc" style="margin-top:6px"><span class="tag tag-industry">${(j?jinzhuDisplayType(j):'-').replace(/</g,'&lt;')}</span> ◆${j?Number(j.difficulty)||0:0}</div>
     <div class="member-header"><b>Members</b></div>
-    <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'<span style="color:#9ca3af;font-size:12px">—</span>'}</div>
+    <div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>
     ${canSeeProgress?`<div class="team-progress-box"><h5>📈 ⚡${sum}</h5>${perfHtml}</div>`:''}
     ${showCard&&j&&j.card?renderBizCard(j.card):''}
   </div>`;
@@ -877,31 +708,27 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds){
 async function renderJinZhu(){
   const user=getUser();let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
   const banner=document.getElementById('jinzhu-match-banner');
-  if(matchContext&&matchContext.type==='dashi'){banner.innerHTML=`<div class="match-banner">SI「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">clear</a></div>`;list=list.map(j=>({...j,_matchScore:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._matchScore-a._matchScore);}
+  if(matchContext&&matchContext.type==='dashi'){banner.innerHTML=`<div class="match-banner">SI「${matchContext.name}」· <a href="javascript:clearMatchContext()">clear</a></div>`;list=list.map(j=>({...j,_matchScore:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._matchScore-a._matchScore);}
   else{banner.innerHTML='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='jinzhu'){list=list.filter(j=>String(j.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('tip.noData')}</div>`;}}
   let heroIds=new Set(),dashiIds=new Set();
-  if(user){
-    const heroes=await fetchHero();heroes.filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
-    const tools=await fetchDaShi();tools.filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
-  }
-  const pg=paginate(filterByQ(list, (document.getElementById('jz-q')||{}).value||''),jzPage,PAGE_SIZE);jzPage=pg.page;
+  if(user){(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));}
+  const pg=paginate(filterByQ(list,(document.getElementById('jz-q')||{}).value||''),jzPage,PAGE_SIZE);jzPage=pg.page;
   document.getElementById('jinzhu-list').innerHTML=pg.slice.length?pg.slice.map(j=>{
     const showInteract=user&&(user.role==='ai'||user.role==='admin'||user.role==='yingxiao');
     const pn=escapeAttr(j.phone),nm=escapeAttr(jinzhuDisplayName(j));
-    const team=teams.find(t=>String(t.jinzhu_id)===String(j.id));
+    const team=teams.find(tm=>String(tm.jinzhu_id)===String(j.id));
     return `<div class="card"><div class="avatar avatar-jinzhu">金</div><div class="card-content">
-      <div class="card-title">${jinzhuDisplayName(j).replace(/</g,'&lt;')}${j._matchScore!==undefined?`<span class="match-score">${j._matchScore}</span>`:''}
+      <div class="card-title">${jinzhuDisplayName(j).replace(/</g,'&lt;')}
         ${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button><button class="btn btn-savior btn-sm" onclick="goSavior(${j.id})">SI</button>${!team?`<button class="btn btn-team btn-sm" onclick="conveneTeam(${j.id})">Team</button>`:''}`:''}
       </div>
       <div class="card-desc"><b>${t('label.intro')}：</b>${jinzhuDisplayIntro(j).replace(/</g,'&lt;')}</div>
       <div class="card-desc"><b>${t('label.industry')}：</b><span class="tag tag-industry">${jinzhuDisplayType(j).replace(/</g,'&lt;')||'-'}</span></div>
       <div class="card-desc"><b>${t('label.detail')}：</b>${jinzhuDisplayDetail(j).replace(/</g,'&lt;')||'-'}</div>
       <div class="card-desc"><b>${t('label.dream')}：</b>${jinzhuDisplayDream(j).replace(/</g,'&lt;')||'-'}</div>
-      <div class="card-desc"><span class="tag tag-diff">◆${Number(j.difficulty)||0}</span> <span class="tag tag-reward">${(j.reward||'-').toString().replace(/</g,'&lt;')}</span></div>
       <div class="card-desc"><b>${t('label.pains')}：</b></div>${jinzhuPains(j).map(p=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${(p.title||'').replace(/</g,'&lt;')}</b>：${(p.desc||'').replace(/</g,'&lt;')}</div>`).join('')}
       ${(isAdmin()||canEdit(j))?renderBizCard(j.card):''}
       ${teamBlockHtml(team,j,user,heroIds,dashiIds)}
-      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon" onclick="openSendMsgDirect('progress','${pn}','${nm}')">📈</button><button class="x-icon" onclick="openSendMsgDirect('event','${pn}','${nm}')">📅</button><button class="x-icon" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
+      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
     </div></div>`;
   }).join(''):emptyMsg;
   renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
@@ -911,13 +738,8 @@ function goJzPage(p){jzPage=p;renderJinZhu();}
 async function renderDaShi(){
   const user=getUser();let list=await fetchDaShi();let emptyMsg='';
   const banner=document.getElementById('dashi-match-banner');
-  if(matchContext&&matchContext.type==='jinzhu'){
-    banner.innerHTML=`<div class="match-banner">「${matchContext.name}」· <a href="javascript:clearMatchContext()" style="color:#059669">clear</a></div>`;
-    list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);
-  }else{
-    banner.innerHTML='';
-    if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
-  }
+  if(matchContext&&matchContext.type==='jinzhu'){banner.innerHTML=`<div class="match-banner">「${matchContext.name}」· <a href="javascript:clearMatchContext()">clear</a></div>`;list=list.map(d=>({...d,_matchScore:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._matchScore-a._matchScore);}
+  else{banner.innerHTML='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}}
   if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
   const pg=paginate(filterByQ(list,(document.getElementById('ds-q')||{}).value||''),dsPage,PAGE_SIZE);dsPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
@@ -927,20 +749,19 @@ async function renderDaShi(){
     const focused=focusDashiId&&String(d.id)===String(focusDashiId);
     const tools=dashiTools(d);
     return `<div class="card ${focused?'focus-card':''}" id="dashi-card-${d.id}"><div class="avatar avatar-dashi">SI</div><div class="card-content">
-      <div class="card-title">${dashiDisplayName(d).replace(/</g,'&lt;')}${dashiDisplayMajor(d)?`<span class="tag">${dashiDisplayMajor(d).replace(/</g,'&lt;')}</span>`:''}${dashiDisplayMinor(d)?`<span class="tag tag-sub">${dashiDisplayMinor(d).replace(/</g,'&lt;')}</span>`:''}${d._matchScore!==undefined?`<span class="match-score">${d._matchScore}</span>`:''}
+      <div class="card-title">${dashiDisplayName(d).replace(/</g,'&lt;')}${dashiDisplayMajor(d)?`<span class="tag">${dashiDisplayMajor(d).replace(/</g,'&lt;')}</span>`:''}${dashiDisplayMinor(d)?`<span class="tag tag-sub">${dashiDisplayMinor(d).replace(/</g,'&lt;')}</span>`:''}
         ${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button><button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">$</button>`:''}
       </div>
       <div class="card-desc"><b>${t('label.intro')}：</b>${dashiDisplayIntro(d).replace(/</g,'&lt;')}</div>
-      <div class="card-desc"><b>${t('label.major')}：</b>${dashiDisplayMajor(d)||'-'}　<b>${t('label.minor')}：</b>${dashiDisplayMinor(d)||'-'}　<b>${t('label.power')}：</b>⚡${power}</div>
+      <div class="card-desc"><b>${t('label.major')}：</b>${dashiDisplayMajor(d)||'-'}　<b>${t('label.minor')}：</b>${dashiDisplayMinor(d)||'-'}　⚡${power}</div>
       <div class="card-desc"><b>${t('label.toolUrl')}：</b>${renderToolUrl(d.tool_url)}</div>
       <div class="card-desc"><b>${t('label.motto')}：</b>${dashiDisplayMotto(d).replace(/</g,'&lt;')||'-'}</div>
       <div class="card-desc"><b>${t('label.tools')}：</b></div>${tools.map(x=>`<div style="margin:4px 0 4px 12px;font-size:13px">• <b>${(x.title||'').replace(/</g,'&lt;')}</b>：${(x.desc||'').replace(/</g,'&lt;')}</div>`).join('')}
       ${renderBizCard(d.card)}
-      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button><button class="x-icon" onclick="openSendMsgDirect('case_request','${pn}','${nm}')">📄</button><button class="x-icon" onclick="openSendMsgDirect('trial_request','${pn}','${nm}')">🧪</button><button class="x-icon" onclick="reportTarget('${pn}','${nm}')">🚩</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}
+      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}<button class="x-icon" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
     </div></div>`;
   }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);
   renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
-  if(focusDashiId){const el=document.getElementById('dashi-card-'+focusDashiId);if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),80);}
 }
 function goDsPage(p){dsPage=p;renderDaShi();}
 
@@ -954,14 +775,13 @@ async function renderHero(){
   document.getElementById('hero-list').innerHTML=pg.slice.length?pg.slice.map(h=>{
     const pn=escapeAttr(h.phone),nm=escapeAttr(heroDisplayName(h)),power=Number(h.power)||0;
     const showInteract=user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='ai');
-    const focused=focusHeroId&&String(h.id)===String(focusHeroId);
-    return `<div class="card ${focused?'focus-card':''}" id="hero-card-${h.id}"><div class="avatar avatar-hero">★</div><div class="card-content">
+    return `<div class="card" id="hero-card-${h.id}"><div class="avatar avatar-hero">★</div><div class="card-content">
       <div class="card-title">${heroDisplayName(h).replace(/</g,'&lt;')}${canEdit(h)?`<button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>`:''}</div>
       <div class="card-desc"><b>${t('label.intro')}：</b>${heroDisplayIntro(h).replace(/</g,'&lt;')}</div>
       <div class="card-desc"><b>${t('label.skill')}：</b>${heroDisplaySkillTitle(h).replace(/</g,'&lt;')||'-'}　⚡${power}</div>
       <div class="card-desc"><b>${t('label.skillDesc')}：</b>${heroDisplaySkillDesc(h).replace(/</g,'&lt;')||'-'}</div>
       ${renderBizCard(h.card)}
-      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}<button class="x-icon" onclick="reportTarget('${pn}','${nm}')">🚩</button></div>`:''}
+      ${showInteract?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}','${nm}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}
     </div></div>`;
   }).join(''):emptyMsg;
   renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');
@@ -971,20 +791,13 @@ function goHeroPage(p){heroPage=p;renderHero();}
 async function renderTeam(){
   const user=getUser();const box=document.getElementById('team-list');
   if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}
-  let list=await fetchTeam();
-  const allJin=await fetchJinZhu();
+  let list=await fetchTeam();const allJin=await fetchJinZhu();
   let heroIds=new Set(),dashiIds=new Set();
-  const heroes=await fetchHero();heroes.filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
-  const tools=await fetchDaShi();tools.filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
-  if(user.role!=='admin'){
-    list=list.filter(tm=>String(tm.phone)===String(user.phone)||(tm.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds)));
-  }
-  const q=(document.getElementById('team-q')||{}).value||'';
-  const pg=paginate(filterByQ(list,q),teamPage,PAGE_SIZE);teamPage=pg.page;
-  box.innerHTML=pg.slice.length?pg.slice.map(tm=>{
-    const j=allJin.find(x=>String(x.id)===String(tm.jinzhu_id));
-    return `<div class="card"><div class="avatar avatar-team">T</div><div class="card-content">${teamBlockHtml(tm,j,user,heroIds,dashiIds)}</div></div>`;
-  }).join(''):`<div class="empty-tip">${t('tip.noTeams')}</div>`;
+  (await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
+  (await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
+  if(user.role!=='admin')list=list.filter(tm=>String(tm.phone)===String(user.phone)||(tm.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds)));
+  const pg=paginate(filterByQ(list,(document.getElementById('team-q')||{}).value||''),teamPage,PAGE_SIZE);teamPage=pg.page;
+  box.innerHTML=pg.slice.length?pg.slice.map(tm=>{const j=allJin.find(x=>String(x.id)===String(tm.jinzhu_id));return `<div class="card"><div class="avatar avatar-team">T</div><div class="card-content">${teamBlockHtml(tm,j,user,heroIds,dashiIds)}</div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noTeams')}</div>`;
   renderPager('team-pager',pg.page,pg.pages,'goTeamPage');
 }
 function goTeamPage(p){teamPage=p;renderTeam();}
@@ -995,20 +808,16 @@ async function renderQgen(){
   let list=await fetchQgen();
   if(user.role!=='admin')list=list.filter(x=>String(x.phone)===String(user.phone)||x.status==='published');
   const tip=document.getElementById('qgen-team-tip');
-  if(qgenTeamContext){tip.style.display='block';tip.textContent='Team: '+(qgenTeamContext.teamName||qgenTeamContext.teamId);}
-  else tip.style.display='none';
+  if(qgenTeamContext){tip.style.display='block';tip.textContent='Team: '+(qgenTeamContext.teamName||qgenTeamContext.teamId);}else tip.style.display='none';
   const pg=paginate(filterByQ(list,(document.getElementById('qgen-q')||{}).value||''),qgenPage,PAGE_SIZE);qgenPage=pg.page;
   box.innerHTML=pg.slice.length?pg.slice.map(tpl=>{
     const can=canEdit({phone:tpl.phone})||isAdmin();
-    const qCount=(tpl.sections||[]).reduce((s,sec)=>s+(sec.questions||[]).length,0);
     return `<div class="card"><div class="avatar avatar-diag">Q</div><div class="card-content">
       <div class="card-title">${(tpl.name||'').replace(/</g,'&lt;')} <span class="${tpl.status==='published'?'status-published':'status-draft'}">${tpl.status||''}</span>
         ${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${tpl.id})">${t('btn.edit')}</button>`:''}
         <button class="btn btn-primary btn-sm" onclick="previewQgen(${tpl.id})">Preview</button>
-        ${can&&tpl.status!=='published'?`<button class="btn btn-savior btn-sm" onclick="publishQgen(${tpl.id})">Publish</button>`:''}
         ${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${tpl.id})">${t('btn.del')}</button>`:''}
       </div>
-      <div class="card-desc">${tpl.industry||'-'} · ${qCount}</div>
       <div class="card-desc">${(tpl.description||'').replace(/</g,'&lt;')}</div>
     </div></div>`;
   }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
@@ -1016,151 +825,49 @@ async function renderQgen(){
 }
 function goQgenPage(p){qgenPage=p;renderQgen();}
 function openAddQgen(){editingQgenId=null;showQgenForm();}
-async function editQgen(id){const item=(await fetchQgen()).find(x=>x.id===id);if(!item||!(canEdit({phone:item.phone})||isAdmin()))return;editingQgenId=id;showQgenForm(item);}
+async function editQgen(id){const item=(await fetchQgen()).find(x=>x.id===id);if(!item)return;editingQgenId=id;showQgenForm(item);}
 function showQgenForm(item=null){
   const box=document.getElementById('modalBox');box.className='modal wide';
-  const sections=item&&Array.isArray(item.sections)&&item.sections.length?item.sections:[{title:'Section',questions:[{type:'textarea',label:'Q1',options:[],required:true}]}];
-  box.innerHTML=`<h3>${item?'Edit':'New'} Survey</h3>
+  box.innerHTML=`<h3>${item?'Edit':'New'} Survey</h3>${langHintHtml()}
     <div class="form-group"><label>Name *</label><input id="qg-name" value="${item?(item.name||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>Industry</label><input id="qg-industry" value="${item?(item.industry||'').replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>Desc</label><textarea id="qg-desc">${item?(item.description||''):''}</textarea></div>
-    <div style="display:flex;justify-content:space-between;margin:16px 0 8px"><b>Structure</b><button type="button" class="btn btn-outline btn-sm" onclick="addQgenSection()">+ Section</button></div>
-    <div id="qg-sections"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveQgen()">${t('btn.save')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
-  const wrap=document.getElementById('qg-sections');wrap.innerHTML='';
-  sections.forEach(sec=>{
-    const div=document.createElement('div');div.className='qgen-section-box';
-    div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button>
-      <div class="form-group"><label>Title</label><input class="qg-sec-title" value="${(sec.title||'').replace(/"/g,'&quot;')}"></div>
-      <div class="qg-qs"></div>
-      <div class="qgen-toolbar">
-        <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'textarea')">+ text</button>
-        <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'radio')">+ radio</button>
-        <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'checkbox')">+ check</button>
-      </div>`;
-    wrap.appendChild(div);
-    (sec.questions||[]).forEach(q=>{
-      const row=document.createElement('div');row.className='qgen-q-row';row.dataset.type=q.type||'textarea';
-      row.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button>
-        <div class="form-group"><label>Label</label><input class="qg-q-label" value="${(q.label||'').replace(/"/g,'&quot;')}"></div>
-        <div class="form-group"><label>Options</label><textarea class="qg-q-opts" style="min-height:50px">${(q.options||[]).join('\n')}</textarea></div>`;
-      div.querySelector('.qg-qs').appendChild(row);
-    });
-  });
-}
-function addQgenSection(){
-  const wrap=document.getElementById('qg-sections');
-  const div=document.createElement('div');div.className='qgen-section-box';
-  div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button>
-    <div class="form-group"><label>Title</label><input class="qg-sec-title" value="Section"></div>
-    <div class="qg-qs"></div>
-    <div class="qgen-toolbar">
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'textarea')">+ text</button>
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'radio')">+ radio</button>
-      <button type="button" class="btn btn-outline btn-sm" onclick="addQgenQuestion(this,'checkbox')">+ check</button>
-    </div>`;
-  wrap.appendChild(div);
-}
-function addQgenQuestion(btn,type){
-  const qsBox=btn.closest('.qgen-section-box').querySelector('.qg-qs');
-  const row=document.createElement('div');row.className='qgen-q-row';row.dataset.type=type||'textarea';
-  row.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button>
-    <div class="form-group"><label>Label</label><input class="qg-q-label" value="Question"></div>
-    <div class="form-group"><label>Options</label><textarea class="qg-q-opts" style="min-height:50px">${type==='radio'||type==='checkbox'?'A\nB':''}</textarea></div>`;
-  qsBox.appendChild(row);
-}
-function collectQgenSections(){
-  const sections=[];
-  document.querySelectorAll('#qg-sections .qgen-section-box').forEach(box=>{
-    const title=(box.querySelector('.qg-sec-title').value||'').trim()||'Untitled';
-    const questions=[];
-    box.querySelectorAll('.qgen-q-row').forEach(row=>{
-      const label=(row.querySelector('.qg-q-label').value||'').trim();if(!label)return;
-      const options=(row.querySelector('.qg-q-opts').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-      questions.push({type:row.dataset.type||'textarea',label,options,required:false});
-    });
-    sections.push({title,questions});
-  });
-  return sections;
 }
 async function saveQgen(){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const name=(document.getElementById('qg-name').value||'').trim();if(!name)return alert('Name required');
-  const industry=(document.getElementById('qg-industry').value||'').trim();
-  const description=(document.getElementById('qg-desc').value||'').trim();
-  const sections=collectQgenSections();if(!sections.length)return alert('Need section');
-  let status='draft';
-  if(editingQgenId){const old=(await fetchQgen()).find(x=>x.id===editingQgenId);if(old)status=old.status||'draft';}
-  const row={id:editingQgenId||Date.now(),name,industry,description,sections,status,phone:user.phone,team_id:qgenTeamContext?qgenTeamContext.teamId:null};
+  const name=(document.getElementById('qg-name').value||'').trim();if(!name)return alert('Required');
+  const row={id:editingQgenId||Date.now(),name,industry:(document.getElementById('qg-industry').value||'').trim(),description:(document.getElementById('qg-desc').value||'').trim(),sections:[{title:'S1',questions:[{type:'textarea',label:'Q1',options:[],required:false}]}],status:'draft',phone:user.phone,team_id:qgenTeamContext?qgenTeamContext.teamId:null};
+  if(editingQgenId){const old=(await fetchQgen()).find(x=>x.id===editingQgenId);if(old){row.sections=old.sections;row.status=old.status;}}
   let error;if(editingQgenId)({error}=await sb.from('questionnaire_templates').update(row).eq('id',editingQgenId));else({error}=await sb.from('questionnaire_templates').insert(row));
   if(error)return alert(error.message);closeModal();renderQgen();alert(t('tip.saved'));
 }
-async function publishQgen(id){if(!confirm('Publish?'))return;await sb.from('questionnaire_templates').update({status:'published'}).eq('id',id);renderQgen();}
 async function deleteQgen(id){if(!confirm('Delete?'))return;await sb.from('questionnaire_templates').delete().eq('id',id);renderQgen();}
 async function previewQgen(id){
   const tpl=(await fetchQgen()).find(x=>x.id===id);if(!tpl)return;
-  const sections=Array.isArray(tpl.sections)?tpl.sections:[];
-  let body='';
-  sections.forEach((sec,si)=>{
-    body+=`<div class="survey-section"><h4><span class="num">${si+1}</span> ${sec.title||''}</h4>`;
-    (sec.questions||[]).forEach((q,qi)=>{
-      body+=`<div class="survey-q"><label class="q-label">${qi+1}. ${q.label||''}</label>`;
-      if(q.type==='radio'||q.type==='checkbox'){body+=`<div class="survey-options">`;(q.options||[]).forEach(o=>{body+=`<label><input type="${q.type}" name="pq${si}_${qi}" value="${String(o).replace(/"/g,'&quot;')}"> ${o}</label>`;});body+=`</div>`;}
-      else body+=`<textarea class="fill-ans" data-k="${si}_${qi}" style="min-height:60px"></textarea>`;
-      body+=`</div>`;
-    });
-    body+=`</div>`;
-  });
   const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<h2>${(tpl.name||'').replace(/</g,'&lt;')}</h2><p>${(tpl.description||'').replace(/</g,'&lt;')}</p>${body||t('tip.noData')}
-    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="submitFilledQgen(${tpl.id},${tpl.team_id||0})">${t('btn.submit')}</button></div>`;
+  box.innerHTML=`<h2>${(tpl.name||'').replace(/</g,'&lt;')}</h2><p>${(tpl.description||'').replace(/</g,'&lt;')}</p>
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button><button class="btn btn-primary" onclick="submitFilledQgen(${tpl.id},${tpl.team_id||0})">${t('btn.submit')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
 }
 async function submitFilledQgen(tplId,teamId){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const answers={};
-  document.querySelectorAll('.fill-ans').forEach(el=>{answers[el.dataset.k]=el.value;});
-  document.querySelectorAll('input[type=radio]:checked,input[type=checkbox]:checked').forEach(el=>{
-    const n=el.name;if(!answers[n])answers[n]=[];if(Array.isArray(answers[n]))answers[n].push(el.value);else answers[n]=[answers[n],el.value];
-  });
-  const tid=teamId||(qgenTeamContext&&qgenTeamContext.teamId)||null;
-  const row={id:Date.now(),template_id:tplId,jinzhu_id:null,team_id:tid,phone:user.phone,industry:'survey',answers,status:'pending',report:'',report_link:''};
-  const {error}=await sb.from('diagnosis_surveys').insert(row);
-  if(error)return alert(error.message);
-  closeModal();alert('OK');switchView('diagnosis');
+  const row={id:Date.now(),template_id:tplId,team_id:teamId||null,phone:user.phone,industry:'survey',answers:{},status:'pending',report:'',report_link:''};
+  const {error}=await sb.from('diagnosis_surveys').insert(row);if(error)return alert(error.message);closeModal();switchView('diagnosis');
 }
 async function renderDiagnosis(){
   const user=getUser();const box=document.getElementById('diagnosis-list');
   if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}
   let list=await fetchDiagnosis();if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));
-  list=filterByQ(list.map(d=>({...d,name:d.industry})),(document.getElementById('diag-q')||{}).value||'');
-  const pg=paginate(list,diagPage,PAGE_SIZE);diagPage=pg.page;
-  box.innerHTML=pg.slice.length?pg.slice.map(d=>{
-    return `<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">${(d.industry||'-').replace(/</g,'&lt;')} <span class="badge-pending">${d.status||''}</span>
-      <button class="btn btn-primary btn-sm" onclick="viewDiagnosis(${d.id})">View</button>
-      ${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">${t('btn.del')}</button>`:''}</div>
-      <div class="card-desc">${d.phone||'-'} · team ${d.team_id||'-'}</div>
-    </div></div>`;
-  }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
+  const pg=paginate(filterByQ(list,(document.getElementById('diag-q')||{}).value||''),diagPage,PAGE_SIZE);diagPage=pg.page;
+  box.innerHTML=pg.slice.length?pg.slice.map(d=>`<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">${(d.industry||'-').replace(/</g,'&lt;')} <span class="badge-pending">${d.status||''}</span>
+    <button class="btn btn-primary btn-sm" onclick="viewDiagnosis(${d.id})">View</button>
+    ${isAdmin()?`<button class="btn btn-del btn-sm" onclick="deleteDiagnosis(${d.id})">${t('btn.del')}</button>`:''}</div></div></div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
   renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');
 }
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
-async function viewDiagnosis(id){
-  const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;
-  const box=document.getElementById('modalBox');box.className='modal wide';
-  box.innerHTML=`<h3>Diagnosis #${id}</h3><pre style="white-space:pre-wrap;font-size:13px">${JSON.stringify(d.answers,null,2)}</pre>
-    ${d.report?`<div style="margin-top:12px;background:#f0fdf4;padding:12px;border-radius:8px">${linkify(d.report)}</div>`:''}
-    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button>
-      ${isAdmin()?`<button class="btn btn-primary" onclick="editDiagnosisReport(${d.id})">Report</button>`:''}</div>`;
-  document.getElementById('modalMask').style.display='flex';
-}
-async function editDiagnosisReport(id){
-  const link=prompt('Report link');if(link===null)return;
-  const report=prompt('Report text')||'';
-  await sb.from('diagnosis_surveys').update({report_link:link||'',report,status:link||report?'completed':'pending'}).eq('id',id);
-  closeModal();renderDiagnosis();
-}
+async function viewDiagnosis(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;const box=document.getElementById('modalBox');box.className='modal wide';box.innerHTML=`<h3>#${id}</h3><pre style="white-space:pre-wrap;font-size:13px">${JSON.stringify(d.answers,null,2)}</pre><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function deleteDiagnosis(id){if(!confirm('Delete?'))return;await sb.from('diagnosis_surveys').delete().eq('id',id);renderDiagnosis();}
 
 async function renderInbox(){
@@ -1171,51 +878,24 @@ async function renderInbox(){
 }
 function openSendMsgDirect(type,toPhone,toName){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const content=prompt((MSG_TYPE_LABEL[type]||type)+' → '+(toName||toPhone));
-  if(content==null||!content.trim())return;
+  const content=prompt((MSG_TYPE_LABEL[type]||type)+' → '+(toName||toPhone));if(content==null||!content.trim())return;
   sb.from('messages').insert({id:Date.now(),from_phone:user.phone,to_phone:toPhone,msg_type:type,content:content.trim()}).then(({error})=>{if(error)alert(error.message);else alert('Sent');});
 }
-function reportTarget(phone,name){openSendMsgDirect('report', 'admin', 'report:'+(name||phone));}
-
+function reportTarget(phone,name){openSendMsgDirect('report','admin','report:'+(name||phone));}
 async function submitCoop(){
-  const name=(document.getElementById('coop-name').value||'').trim();
-  const contact=(document.getElementById('coop-contact').value||'').trim();
+  const name=(document.getElementById('coop-name').value||'').trim(),contact=(document.getElementById('coop-contact').value||'').trim();
   if(!name||!contact)return alert('Required');
-  const type=document.getElementById('coop-type').value;
-  const desc=(document.getElementById('coop-desc').value||'').trim();
-  const {error}=await sb.from('coop_records').insert({id:Date.now(),name,contact,type,desc,created_at:new Date().toISOString()});
-  if(error)return alert(error.message);
-  alert(t('tip.saved'));
-  document.getElementById('coop-name').value='';document.getElementById('coop-contact').value='';document.getElementById('coop-desc').value='';
+  const {error}=await sb.from('coop_records').insert({id:Date.now(),name,contact,type:document.getElementById('coop-type').value,desc:(document.getElementById('coop-desc').value||'').trim()});
+  if(error)return alert(error.message);alert(t('tip.saved'));
 }
-async function renderCoopList(){
-  const list=await fetchCoop();
-  document.getElementById('coop-list').innerHTML=list.length?`<table><thead><tr><th>Name</th><th>Contact</th><th>Type</th><th>Desc</th></tr></thead><tbody>${list.map(r=>`<tr><td>${(r.name||'').replace(/</g,'&lt;')}</td><td>${(r.contact||'').replace(/</g,'&lt;')}</td><td>${(r.type||'').replace(/</g,'&lt;')}</td><td>${(r.desc||'').replace(/</g,'&lt;')}</td></tr>`).join('')}</tbody></table>`:`<div class="empty-tip">${t('tip.noData')}</div>`;
-}
+async function renderCoopList(){const list=await fetchCoop();document.getElementById('coop-list').innerHTML=list.length?list.map(r=>`<div class="msg-item"><b>${(r.name||'').replace(/</g,'&lt;')}</b> ${ (r.contact||'').replace(/</g,'&lt;')} — ${(r.type||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
 async function sendChat(){
-  const user=getUser();
-  const input=document.getElementById('chatInput');
-  const text=(input.value||'').trim();if(!text)return;
-  input.value='';
-  const phone=user?user.phone:'guest';
-  await sb.from('chat_records').insert({id:Date.now(),phone,content:text,role:'user',created_at:new Date().toISOString()});
-  const box=document.getElementById('chatMessages');
-  box.innerHTML+=`<div class="msg user">${text.replace(/</g,'&lt;')}</div>`;
-  box.scrollTop=box.scrollHeight;
+  const user=getUser();const input=document.getElementById('chatInput');const text=(input.value||'').trim();if(!text)return;input.value='';
+  await sb.from('chat_records').insert({id:Date.now(),phone:user?user.phone:'guest',content:text,role:'user'});
+  document.getElementById('chatMessages').innerHTML+=`<div class="msg user">${text.replace(/</g,'&lt;')}</div>`;
 }
-async function renderChatList(){
-  const list=await fetchChat();
-  document.getElementById('chat-list').innerHTML=list.length?list.map(c=>`<div class="msg-item"><b>${(c.phone||'').replace(/</g,'&lt;')}</b>：${(c.content||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
-}
-async function renderUsers(){
-  const list=await fetchUsers();
-  document.getElementById('users-tbody').innerHTML=list.map(u=>`<tr>
-    <td>${u.phone}</td><td>${t('role.'+u.role)||u.role}</td><td>${u.created_at||'-'}</td>
-    <td>${u.blacklisted?'🚫':'OK'}</td>
-    <td>${isAdmin()?`<button class="btn btn-sm btn-del" onclick="toggleBlack('${u.phone}',${!u.blacklisted})">Ban</button>`:''}</td>
-  </tr>`).join('');
-}
-async function toggleBlack(phone,v){await sb.from('app_users').update({blacklisted:v}).eq('phone',phone);renderUsers();}
+async function renderChatList(){const list=await fetchChat();document.getElementById('chat-list').innerHTML=list.length?list.map(c=>`<div class="msg-item"><b>${(c.phone||'').replace(/</g,'&lt;')}</b>：${(c.content||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
+async function renderUsers(){const list=await fetchUsers();document.getElementById('users-tbody').innerHTML=list.map(u=>`<tr><td>${u.phone}</td><td>${t('role.'+u.role)||u.role}</td><td>${u.created_at||'-'}</td><td>${u.blacklisted?'🚫':'OK'}</td><td></td></tr>`).join('');}
 
 async function renderCategories(){
   const list=await fetchCategories();
@@ -1234,68 +914,59 @@ async function renderCategories(){
 function openAddCategory(){editingCategoryId=null;showCategoryForm();}
 async function editCategory(id){const item=(await fetchCategories()).find(c=>c.id===id);if(!item)return;editingCategoryId=id;showCategoryForm(item);}
 function showCategoryForm(item=null){
-  const nameZh=item?tl(item.name_i18n,item.name):'';
-  const nameEn=item&&item.name_i18n? (item.name_i18n.en||'') :'';
+  const nameVal=item?tl(item.name_i18n,item.name):'';
   const subs=item?catSubs(item):[];
-  const box=document.getElementById('modalBox');box.className='modal';
-  box.innerHTML=`<h3>${item?'Edit':'Add'} Category</h3>
-    <div class="i18n-pair">
-      <div class="form-group"><label>Name 中文 *</label><input id="cat-name-zh" value="${nameZh.replace(/"/g,'&quot;')}"></div>
-      <div class="form-group"><label>Name English</label><input id="cat-name-en" value="${nameEn.replace(/"/g,'&quot;')}"></div>
-    </div>
-    <div class="form-group"><label>Subs (one per line, 中文; English optional after | )</label><textarea id="cat-subs" style="min-height:100px">${subs.join('\n')}</textarea></div>
+  document.getElementById('modalBox').className='modal';
+  document.getElementById('modalBox').innerHTML=`<h3>${item?'Edit':'Add'} Category</h3>${langHintHtml()}
+    <div class="form-group"><label>${t('form.name')}</label><input id="cat-name" value="${nameVal.replace(/"/g,'&quot;')}"></div>
+    <div class="form-group"><label>${t('form.subs')}</label><textarea id="cat-subs" style="min-height:100px">${subs.join('\n')}</textarea></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveCategory()">${t('btn.save')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
 }
 async function saveCategory(){
-  const zh=(document.getElementById('cat-name-zh').value||'').trim();
-  const en=(document.getElementById('cat-name-en').value||'').trim();
-  if(!zh&&!en)return alert('Name required');
+  const name=(document.getElementById('cat-name').value||'').trim();if(!name)return alert('Required');
   const lines=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-  const subs_i18n=lines.map(line=>{
-    const parts=line.split('|').map(x=>x.trim());
-    return {zh:parts[0]||'',en:parts[1]||''};
+  let old=null;if(editingCategoryId)old=(await fetchCategories()).find(c=>c.id===editingCategoryId);
+  const name_i18n=mergeI18n(old?.name_i18n||old?.name,currentLang,name);
+  let subs_i18n=Array.isArray(old?.subs_i18n)?[...old.subs_i18n]:[];
+  // 当前语言：整表替换为用户输入的小分类列表
+  subs_i18n=lines.map((line,i)=>{
+    const prev=subs_i18n[i];
+    return mergeI18n(prev&&typeof prev==='object'?prev:(prev?{zh:String(prev)}:{}),currentLang,line);
   });
-  const subs=subs_i18n.map(s=>s.zh||s.en);
-  const name_i18n=mkI18n(zh||en,en);
-  const row={id:editingCategoryId||Date.now(),name:zh||en,name_i18n,subs,subs_i18n};
+  const subs=subs_i18n.map(s=>tl(s,typeof s==='string'?s:''));
+  const row={id:editingCategoryId||Date.now(),name:name_i18n.zh||name_i18n.en||name,name_i18n,subs,subs_i18n};
   let error;if(editingCategoryId)({error}=await sb.from('categories').update(row).eq('id',editingCategoryId));else({error}=await sb.from('categories').insert(row));
   if(error)return alert(error.message);closeModal();renderCategories();alert(t('tip.saved'));
 }
 async function deleteCategory(id){if(!confirm('Delete?'))return;await sb.from('categories').delete().eq('id',id);renderCategories();}
 
-function addPainItem(t='',d=''){const box=document.getElementById('pain-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="pain-title" value="${(t||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Desc</label><textarea class="pain-desc">${d||''}</textarea></div>`;box.appendChild(div);}
-function addToolItem(tz='',dz='',te='',de=''){const box=document.getElementById('tool-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button>
-  <div class="i18n-pair"><div class="form-group"><label>Title 中文</label><input class="tool-title-zh" value="${(tz||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Title EN</label><input class="tool-title-en" value="${(te||'').replace(/"/g,'&quot;')}"></div></div>
-  <div class="i18n-pair"><div class="form-group"><label>Desc 中文</label><textarea class="tool-desc-zh">${dz||''}</textarea></div><div class="form-group"><label>Desc EN</label><textarea class="tool-desc-en">${de||''}</textarea></div></div>`;box.appendChild(div);}
-function addPerfItem(t='',d=''){const box=document.getElementById('perf-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="perf-title" value="${(t||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Desc</label><textarea class="perf-desc">${d||''}</textarea></div>`;box.appendChild(div);}
+function addPainItem(title='',desc=''){const box=document.getElementById('pain-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="pain-title" value="${(title||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Desc</label><textarea class="pain-desc">${desc||''}</textarea></div>`;box.appendChild(div);}
+function addToolItem(title='',desc=''){const box=document.getElementById('tool-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="tool-title" value="${(title||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Desc</label><textarea class="tool-desc">${desc||''}</textarea></div>`;box.appendChild(div);}
+function addPerfItem(title='',desc=''){const box=document.getElementById('perf-list');if(!box)return;const div=document.createElement('div');div.className='dynamic-item';div.innerHTML=`<button type="button" class="btn btn-danger btn-sm remove-btn" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Title</label><input class="perf-title" value="${(title||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Desc</label><textarea class="perf-desc">${desc||''}</textarea></div>`;box.appendChild(div);}
 
+/* ========== 158 单栏录入：金主 ========== */
 function openAddJinZhu(){editingJinZhuId=null;showJinZhuForm();}
 async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return alert('No permission');editingJinZhuId=id;showJinZhuForm(item);}
 function showJinZhuForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:''),isNew=!item;
   document.getElementById('modalBox').className='modal';
   if(isNew){
-    document.getElementById('modalBox').innerHTML=`<h3>${t('btn.postDemand')}</h3>
-      <div class="i18n-pair"><div class="form-group"><label>${t('label.industry')} 中文 *</label><input id="jz-type-zh"></div><div class="form-group"><label>Industry EN</label><input id="jz-type-en"></div></div>
-      <div class="i18n-pair"><div class="form-group"><label>${t('label.detail')} 中文</label><textarea id="jz-detail-zh"></textarea></div><div class="form-group"><label>Detail EN</label><textarea id="jz-detail-en"></textarea></div></div>
+    document.getElementById('modalBox').innerHTML=`<h3>${t('btn.postDemand')}</h3>${langHintHtml()}
+      <div class="form-group"><label>${t('form.industry')} *</label><input id="jz-type"></div>
+      <div class="form-group"><label>${t('form.detail')}</label><textarea id="jz-detail"></textarea></div>
       <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;
     document.getElementById('modalMask').style.display='flex';return;
   }
-  const nameZh=tl(item.name_i18n,item.name),nameEn=item.name_i18n?.en||'';
-  const introZh=tl(item.intro_i18n,item.intro),introEn=item.intro_i18n?.en||'';
-  const typeZh=tl(item.type_i18n,item.type),typeEn=item.type_i18n?.en||'';
-  const detailZh=tl(item.detail_i18n,item.detail),detailEn=item.detail_i18n?.en||'';
-  const dreamZh=tl(item.dream_i18n,item.dream),dreamEn=item.dream_i18n?.en||'';
-  document.getElementById('modalBox').innerHTML=`<h3>Edit</h3>
-    <div class="i18n-pair"><div class="form-group"><label>${t('form.nameZh')}</label><input id="jz-name-zh" value="${nameZh.replace(/"/g,'&quot;')}"></div><div class="form-group"><label>${t('form.nameEn')}</label><input id="jz-name-en" value="${nameEn.replace(/"/g,'&quot;')}"></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>${t('form.introZh')}</label><textarea id="jz-intro-zh">${introZh}</textarea></div><div class="form-group"><label>${t('form.introEn')}</label><textarea id="jz-intro-en">${introEn}</textarea></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>${t('label.industry')} *</label><input id="jz-type-zh" value="${typeZh.replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Industry EN</label><input id="jz-type-en" value="${typeEn.replace(/"/g,'&quot;')}"></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>${t('label.detail')}</label><textarea id="jz-detail-zh">${detailZh}</textarea></div><div class="form-group"><label>Detail EN</label><textarea id="jz-detail-en">${detailEn}</textarea></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>${t('label.dream')}</label><input id="jz-dream-zh" value="${dreamZh.replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Dream EN</label><input id="jz-dream-en" value="${dreamEn.replace(/"/g,'&quot;')}"></div></div>
-    <div class="form-group"><label>${t('label.difficulty')}</label><input id="jz-difficulty" type="number" value="${Number(item.difficulty)||0}"></div>
-    <div class="form-group"><label>${t('label.reward')}</label><input id="jz-reward" value="${(item.reward||'').replace(/"/g,'&quot;')}"></div>
-    <div style="margin:14px 0 8px"><b>${t('label.pains')}</b> <button type="button" class="btn btn-outline btn-sm" onclick="addPainItem()">+</button></div><div id="pain-list"></div>
+  document.getElementById('modalBox').innerHTML=`<h3>${t('btn.edit')}</h3>${langHintHtml()}
+    <div class="form-group"><label>${t('form.name')}</label><input id="jz-name" value="${jinzhuDisplayName(item).replace(/"/g,'&quot;')}"></div>
+    <div class="form-group"><label>${t('form.intro')}</label><textarea id="jz-intro">${jinzhuDisplayIntro(item)}</textarea></div>
+    <div class="form-group"><label>${t('form.industry')} *</label><input id="jz-type" value="${jinzhuDisplayType(item).replace(/"/g,'&quot;')}"></div>
+    <div class="form-group"><label>${t('form.detail')}</label><textarea id="jz-detail">${jinzhuDisplayDetail(item)}</textarea></div>
+    <div class="form-group"><label>${t('form.dream')}</label><input id="jz-dream" value="${jinzhuDisplayDream(item).replace(/"/g,'&quot;')}"></div>
+    <div class="form-group"><label>${t('form.difficulty')}</label><input id="jz-difficulty" type="number" value="${Number(item.difficulty)||0}"></div>
+    <div class="form-group"><label>${t('form.reward')}</label><input id="jz-reward" value="${(item.reward||'').replace(/"/g,'&quot;')}"></div>
+    <div style="margin:14px 0 8px"><b>${t('form.pains')}</b> <button type="button" class="btn btn-outline btn-sm" onclick="addPainItem()">+</button></div><div id="pain-list"></div>
     <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb"><div style="font-weight:600;margin-bottom:8px">${t('form.card')}</div>
     <div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${item.card?item.card.person:''}"></div>
     <div class="form-group"><label>${t('form.title')}</label><input id="jz-title" value="${item.card?(item.card.title||''):''}"></div>
@@ -1306,76 +977,68 @@ function showJinZhuForm(item=null){
     <div class="form-group"><label>${t('form.website')}</label><input id="jz-website" value="${item.card?(item.card.website||''):''}"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
-  const pains=jinzhuPains(item);
-  if(pains.length)pains.forEach(p=>addPainItem(p.title,p.desc));else addPainItem();
+  const pains=jinzhuPains(item);if(pains.length)pains.forEach(p=>addPainItem(p.title,p.desc));else addPainItem();
 }
 async function saveJinZhu(){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const isSimple=!editingJinZhuId&&!document.getElementById('jz-name-zh');
+  const isSimple=!editingJinZhuId&&!document.getElementById('jz-name');
+  let old=null;if(editingJinZhuId)old=(await fetchJinZhu()).find(j=>j.id===editingJinZhuId);
   let name,intro,type,detail,dream,person,phone,wechat,title,email,whatsapp,website,pains,difficulty,reward;
   let name_i18n,intro_i18n,type_i18n,detail_i18n,dream_i18n,pains_i18n;
   if(isSimple){
-    const typeZh=(document.getElementById('jz-type-zh').value||'').trim();
-    const typeEn=(document.getElementById('jz-type-en').value||'').trim();
-    if(!typeZh&&!typeEn)return alert('Industry required');
-    const detailZh=(document.getElementById('jz-detail-zh').value||'').trim();
-    const detailEn=(document.getElementById('jz-detail-en').value||'').trim();
-    type_i18n=mkI18n(typeZh||typeEn,typeEn);detail_i18n=mkI18n(detailZh,detailEn);
-    type=typeZh||typeEn;detail=detailZh||detailEn||'-';
-    name=intro=dream=person=wechat=title=email=website='-';phone=user.phone;whatsapp='0';
-    name_i18n=mkI18n('-','-');intro_i18n=mkI18n('-','-');dream_i18n=mkI18n('-','-');
-    pains=[{title:'-',desc:'-'}];pains_i18n=[{title:mkI18n('-','-'),desc:mkI18n('-','-')}];difficulty=0;reward='-';
+    type=(document.getElementById('jz-type').value||'').trim();if(!type)return alert('Required');
+    detail=(document.getElementById('jz-detail').value||'').trim()||'-';
+    type_i18n=mergeI18n(null,currentLang,type);detail_i18n=mergeI18n(null,currentLang,detail);
+    name=intro=dream='-';name_i18n=mergeI18n(null,currentLang,'-');intro_i18n=mergeI18n(null,currentLang,'-');dream_i18n=mergeI18n(null,currentLang,'-');
+    person=wechat=title=email=website='-';phone=user.phone;whatsapp='0';pains=[{title:'-',desc:'-'}];pains_i18n=[{title:mergeI18n(null,currentLang,'-'),desc:mergeI18n(null,currentLang,'-')}];difficulty=0;reward='-';
   }else{
-    const nameZh=(document.getElementById('jz-name-zh').value||'').trim();
-    const nameEn=(document.getElementById('jz-name-en').value||'').trim();
-    name_i18n=mkI18n(nameZh||nameEn,nameEn);name=nameZh||nameEn;
-    intro_i18n=mkI18n(document.getElementById('jz-intro-zh').value,document.getElementById('jz-intro-en').value);intro=intro_i18n.zh||intro_i18n.en;
-    type_i18n=mkI18n(document.getElementById('jz-type-zh').value,document.getElementById('jz-type-en').value);type=type_i18n.zh||type_i18n.en;
-    detail_i18n=mkI18n(document.getElementById('jz-detail-zh').value,document.getElementById('jz-detail-en').value);detail=detail_i18n.zh||detail_i18n.en;
-    dream_i18n=mkI18n(document.getElementById('jz-dream-zh').value,document.getElementById('jz-dream-en').value);dream=dream_i18n.zh||dream_i18n.en;
+    name=(document.getElementById('jz-name').value||'').trim();
+    intro=(document.getElementById('jz-intro').value||'').trim();
+    type=(document.getElementById('jz-type').value||'').trim();
+    detail=(document.getElementById('jz-detail').value||'').trim();
+    dream=(document.getElementById('jz-dream').value||'').trim();
+    name_i18n=mergeI18n(old?.name_i18n||old?.name,currentLang,name);
+    intro_i18n=mergeI18n(old?.intro_i18n||old?.intro,currentLang,intro);
+    type_i18n=mergeI18n(old?.type_i18n||old?.type,currentLang,type);
+    detail_i18n=mergeI18n(old?.detail_i18n||old?.detail,currentLang,detail);
+    dream_i18n=mergeI18n(old?.dream_i18n||old?.dream,currentLang,dream);
     person=document.getElementById('jz-person').value.trim();phone=document.getElementById('jz-phone').value.trim();wechat=document.getElementById('jz-wechat').value.trim();
-    if(!name||!person||!phone||!wechat||!type)return alert('Required fields');
+    if(!name||!person||!phone||!wechat||!type)return alert('Required');
     difficulty=parseInt(document.getElementById('jz-difficulty').value)||0;reward=document.getElementById('jz-reward').value||'-';
     title=document.getElementById('jz-title').value;email=document.getElementById('jz-email').value;whatsapp=document.getElementById('jz-whatsapp').value;website=document.getElementById('jz-website').value.trim();
     pains=[];pains_i18n=[];
-    document.querySelectorAll('#pain-list .dynamic-item').forEach(item=>{
-      const pt=item.querySelector('.pain-title').value.trim(),pd=item.querySelector('.pain-desc').value.trim();
-      if(pt){pains.push({title:pt,desc:pd});pains_i18n.push({title:mkI18n(pt,''),desc:mkI18n(pd,'')});}
+    const oldPains=Array.isArray(old?.pains_i18n)?old.pains_i18n:[];
+    document.querySelectorAll('#pain-list .dynamic-item').forEach((el,i)=>{
+      const pt=el.querySelector('.pain-title').value.trim(),pd=el.querySelector('.pain-desc').value.trim();
+      if(pt){pains.push({title:pt,desc:pd});pains_i18n.push({title:mergeI18n(oldPains[i]?.title,currentLang,pt),desc:mergeI18n(oldPains[i]?.desc,currentLang,pd)});}
     });
   }
-  const row={id:editingJinZhuId||Date.now(),name,intro,type,detail,dream,phone,pains,difficulty,reward,
-    name_i18n,intro_i18n,type_i18n,detail_i18n,dream_i18n,pains_i18n,
-    card:{person,title,phone,email,wechat,whatsapp,website,qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}};
+  const row={id:editingJinZhuId||Date.now(),name:name_i18n.zh||name_i18n.en||name,intro:intro_i18n.zh||intro_i18n.en||intro,type:type_i18n.zh||type_i18n.en||type,detail:detail_i18n.zh||detail_i18n.en||detail,dream:dream_i18n.zh||dream_i18n.en||dream,phone,pains,difficulty,reward,name_i18n,intro_i18n,type_i18n,detail_i18n,dream_i18n,pains_i18n,card:{person,title,phone,email,wechat,whatsapp,website,qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}};
   let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));
   if(error)return alert(error.message);
   if(!editingJinZhuId)await autoCreateTeamForJinZhu(row);
   closeModal();renderAll();alert(t('tip.saved'));
 }
-async function autoCreateTeamForJinZhu(jin){const teams=await fetchTeam();if(teams.some(t=>String(t.jinzhu_id)===String(jin.id)))return;await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(jin.phone),demand:jin.detail||jin.type||'',dream:jin.dream||'-',power:0,performances:[],phone:jin.phone,card:jin.card||{},members:[],jinzhu_id:jin.id});}
+async function autoCreateTeamForJinZhu(jin){const teams=await fetchTeam();if(teams.some(tm=>String(tm.jinzhu_id)===String(jin.id)))return;await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(jin.phone),demand:jin.detail||jin.type||'',dream:jin.dream||'-',power:0,performances:[],phone:jin.phone,card:jin.card||{},members:[],jinzhu_id:jin.id});}
 async function conveneTeam(jinId){const jin=(await fetchJinZhu()).find(j=>j.id===jinId);if(!jin)return;await autoCreateTeamForJinZhu(jin);renderJinZhu();renderTeam();}
 async function deleteJinZhu(id){if(!confirm('Delete?'))return;await sb.from('jinzhu').delete().eq('id',id);renderAll();}
 
+/* ========== 158 单栏录入：SI 工具 ========== */
 function openAddDaShi(){editingDaShiId=null;showDaShiForm();}
 async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return alert('No permission');editingDaShiId=id;showDaShiForm(item);}
 function showDaShiForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:'');
-  const nameZh=item?tl(item.name_i18n,item.name):'';
-  const nameEn=item?.name_i18n?.en||'';
-  const introZh=item?tl(item.intro_i18n,item.intro):'';
-  const introEn=item?.intro_i18n?.en||'';
-  const mottoZh=item?tl(item.motto_i18n,item.motto):'';
-  const mottoEn=item?.motto_i18n?.en||'';
   const major=item?(item.major_category||''):'';
   const minor=item?(item.minor_category||''):'';
   const toolUrl=item?(item.tool_url||''):'';
   document.getElementById('modalBox').className='modal';
-  document.getElementById('modalBox').innerHTML=`<h3>${item?'Edit':'Post'} SI Tool</h3>
-    <div class="i18n-pair"><div class="form-group"><label>${t('form.nameZh')}</label><input id="ds-name-zh" value="${nameZh.replace(/"/g,'&quot;')}"></div><div class="form-group"><label>${t('form.nameEn')}</label><input id="ds-name-en" value="${nameEn.replace(/"/g,'&quot;')}"></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>${t('form.introZh')}</label><textarea id="ds-intro-zh">${introZh}</textarea></div><div class="form-group"><label>${t('form.introEn')}</label><textarea id="ds-intro-en">${introEn}</textarea></div></div>
+  document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}
+    <div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${item?dashiDisplayName(item).replace(/"/g,'&quot;'):''}"></div>
+    <div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${item?dashiDisplayIntro(item):''}</textarea></div>
     <div class="form-group"><label>${t('form.major')}</label><select id="ds-major"><option value="">—</option></select></div>
     <div class="form-group"><label>${t('form.minor')}</label><select id="ds-minor"><option value="">—</option></select></div>
     <div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item?.power)||0}"></div>
-    <div class="i18n-pair"><div class="form-group"><label>${t('form.mottoZh')}</label><input id="ds-motto-zh" value="${mottoZh.replace(/"/g,'&quot;')}"></div><div class="form-group"><label>${t('form.mottoEn')}</label><input id="ds-motto-en" value="${mottoEn.replace(/"/g,'&quot;')}"></div></div>
+    <div class="form-group"><label>${t('form.motto')}</label><input id="ds-motto" value="${item?dashiDisplayMotto(item).replace(/"/g,'&quot;'):''}"></div>
     <div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${String(toolUrl).replace(/"/g,'&quot;')}" placeholder="https://"></div>
     <div style="display:flex;justify-content:space-between;margin:14px 0 8px"><b>${t('form.tools')}</b><button type="button" class="btn btn-outline btn-sm" onclick="addToolItem()">+</button></div><div id="tool-list"></div>
     <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb"><div style="font-weight:600;margin-bottom:8px">${t('form.card')}</div>
@@ -1388,71 +1051,51 @@ function showDaShiForm(item=null){
     <div class="form-group"><label>${t('form.website')}</label><input id="ds-website" value="${item&&item.card?(item.card.website||''):''}"></div>
     <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;
   document.getElementById('modalMask').style.display='flex';
-  const toolsSrc=item?(Array.isArray(item.tools_i18n)?item.tools_i18n:(item.tools||[])):[];
-  if(toolsSrc.length)toolsSrc.forEach(x=>{
-    const tz=typeof x.title==='object'? (x.title.zh||'') : (x.title||'');
-    const te=typeof x.title==='object'? (x.title.en||'') : '';
-    const dz=typeof x.desc==='object'? (x.desc.zh||'') : (x.desc||'');
-    const de=typeof x.desc==='object'? (x.desc.en||'') : '';
-    addToolItem(tz,dz,te,de);
-  });else addToolItem();
+  const tools=item?dashiTools(item):[];
+  if(tools.length)tools.forEach(x=>addToolItem(x.title,x.desc));else addToolItem();
   fillDaShiCategorySelects(major,minor);
 }
 async function fillDaShiCategorySelects(major,minor){
   const cats=await fetchCategories();
-  const majSel=document.getElementById('ds-major'),minSel=document.getElementById('ds-minor');
-  if(!majSel)return;
-  majSel.innerHTML='<option value="">—</option>'+cats.map(c=>{
-    const n=catDisplayName(c);
-    const raw=c.name||n;
-    return `<option value="${String(raw).replace(/"/g,'&quot;')}" ${raw===major||n===major?'selected':''}>${n.replace(/</g,'&lt;')}</option>`;
-  }).join('');
+  const majSel=document.getElementById('ds-major'),minSel=document.getElementById('ds-minor');if(!majSel)return;
+  majSel.innerHTML='<option value="">—</option>'+cats.map(c=>{const n=catDisplayName(c);const raw=c.name||n;return `<option value="${String(raw).replace(/"/g,'&quot;')}" ${raw===major||n===major?'selected':''}>${n.replace(/</g,'&lt;')}</option>`;}).join('');
   function fillMin(){
-    const v=majSel.value;
-    const c=cats.find(x=>(x.name===v)||catDisplayName(x)===v);
-    const subs=c?catSubs(c):(c&&Array.isArray(c.subs)?c.subs:[]);
-    const rawSubs=c&&Array.isArray(c.subs)?c.subs:subs;
-    minSel.innerHTML='<option value="">—</option>'+(rawSubs||[]).map((s,i)=>{
-      const label=subs[i]||s;
-      const val=typeof s==='string'?s:(s.zh||s.en||label);
-      return `<option value="${String(val).replace(/"/g,'&quot;')}" ${val===minor||label===minor?'selected':''}>${String(label).replace(/</g,'&lt;')}</option>`;
-    }).join('');
+    const v=majSel.value;const c=cats.find(x=>(x.name===v)||catDisplayName(x)===v);
+    const subs=c?catSubs(c):[];const rawSubs=c&&Array.isArray(c.subs)?c.subs:subs;
+    minSel.innerHTML='<option value="">—</option>'+(rawSubs||[]).map((s,i)=>{const label=subs[i]||s;const val=typeof s==='string'?s:(s.zh||s.en||label);return `<option value="${String(val).replace(/"/g,'&quot;')}" ${val===minor||label===minor?'selected':''}>${String(label).replace(/</g,'&lt;')}</option>`;}).join('');
   }
   majSel.onchange=fillMin;fillMin();
 }
 async function saveDaShi(){
-  const nameZh=(document.getElementById('ds-name-zh').value||'').trim();
-  const nameEn=(document.getElementById('ds-name-en').value||'').trim();
-  const name_i18n=mkI18n(nameZh||nameEn,nameEn);const name=nameZh||nameEn;
-  const intro_i18n=mkI18n(document.getElementById('ds-intro-zh').value,document.getElementById('ds-intro-en').value);
-  const intro=intro_i18n.zh||intro_i18n.en;
-  const motto_i18n=mkI18n(document.getElementById('ds-motto-zh').value,document.getElementById('ds-motto-en').value);
-  const motto=motto_i18n.zh||motto_i18n.en;
+  const name=(document.getElementById('ds-name').value||'').trim();
+  const intro=(document.getElementById('ds-intro').value||'').trim();
+  const motto=(document.getElementById('ds-motto').value||'').trim();
   const person=document.getElementById('ds-person').value.trim();
   const phone=document.getElementById('ds-phone').value.trim(),wechat=document.getElementById('ds-wechat').value.trim();
   if(!name||!person||!phone||!wechat)return alert('Required');
+  let old=null;if(editingDaShiId)old=(await fetchDaShi()).find(d=>d.id===editingDaShiId);
+  const name_i18n=mergeI18n(old?.name_i18n||old?.name,currentLang,name);
+  const intro_i18n=mergeI18n(old?.intro_i18n||old?.intro,currentLang,intro);
+  const motto_i18n=mergeI18n(old?.motto_i18n||old?.motto,currentLang,motto);
   const major=(document.getElementById('ds-major').value||'').trim();
   const minor=(document.getElementById('ds-minor').value||'').trim();
   const tool_url=(document.getElementById('ds-tool-url').value||'').trim();
+  const major_category_i18n=mergeI18n(old?.major_category_i18n||old?.major_category,currentLang,major);
+  const minor_category_i18n=mergeI18n(old?.minor_category_i18n||old?.minor_category,currentLang,minor);
   const tools=[],tools_i18n=[];
-  document.querySelectorAll('#tool-list .dynamic-item').forEach(item=>{
-    const tz=(item.querySelector('.tool-title-zh')?.value||'').trim();
-    const te=(item.querySelector('.tool-title-en')?.value||'').trim();
-    const dz=(item.querySelector('.tool-desc-zh')?.value||'').trim();
-    const de=(item.querySelector('.tool-desc-en')?.value||'').trim();
-    if(tz||te){
-      tools.push({title:tz||te,desc:dz||de});
-      tools_i18n.push({title:mkI18n(tz||te,te),desc:mkI18n(dz,de)});
-    }
+  const oldTools=Array.isArray(old?.tools_i18n)?old.tools_i18n:[];
+  document.querySelectorAll('#tool-list .dynamic-item').forEach((el,i)=>{
+    const tt=el.querySelector('.tool-title').value.trim(),td=el.querySelector('.tool-desc').value.trim();
+    if(tt){tools.push({title:tt,desc:td});tools_i18n.push({title:mergeI18n(oldTools[i]?.title,currentLang,tt),desc:mergeI18n(oldTools[i]?.desc,currentLang,td)});}
   });
-  const major_category_i18n=mkI18n(major,'');
-  const minor_category_i18n=mkI18n(minor,'');
   const row={
     id:editingDaShiId||Date.now(),
-    name,intro,motto,major_category:major,minor_category:minor,tool_url,
+    name:name_i18n.zh||name_i18n.en||name,
+    intro:intro_i18n.zh||intro_i18n.en||intro,
+    motto:motto_i18n.zh||motto_i18n.en||motto,
+    major_category:major,minor_category:minor,tool_url,
     name_i18n,intro_i18n,motto_i18n,tools,tools_i18n,major_category_i18n,minor_category_i18n,
-    power:parseInt(document.getElementById('ds-power').value)||0,
-    phone,
+    power:parseInt(document.getElementById('ds-power').value)||0,phone,
     card:{person,title:document.getElementById('ds-title').value,phone,email:document.getElementById('ds-email').value,wechat,whatsapp:document.getElementById('ds-whatsapp').value,website:document.getElementById('ds-website').value.trim(),qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}
   };
   let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));
@@ -1460,20 +1103,17 @@ async function saveDaShi(){
 }
 async function deleteDaShi(id){if(!confirm('Delete?'))return;await sb.from('dashi').delete().eq('id',id);renderAll();}
 
+/* ========== 158 单栏录入：精英 ========== */
 function openAddHero(){editingHeroId=null;showHeroForm();}
 async function editHero(id){const item=(await fetchHero()).find(h=>h.id===id);if(!item||!canEdit(item))return;editingHeroId=id;showHeroForm(item);}
 function showHeroForm(item=null){
   const user=getUser(),phoneVal=item?item.phone:(user?user.phone:'');
-  const nameZh=item?tl(item.name_i18n,item.name):'';const nameEn=item?.name_i18n?.en||'';
-  const introZh=item?tl(item.intro_i18n,item.intro):'';const introEn=item?.intro_i18n?.en||'';
-  const stZh=item?tl(item.skill_title_i18n,item.skill_title):'';const stEn=item?.skill_title_i18n?.en||'';
-  const sdZh=item?tl(item.skill_desc_i18n,item.skill_desc):'';const sdEn=item?.skill_desc_i18n?.en||'';
   document.getElementById('modalBox').className='modal';
-  document.getElementById('modalBox').innerHTML=`<h3>${item?'Edit':'Post'} Elite</h3>
-    <div class="i18n-pair"><div class="form-group"><label>${t('form.nameZh')}</label><input id="hero-name-zh" value="${nameZh.replace(/"/g,'&quot;')}"></div><div class="form-group"><label>${t('form.nameEn')}</label><input id="hero-name-en" value="${nameEn.replace(/"/g,'&quot;')}"></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>${t('form.introZh')}</label><textarea id="hero-intro-zh">${introZh}</textarea></div><div class="form-group"><label>${t('form.introEn')}</label><textarea id="hero-intro-en">${introEn}</textarea></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>Skill 中文</label><input id="hero-skill-zh" value="${stZh.replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Skill EN</label><input id="hero-skill-en" value="${stEn.replace(/"/g,'&quot;')}"></div></div>
-    <div class="i18n-pair"><div class="form-group"><label>Skill desc 中文</label><textarea id="hero-skilldesc-zh">${sdZh}</textarea></div><div class="form-group"><label>Skill desc EN</label><textarea id="hero-skilldesc-en">${sdEn}</textarea></div></div>
+  document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postHero')}</h3>${langHintHtml()}
+    <div class="form-group"><label>${t('form.name')}</label><input id="hero-name" value="${item?heroDisplayName(item).replace(/"/g,'&quot;'):''}"></div>
+    <div class="form-group"><label>${t('form.intro')}</label><textarea id="hero-intro">${item?heroDisplayIntro(item):''}</textarea></div>
+    <div class="form-group"><label>${t('form.skill')}</label><input id="hero-skill" value="${item?heroDisplaySkillTitle(item).replace(/"/g,'&quot;'):''}"></div>
+    <div class="form-group"><label>${t('form.skillDesc')}</label><textarea id="hero-skilldesc">${item?heroDisplaySkillDesc(item):''}</textarea></div>
     <div class="form-group"><label>${t('form.power')}</label><input id="hero-power" type="number" value="${Number(item?.power)||0}"></div>
     <div class="form-group"><label>${t('form.person')}</label><input id="hero-person" value="${item&&item.card?item.card.person:''}"></div>
     <div class="form-group"><label>${t('form.phone')}</label><input id="hero-phone" value="${phoneVal}" readonly style="background:#f3f4f6"></div>
@@ -1483,25 +1123,27 @@ function showHeroForm(item=null){
   document.getElementById('modalMask').style.display='flex';
 }
 async function saveHero(){
-  const name_i18n=mkI18n(document.getElementById('hero-name-zh').value,document.getElementById('hero-name-en').value);
-  const name=name_i18n.zh||name_i18n.en;
-  const intro_i18n=mkI18n(document.getElementById('hero-intro-zh').value,document.getElementById('hero-intro-en').value);
-  const skill_title_i18n=mkI18n(document.getElementById('hero-skill-zh').value,document.getElementById('hero-skill-en').value);
-  const skill_desc_i18n=mkI18n(document.getElementById('hero-skilldesc-zh').value,document.getElementById('hero-skilldesc-en').value);
+  const name=(document.getElementById('hero-name').value||'').trim();
+  const intro=(document.getElementById('hero-intro').value||'').trim();
+  const skill=(document.getElementById('hero-skill').value||'').trim();
+  const skillDesc=(document.getElementById('hero-skilldesc').value||'').trim();
   const person=document.getElementById('hero-person').value.trim();
   const phone=document.getElementById('hero-phone').value.trim();
   const wechat=document.getElementById('hero-wechat').value.trim();
   if(!name||!person||!phone||!wechat)return alert('Required');
-  const row={id:editingHeroId||Date.now(),name,intro:intro_i18n.zh||intro_i18n.en,skill_title:skill_title_i18n.zh||skill_title_i18n.en,skill_desc:skill_desc_i18n.zh||skill_desc_i18n.en,
-    name_i18n,intro_i18n,skill_title_i18n,skill_desc_i18n,power:parseInt(document.getElementById('hero-power').value)||0,phone,
-    card:{person,phone,wechat,email:document.getElementById('hero-email').value,title:'',whatsapp:'',website:'',qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}};
+  let old=null;if(editingHeroId)old=(await fetchHero()).find(h=>h.id===editingHeroId);
+  const name_i18n=mergeI18n(old?.name_i18n||old?.name,currentLang,name);
+  const intro_i18n=mergeI18n(old?.intro_i18n||old?.intro,currentLang,intro);
+  const skill_title_i18n=mergeI18n(old?.skill_title_i18n||old?.skill_title,currentLang,skill);
+  const skill_desc_i18n=mergeI18n(old?.skill_desc_i18n||old?.skill_desc,currentLang,skillDesc);
+  const row={id:editingHeroId||Date.now(),name:name_i18n.zh||name_i18n.en||name,intro:intro_i18n.zh||intro_i18n.en||intro,skill_title:skill_title_i18n.zh||skill_title_i18n.en||skill,skill_desc:skill_desc_i18n.zh||skill_desc_i18n.en||skillDesc,name_i18n,intro_i18n,skill_title_i18n,skill_desc_i18n,power:parseInt(document.getElementById('hero-power').value)||0,phone,card:{person,phone,wechat,email:document.getElementById('hero-email').value,title:'',whatsapp:'',website:'',qr:`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(wechat)}`}};
   let error;if(editingHeroId)({error}=await sb.from('hero').update(row).eq('id',editingHeroId));else({error}=await sb.from('hero').insert(row));
   if(error)return alert(error.message);closeModal();renderHero();alert(t('tip.saved'));
 }
 async function deleteHero(id){if(!confirm('Delete?'))return;await sb.from('hero').delete().eq('id',id);renderHero();}
 
 function openAddTeam(){editingTeamId=null;showTeamForm();}
-async function editTeam(id){const item=(await fetchTeam()).find(t=>t.id===id);if(!item||!canEdit(item))return;editingTeamId=id;showTeamForm(item);}
+async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);if(!item||!canEdit(item))return;editingTeamId=id;showTeamForm(item);}
 function showTeamForm(item=null){
   document.getElementById('modalBox').className='modal';
   document.getElementById('modalBox').innerHTML=`<h3>${item?'Edit':'Create'} Team</h3>
@@ -1514,28 +1156,22 @@ function showTeamForm(item=null){
 }
 async function saveTeam(){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert('Name required');
+  const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert('Required');
   const demand=(document.getElementById('tm-demand').value||'').trim();
-  const performances=[];document.querySelectorAll('#perf-list .dynamic-item').forEach(item=>{const pt=item.querySelector('.perf-title').value.trim(),pd=item.querySelector('.perf-desc').value.trim();if(pt)performances.push({title:pt,desc:pd});});
-  const row={id:editingTeamId||Date.now(),name,demand,performances,phone:user.phone,members:editingTeamId?undefined:[]};
-  if(editingTeamId){const old=(await fetchTeam()).find(t=>t.id===editingTeamId);if(old){row.members=old.members;row.jinzhu_id=old.jinzhu_id;row.card=old.card;row.dream=old.dream;row.power=old.power;}}
+  const performances=[];document.querySelectorAll('#perf-list .dynamic-item').forEach(el=>{const pt=el.querySelector('.perf-title').value.trim(),pd=el.querySelector('.perf-desc').value.trim();if(pt)performances.push({title:pt,desc:pd});});
+  const row={id:editingTeamId||Date.now(),name,demand,performances,phone:user.phone};
+  if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members;row.jinzhu_id=old.jinzhu_id;row.card=old.card;row.dream=old.dream;row.power=old.power;}}
+  else row.members=[];
   let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));
   if(error)return alert(error.message);closeModal();renderTeam();alert(t('tip.saved'));
 }
 
 function renderAll(){renderHome();renderJinZhu();renderDaShi();renderHero();renderTeam();renderFocus();}
-
-document.querySelectorAll('.menu-item').forEach(el=>{
-  el.addEventListener('click',()=>{const v=el.dataset.view;if(v)switchView(v);});
-});
-
+document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click',()=>{const v=el.dataset.view;if(v)switchView(v);});});
 (function init(){
-  const sel=document.getElementById('langSelect');
-  if(sel)sel.value=currentLang;
+  const sel=document.getElementById('langSelect');if(sel)sel.value=currentLang;
   setLanguage(currentLang);
-  renderUserArea();
-  updateButtons();
-  updateAdminMenus();
+  renderUserArea();updateButtons();updateAdminMenus();
   switchView('home');
 })();
 </script>
