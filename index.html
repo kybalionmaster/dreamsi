@@ -54,7 +54,7 @@ button,input,select,textarea{font:inherit}
 .card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
 .card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
 .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
-.tag-industry{background:#ecfdf5;color:#047857}.tag-diff{background:#fff7ed;color:#c2410c}
+.tag-industry{background:#ecfdf5;color:#047857}
 .tag-power{background:#fef3c7;color:#b45309}.tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
 .home-cat-tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;cursor:pointer;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
 .home-cat-tag:hover{background:#e0e7ff}.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
@@ -90,9 +90,8 @@ button,input,select,textarea{font:inherit}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px}
 .form-group textarea{min-height:72px;resize:vertical}
 .form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
-.dynamic-item,.qgen-section-box,.qgen-q-row{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
+.dynamic-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
 .remove-btn{position:absolute;top:8px;right:8px}
-.qgen-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .status-published{color:#047857;font-size:12px;font-weight:600}
 .status-draft{color:#94a3b8;font-size:12px}
 .badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
@@ -112,7 +111,6 @@ th{background:#f8fafc;font-weight:600}
 }
 #chatMessages{height:240px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
 .msg.user{text-align:right;margin:6px 0;color:#1d4ed8}
-.msg.bot{text-align:left;margin:6px 0;color:#334155}
 .kybalion-wrap{max-width:480px;margin:0 auto}
 .kyb-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(15,23,42,.14);background:#0b1220 center top/cover no-repeat;background-image:url('poster-vertical.jpg');min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 12px 18px}
 .kyb-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%)}
@@ -150,7 +148,6 @@ th{background:#f8fafc;font-weight:600}
     <div class="menu-item admin-only" data-view="settings" data-i18n="menu.settings">⚙️ 设置</div>
   </aside>
   <div class="main">
-    <!-- 161：顶栏精简 —— 无标题文案、无五个快捷图标 -->
     <div class="topbar">
       <div class="brand">
         <button class="btn btn-outline btn-sm" id="btnMenu" style="display:none" onclick="toggleSidebar(true)">☰</button>
@@ -306,6 +303,7 @@ th{background:#f8fafc;font-weight:600}
 <div class="fab-menu"><button onclick="toggleSidebar(true)">☰</button></div>
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
+
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
@@ -397,7 +395,6 @@ function setUser(u){if(u)localStorage.setItem('user',JSON.stringify(u));else loc
 function isAdmin(){const u=getUser();return u&&u.role==='admin';}
 function canEdit(item){const user=getUser();if(!user)return false;if(user.role==='admin')return true;return String(item.phone)===String(user.phone);}
 function escapeAttr(s){return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
-function linkify(text){if(!text)return '';const e=String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');return e.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;word-break:break-all">$1</a>').replace(/\n/g,'<br>');}
 function renderToolUrl(url){
   const u=(url||'').trim();if(!u)return '-';
   let href=u;if(!/^https?:\/\//i.test(href))href='https://'+href;
@@ -430,20 +427,30 @@ function dashiTools(d){
   return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')}));
 }
 function catDisplayName(c){return tl(c.name_i18n,c.name)||'';}
+
+/** 163/165：有 name_i18n 时只认当前语言，禁止回退到 name（避免中文列出英文分类） */
 function catNameStrict(c){
-  const s=tlStrict(c.name_i18n,currentLang);
-  if(s)return s;
+  const ni=c.name_i18n;
+  if(ni&&typeof ni==='object'&&!Array.isArray(ni)){
+    const v=ni[currentLang];
+    return (v!=null&&String(v).trim()!=='')?String(v).trim():'';
+  }
   if(currentLang==='zh'&&c.name)return String(c.name);
   return '';
 }
-function catSubs(c){
-  if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>tl(s,typeof s==='string'?s:'')).filter(Boolean);
-  if(Array.isArray(c.subs))return c.subs.map(s=>typeof s==='string'?s:tl(s,'')).filter(Boolean);
-  return [];
-}
 function catSubsStrict(c){
-  if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>tlStrict(s,currentLang)).filter(Boolean);
-  if(currentLang==='zh'&&Array.isArray(c.subs))return c.subs.map(s=>typeof s==='string'?s:'').filter(Boolean);
+  if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length){
+    return c.subs_i18n.map(s=>{
+      if(s&&typeof s==='object'&&!Array.isArray(s)){
+        const v=s[currentLang];
+        return (v!=null&&String(v).trim()!=='')?String(v).trim():'';
+      }
+      return currentLang==='zh'&&typeof s==='string'?s:'';
+    }).filter(Boolean);
+  }
+  if(currentLang==='zh'&&Array.isArray(c.subs)){
+    return c.subs.map(s=>typeof s==='string'?s:'').filter(Boolean);
+  }
   return [];
 }
 function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
@@ -460,31 +467,35 @@ function heroDisplayIntro(h){return tl(h.intro_i18n,h.intro)||'';}
 function heroDisplaySkillTitle(h){return tl(h.skill_title_i18n,h.skill_title)||'';}
 function heroDisplaySkillDesc(h){return tl(h.skill_desc_i18n,h.skill_desc)||'';}
 
-/** 160 搜索 */
+/** 164 搜索：覆盖 name/name_i18n/分类/工具/URL */
 function dashiSearchText(d){
   if(!d)return '';
   const parts=[];
   const push=v=>{
-    if(!v)return;
-    if(typeof v==='string'){parts.push(v);return;}
-    if(typeof v==='object')Object.values(v).forEach(x=>{if(x)parts.push(String(x));});
+    if(v==null||v==='')return;
+    if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}
+    if(Array.isArray(v)){v.forEach(push);return;}
+    if(typeof v==='object')Object.keys(v).forEach(k=>push(v[k]));
   };
-  push(d.name_i18n);if(d.name)parts.push(d.name);
-  push(d.intro_i18n);if(d.intro)parts.push(d.intro);
-  push(d.motto_i18n);if(d.motto)parts.push(d.motto);
-  push(d.major_category_i18n);if(d.major_category)parts.push(d.major_category);
-  push(d.minor_category_i18n);if(d.minor_category)parts.push(d.minor_category);
-  if(d.tool_url)parts.push(d.tool_url);
-  const tools=Array.isArray(d.tools_i18n)?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);
-  tools.forEach(x=>{push(x.title);push(x.desc);});
-  parts.push(dashiDisplayName(d),dashiDisplayIntro(d),dashiDisplayMajor(d),dashiDisplayMinor(d));
+  push(d.name);push(d.name_i18n);
+  push(d.intro);push(d.intro_i18n);
+  push(d.motto);push(d.motto_i18n);
+  push(d.major_category);push(d.major_category_i18n);
+  push(d.minor_category);push(d.minor_category_i18n);
+  push(d.tool_url);
+  push(d.tools);push(d.tools_i18n);
+  push(dashiDisplayName(d));push(dashiDisplayIntro(d));
+  push(dashiDisplayMajor(d));push(dashiDisplayMinor(d));
   return parts.join(' ').toLowerCase();
 }
 function filterDaShiByQ(list,q){
   q=(q||'').trim().toLowerCase();
   if(!q)return list;
   const keys=q.split(/\s+/).filter(Boolean);
-  return list.filter(d=>{const blob=dashiSearchText(d);return keys.every(k=>blob.includes(k));});
+  return list.filter(d=>{
+    const blob=dashiSearchText(d);
+    return keys.every(k=>blob.includes(k));
+  });
 }
 
 function setLanguage(lang){
@@ -675,7 +686,6 @@ async function toggleHomeCats(){
   if(min)min.style.display=homeCatsOpen?'flex':'none';
   if(homeCatsOpen)await renderHomeCats();
 }
-/** 159 只显示当前语言大分类 */
 async function renderHomeCats(){
   const cats=await fetchCategories();
   const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');
@@ -693,14 +703,14 @@ async function renderHomeCats(){
 function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
 function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
 
-/** 160 正确搜索 */
 async function renderHome(){
   let list=await fetchDaShi();const admin=isAdmin();
   if(homeActiveMajor){
     list=list.filter(d=>{
       const maj=dashiDisplayMajor(d);
-      const majStrict=tlStrict(d.major_category_i18n,currentLang)||(currentLang==='zh'?(d.major_category||''):'');
-      return maj===homeActiveMajor||majStrict===homeActiveMajor||d.major_category===homeActiveMajor;
+      const majZh=tlStrict(d.major_category_i18n,'zh')||d.major_category||'';
+      const majEn=tlStrict(d.major_category_i18n,'en');
+      return maj===homeActiveMajor||majZh===homeActiveMajor||majEn===homeActiveMajor||d.major_category===homeActiveMajor;
     });
   }
   const q=(document.getElementById('home-ds-q')||{}).value||'';
@@ -940,7 +950,6 @@ async function sendChat(){
 async function renderChatList(){const list=await fetchChat();document.getElementById('chat-list').innerHTML=list.length?list.map(c=>`<div class="msg-item"><b>${(c.phone||'').replace(/</g,'&lt;')}</b>：${(c.content||'').replace(/</g,'&lt;')}</div>`).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;}
 async function renderUsers(){const list=await fetchUsers();document.getElementById('users-tbody').innerHTML=list.map(u=>`<tr><td>${u.phone}</td><td>${t('role.'+u.role)||u.role}</td><td>${u.created_at||'-'}</td><td>${u.blacklisted?'🚫':'OK'}</td><td></td></tr>`).join('');}
 
-/** 162 只显示当前语言分类 */
 async function renderCategories(){
   const list=await fetchCategories();
   const q=(document.getElementById('cat-q')||{}).value||'';
