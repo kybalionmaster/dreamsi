@@ -32,6 +32,7 @@ button,input,select,textarea{font:inherit}
 .btn-edit{background:#e0e7ff;color:#3730a3}.btn-del{background:#fee2e2;color:#b91c1c}
 .btn-team{background:#d1fae5;color:#047857}.btn-savior{background:#fef3c7;color:#b45309}
 .btn-caishen{background:#fce7f3;color:#9d174d}.btn-survey{background:#ede9fe;color:#5b21b6}
+.btn-bundle{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff}
 .btn-danger{background:#dc2626;color:#fff}.btn-success{background:#059669;color:#fff}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn-icon-sm{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:16px;display:inline-flex;align-items:center;justify-content:center;padding:0}
@@ -59,8 +60,7 @@ button,input,select,textarea{font:inherit}
 .tag-industry{background:#ecfdf5;color:#047857}
 .tag-power{background:#fef3c7;color:#b45309}.tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
 .tag-tool{background:#ede9fe;color:#5b21b6;margin:2px;cursor:pointer}
-.tag-link{background:#e0f2fe;color:#0369a1;margin:2px}
-.tag-value{background:#fef3c7;color:#b45309}
+.tag-skill{background:#fce7f3;color:#9d174d}
 .home-cat-tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;cursor:pointer;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
 .home-cat-tag:hover{background:#e0e7ff}.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
@@ -82,6 +82,9 @@ button,input,select,textarea{font:inherit}
 .member-chip .power-icon{color:#b45309;font-weight:600}
 .member-x,.team-x{width:22px;height:22px;border-radius:50%;border:none;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px;line-height:1;opacity:0}
 .team-show-kick .member-x,.team-title:hover .team-x,.team-box:hover .team-x{opacity:1}
+.bundle-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:13px}
+.bundle-box h5{font-size:13px;margin-bottom:6px;color:#92400e}
+.bundle-row{margin:4px 0;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
 .modal-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
 .modal{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
 .modal.wide{max-width:820px}
@@ -131,6 +134,10 @@ th{background:#f8fafc;font-weight:600}
 .tool-line,.pain-line,.link-line{margin:4px 0 4px 12px;font-size:13px;color:#334155}
 .case-value-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:13px;color:#92400e}
 .case-links a{color:#2563eb;text-decoration:underline}
+.badge-pending{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:11px}
+.badge-reviewing{background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-size:11px}
+.badge-completed{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
+.badge-archived{background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:999px;font-size:11px}
 </style>
 </head>
 <body>
@@ -208,15 +215,26 @@ th{background:#f8fafc;font-weight:600}
         </div>
         <div id="focus-list"></div>
       </div>
+
+      <!-- 181 我的超级团队 -->
       <div class="view" id="view-team">
         <div class="view-header">
           <h2 data-i18n="menu.team">👥 我的超级团队</h2>
           <button class="btn btn-primary btn-sm" id="btn-add-team" data-i18n="btn.createTeam" onclick="openAddTeam()">+ 创建团队</button>
         </div>
-        <div class="search-bar"><input id="team-q" data-i18n-placeholder="search.team" placeholder="搜索团队…" oninput="teamPage=1;renderTeam()"></div>
+        <div class="search-bar">
+          <input id="team-q" data-i18n-placeholder="search.team" placeholder="搜索团队名称、需求…" oninput="teamPage=1;renderTeam()">
+          <select id="team-sort" onchange="teamPage=1;renderTeam()">
+            <option value="new">最新</option>
+            <option value="power">战力总和</option>
+            <option value="name">名称</option>
+          </select>
+        </div>
         <div id="team-list"></div>
         <div class="pager" id="team-pager"></div>
       </div>
+
+      <!-- 180 金主需求中心：全家桶，无找SI -->
       <div class="view" id="view-jinzhu">
         <div class="view-header">
           <h2 data-i18n="menu.jinzhu">💰 金主需求中心</h2>
@@ -224,7 +242,7 @@ th{background:#f8fafc;font-weight:600}
         </div>
         <div id="jinzhu-match-banner"></div>
         <div class="search-bar">
-          <input id="jz-q" data-i18n-placeholder="search.jinzhu" placeholder="搜索…" oninput="jzPage=1;renderJinZhu()">
+          <input id="jz-q" data-i18n-placeholder="search.jinzhu" placeholder="搜索名称、行业、详情…" oninput="jzPage=1;renderJinZhu()">
           <select id="jz-sort" onchange="jzPage=1;renderJinZhu()">
             <option value="new">最新</option>
             <option value="name">名称</option>
@@ -234,6 +252,7 @@ th{background:#f8fafc;font-weight:600}
         <div id="jinzhu-list"></div>
         <div class="pager" id="jz-pager"></div>
       </div>
+
       <div class="view" id="view-dashi">
         <div class="view-header">
           <h2 data-i18n="menu.dashi">🤖 超级智能中心</h2>
@@ -251,15 +270,13 @@ th{background:#f8fafc;font-weight:600}
         <div id="dashi-list"></div>
         <div class="pager" id="ds-pager"></div>
       </div>
-
-      <!-- 179 SI 成功场景 -->
       <div class="view" id="view-sicase">
         <div class="view-header">
           <h2 data-i18n="menu.sicase">✨ SI 成功场景</h2>
           <button class="btn btn-primary btn-sm" id="btn-add-sicase" data-i18n="btn.postCase" onclick="openAddSiCase()">+ 发布场景</button>
         </div>
         <div class="search-bar">
-          <input id="case-q" data-i18n-placeholder="search.case" placeholder="搜索标题、内容、价值、工具…" oninput="casePage=1;renderSiCase()">
+          <input id="case-q" data-i18n-placeholder="search.case" placeholder="搜索…" oninput="casePage=1;renderSiCase()">
           <select id="case-sort" onchange="casePage=1;renderSiCase()">
             <option value="new">最新</option>
             <option value="title">标题</option>
@@ -268,7 +285,6 @@ th{background:#f8fafc;font-weight:600}
         <div id="sicase-list"></div>
         <div class="pager" id="case-pager"></div>
       </div>
-
       <div class="view" id="view-hero">
         <div class="view-header">
           <h2 data-i18n="menu.hero">⭐ 超级精英中心</h2>
@@ -415,30 +431,11 @@ const DEFAULT_AVATAR='https://api.dicebear.com/7.x/avataaars/svg?seed=dreamsi-de
 const SUPPORTED_LANGS=['zh','en','de','fr','ru','ja'];
 const LANG_LABEL={zh:'中文',en:'English',de:'Deutsch',fr:'Français',ru:'Русский',ja:'日本語'};
 const LANG_HTML={zh:'zh-CN',en:'en',de:'de',fr:'fr',ru:'ru',ja:'ja'};
-function detectBrowserLang(){
-  const list=[];
-  if(navigator.languages&&navigator.languages.length)list.push(...navigator.languages);
-  if(navigator.language)list.push(navigator.language);
-  if(navigator.userLanguage)list.push(navigator.userLanguage);
-  for(const raw of list){
-    const low=String(raw||'').toLowerCase();
-    if(low.startsWith('zh'))return 'zh';
-    if(low.startsWith('en'))return 'en';
-    if(low.startsWith('de'))return 'de';
-    if(low.startsWith('fr'))return 'fr';
-    if(low.startsWith('ru'))return 'ru';
-    if(low.startsWith('ja'))return 'ja';
-  }
-  return 'en';
-}
-function getInitialLang(){
-  const saved=localStorage.getItem('dreamsi_lang');
-  if(saved&&SUPPORTED_LANGS.includes(saved))return saved;
-  return detectBrowserLang();
-}
+function detectBrowserLang(){const list=[];if(navigator.languages&&navigator.languages.length)list.push(...navigator.languages);if(navigator.language)list.push(navigator.language);for(const raw of list){const low=String(raw||'').toLowerCase();if(low.startsWith('zh'))return 'zh';if(low.startsWith('en'))return 'en';if(low.startsWith('de'))return 'de';if(low.startsWith('fr'))return 'fr';if(low.startsWith('ru'))return 'ru';if(low.startsWith('ja'))return 'ja';}return 'en';}
+function getInitialLang(){const saved=localStorage.getItem('dreamsi_lang');if(saved&&SUPPORTED_LANGS.includes(saved))return saved;return detectBrowserLang();}
 const i18n={
-zh:{brand:'梦想显化器',menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},home:{siTools:'超级智能工具',allCats:'全部工具大分类',searchPh:'搜索…'},kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit 访问',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',addTool:'+ 添加工具',findClient:'找金主',findSi:'找 SI',addPain:'+ 添加痛点',addLink:'+ 添加链接',addRelated:'+ 关联 SI',viewDetail:'查看详情'},search:{generic:'搜索…',team:'搜索团队…',survey:'搜索问卷…',cat:'搜索…',hero:'搜索…',dashi:'搜索…',jinzhu:'搜索…',case:'搜索标题、内容、价值、工具…'},coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录'},pulse:{compose:'+ 发脉冲',searchPh:'搜索…',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',read:'已读',sendOk:'发送成功',needLogin:'请先登录'},users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除该用户？',noSelfDel:'不能删除自己',ok:'已更新'},tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',needSection:'请添加分区',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',emptyMineCase:'您还没有发布场景，点击右上角发布。'},role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',skillDesc:'技能详情',subs:'小分类（每行一个）',industry:'行业 / 需求类型 *',detail:'需求详情',major:'大分类',minor:'小分类',toolUrl:'工具网址',motto:'座右铭',tools:'工具装备',toolTitle:'装备名称',toolDesc:'装备说明',pains:'痛点列表',painTitle:'痛点标题',painDesc:'痛点说明',autoTeam:'发布后自动创建超级团队',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',pickSi:'选择 SI'},label:{intro:'简介',power:'战力',skill:'技能',industry:'行业',toolUrl:'工具网址',major:'大分类',minor:'小分类',detail:'详情',pains:'痛点',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI',links:'相关链接'},qgen:{title:'问卷编辑',name:'问卷名称 *',desc:'说明',previewTitle:'预览',fillSubmit:'提交答卷'},diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',answers:'答卷',report:'报告',reportLink:'报告链接',saveReport:'保存报告',viewReport:'查看诊断报告',noAnswers:'暂无答卷',view:'查看详情',empty:'暂无诊断'},hero:{sortNew:'最新',sortPower:'战力从高到低',sortName:'名称',pull:'拉入团队',emptyMine:'您还没有发布精英档案。'},dashi:{sortNew:'最新',sortPower:'战力从高到低',sortName:'名称',pull:'拉入团队',matchTip:'正在为「{name}」匹配超级智能。',clearMatch:'清除匹配'},jinzhu:{sortNew:'最新',sortName:'名称',sortType:'行业',matchTip:'正在为「{name}」匹配金主需求。',clearMatch:'清除匹配',idLabel:'需求编号'},sicase:{sortNew:'最新',sortTitle:'标题',empty:'暂无成功场景'}},
-en:{brand:'Dream Manifestor',menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 Team',jinzhu:'💰 Demands',dashi:'🤖 SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},home:{siTools:'SI Tools',allCats:'Categories',searchPh:'Search…'},kyb:{footnote:'<a href="http://www.kybalion.org/" target="_blank" rel="noopener">kybalion.org</a>'},btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Team',postDemand:'+ Demand',postTool:'+ Tool',postHero:'+ Elite',postCase:'+ Case',newSurvey:'+ Survey',addMajor:'+ Cat',viewAllTeams:'Teams',preview:'Preview',publish:'Publish',addSection:'+ Section',addQuestion:'+ Question',reply:'Reply',addTool:'+ Tool',findClient:'Find client',findSi:'Find SI',addPain:'+ Pain',addLink:'+ Link',addRelated:'+ Link SI',viewDetail:'Detail'},search:{generic:'Search…',team:'Teams…',survey:'Surveys…',cat:'Cats…',hero:'Search…',dashi:'Search…',jinzhu:'Search…',case:'Search title, content, value, tools…'},coop:{name:'Name *',contact:'Contact *',type:'Type',desc:'Desc',intro:'Submit partnership.',myList:'My list',empty:'Empty',status:'Status',note:'Note',pending:'Pending',contacted:'Contacted',progress:'Progress',done:'Done',closed:'Closed',centerEmpty:'Empty'},pulse:{compose:'+ Compose',searchPh:'Search…',inbox:'Inbox',sent:'Sent',toPhone:'To *',content:'Content *',type:'Type',empty:'Empty',from:'From',to:'To',markRead:'Read',unread:'Unread',read:'Read',sendOk:'Sent',needLogin:'Login'},users:{phone:'Phone',role:'Role',date:'Date',status:'Status',action:'Actions',blacklist:'Block',unban:'Unban',delConfirm:'Delete?',noSelfDel:'No self delete',ok:'OK'},tip:{noData:'No data',loginFirst:'Login first',noTools:'No tools',noTeams:'No teams',saved:'Saved',needSection:'Need section',noReportLink:'No link',noHeroes:'No elites',emptyMineJz:'No demand yet.',noDemands:'No demands',noCases:'No success cases',emptyMineCase:'No case yet. Publish one.'},role:{jinzhu:'Client',ai:'AI',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},form:{name:'Name *',intro:'Intro',power:'Power',person:'Person *',title:'Title',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Web',loginTitle:'Login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm *',roleLabel:'Role',langHint:'Lang: ',langHint2:'Fill known language only.',skill:'Skill *',skillDesc:'Detail',subs:'Subs',industry:'Industry *',detail:'Detail',major:'Major',minor:'Minor',toolUrl:'URL',motto:'Motto',tools:'Tools',toolTitle:'Title',toolDesc:'Desc',pains:'Pains',painTitle:'Title',painDesc:'Desc',autoTeam:'Auto-create team',caseTitle:'Title *',caseContent:'Content *',caseValue:'Value created *',relatedTools:'Related SI',links:'Links',linkTitle:'Link title',linkUrl:'URL',pickSi:'Pick SI'},label:{intro:'Intro',power:'Power',skill:'Skill',industry:'Industry',toolUrl:'URL',major:'Major',minor:'Minor',detail:'Detail',pains:'Pains',caseContent:'Content',caseValue:'Value',relatedTools:'Related SI',links:'Links'},qgen:{title:'Editor',name:'Name *',desc:'Desc',previewTitle:'Preview',fillSubmit:'Submit'},diag:{allStatus:'All',pending:'Pending',reviewing:'Review',completed:'Done',archived:'Archived',detail:'Detail',answers:'Answers',report:'Report',reportLink:'Link',saveReport:'Save',viewReport:'View report',noAnswers:'None',view:'View',empty:'Empty'},hero:{sortNew:'Newest',sortPower:'Power',sortName:'Name',pull:'Pull',emptyMine:'No elite yet.'},dashi:{sortNew:'Newest',sortPower:'Power',sortName:'Name',pull:'Pull',matchTip:'Matching SI for "{name}".',clearMatch:'Clear'},jinzhu:{sortNew:'Newest',sortName:'Name',sortType:'Industry',matchTip:'Matching demands for "{name}".',clearMatch:'Clear',idLabel:'ID'},sicase:{sortNew:'Newest',sortTitle:'Title',empty:'No cases'}}
+zh:{brand:'梦想显化器',menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},home:{siTools:'超级智能工具',allCats:'全部工具大分类',searchPh:'搜索…'},kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit 访问',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',addTool:'+ 添加工具',findClient:'找金主',addPain:'+ 添加痛点',addLink:'+ 添加链接',addRelated:'+ 关联 SI',viewDetail:'查看详情',bundle:'全家桶',join:'加入',disband:'解散',setFocus:'设为当前显化'},search:{generic:'搜索…',team:'搜索团队名称、需求…',survey:'搜索问卷…',cat:'搜索…',hero:'搜索…',dashi:'搜索…',jinzhu:'搜索…',case:'搜索…'},coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录'},pulse:{compose:'+ 发脉冲',searchPh:'搜索…',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',read:'已读',sendOk:'发送成功',needLogin:'请先登录'},users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除该用户？',noSelfDel:'不能删除自己',ok:'已更新'},tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',needSection:'请添加分区',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队，请先发布需求或创建团队',bundleWorking:'正在匹配全家桶…'},role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',subs:'小分类（每行一个）',industry:'行业 / 需求类型 *',detail:'需求详情',major:'大分类',minor:'小分类',toolUrl:'工具网址',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',pickSi:'选择 SI',teamName:'团队名称 *',teamDemand:'团队需求',autoTeam:'发布后自动创建超级团队'},label:{intro:'简介',power:'战力',skill:'技能',industry:'行业',toolUrl:'工具网址',detail:'详情',pains:'痛点',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',demand:'需求'},qgen:{title:'问卷编辑',name:'问卷名称 *',desc:'说明',previewTitle:'预览',fillSubmit:'提交答卷'},diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',noAnswers:'暂无答卷',view:'查看详情',empty:'暂无诊断',saveReport:'保存报告',viewReport:'查看诊断报告'},hero:{sortNew:'最新',sortPower:'战力从高到低',sortName:'名称',pull:'拉入团队',emptyMine:'您还没有发布精英档案。'},dashi:{sortNew:'最新',sortPower:'战力从高到低',sortName:'名称',pull:'拉入团队',matchTip:'正在为「{name}」匹配超级智能。',clearMatch:'清除匹配'},jinzhu:{sortNew:'最新',sortName:'名称',sortType:'行业',matchTip:'正在为「{name}」匹配金主需求。',clearMatch:'清除匹配',idLabel:'需求编号'},sicase:{sortNew:'最新',sortTitle:'标题',empty:'暂无成功场景'},team:{sortNew:'最新',sortPower:'战力总和',sortName:'名称',empty:'暂无团队，点击右上角创建',memberN:'人',powerSum:'总战力',bundleHint:'全家桶：6精英+6SI+6场景+3问卷'}},
+en:{brand:'Dream Manifestor',menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 Team',jinzhu:'💰 Demands',dashi:'🤖 SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},home:{siTools:'SI Tools',allCats:'Categories',searchPh:'Search…'},kyb:{footnote:'<a href="http://www.kybalion.org/" target="_blank" rel="noopener">kybalion.org</a>'},btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Team',postDemand:'+ Demand',postTool:'+ Tool',postHero:'+ Elite',postCase:'+ Case',newSurvey:'+ Survey',addMajor:'+ Cat',viewAllTeams:'Teams',preview:'Preview',publish:'Publish',addSection:'+ Section',addQuestion:'+ Question',reply:'Reply',addTool:'+ Tool',findClient:'Find client',addPain:'+ Pain',addLink:'+ Link',addRelated:'+ Link SI',viewDetail:'Detail',bundle:'Full Pack',join:'Join',disband:'Disband',setFocus:'Set Focus'},search:{generic:'Search…',team:'Search teams…',survey:'Surveys…',cat:'Cats…',hero:'Search…',dashi:'Search…',jinzhu:'Search…',case:'Search…'},coop:{name:'Name *',contact:'Contact *',type:'Type',desc:'Desc',intro:'Submit partnership.',myList:'My list',empty:'Empty',status:'Status',note:'Note',pending:'Pending',contacted:'Contacted',progress:'Progress',done:'Done',closed:'Closed',centerEmpty:'Empty'},pulse:{compose:'+ Compose',searchPh:'Search…',inbox:'Inbox',sent:'Sent',toPhone:'To *',content:'Content *',type:'Type',empty:'Empty',from:'From',to:'To',markRead:'Read',unread:'Unread',read:'Read',sendOk:'Sent',needLogin:'Login'},users:{phone:'Phone',role:'Role',date:'Date',status:'Status',action:'Actions',blacklist:'Block',unban:'Unban',delConfirm:'Delete?',noSelfDel:'No self delete',ok:'OK'},tip:{noData:'No data',loginFirst:'Login first',noTools:'No tools',noTeams:'No teams',saved:'Saved',needSection:'Need section',noReportLink:'No link',noHeroes:'No elites',emptyMineJz:'No demand yet.',noDemands:'No demands',noCases:'No cases',bundleOk:'Full pack loaded into team',bundleNoTeam:'No linked team yet',bundleWorking:'Matching full pack…'},role:{jinzhu:'Client',ai:'AI',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},form:{name:'Name *',intro:'Intro',power:'Power',person:'Person *',title:'Title',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Web',loginTitle:'Login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm *',roleLabel:'Role',langHint:'Lang: ',langHint2:'Fill known language only.',skill:'Skill *',subs:'Subs',industry:'Industry *',detail:'Detail',major:'Major',minor:'Minor',toolUrl:'URL',caseTitle:'Title *',caseContent:'Content *',caseValue:'Value *',relatedTools:'Related SI',links:'Links',linkTitle:'Link title',linkUrl:'URL',pickSi:'Pick SI',teamName:'Team name *',teamDemand:'Demand',autoTeam:'Auto-create team'},label:{intro:'Intro',power:'Power',skill:'Skill',industry:'Industry',toolUrl:'URL',detail:'Detail',pains:'Pains',caseContent:'Content',caseValue:'Value',relatedTools:'Related SI',links:'Links',members:'Members',bundledCases:'Cases',bundledSurveys:'Surveys',demand:'Demand'},qgen:{title:'Editor',name:'Name *',desc:'Desc',previewTitle:'Preview',fillSubmit:'Submit'},diag:{allStatus:'All',pending:'Pending',reviewing:'Review',completed:'Done',archived:'Archived',detail:'Detail',noAnswers:'None',view:'View',empty:'Empty',saveReport:'Save',viewReport:'View report'},hero:{sortNew:'Newest',sortPower:'Power',sortName:'Name',pull:'Pull',emptyMine:'No elite yet.'},dashi:{sortNew:'Newest',sortPower:'Power',sortName:'Name',pull:'Pull',matchTip:'Matching SI for "{name}".',clearMatch:'Clear'},jinzhu:{sortNew:'Newest',sortName:'Name',sortType:'Industry',matchTip:'Matching demands for "{name}".',clearMatch:'Clear',idLabel:'ID'},sicase:{sortNew:'Newest',sortTitle:'Title',empty:'No cases'},team:{sortNew:'Newest',sortPower:'Total power',sortName:'Name',empty:'No teams yet',memberN:'members',powerSum:'Power',bundleHint:'Pack: 6 elites + 6 SI + 6 cases + 3 surveys'}}
 };
 ['de','fr','ru','ja'].forEach(L=>{i18n[L]=JSON.parse(JSON.stringify(i18n.en));});
 let currentLang=getInitialLang();
@@ -456,6 +453,7 @@ const ROLE_CLS={jinzhu:'role-jinzhu',ai:'role-ai',admin:'role-admin',kefu:'role-
 const ROLE_KEYS=['jinzhu','ai','yingxiao','admin','kefu','shenhe'];
 const Q_TYPES=['text','textarea','radio','checkbox','select','number','rating'];
 const COOP_STATUS=['pending','contacted','progress','done','closed'];
+const BUNDLE_HERO_N=6,BUNDLE_SI_N=6,BUNDLE_CASE_N=6,BUNDLE_SURVEY_N=3;
 function getUser(){const u=localStorage.getItem('user');return u?JSON.parse(u):null;}
 function setUser(u){if(u)localStorage.setItem('user',JSON.stringify(u));else localStorage.removeItem('user');matchContext=null;renderUserArea();updateButtons();updateAdminMenus();renderAll();}
 function isAdmin(){const u=getUser();return u&&u.role==='admin';}
@@ -470,62 +468,44 @@ function paginate(arr,page,size){const total=arr.length,pages=Math.max(1,Math.ce
 function renderPager(id,page,pages,fnName){const el=document.getElementById(id);if(!el)return;if(pages<=1){el.innerHTML='';return;}let h=page<=1?`<span class="disabled">«</span>`:`<a href="javascript:${fnName}(${page-1})">«</a>`;for(let i=1;i<=pages;i++){if(i===page)h+=`<span class="cur">${i}</span>`;else if(pages>7&&Math.abs(i-page)>2&&i!==1&&i!==pages){if(i===2||i===pages-1)h+=`<span>…</span>`;}else h+=`<a href="javascript:${fnName}(${i})">${i}</a>`;}h+=page>=pages?`<span class="disabled">»</span>`:`<a href="javascript:${fnName}(${page+1})">»</a>`;el.innerHTML=h;}
 function textBlob(obj){if(obj==null)return '';if(typeof obj==='string'||typeof obj==='number')return String(obj);if(Array.isArray(obj))return obj.map(textBlob).join(' ');if(typeof obj==='object')return Object.values(obj).map(textBlob).join(' ');return '';}
 function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;return list.filter(item=>textBlob(item).toLowerCase().includes(q));}
+function textMatch(a,b){const A=(a||'').toLowerCase().split(/[\s,，、;；|/]+/).filter(w=>w.length>1);const B=(b||'').toLowerCase();let s=0;A.forEach(w=>{if(B.includes(w))s+=1;});return s;}
 function dashiDisplayName(d){return tl(d.name_i18n,d.name)||'';}
 function dashiDisplayIntro(d){return tl(d.intro_i18n,d.intro)||'';}
 function dashiDisplayMajor(d){return tl(d.major_category_i18n,d.major_category)||'';}
 function dashiDisplayMinor(d){return tl(d.minor_category_i18n,d.minor_category)||'';}
-function dashiTools(d){const src=Array.isArray(d.tools_i18n)&&d.tools_i18n.length?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')})).filter(x=>x.title||x.desc);}
-function dashiSearchText(d){if(!d)return '';const parts=[];const push=v=>{if(v==null||v==='')return;if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}if(Array.isArray(v)){v.forEach(push);return;}if(typeof v==='object')Object.values(v).forEach(push);};push(d.name);push(d.name_i18n);push(d.intro);push(d.intro_i18n);push(d.major_category);push(d.major_category_i18n);push(d.tool_url);return parts.join(' ').toLowerCase();}
+function dashiTools(d){const src=Array.isArray(d.tools_i18n)&&d.tools_i18n.length?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);return src.map(x=>({title:tl(x.title,''),desc:tl(x.desc,'')})).filter(x=>x.title||x.desc);}
+function dashiSearchText(d){if(!d)return '';return [d.name,d.name_i18n,d.intro,d.intro_i18n,d.major_category,d.major_category_i18n,d.tool_url,d.tools,d.tools_i18n].map(textBlob).join(' ').toLowerCase();}
 function filterDaShiByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(d=>{const blob=dashiSearchText(d);return keys.every(k=>blob.includes(k));});}
-function accumulateTools(d){return dashiTools(d).map(x=>(x.title||'')+' '+(x.desc||'')).join(' ')+' '+dashiDisplayIntro(d)+' '+dashiDisplayMajor(d);}
-function catNameStrict(c){const ni=c.name_i18n;if(ni&&typeof ni==='object'&&!Array.isArray(ni)){const v=ni[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}if(currentLang==='zh'&&(ni==null||ni==='')&&c.name)return String(c.name);return '';}
+function accumulateTools(d){return dashiTools(d).map(x=>(x.title||'')+' '+(x.desc||'')).join(' ')+' '+dashiDisplayIntro(d)+' '+dashiDisplayMajor(d)+' '+dashiDisplayName(d);}
+function catNameStrict(c){const ni=c.name_i18n;if(ni&&typeof ni==='object'&&!Array.isArray(ni)){const v=ni[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}if(currentLang==='zh'&&c.name)return String(c.name);return '';}
 function catSubsStrict(c){if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>{if(s&&typeof s==='object'){const v=s[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}return currentLang==='zh'&&typeof s==='string'?s:'';}).filter(Boolean);if(currentLang==='zh'&&Array.isArray(c.subs))return c.subs.filter(s=>typeof s==='string');return [];}
 function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
 function jinzhuDisplayIntro(j){return tl(j.intro_i18n,j.intro)||'';}
 function jinzhuDisplayDetail(j){return tl(j.detail_i18n,j.detail)||'';}
 function jinzhuDisplayType(j){return tl(j.type_i18n,j.type)||'';}
-function jinzhuPains(j){const src=Array.isArray(j.pains_i18n)&&j.pains_i18n.length?j.pains_i18n:(Array.isArray(j.pains)?j.pains:[]);return src.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')})).filter(x=>x.title||x.desc);}
-function jinzhuSearchText(j){if(!j)return '';const parts=[];const push=v=>{if(v==null||v==='')return;if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}if(Array.isArray(v)){v.forEach(push);return;}if(typeof v==='object')Object.values(v).forEach(push);};push(j.id);push(j.name);push(j.name_i18n);push(j.type);push(j.type_i18n);push(j.detail);push(j.detail_i18n);push(j.pains);push(j.pains_i18n);return parts.join(' ').toLowerCase();}
+function jinzhuPains(j){const src=Array.isArray(j.pains_i18n)&&j.pains_i18n.length?j.pains_i18n:(Array.isArray(j.pains)?j.pains:[]);return src.map(p=>({title:tl(p.title,''),desc:tl(p.desc,'')})).filter(x=>x.title||x.desc);}
+function jinzhuSearchText(j){if(!j)return '';return [j.id,j.name,j.name_i18n,j.type,j.type_i18n,j.detail,j.detail_i18n,j.pains,j.pains_i18n].map(textBlob).join(' ').toLowerCase();}
 function filterJinZhuByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(j=>{const blob=jinzhuSearchText(j);return keys.every(k=>blob.includes(k));});}
-function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+jinzhuDisplayDetail(j)+' '+jinzhuDisplayType(j);}
+function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+jinzhuDisplayDetail(j)+' '+jinzhuDisplayType(j)+' '+jinzhuDisplayName(j)+' '+jinzhuDisplayIntro(j);}
 function heroDisplayName(h){return tl(h.name_i18n,h.name)||'';}
 function heroDisplayIntro(h){return tl(h.intro_i18n,h.intro)||'';}
 function heroDisplaySkillTitle(h){return tl(h.skill_title_i18n,h.skill_title)||'';}
-function heroSearchText(h){if(!h)return '';const parts=[];const push=v=>{if(v==null||v==='')return;if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}if(Array.isArray(v)){v.forEach(push);return;}if(typeof v==='object')Object.values(v).forEach(push);};push(h.name);push(h.name_i18n);push(h.intro);push(h.intro_i18n);push(h.skill_title);push(h.skill_title_i18n);return parts.join(' ').toLowerCase();}
+function heroDisplaySkillDesc(h){return tl(h.skill_desc_i18n,h.skill_desc)||'';}
+function heroSearchText(h){if(!h)return '';return [h.name,h.name_i18n,h.intro,h.intro_i18n,h.skill_title,h.skill_title_i18n,h.skill_desc,h.skill_desc_i18n].map(textBlob).join(' ').toLowerCase();}
 function filterHeroByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(h=>{const blob=heroSearchText(h);return keys.every(k=>blob.includes(k));});}
+function accumulateHero(h){return heroDisplayName(h)+' '+heroDisplayIntro(h)+' '+heroDisplaySkillTitle(h)+' '+heroDisplaySkillDesc(h);}
 function qgenDisplayName(tpl){return tl(tpl.name_i18n,tpl.name)||'';}
 function qgenDisplayDesc(tpl){return tl(tpl.description_i18n,tpl.description)||'';}
-
-/* ===== 179 SI 成功场景显示 ===== */
+function qgenDisplayIndustry(tpl){return tl(tpl.industry_i18n,tpl.industry)||'';}
 function caseDisplayTitle(c){return tl(c.title_i18n,c.title)||'';}
 function caseDisplayContent(c){return tl(c.content_i18n,c.content)||'';}
 function caseDisplayValue(c){return tl(c.value_created_i18n,c.value_created)||'';}
 function caseRelatedTools(c){return Array.isArray(c.related_tools)?c.related_tools:[];}
 function caseLinks(c){return Array.isArray(c.links)?c.links.filter(l=>l&&(l.title||l.url)):[];}
-function caseSearchText(c){
-  if(!c)return '';
-  const parts=[];
-  const push=v=>{if(v==null||v==='')return;if(typeof v==='string'||typeof v==='number'){parts.push(String(v));return;}if(Array.isArray(v)){v.forEach(push);return;}if(typeof v==='object')Object.values(v).forEach(push);};
-  push(c.title);push(c.title_i18n);push(c.content);push(c.content_i18n);
-  push(c.value_created);push(c.value_created_i18n);push(c.related_tools);push(c.links);push(c.phone);
-  return parts.join(' ').toLowerCase();
-}
-function filterSiCaseByQ(list,q){
-  q=(q||'').trim().toLowerCase();
-  if(!q)return list;
-  const keys=q.split(/\s+/).filter(Boolean);
-  return list.filter(c=>{const blob=caseSearchText(c);return keys.every(k=>blob.includes(k));});
-}
-
-function setLanguage(lang){
-  if(!SUPPORTED_LANGS.includes(lang))lang=detectBrowserLang();
-  currentLang=lang;localStorage.setItem('dreamsi_lang',lang);document.documentElement.lang=LANG_HTML[lang]||lang;
-  const sel=document.getElementById('langSelect');if(sel)sel.value=lang;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{const text=t(el.getAttribute('data-i18n'));if(typeof text==='string')el.textContent=text;});
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});
-  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});
-  document.title=t('brand');homeActiveMajor='';renderUserArea();updateButtons();renderAll();
-}
+function caseSearchText(c){if(!c)return '';return [c.title,c.title_i18n,c.content,c.content_i18n,c.value_created,c.value_created_i18n,c.related_tools,c.links].map(textBlob).join(' ').toLowerCase();}
+function filterSiCaseByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(c=>{const blob=caseSearchText(c);return keys.every(k=>blob.includes(k));});}
+function accumulateCase(c){return caseDisplayTitle(c)+' '+caseDisplayContent(c)+' '+caseDisplayValue(c)+' '+caseRelatedTools(c).map(x=>x.name||'').join(' ');}
+function setLanguage(lang){if(!SUPPORTED_LANGS.includes(lang))lang=detectBrowserLang();currentLang=lang;localStorage.setItem('dreamsi_lang',lang);document.documentElement.lang=LANG_HTML[lang]||lang;const sel=document.getElementById('langSelect');if(sel)sel.value=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const text=t(el.getAttribute('data-i18n'));if(typeof text==='string')el.textContent=text;});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});document.title=t('brand');homeActiveMajor='';renderUserArea();updateButtons();renderAll();}
 function getLocalPriorityTeamId(){const v=localStorage.getItem('priority_team_id');return v?Number(v):null;}
 function setLocalPriorityTeamId(id){if(id)localStorage.setItem('priority_team_id',String(id));else localStorage.removeItem('priority_team_id');}
 async function getPriorityTeamId(){const user=getUser();if(user){try{const {data}=await sb.from('app_users').select('priority_team_id').eq('phone',user.phone).maybeSingle();if(data&&data.priority_team_id)return Number(data.priority_team_id);}catch(e){}}return getLocalPriorityTeamId();}
@@ -550,371 +530,305 @@ async function fetchDiagnosis(){const {data,error}=await sb.from('diagnosis_surv
 async function fetchQgen(){const {data,error}=await sb.from('questionnaire_templates').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchCategories(){const {data,error}=await sb.from('categories').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchAllMessages(){const {data,error}=await sb.from('messages').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
-async function fetchSiCases(){const {data,error}=await sb.from('si_cases').select('*').order('id',{ascending:false});if(error){console.error(error);return[];}return data||[];}
-function textMatch(a,b){const A=(a||'').toLowerCase().split(/\s+/).filter(Boolean);const B=(b||'').toLowerCase();let s=0;A.forEach(w=>{if(w.length>1&&B.includes(w))s++;});return s;}
-function goSavior(jinId){fetchJinZhu().then(list=>{const jin=list.find(j=>j.id===jinId);if(!jin)return;matchContext={type:'jinzhu',id:jin.id,name:jinzhuDisplayName(jin)||jinzhuDisplayType(jin)||String(jin.id),text:accumulatePains(jin)};switchView('dashi');});}
+async function fetchSiCases(){const {data,error}=await sb.from('si_cases').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return;matchContext={type:'dashi',id:d.id,name:dashiDisplayName(d),text:accumulateTools(d)};switchView('jinzhu');});}
 function clearMatchContext(){matchContext=null;renderJinZhu();renderDaShi();}
-function switchView(view){
-  document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const el=document.getElementById('view-'+view);if(el)el.classList.add('active');
-  toggleSidebar(false);
-  if(view!=='dashi')focusDashiId=null;
-  if(view!=='hero')focusHeroId=null;
-  if(view!=='jinzhu')focusJinZhuId=null;
-  const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,sicase:renderSiCase,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,categories:renderCategories,coop:renderCoopFormPage};
-  if(map[view])map[view]();
-}
+function switchView(view){document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const el=document.getElementById('view-'+view);if(el)el.classList.add('active');toggleSidebar(false);if(view!=='dashi')focusDashiId=null;if(view!=='hero')focusHeroId=null;if(view!=='jinzhu')focusJinZhuId=null;const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,sicase:renderSiCase,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,categories:renderCategories,coop:renderCoopFormPage};if(map[view])map[view]();}
 function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">${t('btn.login')}</button><button class="btn btn-primary" onclick="openModal('register')">${t('btn.register')}</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||''}">${t('role.'+user.role)||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;}
-function updateButtons(){
-  const user=getUser();
-  const set=(id,show)=>{const el=document.getElementById(id);if(el)el.style.display=show?'inline-block':'none';};
-  set('btn-add-jinzhu',user&&(user.role==='jinzhu'||user.role==='admin'));
-  set('btn-add-dashi',user&&(user.role==='ai'||user.role==='admin'));
-  set('btn-add-hero',user&&(user.role==='yingxiao'||user.role==='admin'));
-  set('btn-add-team',user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'));
-  set('btn-add-qgen',!!user);
-  set('btn-pulse-compose',!!user);
-  set('btn-add-sicase',user&&(user.role==='ai'||user.role==='admin'||user.role==='jinzhu'||user.role==='yingxiao'));
-}
+function updateButtons(){const user=getUser();const set=(id,show)=>{const el=document.getElementById(id);if(el)el.style.display=show?'inline-block':'none';};set('btn-add-jinzhu',user&&(user.role==='jinzhu'||user.role==='admin'));set('btn-add-dashi',user&&(user.role==='ai'||user.role==='admin'));set('btn-add-hero',user&&(user.role==='yingxiao'||user.role==='admin'));set('btn-add-team',user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'));set('btn-add-qgen',!!user);set('btn-pulse-compose',!!user);set('btn-add-sicase',user&&(user.role==='ai'||user.role==='admin'||user.role==='jinzhu'||user.role==='yingxiao'));}
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
 function openModal(type){const box=document.getElementById('modalBox');box.className='modal';if(type==='login')box.innerHTML=`<h3>${t('form.loginTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="login-phone"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="login-pwd"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doLogin()">${t('btn.login')}</button></div>`;else box.innerHTML=`<h3>${t('form.regTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="reg-phone"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="reg-pwd"></div><div class="form-group"><label>${t('form.pwd2')}</label><input type="password" id="reg-pwd2"></div><div class="form-group"><label>${t('form.roleLabel')}</label><select id="reg-role"><option value="jinzhu">${t('role.jinzhu')}</option><option value="ai">${t('role.ai')}</option><option value="yingxiao">${t('role.yingxiao')}</option></select></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doRegister()">${t('btn.register')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 function closeModal(){document.getElementById('modalMask').style.display='none';}
-async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.loginFirst'));const {data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert('User not found');if(data.blacklisted)return alert('Blacklisted');if(data.pwd!==pwd)return alert('Wrong password');setUser({phone:data.phone,role:data.role});closeModal();switchView('dashi');}
-async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert('Required');if(pwd!==pwd2)return alert('Mismatch');if(pwd.length<4)return alert('Min 4');const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('Exists');const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('dashi');}
+async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.loginFirst'));const {data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert('User not found');if(data.blacklisted)return alert('Blacklisted');if(data.pwd!==pwd)return alert('Wrong password');setUser({phone:data.phone,role:data.role});closeModal();switchView('team');}
+async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert('Required');if(pwd!==pwd2)return alert('Mismatch');if(pwd.length<4)return alert('Min 4');const {data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert('Exists');const {error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('team');}
 function renderBizCard(card){if(!card||(!card.person&&!card.phone&&!card.wechat))return '';const site=(card.website||'').trim();let siteHtml='-';if(site){let href=site;if(!/^https?:\/\//i.test(href))href='https://'+href;siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" style="color:#2563eb">${escapeHtml(site)}</a>`;}return `<div class="biz-card"><div class="biz-info"><div><b>${escapeHtml(card.person||'-')}</b> · ${escapeHtml(card.title||'')}</div><div>📱 ${escapeHtml(card.phone||'-')}</div><div>✉️ ${escapeHtml(card.email||'-')}</div><div>💬 ${escapeHtml(card.wechat||'-')}</div><div>🟢 ${escapeHtml(card.whatsapp||'-')}</div><div>🌐 ${siteHtml}</div></div><div class="qr-box"><img src="${card.qr||'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(card.wechat||'wechat')}" alt="QR" onerror="this.style.display='none'"></div></div>`;}
-async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert('Only client/admin');const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(tm=>String(tm.phone)===String(user.phone));if(!targetTeams.length)return alert('Create team first');let added=0,skipped=0;for(const team of targetTeams){let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,targetId)){skipped++;continue;}members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;}alert(added?`OK ${added}`:(skipped?'Already in':'Fail'));renderTeam();renderJinZhu();renderFocus();renderDaShi();renderHero();}
+async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert('Only client/admin');const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(tm=>String(tm.phone)===String(user.phone));if(!targetTeams.length)return alert(t('tip.noTeams'));let added=0,skipped=0;for(const team of targetTeams){let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,targetId)){skipped++;continue;}members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});const {error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;}alert(added?`OK ${added}`:(skipped?'Already in':'Fail'));renderTeam();renderJinZhu();renderFocus();renderDaShi();renderHero();}
 async function kickMember(teamId,memberId){const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team||!canEdit(team))return;await sb.from('team').update({members:(team.members||[]).filter(m=>String(m.id)!==String(memberId))}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
 async function joinTeam(teamId){const user=getUser();if(!user)return alert(t('tip.loginFirst'));const ident=await resolveJoinIdentity(user);const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team)return;let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,ident.id))return alert('Already');members.push({id:ident.id,type:ident.memberType,name:ident.displayName,power:ident.power});await sb.from('team').update({members}).eq('id',teamId);renderTeam();renderFocus();}
 async function disbandTeam(teamId){if(!confirm('OK?'))return;await sb.from('team').delete().eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
 function generateTeamName(phone){return 'Team-'+(phone||'').slice(-4)+'-'+Date.now().toString().slice(-4);}
+function teamPowerSum(team){return (team.members||[]).reduce((s,m)=>s+(Number(m.power)||0),0);}
 
-/* ========== 179 SI 成功场景 ========== */
-async function renderSiCase(){
+/* ========== 180 全家桶 ========== */
+function rankByMatchThenPower(list,demandText,textFn,powerFn,limit){
+  return list.map(item=>{
+    const blob=textFn(item);
+    const score=textMatch(demandText,blob);
+    const power=powerFn(item);
+    return {item,score,power};
+  }).sort((a,b)=>{
+    if(b.score!==a.score)return b.score-a.score;
+    return b.power-a.power;
+  }).slice(0,limit).map(x=>x.item);
+}
+async function runFullBundle(jinzhuId){
   const user=getUser();
-  const box=document.getElementById('sicase-list');
-  if(!box)return;
-  let list=await fetchSiCases();
-  let emptyMsg='';
+  if(!user)return alert(t('tip.loginFirst'));
+  if(user.role!=='jinzhu'&&user.role!=='admin')return alert('Only client/admin');
 
-  if(!user){
-    emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;
-    list=[];
+  const jinzhuList=await fetchJinZhu();
+  const jin=jinzhuList.find(j=>j.id===jinzhuId);
+  if(!jin)return alert('Not found');
+  if(!canEdit(jin)&&!isAdmin())return alert('No permission');
+
+  const teams=await fetchTeam();
+  let team=teams.find(tm=>String(tm.jinzhu_id)===String(jinzhuId));
+  // 无团队则自动建一个
+  if(!team){
+    const newId=Date.now();
+    const row={id:newId,name:generateTeamName(jin.phone||user.phone),phone:jin.phone||user.phone,members:[],jinzhu_id:jinzhuId,demand:jinzhuDisplayType(jin)||jinzhuDisplayDetail(jin)||'',performances:[],bundled_cases:[],bundled_surveys:[]};
+    const {error}=await sb.from('team').insert(row);
+    if(error)return alert(error.message||t('tip.bundleNoTeam'));
+    team=row;
   }
 
-  list=filterSiCaseByQ(list,(document.getElementById('case-q')||{}).value||'');
+  alert(t('tip.bundleWorking'));
 
-  const sort=(document.getElementById('case-sort')||{}).value||'new';
-  if(sort==='title')list=list.slice().sort((a,b)=>caseDisplayTitle(a).localeCompare(caseDisplayTitle(b),'zh'));
+  const demandText=accumulatePains(jin)+' '+(team.demand||'');
+  const [heroes,dashis,cases,surveys]=await Promise.all([fetchHero(),fetchDaShi(),fetchSiCases(),fetchQgen()]);
+
+  const topHeroes=rankByMatchThenPower(heroes,demandText,accumulateHero,h=>Number(h.power)||0,BUNDLE_HERO_N);
+  const topSi=rankByMatchThenPower(dashis,demandText,accumulateTools,d=>Number(d.power)||0,BUNDLE_SI_N);
+  const topCases=rankByMatchThenPower(cases,demandText,accumulateCase,()=>0,BUNDLE_CASE_N);
+  const pubSurveys=surveys.filter(s=>s.status==='published'||!s.status||s.status==='draft');
+  const topSurveys=rankByMatchThenPower(pubSurveys.length?pubSurveys:surveys,demandText,s=>qgenDisplayName(s)+' '+qgenDisplayDesc(s)+' '+qgenDisplayIndustry(s),()=>0,BUNDLE_SURVEY_N);
+
+  let members=Array.isArray(team.members)?[...team.members]:[];
+  const addMember=(id,type,name,power)=>{
+    if(isAlreadyInTeam(members,id))return;
+    members.push({id,type,name:name||String(id),power:Number(power)||0});
+  };
+  topHeroes.forEach(h=>addMember(h.id,'hero',heroDisplayName(h),h.power));
+  topSi.forEach(d=>addMember(d.id,'dashi',dashiDisplayName(d),d.power));
+
+  const bundled_cases=topCases.map(c=>({id:c.id,title:caseDisplayTitle(c)}));
+  const bundled_surveys=topSurveys.map(s=>({id:s.id,name:qgenDisplayName(s)}));
+
+  const {error}=await sb.from('team').update({
+    members,
+    bundled_cases,
+    bundled_surveys,
+    demand:team.demand||jinzhuDisplayType(jin)||jinzhuDisplayDetail(jin)||''
+  }).eq('id',team.id);
+  if(error)return alert(error.message);
+
+  alert(`${t('tip.bundleOk')}\nElite ${topHeroes.length} / SI ${topSi.length} / Case ${bundled_cases.length} / Survey ${bundled_surveys.length}`);
+  renderJinZhu();
+  renderTeam();
+  renderFocus();
+}
+
+/* ========== 181 超级团队 ========== */
+function teamBundleHtml(team){
+  if(!team)return '';
+  const cases=Array.isArray(team.bundled_cases)?team.bundled_cases:[];
+  const surveys=Array.isArray(team.bundled_surveys)?team.bundled_surveys:[];
+  if(!cases.length&&!surveys.length)return '';
+  return `<div class="bundle-box">
+    ${cases.length?`<h5>${t('label.bundledCases')}</h5><div class="bundle-row">${cases.map(c=>`<span class="tag tag-tool" onclick="switchView('sicase')">${escapeHtml(c.title||c.id||'')}</span>`).join('')}</div>`:''}
+    ${surveys.length?`<h5 style="margin-top:8px">${t('label.bundledSurveys')}</h5><div class="bundle-row">${surveys.map(s=>`<span class="tag tag-sub" onclick="switchView('qgen')">${escapeHtml(s.name||s.id||'')}</span>`).join('')}</div>`:''}
+  </div>`;
+}
+function teamBlockHtml(team,j,user,heroIds,dashiIds){
+  if(!team)return '';
+  const members=team.members||[];
+  const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
+  const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));
+  const sum=teamPowerSum(team);
+  const showKick=!!teamKickVisible[team.id],showCard=!!teamCardVisible[team.id];
+  const canJoin=user&&!isMember&&!isOwner;
+  return `<div class="team-box ${showKick?'team-show-kick':''}">
+    <div class="team-title">
+      <h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4>
+      <span class="tag tag-power">⚡${sum}</span>
+      <span class="tag">${members.length} ${t('team.memberN')}</span>
+      ${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">Survey</button>
+        <button type="button" class="btn-icon-sm" title="${t('btn.setFocus')}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
+      ${isOwner?`<button type="button" class="btn-icon-sm" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}
+      <button type="button" class="btn-icon-sm" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>
+      ${canJoin?`<button type="button" class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">${t('btn.join')}</button>`:''}
+      ${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">${t('btn.edit')}</button>`:''}
+      ${isOwner?`<button class="btn btn-del btn-sm" onclick="disbandTeam(${team.id})">${t('btn.disband')}</button>`:''}
+    </div>
+    ${team.demand?`<div class="card-desc" style="margin-top:6px"><b>${t('label.demand')}：</b>${escapeHtml(team.demand)}</div>`:''}
+    <div class="member-list" style="margin-top:8px">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>
+    ${teamBundleHtml(team)}
+    ${showCard&&j&&j.card?renderBizCard(j.card):''}
+  </div>`;
+}
+async function renderTeam(){
+  const user=getUser();
+  const box=document.getElementById('team-list');
+  if(!box)return;
+  if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}
+
+  let list=await fetchTeam();
+  const allJin=await fetchJinZhu();
+  let heroIds=new Set(),dashiIds=new Set();
+  (await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
+  (await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
+
+  if(user.role!=='admin'){
+    list=list.filter(tm=>String(tm.phone)===String(user.phone)||(tm.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds)));
+  }
+
+  const q=(document.getElementById('team-q')||{}).value||'';
+  if(q.trim()){
+    const ql=q.trim().toLowerCase();
+    list=list.filter(tm=>[tm.name,tm.demand,tm.phone,JSON.stringify(tm.members||[]),JSON.stringify(tm.bundled_cases||[]),JSON.stringify(tm.bundled_surveys||[])].join(' ').toLowerCase().includes(ql));
+  }
+
+  const sort=(document.getElementById('team-sort')||{}).value||'new';
+  if(sort==='power')list=list.slice().sort((a,b)=>teamPowerSum(b)-teamPowerSum(a));
+  else if(sort==='name')list=list.slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'zh'));
   else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
 
-  const sortSel=document.getElementById('case-sort');
-  if(sortSel&&sortSel.options.length>=2){
+  const sortSel=document.getElementById('team-sort');
+  if(sortSel&&sortSel.options.length>=3){
     const cur=sortSel.value;
-    sortSel.options[0].text=t('sicase.sortNew');
-    sortSel.options[1].text=t('sicase.sortTitle');
+    sortSel.options[0].text=t('team.sortNew');
+    sortSel.options[1].text=t('team.sortPower');
+    sortSel.options[2].text=t('team.sortName');
     sortSel.value=cur;
   }
 
-  const pg=paginate(list,casePage,PAGE_SIZE);
-  casePage=pg.page;
-
-  box.innerHTML=pg.slice.length?pg.slice.map(c=>{
-    const title=caseDisplayTitle(c);
-    const content=caseDisplayContent(c);
-    const value=caseDisplayValue(c);
-    const tools=caseRelatedTools(c);
-    const links=caseLinks(c);
-    const contentShort=content.length>160?content.slice(0,160)+'…':content;
-    const toolsHtml=tools.length
-      ? `<div class="card-desc"><b>${t('label.relatedTools')}：</b>${tools.map(x=>`<span class="tag tag-tool" onclick="goMemberProfile('dashi','${escapeAttr(String(x.id||''))}')">${escapeHtml(x.name||String(x.id||''))}</span>`).join('')}</div>`
-      : '';
-    const linksHtml=links.length
-      ? `<div class="card-desc case-links"><b>${t('label.links')}：</b>${links.map(l=>{
-          const href=normalizeExternalUrl(l.url||'');
-          const lt=l.title||l.url||'link';
-          return href?`<div class="link-line">🔗 <a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(lt)}</a></div>`:`<div class="link-line">🔗 ${escapeHtml(lt)}</div>`;
-        }).join('')}</div>`
-      : '';
-    return `<div class="card" id="sicase-card-${c.id}">
-      <div class="avatar avatar-case">✨</div>
-      <div class="card-content">
-        <div class="card-title">
-          ${escapeHtml(title||'-')}
-          ${canEdit(c)?`
-            <button class="btn btn-edit btn-sm" onclick="editSiCase(${c.id})">${t('btn.edit')}</button>
-            <button class="btn btn-del btn-sm" onclick="deleteSiCase(${c.id})">${t('btn.del')}</button>
-          `:''}
-        </div>
-        <div class="card-desc"><b>${t('label.caseContent')}：</b>${escapeHtml(contentShort||'-')}</div>
-        ${value?`<div class="case-value-box"><b>${t('label.caseValue')}：</b>${escapeHtml(value)}</div>`:''}
-        ${toolsHtml}
-        ${linksHtml}
-        <div style="margin-top:8px">
-          <button class="btn btn-outline btn-sm" onclick="viewSiCase(${c.id})">${t('btn.viewDetail')}</button>
-        </div>
-      </div>
-    </div>`;
-  }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noCases')}</div>`);
-
-  renderPager('case-pager',pg.page,pg.pages,'goCasePage');
+  const pg=paginate(list,teamPage,PAGE_SIZE);
+  teamPage=pg.page;
+  box.innerHTML=pg.slice.length?pg.slice.map(tm=>{
+    const j=allJin.find(x=>String(x.id)===String(tm.jinzhu_id));
+    return `<div class="card"><div class="avatar avatar-team">T</div><div class="card-content">${teamBlockHtml(tm,j,user,heroIds,dashiIds)}</div></div>`;
+  }).join(''):`<div class="empty-tip">${t('team.empty')}</div>`;
+  renderPager('team-pager',pg.page,pg.pages,'goTeamPage');
 }
-function goCasePage(p){casePage=p;renderSiCase();}
-
-async function viewSiCase(id){
-  const c=(await fetchSiCases()).find(x=>x.id===id);
-  if(!c)return;
-  const title=caseDisplayTitle(c);
-  const content=caseDisplayContent(c);
-  const value=caseDisplayValue(c);
-  const tools=caseRelatedTools(c);
-  const links=caseLinks(c);
-  const toolsHtml=tools.length
-    ? `<div style="margin:10px 0"><b>${t('label.relatedTools')}：</b><div style="margin-top:6px">${tools.map(x=>`<span class="tag tag-tool" onclick="closeModal();goMemberProfile('dashi','${escapeAttr(String(x.id||''))}')">${escapeHtml(x.name||String(x.id||''))}</span>`).join('')}</div></div>`
-    : '';
-  const linksHtml=links.length
-    ? `<div style="margin:10px 0" class="case-links"><b>${t('label.links')}：</b>${links.map(l=>{
-        const href=normalizeExternalUrl(l.url||'');
-        const lt=l.title||l.url||'link';
-        return href?`<div class="link-line">🔗 <a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(lt)}</a></div>`:`<div class="link-line">🔗 ${escapeHtml(lt)}</div>`;
-      }).join('')}</div>`
-    : '';
-  document.getElementById('modalBox').className='modal wide';
+function goTeamPage(p){teamPage=p;renderTeam();}
+function openAddTeam(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin'&&user.role!=='yingxiao')return;editingTeamId=null;showTeamForm(null);}
+async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);if(!item||!canEdit(item))return;editingTeamId=id;showTeamForm(item);}
+function showTeamForm(item){
+  document.getElementById('modalBox').className='modal';
   document.getElementById('modalBox').innerHTML=`
-    <h3>${escapeHtml(title||'-')}</h3>
-    <div class="card-desc" style="white-space:pre-wrap;margin-bottom:12px">${escapeHtml(content||'-')}</div>
-    ${value?`<div class="case-value-box"><b>${t('label.caseValue')}：</b>${escapeHtml(value)}</div>`:''}
-    ${toolsHtml}
-    ${linksHtml}
-    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button></div>`;
-  document.getElementById('modalMask').style.display='flex';
-}
-
-function openAddSiCase(){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  editingSiCaseId=null;
-  caseLinkDraft=[];
-  caseRelatedDraft=[];
-  showSiCaseForm(null);
-}
-async function editSiCase(id){
-  const item=(await fetchSiCases()).find(c=>c.id===id);
-  if(!item)return alert('Not found');
-  if(!canEdit(item))return alert('No permission');
-  editingSiCaseId=id;
-  caseLinkDraft=caseLinks(item).map(l=>({title:l.title||'',url:l.url||''}));
-  caseRelatedDraft=caseRelatedTools(item).map(x=>({id:x.id,name:x.name||String(x.id||'')}));
-  showSiCaseForm(item);
-}
-async function showSiCaseForm(item){
-  const user=getUser();
-  const allDashi=await fetchDaShi();
-  const dashiOpts=allDashi.map(d=>`<option value="${d.id}">${escapeHtml(dashiDisplayName(d)||String(d.id))}</option>`).join('');
-  document.getElementById('modalBox').className='modal wide';
-  document.getElementById('modalBox').innerHTML=`
-    <h3>${item?t('btn.edit'):t('btn.postCase')}</h3>
-    ${langHintHtml()}
-    <div class="form-group"><label>${t('form.caseTitle')}</label><input id="case-title" value="${escapeHtml(item?caseDisplayTitle(item):'')}"></div>
-    <div class="form-group"><label>${t('form.caseContent')}</label><textarea id="case-content" style="min-height:120px">${escapeHtml(item?caseDisplayContent(item):'')}</textarea></div>
-    <div class="form-group"><label>${t('form.caseValue')}</label><textarea id="case-value" style="min-height:72px">${escapeHtml(item?caseDisplayValue(item):'')}</textarea></div>
-    <div class="form-group"><label>${t('form.relatedTools')}</label>
-      <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-        <select id="case-pick-si" style="flex:1;min-width:160px"><option value="">${t('form.pickSi')}</option>${dashiOpts}</select>
-        <button type="button" class="btn btn-outline btn-sm" onclick="caseAddRelatedFromSelect()">${t('btn.addRelated')}</button>
-      </div>
-      <div id="case-related-editor"></div>
-    </div>
-    <div class="form-group"><label>${t('form.links')}</label>
-      <div id="case-links-editor"></div>
-      <button type="button" class="btn btn-outline btn-sm" onclick="caseAddLink()">${t('btn.addLink')}</button>
-    </div>
+    <h3>${item?t('btn.edit'):t('btn.createTeam')}</h3>
+    <div class="form-group"><label>${t('form.teamName')}</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div>
+    <div class="form-group"><label>${t('form.teamDemand')}</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div>
+    <p style="font-size:12px;color:#64748b">${t('team.bundleHint')}</p>
     <div class="form-actions">
       <button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>
-      <button class="btn btn-primary" onclick="saveSiCase()">${t('btn.save')}</button>
+      <button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button>
     </div>`;
   document.getElementById('modalMask').style.display='flex';
-  renderCaseRelatedEditor();
-  renderCaseLinksEditor();
 }
-function caseAddRelatedFromSelect(){
-  const sel=document.getElementById('case-pick-si');
-  if(!sel||!sel.value)return;
-  const id=sel.value;
-  const name=sel.options[sel.selectedIndex]?sel.options[sel.selectedIndex].text:'';
-  if(caseRelatedDraft.some(x=>String(x.id)===String(id)))return;
-  caseRelatedDraft.push({id:isNaN(Number(id))?id:Number(id),name});
-  renderCaseRelatedEditor();
-}
-function caseRemoveRelated(i){caseRelatedDraft.splice(i,1);renderCaseRelatedEditor();}
-function renderCaseRelatedEditor(){
-  const box=document.getElementById('case-related-editor');
-  if(!box)return;
-  if(!caseRelatedDraft.length){box.innerHTML=`<div style="font-size:12px;color:#94a3b8;margin-bottom:8px">—</div>`;return;}
-  box.innerHTML=caseRelatedDraft.map((x,i)=>`
-    <div class="dynamic-item" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-      <span class="tag tag-tool">${escapeHtml(x.name||String(x.id||''))}</span>
-      <button type="button" class="btn btn-del btn-sm" onclick="caseRemoveRelated(${i})">×</button>
-    </div>`).join('');
-}
-function caseAddLink(){caseLinkDraft.push({title:'',url:''});renderCaseLinksEditor();}
-function caseRemoveLink(i){caseLinkDraft.splice(i,1);renderCaseLinksEditor();}
-function renderCaseLinksEditor(){
-  const box=document.getElementById('case-links-editor');
-  if(!box)return;
-  if(!caseLinkDraft.length){box.innerHTML=`<div style="font-size:12px;color:#94a3b8;margin-bottom:8px">—</div>`;return;}
-  box.innerHTML=caseLinkDraft.map((x,i)=>`
-    <div class="dynamic-item">
-      <button type="button" class="btn btn-del btn-sm remove-btn" onclick="caseRemoveLink(${i})">×</button>
-      <div class="form-group"><label>${t('form.linkTitle')}</label><input value="${escapeHtml(x.title||'')}" onchange="caseLinkDraft[${i}].title=this.value"></div>
-      <div class="form-group"><label>${t('form.linkUrl')}</label><input value="${escapeHtml(x.url||'')}" placeholder="https://" onchange="caseLinkDraft[${i}].url=this.value"></div>
-    </div>`).join('');
-}
-async function saveSiCase(){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  const title=(document.getElementById('case-title').value||'').trim();
-  const content=(document.getElementById('case-content').value||'').trim();
-  const value=(document.getElementById('case-value').value||'').trim();
-  if(!title)return alert(t('form.caseTitle'));
-  if(!content)return alert(t('form.caseContent'));
-  if(!value)return alert(t('form.caseValue'));
-
-  let old=null;
-  if(editingSiCaseId){
-    old=(await fetchSiCases()).find(c=>c.id===editingSiCaseId);
-    if(!old)return alert('Not found');
-    if(!canEdit(old))return alert('No permission');
+async function saveTeam(){
+  const user=getUser();if(!user)return;
+  const name=(document.getElementById('tm-name').value||'').trim();
+  if(!name)return alert(t('form.teamName'));
+  const demand=(document.getElementById('tm-demand').value||'').trim();
+  let row={id:editingTeamId||Date.now(),name,demand,phone:user.phone,members:[],performances:[],bundled_cases:[],bundled_surveys:[]};
+  if(editingTeamId){
+    const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);
+    if(old){row.members=old.members||[];row.jinzhu_id=old.jinzhu_id;row.performances=old.performances||[];row.bundled_cases=old.bundled_cases||[];row.bundled_surveys=old.bundled_surveys||[];row.phone=old.phone||user.phone;}
   }
-
-  const title_i18n=mergeI18n(old?.title_i18n||old?.title,currentLang,title);
-  const content_i18n=mergeI18n(old?.content_i18n||old?.content,currentLang,content);
-  const value_created_i18n=mergeI18n(old?.value_created_i18n||old?.value_created,currentLang,value);
-
-  const related_tools=caseRelatedDraft.map(x=>({id:x.id,name:(x.name||'').trim()||String(x.id)}));
-  const links=caseLinkDraft
-    .map(l=>({title:(l.title||'').trim(),url:(l.url||'').trim()}))
-    .filter(l=>l.title||l.url);
-
-  const row={
-    id:editingSiCaseId||Date.now(),
-    title:title_i18n.zh||title_i18n.en||title,
-    content:content_i18n.zh||content_i18n.en||content,
-    value_created:value_created_i18n.zh||value_created_i18n.en||value,
-    title_i18n,content_i18n,value_created_i18n,
-    related_tools,links,
-    phone:old?.phone||user.phone
-  };
-
   let error;
-  if(editingSiCaseId)({error}=await sb.from('si_cases').update(row).eq('id',editingSiCaseId));
-  else({error}=await sb.from('si_cases').insert(row));
+  if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));
+  else({error}=await sb.from('team').insert(row));
   if(error)return alert(error.message);
-  closeModal();
-  renderSiCase();
-  alert(t('tip.saved'));
-}
-async function deleteSiCase(id){
-  const item=(await fetchSiCases()).find(c=>c.id===id);
-  if(!item||!canEdit(item))return alert('No permission');
-  if(!confirm('Delete?'))return;
-  const {error}=await sb.from('si_cases').delete().eq('id',id);
-  if(error)return alert(error.message);
-  renderSiCase();
+  closeModal();renderTeam();renderJinZhu();alert(t('tip.saved'));
 }
 
-/* ===== 其余模块（精简完整） ===== */
-async function renderDaShi(){
-  const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;
-  let list=await fetchDaShi();let emptyMsg='';
-  const banner=document.getElementById('dashi-match-banner');
-  if(banner){
-    if(matchContext&&matchContext.type==='jinzhu'){
-      banner.innerHTML=`<div class="match-banner">${t('dashi.matchTip').replace('{name}',escapeHtml(matchContext.name||''))} <button class="btn btn-outline btn-sm" onclick="clearMatchContext()">${t('dashi.clearMatch')}</button></div>`;
-      list=list.map(d=>({...d,_score:textMatch(matchContext.text,accumulateTools(d))})).sort((a,b)=>b._score-a._score);
-    }else banner.innerHTML='';
-  }
-  if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
-  list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');
-  const sort=(document.getElementById('ds-sort')||{}).value||'new';
-  if(!(matchContext&&matchContext.type==='jinzhu')){
-    if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));
-    else if(sort==='name')list=list.slice().sort((a,b)=>dashiDisplayName(a).localeCompare(dashiDisplayName(b),'zh'));
-    else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
-  }
-  if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}
-  const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;
-  const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
-  box.innerHTML=pg.slice.length?pg.slice.map(d=>{
-    const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;
-    const isFocus=focusDashiId&&String(d.id)===String(focusDashiId);
-    const hasUrl=!!((d.tool_url||'').trim());
-    return `<div class="card ${isFocus?'dashi-highlight':''}" id="dashi-card-${d.id}"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d)||'-')}<span class="tag tag-power">⚡${power}</span>${dashiDisplayMajor(d)?`<span class="tag tag-industry">${escapeHtml(dashiDisplayMajor(d))}</span>`:''}${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d)||'-')}</div><div class="card-desc">${renderToolUrl(d.tool_url)}</div>${renderBizCard(d.card)}<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>${user?`<button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">${t('btn.findClient')}</button>`:''}</div>${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}</div></div>`;
-  }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);
-  renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
-  if(focusDashiId)setTimeout(()=>{const el=document.getElementById('dashi-card-'+focusDashiId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},100);
-}
-function goDsPage(p){dsPage=p;renderDaShi();}
-function openAddDaShi(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='ai'&&user.role!=='admin')return;editingDaShiId=null;dashiToolDraft=[];showDaShiForm(null);}
-async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;editingDaShiId=id;const tools=Array.isArray(item.tools_i18n)&&item.tools_i18n.length?item.tools_i18n:(Array.isArray(item.tools)?item.tools:[]);dashiToolDraft=tools.map(x=>({title:tl(x.title,''),desc:tl(x.desc,'')}));showDaShiForm(item);}
-async function showDaShiForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=item&&item.card?item.card:{};const cats=await fetchCategories();const majorOpts=['<option value="">—</option>'].concat(cats.map(c=>{const n=catNameStrict(c);return n?`<option value="${escapeAttr(n)}" ${(item&&dashiDisplayMajor(item)===n)?'selected':''}>${escapeHtml(n)}</option>`:null;}).filter(Boolean)).join('');document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.major')}</label><select id="ds-major" onchange="onDashiMajorChange()">${majorOpts}</select></div><div class="form-group"><label>${t('form.minor')}</label><select id="ds-minor"><option value="">—</option></select></div><div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item&&item.power)||0}"></div><div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(card.person||'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(card.wechat||'')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';await fillDashiMinorOptions(item?dashiDisplayMajor(item):'',item?dashiDisplayMinor(item):'');}
-async function fillDashiMinorOptions(majorName,selectedMinor){const sel=document.getElementById('ds-minor');if(!sel)return;const cats=await fetchCategories();const hit=cats.find(c=>catNameStrict(c)===majorName);const subs=hit?catSubsStrict(hit):[];sel.innerHTML='<option value="">—</option>'+subs.map(s=>`<option value="${escapeAttr(s)}" ${s===selectedMinor?'selected':''}>${escapeHtml(s)}</option>`).join('');}
-async function onDashiMajorChange(){await fillDashiMinorOptions((document.getElementById('ds-major')||{}).value||'','');}
-async function saveDaShi(){const user=getUser();if(!user)return;const name=(document.getElementById('ds-name').value||'').trim();const person=(document.getElementById('ds-person').value||'').trim();const phone=(document.getElementById('ds-phone').value||'').trim();const wechat=(document.getElementById('ds-wechat').value||'').trim();if(!name||!person||!wechat)return alert('Required');let old=editingDaShiId?(await fetchDaShi()).find(d=>d.id===editingDaShiId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());const major=(document.getElementById('ds-major').value||'').trim();const minor=(document.getElementById('ds-minor').value||'').trim();const major_category_i18n=mergeI18n(old?.major_category_i18n,currentLang,major);const minor_category_i18n=mergeI18n(old?.minor_category_i18n,currentLang,minor);const row={id:editingDaShiId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',major_category:major_category_i18n.zh||major,minor_category:minor_category_i18n.zh||minor,name_i18n,intro_i18n,major_category_i18n,minor_category_i18n,tool_url:(document.getElementById('ds-tool-url').value||'').trim(),power:parseInt(document.getElementById('ds-power').value)||0,tools:[],tools_i18n:[],phone:old?.phone||phone,card:{person,phone:old?.phone||phone,wechat,title:'',email:'',whatsapp:'',website:'',qr:''}};let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));if(error)return alert(error.message);closeModal();renderDaShi();renderHome();alert(t('tip.saved'));}
-async function deleteDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;if(!confirm('Delete?'))return;await sb.from('dashi').delete().eq('id',id);renderDaShi();renderHome();}
-
+/* ========== 180 金主列表（无找SI，有全家桶） ========== */
 async function renderJinZhu(){
   const user=getUser();const box=document.getElementById('jinzhu-list');if(!box)return;
   let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
   const banner=document.getElementById('jinzhu-match-banner');
-  if(banner){if(matchContext&&matchContext.type==='dashi'){banner.innerHTML=`<div class="match-banner">${t('jinzhu.matchTip').replace('{name}',escapeHtml(matchContext.name||''))} <button class="btn btn-outline btn-sm" onclick="clearMatchContext()">${t('jinzhu.clearMatch')}</button></div>`;list=list.map(j=>({...j,_score:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._score-a._score);}else banner.innerHTML='';}
+  if(banner){
+    if(matchContext&&matchContext.type==='dashi'){
+      banner.innerHTML=`<div class="match-banner">${t('jinzhu.matchTip').replace('{name}',escapeHtml(matchContext.name||''))} <button class="btn btn-outline btn-sm" onclick="clearMatchContext()">${t('jinzhu.clearMatch')}</button></div>`;
+      list=list.map(j=>({...j,_score:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._score-a._score);
+    }else banner.innerHTML='';
+  }
   if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
   else if(user.role==='jinzhu'){list=list.filter(j=>String(j.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('tip.emptyMineJz')}</div>`;}
   list=filterJinZhuByQ(list,(document.getElementById('jz-q')||{}).value||'');
   const sort=(document.getElementById('jz-sort')||{}).value||'new';
-  if(!(matchContext&&matchContext.type==='dashi')){if(sort==='name')list=list.slice().sort((a,b)=>jinzhuDisplayName(a).localeCompare(jinzhuDisplayName(b),'zh'));else if(sort==='type')list=list.slice().sort((a,b)=>jinzhuDisplayType(a).localeCompare(jinzhuDisplayType(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));}
+  if(!(matchContext&&matchContext.type==='dashi')){
+    if(sort==='name')list=list.slice().sort((a,b)=>jinzhuDisplayName(a).localeCompare(jinzhuDisplayName(b),'zh'));
+    else if(sort==='type')list=list.slice().sort((a,b)=>jinzhuDisplayType(a).localeCompare(jinzhuDisplayType(b),'zh'));
+    else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
+  }
   const pg=paginate(list,jzPage,PAGE_SIZE);jzPage=pg.page;
   let heroIds=new Set(),dashiIds=new Set();
   if(user){(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));}
+  const canBundle=user&&(user.role==='jinzhu'||user.role==='admin');
+
   box.innerHTML=pg.slice.length?pg.slice.map(j=>{
-    const pn=escapeAttr(j.phone||'');const team=teams.find(tm=>String(tm.jinzhu_id)===String(j.id));
-    return `<div class="card"><div class="avatar avatar-jinzhu">金</div><div class="card-content"><div class="card-title"><span class="tag">${t('jinzhu.idLabel')} ${j.id}</span>${escapeHtml(jinzhuDisplayName(j)||'-')}${jinzhuDisplayType(j)?`<span class="tag tag-industry">${escapeHtml(jinzhuDisplayType(j))}</span>`:''}${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(jinzhuDisplayDetail(j)||jinzhuDisplayIntro(j)||'-')}</div>${renderBizCard(j.card)}${user?`<div style="margin-top:8px"><button class="btn btn-savior btn-sm" onclick="goSavior(${j.id})">${t('btn.findSi')}</button></div><div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button></div>`:''}${teamBlockHtml(team,j,user,heroIds,dashiIds)}</div></div>`;
+    const pn=escapeAttr(j.phone||'');
+    const team=teams.find(tm=>String(tm.jinzhu_id)===String(j.id));
+    return `<div class="card">
+      <div class="avatar avatar-jinzhu">金</div>
+      <div class="card-content">
+        <div class="card-title">
+          <span class="tag">${t('jinzhu.idLabel')} ${j.id}</span>
+          ${escapeHtml(jinzhuDisplayName(j)||'-')}
+          ${jinzhuDisplayType(j)?`<span class="tag tag-industry">${escapeHtml(jinzhuDisplayType(j))}</span>`:''}
+          ${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button>
+            <button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button>`:''}
+        </div>
+        <div class="card-desc">${escapeHtml(jinzhuDisplayDetail(j)||jinzhuDisplayIntro(j)||'-')}</div>
+        ${renderBizCard(j.card)}
+        ${canBundle?`<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">
+          <button class="btn btn-bundle btn-sm" onclick="runFullBundle(${j.id})">🎁 ${t('btn.bundle')}</button>
+        </div>`:''}
+        ${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button></div>`:''}
+        ${teamBlockHtml(team,j,user,heroIds,dashiIds)}
+      </div>
+    </div>`;
   }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noDemands')}</div>`);
   renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
 }
 function goJzPage(p){jzPage=p;renderJinZhu();}
 function openAddJinZhu(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return;editingJinZhuId=null;jinzhuPainDraft=[];showJinZhuForm(null);}
-async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;editingJinZhuId=id;const pains=Array.isArray(item.pains_i18n)&&item.pains_i18n.length?item.pains_i18n:(Array.isArray(item.pains)?item.pains:[]);jinzhuPainDraft=pains.map(p=>({title:tl(p.title,''),desc:tl(p.desc,'')}));showJinZhuForm(item);}
+async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;editingJinZhuId=id;jinzhuPainDraft=[];showJinZhuForm(item);}
 function showJinZhuForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=item&&item.card?item.card:{};document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postDemand')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="jz-name" value="${escapeHtml(item?jinzhuDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.industry')}</label><input id="jz-type" value="${escapeHtml(item?jinzhuDisplayType(item):'')}"></div><div class="form-group"><label>${t('form.detail')}</label><textarea id="jz-detail">${escapeHtml(item?jinzhuDisplayDetail(item):'')}</textarea></div><div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${escapeHtml(card.person||'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="jz-phone" value="${escapeHtml(phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="jz-wechat" value="${escapeHtml(card.wechat||'')}"></div>${!item?`<p style="font-size:12px;color:#64748b">✓ ${t('form.autoTeam')}</p>`:''}<div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
-async function saveJinZhu(){const user=getUser();if(!user)return;const name=(document.getElementById('jz-name').value||'').trim();const type=(document.getElementById('jz-type').value||'').trim();const detail=(document.getElementById('jz-detail').value||'').trim();const person=(document.getElementById('jz-person').value||'').trim();const phone=(document.getElementById('jz-phone').value||'').trim();const wechat=(document.getElementById('jz-wechat').value||'').trim();if(!type)return alert(t('form.industry'));if(!person||!wechat)return alert(t('form.person')+' / '+t('form.wechat'));let old=editingJinZhuId?(await fetchJinZhu()).find(j=>j.id===editingJinZhuId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name||'-');const type_i18n=mergeI18n(old?.type_i18n,currentLang,type);const detail_i18n=mergeI18n(old?.detail_i18n,currentLang,detail);const newId=editingJinZhuId||Date.now();const row={id:newId,name:name_i18n.zh||name||'-',intro:'',type:type_i18n.zh||type,detail:detail_i18n.zh||detail,name_i18n,type_i18n,detail_i18n,pains:[],pains_i18n:[],phone:old?.phone||phone,card:{person,phone:old?.phone||phone,wechat,title:'',email:'',whatsapp:'',website:'',qr:''}};let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));if(error)return alert(error.message);if(!editingJinZhuId){const teams=await fetchTeam();if(!teams.some(tm=>String(tm.jinzhu_id)===String(newId)))await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(user.phone),phone:user.phone,members:[],jinzhu_id:newId,demand:type,performances:[]});}closeModal();renderJinZhu();renderTeam();alert(t('tip.saved'));}
+async function saveJinZhu(){const user=getUser();if(!user)return;const name=(document.getElementById('jz-name').value||'').trim();const type=(document.getElementById('jz-type').value||'').trim();const detail=(document.getElementById('jz-detail').value||'').trim();const person=(document.getElementById('jz-person').value||'').trim();const phone=(document.getElementById('jz-phone').value||'').trim();const wechat=(document.getElementById('jz-wechat').value||'').trim();if(!type)return alert(t('form.industry'));if(!person||!wechat)return alert(t('form.person')+' / '+t('form.wechat'));let old=editingJinZhuId?(await fetchJinZhu()).find(j=>j.id===editingJinZhuId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name||'-');const type_i18n=mergeI18n(old?.type_i18n,currentLang,type);const detail_i18n=mergeI18n(old?.detail_i18n,currentLang,detail);const newId=editingJinZhuId||Date.now();const row={id:newId,name:name_i18n.zh||name||'-',intro:'',type:type_i18n.zh||type,detail:detail_i18n.zh||detail,name_i18n,type_i18n,detail_i18n,pains:[],pains_i18n:[],phone:old?.phone||phone,card:{person,phone:old?.phone||phone,wechat,title:'',email:'',whatsapp:'',website:'',qr:''}};let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));if(error)return alert(error.message);if(!editingJinZhuId){const teams=await fetchTeam();if(!teams.some(tm=>String(tm.jinzhu_id)===String(newId)))await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(user.phone),phone:user.phone,members:[],jinzhu_id:newId,demand:type,performances:[],bundled_cases:[],bundled_surveys:[]});}closeModal();renderJinZhu();renderTeam();alert(t('tip.saved'));}
 async function deleteJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;if(!confirm('Delete?'))return;await sb.from('jinzhu').delete().eq('id',id);renderJinZhu();renderTeam();}
 
-async function renderHero(){
-  const user=getUser();const box=document.getElementById('hero-list');if(!box)return;
-  let list=await fetchHero();let emptyMsg='';
-  if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
-  else if(user.role==='yingxiao'){list=list.filter(h=>String(h.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('hero.emptyMine')}</div>`;}
-  list=filterHeroByQ(list,(document.getElementById('hero-q')||{}).value||'');
-  const sort=(document.getElementById('hero-sort')||{}).value||'new';
-  if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));
-  else if(sort==='name')list=list.slice().sort((a,b)=>heroDisplayName(a).localeCompare(heroDisplayName(b),'zh'));
-  else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
-  const pg=paginate(list,heroPage,PAGE_SIZE);heroPage=pg.page;
-  const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
-  box.innerHTML=pg.slice.length?pg.slice.map(h=>{const pn=escapeAttr(h.phone||''),nm=escapeAttr(heroDisplayName(h)),power=Number(h.power)||0;return `<div class="card"><div class="avatar avatar-hero">★</div><div class="card-content"><div class="card-title">${escapeHtml(heroDisplayName(h)||'-')}<span class="tag tag-power">⚡${power}</span>${canEdit(h)?`<button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(heroDisplayIntro(h)||'-')}</div>${renderBizCard(h.card)}${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noHeroes')}</div>`);
-  renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');
-}
+/* ===== 其余模块精简完整 ===== */
+async function renderFocus(){const box=document.getElementById('focus-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}const pid=await getPriorityTeamId();const teams=await fetchTeam();const allJinZhu=await fetchJinZhu();const tm=teams.find(x=>Number(x.id)===Number(pid));if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);}
+async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
+async function renderHomeCats(){const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;const visible=cats.map(c=>({c,name:catNameStrict(c)})).filter(x=>x.name);maj.innerHTML=visible.map(({name})=>`<span class="home-cat-tag ${homeActiveMajor===name?'active':''}" onclick="selectHomeMajor('${escapeAttr(name)}')">${escapeHtml(name)}</span>`).join('')||`<span style="font-size:12px;color:#94a3b8">${t('tip.noData')}</span>`;if(homeActiveMajor){const hit=visible.find(x=>x.name===homeActiveMajor);const subs=hit?catSubsStrict(hit.c):[];if(min)min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${escapeHtml(s)}</span>`).join('');}else if(min)min.innerHTML='';}
+function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
+function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
+async function renderHome(){let list=await fetchDaShi();if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor||d.major_category===homeActiveMajor);list=filterDaShiByQ(list,(document.getElementById('home-ds-q')||{}).value||'');const pd=paginate(list,homeDsPage,PAGE_SIZE);homeDsPage=pd.page;const box=document.getElementById('home-dashi-list');if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{const hasUrl=!!((d.tool_url||'').trim());return `<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d))}<span class="tag tag-power">⚡${Number(d.power)||0}</span></div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d))}</div><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');if(homeCatsOpen)renderHomeCats();}
+function goHomeDsPage(p){homeDsPage=p;renderHome();}
+async function renderDaShi(){const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;let list=await fetchDaShi();let emptyMsg='';const banner=document.getElementById('dashi-match-banner');if(banner)banner.innerHTML='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');const sort=(document.getElementById('ds-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));else if(sort==='name')list=list.slice().sort((a,b)=>dashiDisplayName(a).localeCompare(dashiDisplayName(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const [item]=list.splice(idx,1);list.unshift(item);}}const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');box.innerHTML=pg.slice.length?pg.slice.map(d=>{const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;const isFocus=focusDashiId&&String(d.id)===String(focusDashiId);const hasUrl=!!((d.tool_url||'').trim());return `<div class="card ${isFocus?'dashi-highlight':''}" id="dashi-card-${d.id}"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d)||'-')}<span class="tag tag-power">⚡${power}</span>${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d)||'-')}</div><div class="card-desc">${renderToolUrl(d.tool_url)}</div>${renderBizCard(d.card)}<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>${user?`<button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">${t('btn.findClient')}</button>`:''}</div>${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);renderPager('ds-pager',pg.page,pg.pages,'goDsPage');}
+function goDsPage(p){dsPage=p;renderDaShi();}
+function openAddDaShi(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='ai'&&user.role!=='admin')return;editingDaShiId=null;showDaShiForm(null);}
+async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;editingDaShiId=id;showDaShiForm(item);}
+async function showDaShiForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=item&&item.card?item.card:{};document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item&&item.power)||0}"></div><div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(card.person||'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(card.wechat||'')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function saveDaShi(){const user=getUser();if(!user)return;const name=(document.getElementById('ds-name').value||'').trim();const person=(document.getElementById('ds-person').value||'').trim();const phone=(document.getElementById('ds-phone').value||'').trim();const wechat=(document.getElementById('ds-wechat').value||'').trim();if(!name||!person||!wechat)return alert('Required');let old=editingDaShiId?(await fetchDaShi()).find(d=>d.id===editingDaShiId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());const row={id:editingDaShiId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',name_i18n,intro_i18n,tool_url:(document.getElementById('ds-tool-url').value||'').trim(),power:parseInt(document.getElementById('ds-power').value)||0,phone:old?.phone||phone,card:{person,phone:old?.phone||phone,wechat,title:'',email:'',whatsapp:'',website:'',qr:''}};let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));if(error)return alert(error.message);closeModal();renderDaShi();renderHome();alert(t('tip.saved'));}
+async function deleteDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;if(!confirm('Delete?'))return;await sb.from('dashi').delete().eq('id',id);renderDaShi();renderHome();}
+async function renderHero(){const user=getUser();const box=document.getElementById('hero-list');if(!box)return;let list=await fetchHero();let emptyMsg='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='yingxiao'){list=list.filter(h=>String(h.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('hero.emptyMine')}</div>`;}list=filterHeroByQ(list,(document.getElementById('hero-q')||{}).value||'');const sort=(document.getElementById('hero-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));else if(sort==='name')list=list.slice().sort((a,b)=>heroDisplayName(a).localeCompare(heroDisplayName(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));const pg=paginate(list,heroPage,PAGE_SIZE);heroPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');box.innerHTML=pg.slice.length?pg.slice.map(h=>{const pn=escapeAttr(h.phone||''),nm=escapeAttr(heroDisplayName(h)),power=Number(h.power)||0;return `<div class="card"><div class="avatar avatar-hero">★</div><div class="card-content"><div class="card-title">${escapeHtml(heroDisplayName(h)||'-')}<span class="tag tag-power">⚡${power}</span>${canEdit(h)?`<button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(heroDisplayIntro(h)||'-')}</div>${renderBizCard(h.card)}${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noHeroes')}</div>`);renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');}
 function goHeroPage(p){heroPage=p;renderHero();}
 function openAddHero(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='yingxiao'&&user.role!=='admin')return;editingHeroId=null;showHeroForm(null);}
 async function editHero(id){const item=(await fetchHero()).find(h=>h.id===id);if(!item||!canEdit(item))return;editingHeroId=id;showHeroForm(item);}
 function showHeroForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=item&&item.card?item.card:{};document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postHero')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="hero-name" value="${escapeHtml(item?heroDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="hero-intro">${escapeHtml(item?heroDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.skill')}</label><input id="hero-skill" value="${escapeHtml(item?heroDisplaySkillTitle(item):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="hero-power" type="number" value="${Number(item&&item.power)||0}"></div><div class="form-group"><label>${t('form.person')}</label><input id="hero-person" value="${escapeHtml(card.person||'')}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="hero-phone" value="${escapeHtml(phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="hero-wechat" value="${escapeHtml(card.wechat||'')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveHero()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function saveHero(){const user=getUser();if(!user)return;const name=(document.getElementById('hero-name').value||'').trim(),skill=(document.getElementById('hero-skill').value||'').trim(),person=(document.getElementById('hero-person').value||'').trim(),phone=(document.getElementById('hero-phone').value||'').trim(),wechat=(document.getElementById('hero-wechat').value||'').trim();if(!name||!skill||!person||!wechat)return alert('Required');let old=editingHeroId?(await fetchHero()).find(h=>h.id===editingHeroId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('hero-intro').value||'').trim());const skill_title_i18n=mergeI18n(old?.skill_title_i18n,currentLang,skill);const row={id:editingHeroId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',skill_title:skill_title_i18n.zh||skill,name_i18n,intro_i18n,skill_title_i18n,power:parseInt(document.getElementById('hero-power').value)||0,phone:old?.phone||phone,card:{person,phone:old?.phone||phone,wechat,title:'',email:'',whatsapp:'',website:'',qr:''}};let error;if(editingHeroId)({error}=await sb.from('hero').update(row).eq('id',editingHeroId));else({error}=await sb.from('hero').insert(row));if(error)return alert(error.message);closeModal();renderHero();alert(t('tip.saved'));}
 async function deleteHero(id){const item=(await fetchHero()).find(h=>h.id===id);if(!item||!canEdit(item))return;if(!confirm('Delete?'))return;await sb.from('hero').delete().eq('id',id);renderHero();}
-
+async function renderSiCase(){const user=getUser();const box=document.getElementById('sicase-list');if(!box)return;let list=await fetchSiCases();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}list=filterSiCaseByQ(list,(document.getElementById('case-q')||{}).value||'');const sort=(document.getElementById('case-sort')||{}).value||'new';if(sort==='title')list=list.slice().sort((a,b)=>caseDisplayTitle(a).localeCompare(caseDisplayTitle(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));const pg=paginate(list,casePage,PAGE_SIZE);casePage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(c=>{const title=caseDisplayTitle(c);const content=caseDisplayContent(c);const value=caseDisplayValue(c);const contentShort=content.length>160?content.slice(0,160)+'…':content;return `<div class="card"><div class="avatar avatar-case">✨</div><div class="card-content"><div class="card-title">${escapeHtml(title||'-')}${canEdit(c)?`<button class="btn btn-edit btn-sm" onclick="editSiCase(${c.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteSiCase(${c.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(contentShort||'-')}</div>${value?`<div class="case-value-box"><b>${t('label.caseValue')}：</b>${escapeHtml(value)}</div>`:''}<button class="btn btn-outline btn-sm" onclick="viewSiCase(${c.id})">${t('btn.viewDetail')}</button></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noCases')}</div>`;renderPager('case-pager',pg.page,pg.pages,'goCasePage');}
+function goCasePage(p){casePage=p;renderSiCase();}
+async function viewSiCase(id){const c=(await fetchSiCases()).find(x=>x.id===id);if(!c)return;document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${escapeHtml(caseDisplayTitle(c))}</h3><div class="card-desc" style="white-space:pre-wrap">${escapeHtml(caseDisplayContent(c))}</div>${caseDisplayValue(c)?`<div class="case-value-box"><b>${t('label.caseValue')}：</b>${escapeHtml(caseDisplayValue(c))}</div>`:''}<div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+function openAddSiCase(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingSiCaseId=null;caseLinkDraft=[];caseRelatedDraft=[];showSiCaseForm(null);}
+async function editSiCase(id){const item=(await fetchSiCases()).find(c=>c.id===id);if(!item||!canEdit(item))return;editingSiCaseId=id;caseLinkDraft=caseLinks(item).map(l=>({title:l.title||'',url:l.url||''}));caseRelatedDraft=caseRelatedTools(item).map(x=>({id:x.id,name:x.name||String(x.id||'')}));showSiCaseForm(item);}
+async function showSiCaseForm(item){const allDashi=await fetchDaShi();const dashiOpts=allDashi.map(d=>`<option value="${d.id}">${escapeHtml(dashiDisplayName(d)||String(d.id))}</option>`).join('');document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postCase')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.caseTitle')}</label><input id="case-title" value="${escapeHtml(item?caseDisplayTitle(item):'')}"></div><div class="form-group"><label>${t('form.caseContent')}</label><textarea id="case-content" style="min-height:120px">${escapeHtml(item?caseDisplayContent(item):'')}</textarea></div><div class="form-group"><label>${t('form.caseValue')}</label><textarea id="case-value">${escapeHtml(item?caseDisplayValue(item):'')}</textarea></div><div class="form-group"><label>${t('form.relatedTools')}</label><div style="display:flex;gap:8px;margin-bottom:8px"><select id="case-pick-si" style="flex:1"><option value="">${t('form.pickSi')}</option>${dashiOpts}</select><button type="button" class="btn btn-outline btn-sm" onclick="caseAddRelatedFromSelect()">${t('btn.addRelated')}</button></div><div id="case-related-editor"></div></div><div class="form-group"><label>${t('form.links')}</label><div id="case-links-editor"></div><button type="button" class="btn btn-outline btn-sm" onclick="caseAddLink()">${t('btn.addLink')}</button></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveSiCase()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';renderCaseRelatedEditor();renderCaseLinksEditor();}
+function caseAddRelatedFromSelect(){const sel=document.getElementById('case-pick-si');if(!sel||!sel.value)return;const id=sel.value;const name=sel.options[sel.selectedIndex]?sel.options[sel.selectedIndex].text:'';if(caseRelatedDraft.some(x=>String(x.id)===String(id)))return;caseRelatedDraft.push({id:isNaN(Number(id))?id:Number(id),name});renderCaseRelatedEditor();}
+function caseRemoveRelated(i){caseRelatedDraft.splice(i,1);renderCaseRelatedEditor();}
+function renderCaseRelatedEditor(){const box=document.getElementById('case-related-editor');if(!box)return;if(!caseRelatedDraft.length){box.innerHTML='<div style="font-size:12px;color:#94a3b8">—</div>';return;}box.innerHTML=caseRelatedDraft.map((x,i)=>`<div class="dynamic-item" style="display:flex;justify-content:space-between;align-items:center"><span class="tag tag-tool">${escapeHtml(x.name||'')}</span><button type="button" class="btn btn-del btn-sm" onclick="caseRemoveRelated(${i})">×</button></div>`).join('');}
+function caseAddLink(){caseLinkDraft.push({title:'',url:''});renderCaseLinksEditor();}
+function caseRemoveLink(i){caseLinkDraft.splice(i,1);renderCaseLinksEditor();}
+function renderCaseLinksEditor(){const box=document.getElementById('case-links-editor');if(!box)return;if(!caseLinkDraft.length){box.innerHTML='<div style="font-size:12px;color:#94a3b8">—</div>';return;}box.innerHTML=caseLinkDraft.map((x,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="caseRemoveLink(${i})">×</button><div class="form-group"><label>${t('form.linkTitle')}</label><input value="${escapeHtml(x.title||'')}" onchange="caseLinkDraft[${i}].title=this.value"></div><div class="form-group"><label>${t('form.linkUrl')}</label><input value="${escapeHtml(x.url||'')}" onchange="caseLinkDraft[${i}].url=this.value"></div></div>`).join('');}
+async function saveSiCase(){const user=getUser();if(!user)return;const title=(document.getElementById('case-title').value||'').trim();const content=(document.getElementById('case-content').value||'').trim();const value=(document.getElementById('case-value').value||'').trim();if(!title||!content||!value)return alert('Required');let old=editingSiCaseId?(await fetchSiCases()).find(c=>c.id===editingSiCaseId):null;const title_i18n=mergeI18n(old?.title_i18n,currentLang,title);const content_i18n=mergeI18n(old?.content_i18n,currentLang,content);const value_created_i18n=mergeI18n(old?.value_created_i18n,currentLang,value);const row={id:editingSiCaseId||Date.now(),title:title_i18n.zh||title,content:content_i18n.zh||content,value_created:value_created_i18n.zh||value,title_i18n,content_i18n,value_created_i18n,related_tools:caseRelatedDraft.map(x=>({id:x.id,name:x.name})),links:caseLinkDraft.filter(l=>l.title||l.url),phone:old?.phone||user.phone};let error;if(editingSiCaseId)({error}=await sb.from('si_cases').update(row).eq('id',editingSiCaseId));else({error}=await sb.from('si_cases').insert(row));if(error)return alert(error.message);closeModal();renderSiCase();alert(t('tip.saved'));}
+async function deleteSiCase(id){const item=(await fetchSiCases()).find(c=>c.id===id);if(!item||!canEdit(item))return;if(!confirm('Delete?'))return;await sb.from('si_cases').delete().eq('id',id);renderSiCase();}
 function msgTypeLabel(tp){return MSG_TYPE_LABEL[tp]||tp||'greeting';}
 function setPulseTab(tab){pulseTab=tab==='out'?'out':'in';pulsePage=1;const tin=document.getElementById('pulse-tab-in'),tout=document.getElementById('pulse-tab-out');if(tin)tin.classList.toggle('active',pulseTab==='in');if(tout)tout.classList.toggle('active',pulseTab==='out');renderInbox();}
-async function renderInbox(){const user=getUser();const box=document.getElementById('inbox-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('pulse.needLogin')}</div>`;return;}let list=await fetchAllMessages();list=pulseTab==='in'?list.filter(m=>String(m.to_phone)===String(user.phone)):list.filter(m=>String(m.from_phone)===String(user.phone));const typeF=(document.getElementById('pulse-type-filter')||{}).value||'';if(typeF)list=list.filter(m=>(m.msg_type||'')===typeF);const q=(document.getElementById('pulse-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(m=>[m.content,m.from_phone,m.to_phone].join(' ').toLowerCase().includes(ql));}const pg=paginate(list,pulsePage,PAGE_SIZE);pulsePage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(m=>{const unread=pulseTab==='in'&&!m.read;const peer=pulseTab==='in'?m.from_phone:m.to_phone;return `<div class="card"><div class="avatar avatar-pulse">⚡</div><div class="card-content"><div class="card-title"><span class="msg-type">${escapeHtml(msgTypeLabel(m.msg_type))}</span>${unread?`<span class="tag" style="background:#fee2e2;color:#b91c1c">${t('pulse.unread')}</span>`:''}</div><div class="card-desc"><b>${pulseTab==='in'?t('pulse.from'):t('pulse.to')}：</b>${escapeHtml(peer||'-')}</div><div class="card-desc">${escapeHtml(m.content||'')}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${pulseTab==='in'&&unread?`<button class="btn btn-outline btn-sm" onclick="markPulseRead(${m.id})">${t('pulse.markRead')}</button>`:''}${pulseTab==='in'?`<button class="btn btn-primary btn-sm" onclick="replyPulse('${escapeAttr(m.from_phone||'')}')">${t('btn.reply')}</button>`:''}${(isAdmin()||String(m.from_phone)===String(user.phone))?`<button class="btn btn-del btn-sm" onclick="deletePulse(${m.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('pulse.empty')}</div>`;renderPager('pulse-pager',pg.page,pg.pages,'goPulsePage');}
+async function renderInbox(){const user=getUser();const box=document.getElementById('inbox-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('pulse.needLogin')}</div>`;return;}let list=await fetchAllMessages();list=pulseTab==='in'?list.filter(m=>String(m.to_phone)===String(user.phone)):list.filter(m=>String(m.from_phone)===String(user.phone));const typeF=(document.getElementById('pulse-type-filter')||{}).value||'';if(typeF)list=list.filter(m=>(m.msg_type||'')===typeF);const q=(document.getElementById('pulse-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(m=>[m.content,m.from_phone,m.to_phone].join(' ').toLowerCase().includes(ql));}const pg=paginate(list,pulsePage,PAGE_SIZE);pulsePage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(m=>{const unread=pulseTab==='in'&&!m.read;const peer=pulseTab==='in'?m.from_phone:m.to_phone;return `<div class="card"><div class="avatar avatar-pulse">⚡</div><div class="card-content"><div class="card-title"><span class="msg-type">${escapeHtml(msgTypeLabel(m.msg_type))}</span>${unread?`<span class="tag" style="background:#fee2e2;color:#b91c1c">${t('pulse.unread')}</span>`:''}</div><div class="card-desc">${escapeHtml(peer||'-')}<br>${escapeHtml(m.content||'')}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${pulseTab==='in'&&unread?`<button class="btn btn-outline btn-sm" onclick="markPulseRead(${m.id})">${t('pulse.markRead')}</button>`:''}${pulseTab==='in'?`<button class="btn btn-primary btn-sm" onclick="replyPulse('${escapeAttr(m.from_phone||'')}')">${t('btn.reply')}</button>`:''}${(isAdmin()||String(m.from_phone)===String(user.phone))?`<button class="btn btn-del btn-sm" onclick="deletePulse(${m.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('pulse.empty')}</div>`;renderPager('pulse-pager',pg.page,pg.pages,'goPulsePage');}
 function goPulsePage(p){pulsePage=p;renderInbox();}
 function openComposePulse(preTo='',preType='greeting'){const user=getUser();if(!user)return alert(t('pulse.needLogin'));const typeOpts=Object.keys(MSG_TYPE_LABEL).map(k=>`<option value="${k}" ${k===preType?'selected':''}>${MSG_TYPE_LABEL[k]}</option>`).join('');document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${t('pulse.compose')}</h3><div class="form-group"><label>${t('pulse.toPhone')}</label><input id="pulse-to" value="${escapeHtml(preTo)}"></div><div class="form-group"><label>${t('pulse.type')}</label><select id="pulse-type">${typeOpts}</select></div><div class="form-group"><label>${t('pulse.content')}</label><textarea id="pulse-content" style="min-height:100px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="sendPulse()">${t('btn.send')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function sendPulse(){const user=getUser();if(!user)return;const to=(document.getElementById('pulse-to').value||'').trim();const content=(document.getElementById('pulse-content').value||'').trim();const msg_type=document.getElementById('pulse-type').value||'greeting';if(!to||!content)return alert('Required');const {error}=await sb.from('messages').insert({id:Date.now(),from_phone:user.phone,to_phone:to,msg_type,content,read:false});if(error)return alert(error.message);closeModal();alert(t('pulse.sendOk'));pulseTab='out';renderInbox();}
@@ -923,7 +837,7 @@ function openSendMsgDirect(type,toPhone){openComposePulse(toPhone,type||'greetin
 async function markPulseRead(id){await sb.from('messages').update({read:true}).eq('id',id);renderInbox();}
 async function deletePulse(id){if(!confirm('Delete?'))return;await sb.from('messages').delete().eq('id',id);renderInbox();}
 function coopStatusLabel(st){const m={pending:t('coop.pending'),contacted:t('coop.contacted'),progress:t('coop.progress'),done:t('coop.done'),closed:t('coop.closed')};return m[st]||st||t('coop.pending');}
-function coopStatusBadge(st){const s=st||'pending';const cls={pending:'badge-pending',contacted:'badge-reviewing',progress:'badge-reviewing',done:'badge-completed',closed:'badge-archived'}[s]||'badge-pending';return `<span class="${cls}" style="padding:2px 8px;border-radius:999px;font-size:11px">${escapeHtml(coopStatusLabel(s))}</span>`;}
+function coopStatusBadge(st){const s=st||'pending';const cls={pending:'badge-pending',contacted:'badge-reviewing',progress:'badge-reviewing',done:'badge-completed',closed:'badge-archived'}[s]||'badge-pending';return `<span class="${cls}">${escapeHtml(coopStatusLabel(s))}</span>`;}
 function coopDesc(r){return r.desc||r.description||'';}
 async function renderCoopFormPage(){await renderCoopMyList();}
 async function renderCoopMyList(){const box=document.getElementById('coop-my-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=(await fetchCoop()).filter(r=>String(r.phone)===String(user.phone)||String(r.contact)===String(user.phone));box.innerHTML=list.length?list.map(r=>`<div class="card"><div class="avatar avatar-coop">合</div><div class="card-content"><div class="card-title">${escapeHtml(r.name||'-')} ${coopStatusBadge(r.status)}</div><div class="card-desc">${escapeHtml(coopDesc(r))}</div></div></div>`).join(''):`<div class="empty-tip">${t('coop.empty')}</div>`;}
@@ -933,20 +847,6 @@ function goCoopListPage(p){coopListPage=p;renderCoopList();}
 async function updateCoopStatus(id,status){if(!isAdmin())return;await sb.from('coop_records').update({status}).eq('id',id);renderCoopList();}
 async function saveCoopNote(id){if(!isAdmin())return;const note=(document.getElementById('coop-note-'+id)||{}).value||'';await sb.from('coop_records').update({note}).eq('id',id);alert(t('tip.saved'));renderCoopList();}
 async function deleteCoop(id){if(!isAdmin())return;if(!confirm('Delete?'))return;await sb.from('coop_records').delete().eq('id',id);renderCoopList();}
-async function renderFocus(){const box=document.getElementById('focus-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}const pid=await getPriorityTeamId();const teams=await fetchTeam();const allJinZhu=await fetchJinZhu();const tm=teams.find(x=>Number(x.id)===Number(pid));if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);}
-async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
-async function renderHomeCats(){const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;const visible=cats.map(c=>({c,name:catNameStrict(c)})).filter(x=>x.name);maj.innerHTML=visible.map(({name})=>`<span class="home-cat-tag ${homeActiveMajor===name?'active':''}" onclick="selectHomeMajor('${escapeAttr(name)}')">${escapeHtml(name)}</span>`).join('')||`<span style="font-size:12px;color:#94a3b8">${t('tip.noData')}</span>`;if(homeActiveMajor){const hit=visible.find(x=>x.name===homeActiveMajor);const subs=hit?catSubsStrict(hit.c):[];if(min)min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${escapeHtml(s)}</span>`).join('');}else if(min)min.innerHTML='';}
-function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
-function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
-async function renderHome(){let list=await fetchDaShi();if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor||d.major_category===homeActiveMajor);list=filterDaShiByQ(list,(document.getElementById('home-ds-q')||{}).value||'');const pd=paginate(list,homeDsPage,PAGE_SIZE);homeDsPage=pd.page;const box=document.getElementById('home-dashi-list');if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{const hasUrl=!!((d.tool_url||'').trim());return `<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d))}<span class="tag tag-power">⚡${Number(d.power)||0}</span></div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d))}</div><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');if(homeCatsOpen)renderHomeCats();}
-function goHomeDsPage(p){homeDsPage=p;renderHome();}
-function teamBlockHtml(team,j,user,heroIds,dashiIds){if(!team)return '';const members=team.members||[];const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));const sum=members.reduce((s,m)=>s+(Number(m.power)||0),0);const showKick=!!teamKickVisible[team.id],showCard=!!teamCardVisible[team.id];const canJoin=user&&!isMember&&!isOwner;return `<div class="team-box ${showKick?'team-show-kick':''}"><div class="team-title"><h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4><span class="tag tag-power">⚡${sum}</span>${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">Survey</button><button type="button" class="btn-icon-sm" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}${isOwner?`<button type="button" class="btn-icon-sm" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}<button type="button" class="btn-icon-sm" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>${canJoin?`<button type="button" class="btn-icon-sm" onclick="joinTeam(${team.id})" style="background:#d1fae5">➕</button>`:''}${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">${t('btn.edit')}</button>`:''}${isOwner?`<button class="team-x" onclick="disbandTeam(${team.id})">×</button>`:''}</div><div class="member-list">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>${showCard&&j&&j.card?renderBizCard(j.card):''}</div>`;}
-async function renderTeam(){const user=getUser();const box=document.getElementById('team-list');if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchTeam();const allJin=await fetchJinZhu();let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));if(user.role!=='admin')list=list.filter(tm=>String(tm.phone)===String(user.phone)||(tm.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds)));const pg=paginate(filterByQ(list,(document.getElementById('team-q')||{}).value||''),teamPage,PAGE_SIZE);teamPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(tm=>{const j=allJin.find(x=>String(x.id)===String(tm.jinzhu_id));return `<div class="card"><div class="avatar avatar-team">T</div><div class="card-content">${teamBlockHtml(tm,j,user,heroIds,dashiIds)}</div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noTeams')}</div>`;renderPager('team-pager',pg.page,pg.pages,'goTeamPage');}
-function goTeamPage(p){teamPage=p;renderTeam();}
-function openAddTeam(){editingTeamId=null;showTeamForm();}
-async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);if(!item||!canEdit(item))return;editingTeamId=id;showTeamForm(item);}
-function showTeamForm(item=null){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>Team</h3><div class="form-group"><label>Name *</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div><div class="form-group"><label>Demand</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
-async function saveTeam(){const user=getUser();if(!user)return;const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert('Required');const row={id:editingTeamId||Date.now(),name,demand:(document.getElementById('tm-demand').value||'').trim(),phone:user.phone,members:[],performances:[]};if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members;row.jinzhu_id=old.jinzhu_id;}}let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));if(error)return alert(error.message);closeModal();renderTeam();}
 async function renderQgen(){const user=getUser();const box=document.getElementById('qgen-list');if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchQgen();if(user.role!=='admin')list=list.filter(x=>String(x.phone)===String(user.phone)||x.status==='published');const pg=paginate(filterByQ(list,(document.getElementById('qgen-q')||{}).value||''),qgenPage,PAGE_SIZE);qgenPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(tpl=>{const can=canEdit({phone:tpl.phone})||isAdmin();return `<div class="card"><div class="avatar avatar-diag">Q</div><div class="card-content"><div class="card-title">${escapeHtml(qgenDisplayName(tpl))}</div><div style="margin-top:8px">${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${tpl.id})">${t('btn.edit')}</button>`:''}<button class="btn btn-primary btn-sm" onclick="previewQgen(${tpl.id})">${t('btn.preview')}</button>${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${tpl.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');}
 function goQgenPage(p){qgenPage=p;renderQgen();}
 function openAddQgen(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingQgenId=null;qgenDraftSections=[{id:uid(),title:mergeI18n(null,currentLang,'S1'),questions:[{id:uid(),type:'textarea',label:mergeI18n(null,currentLang,'Q1'),required:true,options:[]}]}];showQgenForm(null);}
@@ -964,7 +864,7 @@ async function deleteQgen(id){if(!confirm('Delete?'))return;await sb.from('quest
 async function previewQgen(id){const tpl=(await fetchQgen()).find(x=>x.id===id);if(!tpl)return;const sections=normalizeSections(tpl.sections);let body='';sections.forEach((sec,si)=>{(sec.questions||[]).forEach((q,qi)=>{const qid=`pq_${si}_${qi}`;body+=`<div class="preview-q" data-qid="${qid}"><label class="q-label">${escapeHtml(tl(q.label,''))}</label><textarea id="${qid}" style="width:100%;min-height:60px;padding:8px;border:1px solid #cbd5e1;border-radius:8px"></textarea></div>`;});});document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('qgen.previewTitle')}</h3><div id="qgen-preview-body">${body}</div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">OK</button><button class="btn btn-primary" onclick="submitFilledQgen(${tpl.id})">${t('qgen.fillSubmit')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function submitFilledQgen(tplId){const user=getUser();if(!user)return alert(t('tip.loginFirst'));const answers={};document.querySelectorAll('#qgen-preview-body .preview-q').forEach(el=>{const qid=el.dataset.qid;const inp=document.getElementById(qid);answers[qid]={type:'textarea',value:inp?inp.value:'',label:(el.querySelector('.q-label')||{}).textContent||''};});const {error}=await sb.from('diagnosis_surveys').insert({id:Date.now(),template_id:tplId,phone:user.phone,answers,status:'pending',report:'',report_link:''});if(error)return alert(error.message);closeModal();switchView('diagnosis');alert(t('tip.saved'));}
 function diagStatusLabel(st){const m={pending:t('diag.pending'),reviewing:t('diag.reviewing'),completed:t('diag.completed'),archived:t('diag.archived')};return m[st]||st;}
-function diagStatusBadge(st){const s=st||'pending';const cls={pending:'badge-pending',reviewing:'badge-reviewing',completed:'badge-completed',archived:'badge-archived'}[s]||'badge-pending';return `<span class="${cls}" style="padding:2px 8px;border-radius:999px;font-size:11px">${escapeHtml(diagStatusLabel(s))}</span>`;}
+function diagStatusBadge(st){const s=st||'pending';const cls={pending:'badge-pending',reviewing:'badge-reviewing',completed:'badge-completed',archived:'badge-archived'}[s]||'badge-pending';return `<span class="${cls}">${escapeHtml(diagStatusLabel(s))}</span>`;}
 function formatAnswerValue(val){if(val==null||val==='')return '—';if(Array.isArray(val))return val.join('、');return String(val);}
 function renderAnswersReadable(answers){if(!answers||typeof answers!=='object')return `<div class="empty-tip">${t('diag.noAnswers')}</div>`;return Object.keys(answers).map((k,i)=>{const item=answers[k]||{};return `<div class="diag-answer"><div class="q">${i+1}. ${escapeHtml(String(item.label||k))}</div><div class="a">${escapeHtml(formatAnswerValue(item.value))}</div></div>`;}).join('')||`<div class="empty-tip">${t('diag.noAnswers')}</div>`;}
 async function renderDiagnosis(){const user=getUser();const box=document.getElementById('diagnosis-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchDiagnosis();if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));const stF=(document.getElementById('diag-status-filter')||{}).value||'';if(stF)list=list.filter(d=>(d.status||'pending')===stF);const pg=paginate(list,diagPage,PAGE_SIZE);diagPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(d=>`<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">#${d.id} ${diagStatusBadge(d.status)}</div><div class="card-desc">${escapeHtml(d.phone||'')}</div><button class="btn btn-primary btn-sm" onclick="viewDiagnosis(${d.id})">${t('diag.view')}</button></div></div>`).join(''):`<div class="empty-tip">${t('diag.empty')}</div>`;renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');}
