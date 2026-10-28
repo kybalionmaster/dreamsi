@@ -59,10 +59,10 @@ button,input,select,textarea{font:inherit}
 .avatar-coop{background:linear-gradient(135deg,#14b8a6,#0f766e)}
 .avatar-case{background:linear-gradient(135deg,#a855f7,#7c3aed)}
 .card-content{flex:1;min-width:0}
-/* 195：第一行 ID/操作；第二行名称（省手机横向空间） */
+/* 金主 / 首页 SI / 超级智能：第1行编号+操作，第2行名称 */
 .card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:4px}
-.jz-name-line{font-size:16px;font-weight:700;color:#0f172a;margin:2px 0 6px;word-break:break-word;line-height:1.35}
-.jz-title-line{font-size:14px;font-weight:600;color:#334155;margin-bottom:4px}
+.jz-name-line,.si-name-line{font-size:16px;font-weight:700;color:#0f172a;margin:2px 0 6px;word-break:break-word;line-height:1.35}
+.jz-title-line,.si-sub-line{font-size:14px;font-weight:600;color:#334155;margin-bottom:4px}
 .card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
 .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
 .tag-industry{background:#ecfdf5;color:#047857}
@@ -70,8 +70,6 @@ button,input,select,textarea{font:inherit}
 .tag-tool{background:#ede9fe;color:#5b21b6;margin:2px;cursor:pointer}
 .tag-reject{background:#fee2e2;color:#b91c1c;margin:2px}
 .tag-major{background:#dbeafe;color:#1d4ed8;margin:2px}
-.tag-dream{background:#fce7f3;color:#9d174d}
-.tag-problem{background:#e0f2fe;color:#0369a1}
 .home-cat-tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;cursor:pointer;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
 .home-cat-tag:hover{background:#e0e7ff}.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
@@ -98,7 +96,6 @@ button,input,select,textarea{font:inherit}
 .form-section-title{font-size:13px;font-weight:700;color:#334155;margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid #e2e8f0}
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:560px){.form-grid-2{grid-template-columns:1fr}}
-/* 195 需求类型选择 */
 .demand-type-pick{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .demand-type-btn{flex:1;min-width:120px;padding:14px 12px;border:2px solid #e2e8f0;border-radius:12px;background:#fff;cursor:pointer;text-align:center;font-size:14px;font-weight:600;color:#475569}
 .demand-type-btn.active-dream{border-color:#ec4899;background:#fdf2f8;color:#9d174d}
@@ -166,8 +163,26 @@ th{background:#f8fafc;font-weight:600}
 .kybalion-wrap{max-width:480px;margin:0 auto}
 .kyb-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(15,23,42,.14);background:#0b1220 center top/cover no-repeat;background-image:url('poster-vertical.jpg');min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 12px 18px}
 .kyb-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%)}
-.kyb-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.kyb-step-icon{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(251,191,36,.65);background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer}
+.kyb-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+/* 197 悬停浮层提示 */
+.kyb-step-icon{position:relative;width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(251,191,36,.65);background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.kyb-step-icon:hover,.kyb-step-icon:focus{transform:translateY(-3px);box-shadow:0 6px 16px rgba(251,191,36,.45);outline:none}
+.kyb-step-icon .kyb-tip{
+  pointer-events:none;
+  position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);
+  background:rgba(15,23,42,.95);color:#f8fafc;font-size:12px;font-weight:500;line-height:1.35;
+  padding:8px 12px;border-radius:10px;white-space:nowrap;max-width:200px;
+  opacity:0;visibility:hidden;transition:opacity .18s,visibility .18s,transform .18s;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:5;
+}
+.kyb-step-icon .kyb-tip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:rgba(15,23,42,.95);
+}
+.kyb-step-icon:hover .kyb-tip,.kyb-step-icon:focus .kyb-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media (hover:none){
+  .kyb-step-icon:active .kyb-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+}
 .kyb-footnote{margin-top:14px;text-align:center;font-size:12px;color:#64748b;line-height:1.6}
 .kyb-footnote a{color:#2563eb}
 @media(min-width:768px){.kyb-hero{min-height:600px}}
@@ -228,6 +243,7 @@ th{background:#f8fafc;font-weight:600}
       </div>
     </div>
     <div class="content">
+      <!-- 198 首页：SI 列表风格对齐金主（第1行编号/战力，第2行名称） -->
       <div class="view active" id="view-home">
         <div class="view-header"><h2 data-i18n="menu.home">🏠 首页</h2></div>
         <h3 style="font-size:15px;margin:12px 0 8px" data-i18n="home.siTools">超级智能工具</h3>
@@ -243,20 +259,38 @@ th{background:#f8fafc;font-weight:600}
         <div id="home-dashi-list"></div>
         <div class="pager" id="home-ds-pager"></div>
       </div>
+
+      <!-- 197 五按钮悬停浮层 -->
       <div class="view" id="view-kybalion">
         <div class="kybalion-wrap">
           <div class="kyb-hero">
             <div class="kyb-step-icons">
-              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('kybalion')">✦</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('dashi')">⚙</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('diagnosis')">📡</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('team')">👥</a>
-              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('jinzhu')">♥</a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('kybalion')" tabindex="0"
+                 data-i18n-title="kyb.tip1" title="宇宙法则指引">
+                ✦<span class="kyb-tip" data-i18n="kyb.tip1">宇宙法则指引</span>
+              </a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('dashi')" tabindex="0"
+                 data-i18n-title="kyb.tip2" title="超级智能中心">
+                ⚙<span class="kyb-tip" data-i18n="kyb.tip2">超级智能 · 工具</span>
+              </a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('diagnosis')" tabindex="0"
+                 data-i18n-title="kyb.tip3" title="需求诊断中心">
+                📡<span class="kyb-tip" data-i18n="kyb.tip3">需求诊断中心</span>
+              </a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('team')" tabindex="0"
+                 data-i18n-title="kyb.tip4" title="我的超级团队">
+                👥<span class="kyb-tip" data-i18n="kyb.tip4">我的超级团队</span>
+              </a>
+              <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('jinzhu')" tabindex="0"
+                 data-i18n-title="kyb.tip5" title="金主需求中心">
+                ♥<span class="kyb-tip" data-i18n="kyb.tip5">金主需求中心</span>
+              </a>
             </div>
           </div>
           <div class="kyb-footnote" data-i18n-html="kyb.footnote">宇宙法则</div>
         </div>
       </div>
+
       <div class="view" id="view-focus">
         <div class="view-header">
           <h2 data-i18n="menu.focus">🎯 当前显化中心</h2>
@@ -281,7 +315,7 @@ th{background:#f8fafc;font-weight:600}
         <div class="pager" id="team-pager"></div>
       </div>
 
-      <!-- 195 金主需求中心：需求类型分流 / 名称第二行 / 查看不展示类型 -->
+      <!-- 196 金主：无经理字段 -->
       <div class="view" id="view-jinzhu">
         <div class="view-header">
           <h2 data-i18n="menu.jinzhu">💰 金主需求中心</h2>
@@ -300,16 +334,11 @@ th{background:#f8fafc;font-weight:600}
             <option value="name" data-i18n="sort.name">名称</option>
           </select>
         </div>
-        <!--
-          列表卡片约定（查看）：
-          第1行：需求编号 + 编辑/删除（不显示需求类型）
-          第2行：名字（公司名或个人化名）
-          然后：标题、简介、详情、拼图/清单、名片、全家桶/脉冲、团队
-        -->
         <div id="jinzhu-list"></div>
         <div class="pager" id="jz-pager"></div>
       </div>
 
+      <!-- 198 超级智能：列表风格对齐金主 -->
       <div class="view" id="view-dashi">
         <div class="view-header">
           <h2 data-i18n="menu.dashi">🤖 超级智能中心</h2>
@@ -324,9 +353,16 @@ th{background:#f8fafc;font-weight:600}
             <option value="name" data-i18n="sort.name">名称</option>
           </select>
         </div>
+        <!--
+          列表约定（对齐金主）：
+          第1行：编号/战力 + 编辑删除（分类可用小标签）
+          第2行：名称
+          然后：简介、座右铭、多技能、工具网址、名片、操作
+        -->
         <div id="dashi-list"></div>
         <div class="pager" id="ds-pager"></div>
       </div>
+
       <div class="view" id="view-sicase">
         <div class="view-header">
           <h2 data-i18n="menu.sicase">✨ SI 成功场景</h2>
@@ -485,7 +521,6 @@ th{background:#f8fafc;font-weight:600}
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
 
-
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
@@ -501,18 +536,20 @@ zh:{
   brand:'梦想显化器',
   menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
-  kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
+  kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>',
+    tip1:'宇宙法则指引',tip2:'超级智能 · 工具',tip3:'需求诊断中心',tip4:'我的超级团队',tip5:'金主需求中心'},
   btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加',verify:'验证',addSkill:'+ 添加技能',copyFrom:'复制他人再改',addPiece:'+ 添加拼图',addChecklist:'+ 添加清单项'},
-  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明',manager:'经理'},
+  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明'},
   sort:{newest:'最新',power:'战力从高到低',powerSum:'战力总和',name:'名称',title:'标题'},
   jz:{filterAll:'全部需求',typeDream:'梦想',typeProblem:'问题需求',typePick:'请先选择需求类型',typeDreamHint:'描述你要显化的梦想，拆成多块拼图',typeProblemHint:'描述要解决的问题，列出问题清单',pieces:'拼图列表',checklist:'问题需求清单',copyDream:'选择并复制其他金主的梦想',copyProblem:'选择并复制其他金主的问题需求',copyEmpty:'暂无可复制内容',copied:'已复制，请修改后保存',idLabel:'需求编号',nameLabel:'名称',introLabel:'简介',titleLabel:'标题',detailLabel:'详情'},
+  si:{idLabel:'工具编号'},
   coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录',allStatus:'全部状态',typeBiz:'商务合作',typeSwap:'资源互换',typeChannel:'渠道代理',typeOther:'其他'},
   pulse:{compose:'+ 发脉冲',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',sendOk:'发送成功',needLogin:'请先登录',allTypes:'全部类型',typeGreeting:'问候',typeProgress:'进展',typeEvent:'活动',typeCase:'案例',typeTrial:'试用'},
   users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除？',noSelfDel:'不能删除自己',allRoles:'全部角色'},
   tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',superBundleOk:'超级全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队',bundleWorking:'正在匹配全家桶…',superBundleWorking:'正在匹配超级全家桶…',required:'请填写必填项',userNotFound:'用户不存在',wrongPwd:'密码错误',blacklisted:'账号已拉黑',exists:'账号已存在',mismatch:'两次密码不一致',minPwd:'密码至少4位',noPermission:'无权限',alreadyIn:'已在团队中',deleteConfirm:'确定删除？',createTeamFirst:'请先创建团队',noMatchedSi:'未匹配到已登记的 SI',matchedSiN:'合格 {n} 个，请删减后保存',rejectedSiN:'未通过 {n} 个',needSiInput:'请先输入要验证的 SI 名称',adoptHint:'请删除不需要的 SI，保存时仅采用余下项',pickTypeFirst:'请先选择需求类型'},
   role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},
-  form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位 / 头衔',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',qr:'二维码图片 URL',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',subs:'小分类（每行一个）',industry:'需求类型 *',detail:'详情 *',major:'大分类',minor:'小分类',toolUrl:'工具网址',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',teamName:'团队名称 *',teamDemand:'团队需求',autoTeam:'发布后自动创建超级团队',pains:'列表项',painTitle:'标题',painDesc:'说明',cardSection:'名片信息',bizCard:'商务名片',motto:'座右铭',skills:'多技能',skillTitle:'技能标题',skillDesc:'技能说明',manager:'经理',jzName:'名字（公司名或个人化名）*',jzIntro:'简介（公司或个人介绍）',jzTitle:'标题',jzDetail:'详情 *'},
-  label:{intro:'简介',power:'战力',skill:'技能',industry:'需求类型',toolUrl:'工具网址',detail:'详情',pains:'清单',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类',manager:'经理'},
+  form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位 / 头衔',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',qr:'二维码图片 URL',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',subs:'小分类（每行一个）',industry:'需求类型 *',detail:'详情 *',major:'大分类',minor:'小分类',toolUrl:'工具网址',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',teamName:'团队名称 *',teamDemand:'团队需求',autoTeam:'发布后自动创建超级团队',pains:'列表项',painTitle:'标题',painDesc:'说明',cardSection:'名片信息',bizCard:'商务名片',motto:'座右铭',skills:'多技能',skillTitle:'技能标题',skillDesc:'技能说明',jzName:'名字（公司名或个人化名）*',jzIntro:'简介（公司或个人介绍）',jzTitle:'标题',jzDetail:'详情 *'},
+  label:{intro:'简介',power:'战力',skill:'技能',industry:'需求类型',toolUrl:'工具网址',detail:'详情',pains:'清单',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类'},
   qgen:{title:'问卷编辑',name:'问卷名称 *',desc:'说明',previewTitle:'预览',fillSubmit:'提交答卷'},
   diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',noAnswers:'暂无答卷',view:'查看详情',empty:'暂无诊断',saveReport:'保存报告',viewReport:'查看诊断报告'},
   hero:{emptyMine:'您还没有发布精英档案。'},
@@ -525,18 +562,20 @@ en:{
   brand:'Dream Manifestor',
   menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 My Team',jinzhu:'💰 Demands',dashi:'🤖 Super SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},
   home:{siTools:'SI Tools',allCats:'All categories'},
-  kyb:{footnote:'Cosmic laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
+  kyb:{footnote:'Cosmic laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>',
+    tip1:'Cosmic Laws',tip2:'Super SI · Tools',tip3:'Diagnosis Center',tip4:'My Super Team',tip5:'Client Demands'},
   btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Create team',postDemand:'+ Demand',postTool:'+ Tool',postHero:'+ Elite',postCase:'+ Case',newSurvey:'+ Survey',addMajor:'+ Category',viewAllTeams:'All teams',preview:'Preview',publish:'Publish',addSection:'+ Section',addQuestion:'+ Question',reply:'Reply',findClient:'Find client',addLink:'+ Link',viewDetail:'Details',bundle:'Full Pack',superBundle:'Super Pack',pulse:'Pulse',join:'Join',disband:'Disband',setFocus:'Set focus',ok:'OK',addPain:'+ Add',verify:'Verify',addSkill:'+ Skill',copyFrom:'Copy from others',addPiece:'+ Puzzle piece',addChecklist:'+ Checklist item'},
-  ph:{homeSearch:'Search tools…',teamSearch:'Search teams…',jinzhuSearch:'Search name, title, detail…',dashiSearch:'Search SI…',caseSearch:'Search cases…',heroSearch:'Search elites…',surveySearch:'Search surveys…',genericSearch:'Search…',pulseSearch:'Search pulse…',catSearch:'Search categories…',coopListSearch:'Search…',usersSearch:'Search phone…',coopName:'Company / name',coopContact:'Phone / email / WeChat',coopDesc:'Describe cooperation',https:'https://',phone:'Phone',password:'Password',painTitle:'Title',painDesc:'Description',siNames:'SI names separated by punctuation',qrUrl:'QR image URL',email:'Email',whatsapp:'WhatsApp',website:'Website',title:'Title / role',motto:'Motto',skillTitle:'Skill title',skillDesc:'Skill description',major:'Major category',minor:'Minor category',jzName:'Company or personal alias',jzIntro:'Company or personal intro',jzTitleDream:'Dream title',jzTitleProblem:'Problem title',jzDetailDream:'Dream detail',jzDetailProblem:'Problem detail',pieceTitle:'Puzzle title',pieceDesc:'Puzzle description',checkTitle:'Issue title',checkDesc:'Issue description',manager:'Manager'},
+  ph:{homeSearch:'Search tools…',teamSearch:'Search teams…',jinzhuSearch:'Search name, title, detail…',dashiSearch:'Search SI…',caseSearch:'Search cases…',heroSearch:'Search elites…',surveySearch:'Search surveys…',genericSearch:'Search…',pulseSearch:'Search pulse…',catSearch:'Search categories…',coopListSearch:'Search…',usersSearch:'Search phone…',coopName:'Company / name',coopContact:'Phone / email / WeChat',coopDesc:'Describe cooperation',https:'https://',phone:'Phone',password:'Password',painTitle:'Title',painDesc:'Description',siNames:'SI names separated by punctuation',qrUrl:'QR image URL',email:'Email',whatsapp:'WhatsApp',website:'Website',title:'Title / role',motto:'Motto',skillTitle:'Skill title',skillDesc:'Skill description',major:'Major category',minor:'Minor category',jzName:'Company or personal alias',jzIntro:'Company or personal intro',jzTitleDream:'Dream title',jzTitleProblem:'Problem title',jzDetailDream:'Dream detail',jzDetailProblem:'Problem detail',pieceTitle:'Puzzle title',pieceDesc:'Puzzle description',checkTitle:'Issue title',checkDesc:'Issue description'},
   sort:{newest:'Newest',power:'Power high→low',powerSum:'Total power',name:'Name',title:'Title'},
   jz:{filterAll:'All demands',typeDream:'Dream',typeProblem:'Problem demand',typePick:'Select demand type first',typeDreamHint:'Describe the dream and break it into puzzle pieces',typeProblemHint:'Describe the problem and list checklist items',pieces:'Puzzle pieces',checklist:'Problem checklist',copyDream:'Copy another client dream',copyProblem:'Copy another client problem',copyEmpty:'Nothing to copy',copied:'Copied — edit then save',idLabel:'ID',nameLabel:'Name',introLabel:'Intro',titleLabel:'Title',detailLabel:'Detail'},
+  si:{idLabel:'Tool ID'},
   coop:{name:'Name / Company *',contact:'Contact *',type:'Type',desc:'Description',intro:'Submit partnership interest.',myList:'My submissions',empty:'No submissions',status:'Status',note:'Note',pending:'Pending',contacted:'Contacted',progress:'In progress',done:'Done',closed:'Closed',centerEmpty:'No records',allStatus:'All status',typeBiz:'Business',typeSwap:'Resource swap',typeChannel:'Channel',typeOther:'Other'},
   pulse:{compose:'+ Compose',inbox:'Inbox',sent:'Sent',toPhone:'To phone *',content:'Content *',type:'Type',empty:'No messages',from:'From',to:'To',markRead:'Mark read',unread:'Unread',sendOk:'Sent',needLogin:'Please login',allTypes:'All types',typeGreeting:'Greeting',typeProgress:'Progress',typeEvent:'Event',typeCase:'Case',typeTrial:'Trial'},
   users:{phone:'Phone',role:'Role',date:'Registered',status:'Status',action:'Actions',blacklist:'Block',unban:'Unban',delConfirm:'Delete?',noSelfDel:'Cannot delete yourself',allRoles:'All roles'},
   tip:{noData:'No data',loginFirst:'Please login first',noTools:'No tools',noTeams:'No teams',saved:'Saved',noReportLink:'No report link',noHeroes:'No elites',emptyMineJz:'You have no demands yet.',noDemands:'No demands',noCases:'No success cases',bundleOk:'Full pack loaded',superBundleOk:'Super pack loaded',bundleNoTeam:'No linked team yet',bundleWorking:'Matching full pack…',superBundleWorking:'Matching super pack…',required:'Please fill required fields',userNotFound:'User not found',wrongPwd:'Wrong password',blacklisted:'Account blocked',exists:'Account exists',mismatch:'Passwords mismatch',minPwd:'Min 4 characters',noPermission:'No permission',alreadyIn:'Already in team',deleteConfirm:'Delete?',createTeamFirst:'Create a team first',noMatchedSi:'No registered SI matched',matchedSiN:'{n} matched — trim then save',rejectedSiN:'Rejected {n}',needSiInput:'Enter SI names to verify',adoptHint:'Remove unwanted SI; only remaining are saved',pickTypeFirst:'Select demand type first'},
   role:{jinzhu:'Client',ai:'AI Co.',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},
-  form:{name:'Name *',intro:'Intro',power:'Power',person:'Card name *',title:'Title / role',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',qr:'QR image URL',loginTitle:'Login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm *',roleLabel:'Role',langHint:'Entry language: ',langHint2:'Fill only the language you know.',skill:'Core skill *',subs:'Subcategories (one per line)',industry:'Demand type *',detail:'Detail *',major:'Major category',minor:'Minor category',toolUrl:'Tool URL',caseTitle:'Title *',caseContent:'Content *',caseValue:'Value created *',relatedTools:'Related SI tools',links:'Links',linkTitle:'Link title',linkUrl:'URL',teamName:'Team name *',teamDemand:'Team demand',autoTeam:'Auto-create team after publish',pains:'Items',painTitle:'Title',painDesc:'Description',cardSection:'Business card',bizCard:'Business card',motto:'Motto',skills:'Skills',skillTitle:'Skill title',skillDesc:'Skill description',manager:'Manager',jzName:'Name (company or alias) *',jzIntro:'Intro',jzTitle:'Title',jzDetail:'Detail *'},
-  label:{intro:'Intro',power:'Power',skill:'Skill',industry:'Demand type',toolUrl:'URL',detail:'Detail',pains:'Items',caseContent:'Content',caseValue:'Value',relatedTools:'Related SI tools',links:'Links',members:'Members',bundledCases:'Success cases',bundledSurveys:'Surveys',demand:'Demand',person:'Name',title:'Title',phone:'Phone',email:'Email',wechat:'WeChat',whatsapp:'WhatsApp',website:'Website',qr:'QR',motto:'Motto',skills:'Skills',major:'Major',minor:'Minor',manager:'Manager'},
+  form:{name:'Name *',intro:'Intro',power:'Power',person:'Card name *',title:'Title / role',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',qr:'QR image URL',loginTitle:'Login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm *',roleLabel:'Role',langHint:'Entry language: ',langHint2:'Fill only the language you know.',skill:'Core skill *',subs:'Subcategories (one per line)',industry:'Demand type *',detail:'Detail *',major:'Major category',minor:'Minor category',toolUrl:'Tool URL',caseTitle:'Title *',caseContent:'Content *',caseValue:'Value created *',relatedTools:'Related SI tools',links:'Links',linkTitle:'Link title',linkUrl:'URL',teamName:'Team name *',teamDemand:'Team demand',autoTeam:'Auto-create team after publish',pains:'Items',painTitle:'Title',painDesc:'Description',cardSection:'Business card',bizCard:'Business card',motto:'Motto',skills:'Skills',skillTitle:'Skill title',skillDesc:'Skill description',jzName:'Name (company or alias) *',jzIntro:'Intro',jzTitle:'Title',jzDetail:'Detail *'},
+  label:{intro:'Intro',power:'Power',skill:'Skill',industry:'Demand type',toolUrl:'URL',detail:'Detail',pains:'Items',caseContent:'Content',caseValue:'Value',relatedTools:'Related SI tools',links:'Links',members:'Members',bundledCases:'Success cases',bundledSurveys:'Surveys',demand:'Demand',person:'Name',title:'Title',phone:'Phone',email:'Email',wechat:'WeChat',whatsapp:'WhatsApp',website:'Website',qr:'QR',motto:'Motto',skills:'Skills',major:'Major',minor:'Minor'},
   qgen:{title:'Survey editor',name:'Survey name *',desc:'Description',previewTitle:'Preview',fillSubmit:'Submit answers'},
   diag:{allStatus:'All status',pending:'Pending',reviewing:'Reviewing',completed:'Completed',archived:'Archived',detail:'Diagnosis detail',noAnswers:'No answers',view:'View',empty:'No diagnosis',saveReport:'Save report',viewReport:'View report'},
   hero:{emptyMine:'You have no elite profile yet.'},
@@ -548,10 +587,10 @@ en:{
 };
 ['de','fr','ru','ja'].forEach(L=>{
   i18n[L]=JSON.parse(JSON.stringify(i18n.en));
-  if(L==='de'){i18n.de.brand='Traum-Manifestierer';i18n.de.jz={filterAll:'Alle',typeDream:'Traum',typeProblem:'Problemanforderung',typePick:'Zuerst Typ wählen',typeDreamHint:'Traum beschreiben und Puzzle-Teile',typeProblemHint:'Problem beschreiben und Checkliste',pieces:'Puzzle-Teile',checklist:'Checkliste',copyDream:'Anderen Traum kopieren',copyProblem:'Anderes Problem kopieren',copyEmpty:'Nichts zu kopieren',copied:'Kopiert — bearbeiten und speichern',idLabel:'ID',nameLabel:'Name',introLabel:'Intro',titleLabel:'Titel',detailLabel:'Detail'};i18n.de.btn.copyFrom='Von anderen kopieren';i18n.de.btn.addPiece='+ Puzzle';i18n.de.btn.addChecklist='+ Checkliste';i18n.de.form.manager='Manager';i18n.de.label.manager='Manager';i18n.de.tip.pickTypeFirst='Zuerst Typ wählen';}
-  if(L==='fr'){i18n.fr.brand='Manifesteur de Rêves';i18n.fr.jz={filterAll:'Tous',typeDream:'Rêve',typeProblem:'Demande-problème',typePick:'Choisir le type',typeDreamHint:'Décrire le rêve et les pièces',typeProblemHint:'Décrire le problème et la liste',pieces:'Pièces du puzzle',checklist:'Liste de problèmes',copyDream:'Copier un rêve',copyProblem:'Copier un problème',copyEmpty:'Rien à copier',copied:'Copié — modifier puis enregistrer',idLabel:'ID',nameLabel:'Nom',introLabel:'Intro',titleLabel:'Titre',detailLabel:'Détail'};i18n.fr.btn.copyFrom='Copier depuis d’autres';i18n.fr.btn.addPiece='+ Pièce';i18n.fr.btn.addChecklist='+ Élément';i18n.fr.form.manager='Manager';i18n.fr.label.manager='Manager';i18n.fr.tip.pickTypeFirst='Choisir le type d’abord';}
-  if(L==='ru'){i18n.ru.brand='Манифестор мечты';i18n.ru.jz={filterAll:'Все',typeDream:'Мечта',typeProblem:'Проблемный запрос',typePick:'Сначала выберите тип',typeDreamHint:'Опишите мечту и части пазла',typeProblemHint:'Опишите проблему и список',pieces:'Части пазла',checklist:'Список проблем',copyDream:'Скопировать мечту',copyProblem:'Скопировать проблему',copyEmpty:'Нечего копировать',copied:'Скопировано — измените и сохраните',idLabel:'ID',nameLabel:'Имя',introLabel:'Интро',titleLabel:'Заголовок',detailLabel:'Детали'};i18n.ru.btn.copyFrom='Скопировать у других';i18n.ru.btn.addPiece='+ Пазл';i18n.ru.btn.addChecklist='+ Пункт';i18n.ru.form.manager='Менеджер';i18n.ru.label.manager='Менеджер';i18n.ru.tip.pickTypeFirst='Сначала выберите тип';}
-  if(L==='ja'){i18n.ja.brand='夢実現装置';i18n.ja.jz={filterAll:'すべて',typeDream:'夢',typeProblem:'問題需要',typePick:'先に需要タイプを選択',typeDreamHint:'夢を書き、パズル片に分解',typeProblemHint:'問題を書き、チェックリストを列挙',pieces:'パズル一覧',checklist:'問題チェックリスト',copyDream:'他の金主の夢をコピー',copyProblem:'他の金主の問題をコピー',copyEmpty:'コピーできるものがありません',copied:'コピーしました。編集して保存',idLabel:'需要番号',nameLabel:'名称',introLabel:'紹介',titleLabel:'タイトル',detailLabel:'詳細'};i18n.ja.btn.copyFrom='他からコピーして編集';i18n.ja.btn.addPiece='+ パズル追加';i18n.ja.btn.addChecklist='+ リスト項目';i18n.ja.form.manager='マネージャー';i18n.ja.label.manager='マネージャー';i18n.ja.tip.pickTypeFirst='先に需要タイプを選んでください';}
+  if(L==='de'){i18n.de.brand='Traum-Manifestierer';i18n.de.kyb.tip1='Kosmische Gesetze';i18n.de.kyb.tip2='Super-SI · Werkzeuge';i18n.de.kyb.tip3='Diagnosezentrum';i18n.de.kyb.tip4='Mein Super-Team';i18n.de.kyb.tip5='Kundenanforderungen';i18n.de.si={idLabel:'Werkzeug-ID'};}
+  if(L==='fr'){i18n.fr.brand='Manifesteur de Rêves';i18n.fr.kyb.tip1='Lois cosmiques';i18n.fr.kyb.tip2='Super SI · Outils';i18n.fr.kyb.tip3='Centre de diagnostic';i18n.fr.kyb.tip4='Mon super équipe';i18n.fr.kyb.tip5='Demandes clients';i18n.fr.si={idLabel:'ID outil'};}
+  if(L==='ru'){i18n.ru.brand='Манифестор мечты';i18n.ru.kyb.tip1='Космические законы';i18n.ru.kyb.tip2='Супер SI · Инструменты';i18n.ru.kyb.tip3='Центр диагностики';i18n.ru.kyb.tip4='Моя супер-команда';i18n.ru.kyb.tip5='Запросы клиентов';i18n.ru.si={idLabel:'ID инструмента'};}
+  if(L==='ja'){i18n.ja.brand='夢実現装置';i18n.ja.kyb.tip1='宇宙法則の案内';i18n.ja.kyb.tip2='スーパーSI · ツール';i18n.ja.kyb.tip3='需要診断センター';i18n.ja.kyb.tip4='マイスーパーチーム';i18n.ja.kyb.tip5='金主需要センター';i18n.ja.si={idLabel:'ツール番号'};}
 });
 
 let currentLang=getInitialLang();
@@ -559,13 +598,21 @@ function t(key){const parts=String(key||'').split('.');const tryLang=lang=>{let 
 function tl(val,fallback=''){if(val==null||val==='')return fallback||'';if(typeof val==='string')return val;if(typeof val==='object'){const v=val[currentLang]||val.zh||val.en||Object.values(val).find(x=>x&&String(x).trim())||'';return (v==null||v==='')?(fallback||''):String(v);}return String(val);}
 function mergeI18n(oldObj,lang,text){const base=(oldObj&&typeof oldObj==='object'&&!Array.isArray(oldObj))?{...oldObj}:{};if(typeof oldObj==='string'&&oldObj)base.zh=base.zh||oldObj;base[lang]=(text||'').trim();return base;}
 function langHintHtml(){return `<div class="lang-hint">${t('form.langHint')}<b>${LANG_LABEL[currentLang]||currentLang}</b>。${t('form.langHint2')}</div>`;}
-function applyStaticI18n(){document.querySelectorAll('[data-i18n]').forEach(el=>{const text=t(el.getAttribute('data-i18n'));if(typeof text==='string')el.textContent=text;});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});document.querySelectorAll('option[data-i18n]').forEach(opt=>{const text=t(opt.getAttribute('data-i18n'));if(typeof text==='string')opt.textContent=text;});document.title=t('brand');}
+function applyStaticI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const text=t(el.getAttribute('data-i18n'));if(typeof text==='string')el.textContent=text;});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});
+  document.querySelectorAll('option[data-i18n]').forEach(opt=>{const text=t(opt.getAttribute('data-i18n'));if(typeof text==='string')opt.textContent=text;});
+  /* 197：title 与浮层同步 */
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{const text=t(el.getAttribute('data-i18n-title'));if(typeof text==='string')el.setAttribute('title',text);});
+  document.title=t('brand');
+}
 function setLanguage(lang){if(!SUPPORTED_LANGS.includes(lang))lang=detectBrowserLang();currentLang=lang;localStorage.setItem('dreamsi_lang',lang);document.documentElement.lang=LANG_HTML[lang]||lang;const sel=document.getElementById('langSelect');if(sel)sel.value=lang;applyStaticI18n();homeActiveMajor='';renderUserArea();updateButtons();renderAll();const active=document.querySelector('.menu-item.active');if(active&&active.dataset.view)switchView(active.dataset.view);}
 
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null,editingSiCaseId=null;
 let focusDashiId=null,focusHeroId=null,focusJinZhuId=null,qgenTeamContext=null,homeCatsOpen=false,homeActiveMajor='',qgenDraftSections=[],pulseTab='in';
 let jinzhuPainDraft=[],caseLinkDraft=[],caseRelatedDraft=[],dashiToolDraft=[];
-let jinzhuDemandType='problem'; // dream | problem
+let jinzhuDemandType='problem';
 const teamKickVisible={},teamCardVisible={};
 const PAGE_SIZE=8;let homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1,usersPage=1,pulsePage=1,coopListPage=1,casePage=1;
 const MSG_TYPE_KEYS={greeting:'pulse.typeGreeting',progress:'pulse.typeProgress',event:'pulse.typeEvent',case_request:'pulse.typeCase',trial_request:'pulse.typeTrial'};
@@ -592,7 +639,6 @@ function textBlob(obj){if(obj==null)return '';if(typeof obj==='string'||typeof o
 function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;return list.filter(item=>textBlob(item).toLowerCase().includes(q));}
 function textMatch(a,b){const A=(a||'').toLowerCase().split(/[\s,，、;；|/]+/).filter(w=>w.length>1);const B=(b||'').toLowerCase();let s=0;A.forEach(w=>{if(B.includes(w))s+=1;});return s;}
 
-/* ========== 195 金主字段 ========== */
 function jinzhuNormalizeType(raw){const s=String(raw||'').toLowerCase();if(s==='dream'||s==='梦想')return 'dream';if(s==='problem'||s==='问题需求'||s==='问题')return 'problem';return 'problem';}
 function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
 function jinzhuDisplayIntro(j){return tl(j.intro_i18n,j.intro)||'';}
@@ -675,8 +721,9 @@ function closeModal(){document.getElementById('modalMask').style.display='none';
 async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.required'));const{data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert(t('tip.userNotFound'));if(data.blacklisted)return alert(t('tip.blacklisted'));if(data.pwd!==pwd)return alert(t('tip.wrongPwd'));setUser({phone:data.phone,role:data.role});closeModal();switchView('jinzhu');}
 async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert(t('tip.required'));if(pwd!==pwd2)return alert(t('tip.mismatch'));if(pwd.length<4)return alert(t('tip.minPwd'));const{data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert(t('tip.exists'));const{error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('jinzhu');}
 
-function normalizeCard(card,fallbackPhone){const c=card&&typeof card==='object'?card:{};return{person:(c.person||'').trim(),title:(c.title||'').trim(),manager:(c.manager||'').trim(),phone:(c.phone||fallbackPhone||'').trim(),email:(c.email||'').trim(),wechat:(c.wechat||'').trim(),whatsapp:(c.whatsapp||'').trim(),website:(c.website||'').trim(),qr:(c.qr||'').trim()};}
-function renderBizCard(card,fallbackPhone){const c=normalizeCard(card,fallbackPhone);if(!c.person&&!c.phone&&!c.wechat&&!c.email&&!c.whatsapp&&!c.website&&!c.qr&&!c.manager)return '';const site=c.website;let siteHtml='—';if(site){const href=normalizeExternalUrl(site);siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(site)}</a>`;}const qrSrc=c.qr||(c.wechat?('https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(c.wechat)):'');return`<div class="biz-card"><div class="biz-info"><div class="biz-name">${escapeHtml(c.person||'—')}${c.title?` · ${escapeHtml(c.title)}`:''}</div>${c.manager?`<div class="biz-row"><span class="k">${t('label.manager')}</span><span>${escapeHtml(c.manager)}</span></div>`:''}<div class="biz-row"><span class="k">${t('label.phone')}</span><span>${escapeHtml(c.phone||'—')}</span></div><div class="biz-row"><span class="k">${t('label.email')}</span><span>${escapeHtml(c.email||'—')}</span></div><div class="biz-row"><span class="k">${t('label.wechat')}</span><span>${escapeHtml(c.wechat||'—')}</span></div><div class="biz-row"><span class="k">${t('label.whatsapp')}</span><span>${escapeHtml(c.whatsapp||'—')}</span></div><div class="biz-row"><span class="k">${t('label.website')}</span><span>${siteHtml}</span></div></div>${qrSrc?`<div class="qr-box"><img src="${escapeAttr(qrSrc)}" alt="QR" onerror="this.style.display='none'"></div>`:''}</div>`;}
+/* 196：名片无 manager */
+function normalizeCard(card,fallbackPhone){const c=card&&typeof card==='object'?card:{};return{person:(c.person||'').trim(),title:(c.title||'').trim(),phone:(c.phone||fallbackPhone||'').trim(),email:(c.email||'').trim(),wechat:(c.wechat||'').trim(),whatsapp:(c.whatsapp||'').trim(),website:(c.website||'').trim(),qr:(c.qr||'').trim()};}
+function renderBizCard(card,fallbackPhone){const c=normalizeCard(card,fallbackPhone);if(!c.person&&!c.phone&&!c.wechat&&!c.email&&!c.whatsapp&&!c.website&&!c.qr)return '';const site=c.website;let siteHtml='—';if(site){const href=normalizeExternalUrl(site);siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(site)}</a>`;}const qrSrc=c.qr||(c.wechat?('https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(c.wechat)):'');return`<div class="biz-card"><div class="biz-info"><div class="biz-name">${escapeHtml(c.person||'—')}${c.title?` · ${escapeHtml(c.title)}`:''}</div><div class="biz-row"><span class="k">${t('label.phone')}</span><span>${escapeHtml(c.phone||'—')}</span></div><div class="biz-row"><span class="k">${t('label.email')}</span><span>${escapeHtml(c.email||'—')}</span></div><div class="biz-row"><span class="k">${t('label.wechat')}</span><span>${escapeHtml(c.wechat||'—')}</span></div><div class="biz-row"><span class="k">${t('label.whatsapp')}</span><span>${escapeHtml(c.whatsapp||'—')}</span></div><div class="biz-row"><span class="k">${t('label.website')}</span><span>${siteHtml}</span></div></div>${qrSrc?`<div class="qr-box"><img src="${escapeAttr(qrSrc)}" alt="QR" onerror="this.style.display='none'"></div>`:''}</div>`;}
 
 async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert(t('tip.noPermission'));const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(tm=>String(tm.phone)===String(user.phone));if(!targetTeams.length)return alert(t('tip.createTeamFirst'));let added=0,skipped=0;for(const team of targetTeams){let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,targetId)){skipped++;continue;}members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});const{error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;}alert(added?`OK ${added}`:(skipped?t('tip.alreadyIn'):'Fail'));renderTeam();renderJinZhu();renderFocus();renderDaShi();renderHero();}
 async function kickMember(teamId,memberId){const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team||!canEdit(team))return;await sb.from('team').update({members:(team.members||[]).filter(m=>String(m.id)!==String(memberId))}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
@@ -696,7 +743,7 @@ async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);
 function showTeamForm(item){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.createTeam')}</h3><div class="form-group"><label>${t('form.teamName')}</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div><div class="form-group"><label>${t('form.teamDemand')}</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div><p style="font-size:12px;color:#64748b">${t('team.bundleHint')}</p><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function saveTeam(){const user=getUser();if(!user)return;const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert(t('tip.required'));const demand=(document.getElementById('tm-demand').value||'').trim();let row={id:editingTeamId||Date.now(),name,demand,phone:user.phone,members:[],performances:[],bundled_cases:[],bundled_surveys:[]};if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members||[];row.jinzhu_id=old.jinzhu_id;row.performances=old.performances||[];row.bundled_cases=old.bundled_cases||[];row.bundled_surveys=old.bundled_surveys||[];row.phone=old.phone||user.phone;}}let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();alert(t('tip.saved'));}
 
-/* ========== 195 金主列表：第1行编号，第2行名称，不显示类型 ========== */
+/* 金主列表 */
 async function renderJinZhu(){
   const user=getUser();const box=document.getElementById('jinzhu-list');if(!box)return;
   let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
@@ -708,10 +755,7 @@ async function renderJinZhu(){
   if(typeF)list=list.filter(j=>jinzhuNormalizeType(j.type)===typeF);
   list=filterJinZhuByQ(list,(document.getElementById('jz-q')||{}).value||'');
   const sort=(document.getElementById('jz-sort')||{}).value||'new';
-  if(!(matchContext&&matchContext.type==='dashi')){
-    if(sort==='name')list=list.slice().sort((a,b)=>jinzhuDisplayName(a).localeCompare(jinzhuDisplayName(b),'zh'));
-    else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
-  }
+  if(!(matchContext&&matchContext.type==='dashi')){if(sort==='name')list=list.slice().sort((a,b)=>jinzhuDisplayName(a).localeCompare(jinzhuDisplayName(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));}
   const pg=paginate(list,jzPage,PAGE_SIZE);jzPage=pg.page;
   let heroIds=new Set(),dashiIds=new Set();
   if(user){(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));}
@@ -723,13 +767,10 @@ async function renderJinZhu(){
     const pieces=jinzhuPains(j);
     const pieceCls=dtype==='dream'?'piece-line dream':'pain-line';
     const piecesHtml=pieces.length?`<div class="card-desc"><b>${dtype==='dream'?t('jz.pieces'):t('jz.checklist')}：</b>${pieces.map(p=>`<div class="${pieceCls}"><b>${escapeHtml(p.title||'')}</b>${p.desc?` — ${escapeHtml(p.desc)}`:''}</div>`).join('')}</div>`:'';
-    const title=jinzhuDisplayTitle(j);
-    const intro=jinzhuDisplayIntro(j);
-    const detail=jinzhuDisplayDetail(j);
+    const title=jinzhuDisplayTitle(j),intro=jinzhuDisplayIntro(j),detail=jinzhuDisplayDetail(j);
     const actionRow=canBundle
       ?`<div class="jz-action-row"><button class="btn btn-bundle btn-sm" onclick="runFullBundle(${j.id},'normal')">🎁 ${t('btn.bundle')}</button><button class="btn btn-super-bundle btn-sm" onclick="runFullBundle(${j.id},'super')">🚀 ${t('btn.superBundle')}</button><button class="btn btn-pulse-inline btn-sm" onclick="openSendMsgDirect('greeting','${pn}')">⚡ ${t('btn.pulse')}</button></div>`
       :(user?`<div class="jz-action-row"><button class="btn btn-pulse-inline btn-sm" onclick="openSendMsgDirect('greeting','${pn}')">⚡ ${t('btn.pulse')}</button></div>`:'');
-    /* 第1行：编号+操作（不显示类型）；第2行：名称 */
     return`<div class="card"><div class="avatar avatar-jinzhu">金</div><div class="card-content">
       <div class="card-title"><span class="tag">${t('jz.idLabel')} ${j.id}</span>
         ${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button>`:''}
@@ -738,37 +779,18 @@ async function renderJinZhu(){
       ${title?`<div class="jz-title-line">${escapeHtml(title)}</div>`:''}
       ${intro?`<div class="card-desc"><b>${t('jz.introLabel')}：</b>${escapeHtml(intro)}</div>`:''}
       ${detail?`<div class="card-desc"><b>${t('jz.detailLabel')}：</b>${escapeHtml(detail)}</div>`:''}
-      ${piecesHtml}
-      ${renderBizCard(j.card,j.phone)}
-      ${actionRow}
-      ${teamBlockHtml(team,j,user,heroIds,dashiIds)}
+      ${piecesHtml}${renderBizCard(j.card,j.phone)}${actionRow}${teamBlockHtml(team,j,user,heroIds,dashiIds)}
     </div></div>`;
   }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noDemands')}</div>`);
   renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
 }
 function goJzPage(p){jzPage=p;renderJinZhu();}
-
 function openAddJinZhu(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return;editingJinZhuId=null;jinzhuPainDraft=[];jinzhuDemandType='problem';showJinZhuTypePick();}
 async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;editingJinZhuId=id;jinzhuDemandType=jinzhuNormalizeType(item.type);const pains=Array.isArray(item.pains_i18n)&&item.pains_i18n.length?item.pains_i18n:(Array.isArray(item.pains)?item.pains:[]);jinzhuPainDraft=pains.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')}));showJinZhuForm(item);}
-
-function showJinZhuTypePick(){
-  document.getElementById('modalBox').className='modal';
-  document.getElementById('modalBox').innerHTML=`
-    <h3>${t('btn.postDemand')}</h3>
-    <p class="card-desc" style="margin-bottom:12px">${t('jz.typePick')}</p>
-    <div class="demand-type-pick">
-      <button type="button" class="demand-type-btn" id="pick-dream" onclick="pickJinZhuType('dream')">✨ ${t('jz.typeDream')}<small>${t('jz.typeDreamHint')}</small></button>
-      <button type="button" class="demand-type-btn" id="pick-problem" onclick="pickJinZhuType('problem')">🔧 ${t('jz.typeProblem')}<small>${t('jz.typeProblemHint')}</small></button>
-    </div>
-    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button></div>`;
-  document.getElementById('modalMask').style.display='flex';
-}
+function showJinZhuTypePick(){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${t('btn.postDemand')}</h3><p class="card-desc" style="margin-bottom:12px">${t('jz.typePick')}</p><div class="demand-type-pick"><button type="button" class="demand-type-btn" onclick="pickJinZhuType('dream')">✨ ${t('jz.typeDream')}<small>${t('jz.typeDreamHint')}</small></button><button type="button" class="demand-type-btn" onclick="pickJinZhuType('problem')">🔧 ${t('jz.typeProblem')}<small>${t('jz.typeProblemHint')}</small></button></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 function pickJinZhuType(type){jinzhuDemandType=type==='dream'?'dream':'problem';showJinZhuForm(null);}
-
 function showJinZhuForm(item){
-  const user=getUser();
-  const phoneVal=item?(item.phone||''):(user?user.phone:'');
-  const card=normalizeCard(item&&item.card,phoneVal);
+  const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=normalizeCard(item&&item.card,phoneVal);
   const isDream=jinzhuDemandType==='dream';
   const titlePh=isDream?t('ph.jzTitleDream'):t('ph.jzTitleProblem');
   const detailPh=isDream?t('ph.jzDetailDream'):t('ph.jzDetailProblem');
@@ -795,7 +817,6 @@ function showJinZhuForm(item){
     <div class="form-grid-2">
       <div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${escapeHtml(card.person)}"></div>
       <div class="form-group"><label>${t('form.title')}</label><input id="jz-card-title" value="${escapeHtml(card.title)}"></div>
-      <div class="form-group"><label>${t('form.manager')}</label><input id="jz-manager" value="${escapeHtml(card.manager)}" placeholder="${t('ph.manager')}"></div>
       <div class="form-group"><label>${t('form.phone')}</label><input id="jz-phone" value="${escapeHtml(card.phone||phoneVal)}" ${item?'readonly style="background:#f3f4f6"':''}></div>
       <div class="form-group"><label>${t('form.email')}</label><input id="jz-email" value="${escapeHtml(card.email)}"></div>
       <div class="form-group"><label>${t('form.wechat')}</label><input id="jz-wechat" value="${escapeHtml(card.wechat)}"></div>
@@ -810,46 +831,9 @@ function showJinZhuForm(item){
 }
 function jinzhuAddPain(){jinzhuPainDraft.push({title:'',desc:''});renderJinZhuPainsEditor();}
 function jinzhuRemovePain(i){jinzhuPainDraft.splice(i,1);renderJinZhuPainsEditor();}
-function renderJinZhuPainsEditor(){
-  const box=document.getElementById('jz-pains-editor');if(!box)return;
-  const isDream=jinzhuDemandType==='dream';
-  const tTitle=isDream?t('ph.pieceTitle'):t('ph.checkTitle');
-  const tDesc=isDream?t('ph.pieceDesc'):t('ph.checkDesc');
-  if(!jinzhuPainDraft.length){box.innerHTML=`<div style="font-size:12px;color:#94a3b8">—</div>`;return;}
-  box.innerHTML=jinzhuPainDraft.map((p,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="jinzhuRemovePain(${i})">×</button>
-    <div class="form-group"><label>${t('form.painTitle')}</label><input value="${escapeHtml(p.title||'')}" placeholder="${tTitle}" onchange="jinzhuPainDraft[${i}].title=this.value" oninput="jinzhuPainDraft[${i}].title=this.value"></div>
-    <div class="form-group"><label>${t('form.painDesc')}</label><textarea placeholder="${tDesc}" onchange="jinzhuPainDraft[${i}].desc=this.value" oninput="jinzhuPainDraft[${i}].desc=this.value">${escapeHtml(p.desc||'')}</textarea></div>
-  </div>`).join('');
-}
-
-async function openCopyJinZhuPicker(){
-  const all=await fetchJinZhu();
-  const list=all.filter(j=>jinzhuNormalizeType(j.type)===jinzhuDemandType);
-  if(!list.length)return alert(t('jz.copyEmpty'));
-  const items=list.slice(0,40).map(j=>`<div class="copy-pick-item" onclick="applyCopyJinZhu(${j.id})"><b>${escapeHtml(jinzhuDisplayName(j)||'-')}</b><br><span style="color:#64748b">${escapeHtml(jinzhuDisplayTitle(j)||jinzhuDisplayDetail(j)||'').slice(0,80)}</span></div>`).join('');
-  document.getElementById('modalBox').className='modal wide';
-  document.getElementById('modalBox').innerHTML=`<h3>${jinzhuDemandType==='dream'?t('jz.copyDream'):t('jz.copyProblem')}</h3><div class="copy-pick-list">${items}</div><div class="form-actions"><button class="btn btn-outline" onclick="showJinZhuForm(null)">${t('btn.cancel')}</button></div>`;
-  document.getElementById('modalMask').style.display='flex';
-}
-async function applyCopyJinZhu(srcId){
-  const src=(await fetchJinZhu()).find(j=>j.id===srcId);if(!src)return;
-  jinzhuDemandType=jinzhuNormalizeType(src.type);
-  const pains=Array.isArray(src.pains_i18n)&&src.pains_i18n.length?src.pains_i18n:(Array.isArray(src.pains)?src.pains:[]);
-  jinzhuPainDraft=pains.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')}));
-  /* 复制内容但不带名片电话，作为新草稿 */
-  const fake={name:jinzhuDisplayName(src),intro:jinzhuDisplayIntro(src),title:jinzhuDisplayTitle(src),detail:jinzhuDisplayDetail(src),name_i18n:null,intro_i18n:null,title_i18n:null,detail_i18n:null,card:{},phone:getUser()?getUser().phone:''};
-  showJinZhuForm(fake);
-  /* 填回显示值（show 用 display 读 i18n，fake 用扁平字段） */
-  setTimeout(()=>{
-    const n=document.getElementById('jz-name');if(n)n.value=jinzhuDisplayName(src)||'';
-    const i=document.getElementById('jz-intro');if(i)i.value=jinzhuDisplayIntro(src)||'';
-    const ti=document.getElementById('jz-title');if(ti)ti.value=jinzhuDisplayTitle(src)||'';
-    const d=document.getElementById('jz-detail');if(d)d.value=jinzhuDisplayDetail(src)||'';
-    renderJinZhuPainsEditor();
-    alert(t('jz.copied'));
-  },0);
-}
-
+function renderJinZhuPainsEditor(){const box=document.getElementById('jz-pains-editor');if(!box)return;const isDream=jinzhuDemandType==='dream';const tTitle=isDream?t('ph.pieceTitle'):t('ph.checkTitle');const tDesc=isDream?t('ph.pieceDesc'):t('ph.checkDesc');if(!jinzhuPainDraft.length){box.innerHTML=`<div style="font-size:12px;color:#94a3b8">—</div>`;return;}box.innerHTML=jinzhuPainDraft.map((p,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="jinzhuRemovePain(${i})">×</button><div class="form-group"><label>${t('form.painTitle')}</label><input value="${escapeHtml(p.title||'')}" placeholder="${tTitle}" onchange="jinzhuPainDraft[${i}].title=this.value" oninput="jinzhuPainDraft[${i}].title=this.value"></div><div class="form-group"><label>${t('form.painDesc')}</label><textarea placeholder="${tDesc}" onchange="jinzhuPainDraft[${i}].desc=this.value" oninput="jinzhuPainDraft[${i}].desc=this.value">${escapeHtml(p.desc||'')}</textarea></div></div>`).join('');}
+async function openCopyJinZhuPicker(){const all=await fetchJinZhu();const list=all.filter(j=>jinzhuNormalizeType(j.type)===jinzhuDemandType);if(!list.length)return alert(t('jz.copyEmpty'));const items=list.slice(0,40).map(j=>`<div class="copy-pick-item" onclick="applyCopyJinZhu(${j.id})"><b>${escapeHtml(jinzhuDisplayName(j)||'-')}</b><br><span style="color:#64748b">${escapeHtml(jinzhuDisplayTitle(j)||jinzhuDisplayDetail(j)||'').slice(0,80)}</span></div>`).join('');document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${jinzhuDemandType==='dream'?t('jz.copyDream'):t('jz.copyProblem')}</h3><div class="copy-pick-list">${items}</div><div class="form-actions"><button class="btn btn-outline" onclick="showJinZhuForm(null)">${t('btn.cancel')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+async function applyCopyJinZhu(srcId){const src=(await fetchJinZhu()).find(j=>j.id===srcId);if(!src)return;jinzhuDemandType=jinzhuNormalizeType(src.type);const pains=Array.isArray(src.pains_i18n)&&src.pains_i18n.length?src.pains_i18n:(Array.isArray(src.pains)?src.pains:[]);jinzhuPainDraft=pains.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')}));const fake={name:jinzhuDisplayName(src),intro:jinzhuDisplayIntro(src),title:jinzhuDisplayTitle(src),detail:jinzhuDisplayDetail(src),card:{},phone:getUser()?getUser().phone:''};showJinZhuForm(fake);setTimeout(()=>{const n=document.getElementById('jz-name');if(n)n.value=jinzhuDisplayName(src)||'';const i=document.getElementById('jz-intro');if(i)i.value=jinzhuDisplayIntro(src)||'';const ti=document.getElementById('jz-title');if(ti)ti.value=jinzhuDisplayTitle(src)||'';const d=document.getElementById('jz-detail');if(d)d.value=jinzhuDisplayDetail(src)||'';renderJinZhuPainsEditor();alert(t('jz.copied'));},0);}
 async function saveJinZhu(){
   const user=getUser();if(!user)return;
   if(!jinzhuDemandType)return alert(t('tip.pickTypeFirst'));
@@ -859,7 +843,6 @@ async function saveJinZhu(){
   const detail=(document.getElementById('jz-detail').value||'').trim();
   const person=(document.getElementById('jz-person').value||'').trim();
   const cardTitle=(document.getElementById('jz-card-title').value||'').trim();
-  const manager=(document.getElementById('jz-manager').value||'').trim();
   const phone=(document.getElementById('jz-phone').value||'').trim()||(user.phone||'');
   const email=(document.getElementById('jz-email').value||'').trim();
   const wechat=(document.getElementById('jz-wechat').value||'').trim();
@@ -874,40 +857,64 @@ async function saveJinZhu(){
   const title_i18n=mergeI18n(old?.title_i18n,currentLang,title);
   const detail_i18n=mergeI18n(old?.detail_i18n,currentLang,detail);
   const oldPainsI18n=Array.isArray(old?.pains_i18n)?old.pains_i18n:[];
-  const pains_i18n=jinzhuPainDraft.filter(p=>(p.title||'').trim()||(p.desc||'').trim()).map((p,i)=>{
-    const prev=oldPainsI18n[i]&&typeof oldPainsI18n[i]==='object'?oldPainsI18n[i]:{};
-    return{title:mergeI18n(prev.title,currentLang,(p.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(p.desc||'').trim())};
-  });
+  const pains_i18n=jinzhuPainDraft.filter(p=>(p.title||'').trim()||(p.desc||'').trim()).map((p,i)=>{const prev=oldPainsI18n[i]&&typeof oldPainsI18n[i]==='object'?oldPainsI18n[i]:{};return{title:mergeI18n(prev.title,currentLang,(p.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(p.desc||'').trim())};});
   const pains=pains_i18n.map(p=>({title:p.title.zh||p.title.en||Object.values(p.title||{}).find(Boolean)||'',desc:p.desc.zh||p.desc.en||Object.values(p.desc||{}).find(Boolean)||''}));
   const newId=editingJinZhuId||Date.now();
-  const row={
-    id:newId,
-    type,
-    name:name_i18n.zh||name,
-    intro:intro_i18n.zh||intro,
-    title:title_i18n.zh||title,
-    detail:detail_i18n.zh||detail,
-    name_i18n,intro_i18n,title_i18n,detail_i18n,
-    pains,pains_i18n,
-    phone:old?.phone||phone,
-    card:{person,title:cardTitle,manager,phone:old?.phone||phone,email,wechat,whatsapp,website,qr}
-  };
-  let error;
-  if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));
-  else({error}=await sb.from('jinzhu').insert(row));
+  /* 196：card 无 manager */
+  const row={id:newId,type,name:name_i18n.zh||name,intro:intro_i18n.zh||intro,title:title_i18n.zh||title,detail:detail_i18n.zh||detail,name_i18n,intro_i18n,title_i18n,detail_i18n,pains,pains_i18n,phone:old?.phone||phone,card:{person,title:cardTitle,phone:old?.phone||phone,email,wechat,whatsapp,website,qr}};
+  let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));
   if(error)return alert(error.message);
-  if(!editingJinZhuId){
-    const teams=await fetchTeam();
-    if(!teams.some(tm=>String(tm.jinzhu_id)===String(newId))){
-      await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(user.phone),phone:user.phone,members:[],jinzhu_id:newId,demand:title||name,performances:[],bundled_cases:[],bundled_surveys:[]});
-    }
-  }
+  if(!editingJinZhuId){const teams=await fetchTeam();if(!teams.some(tm=>String(tm.jinzhu_id)===String(newId))){await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(user.phone),phone:user.phone,members:[],jinzhu_id:newId,demand:title||name,performances:[],bundled_cases:[],bundled_surveys:[]});}}
   closeModal();renderJinZhu();renderTeam();alert(t('tip.saved'));
 }
 async function deleteJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('jinzhu').delete().eq('id',id);renderJinZhu();renderTeam();}
 
-/* —— 以下模块与上版一致（dashi/sicase/hero/home/…）—— */
-async function renderDaShi(){const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;let list=await fetchDaShi();let emptyMsg='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');const sort=(document.getElementById('ds-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));else if(sort==='name')list=list.slice().sort((a,b)=>dashiDisplayName(a).localeCompare(dashiDisplayName(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const[item]=list.splice(idx,1);list.unshift(item);}}const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');box.innerHTML=pg.slice.length?pg.slice.map(d=>{const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;const isFocus=focusDashiId&&String(d.id)===String(focusDashiId);const hasUrl=!!((d.tool_url||'').trim());const motto=dashiDisplayMotto(d);const major=dashiDisplayMajor(d),minor=dashiDisplayMinor(d);return`<div class="card ${isFocus?'dashi-highlight':''}"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d)||'-')}<span class="tag tag-power">⚡${power}</span>${major?`<span class="tag tag-major">${escapeHtml(major)}</span>`:''}${minor?`<span class="tag tag-sub">${escapeHtml(minor)}</span>`:''}${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d)||'-')}</div>${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}${renderSkillsHtml(d)}<div class="field-row"><span class="k">${t('label.toolUrl')}</span><span>${renderToolUrl(d.tool_url)}</span></div>${renderBizCard(d.card,d.phone)}<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>${user?`<button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">${t('btn.findClient')}</button>`:''}</div>${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);renderPager('ds-pager',pg.page,pg.pages,'goDsPage');}
+/* ========== 198 超级智能：第1行编号+战力，第2行名称 ========== */
+async function renderDaShi(){
+  const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;
+  let list=await fetchDaShi();let emptyMsg='';
+  if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
+  list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');
+  const sort=(document.getElementById('ds-sort')||{}).value||'new';
+  if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));
+  else if(sort==='name')list=list.slice().sort((a,b)=>dashiDisplayName(a).localeCompare(dashiDisplayName(b),'zh'));
+  else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
+  if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const[item]=list.splice(idx,1);list.unshift(item);}}
+  const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;
+  const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
+  box.innerHTML=pg.slice.length?pg.slice.map(d=>{
+    const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;
+    const isFocus=focusDashiId&&String(d.id)===String(focusDashiId);
+    const hasUrl=!!((d.tool_url||'').trim());
+    const motto=dashiDisplayMotto(d);
+    const major=dashiDisplayMajor(d),minor=dashiDisplayMinor(d);
+    const intro=dashiDisplayIntro(d);
+    return`<div class="card ${isFocus?'dashi-highlight':''}" id="dashi-card-${d.id}">
+      <div class="avatar avatar-dashi">SI</div>
+      <div class="card-content">
+        <div class="card-title">
+          <span class="tag">${t('si.idLabel')} ${d.id}</span>
+          <span class="tag tag-power">⚡${power}</span>
+          ${major?`<span class="tag tag-major">${escapeHtml(major)}</span>`:''}
+          ${minor?`<span class="tag tag-sub">${escapeHtml(minor)}</span>`:''}
+          ${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}
+        </div>
+        <div class="si-name-line">${escapeHtml(dashiDisplayName(d)||'-')}</div>
+        ${intro?`<div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(intro)}</div>`:''}
+        ${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}
+        ${renderSkillsHtml(d)}
+        <div class="field-row"><span class="k">${t('label.toolUrl')}</span><span>${renderToolUrl(d.tool_url)}</span></div>
+        ${renderBizCard(d.card,d.phone)}
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>
+          ${user?`<button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">${t('btn.findClient')}</button>`:''}
+        </div>
+        ${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}
+      </div>
+    </div>`;
+  }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);
+  renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
+}
 function goDsPage(p){dsPage=p;renderDaShi();}
 function openAddDaShi(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='ai'&&user.role!=='admin')return;editingDaShiId=null;dashiToolDraft=[];showDaShiForm(null);}
 async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;editingDaShiId=id;const skills=Array.isArray(item.tools_i18n)&&item.tools_i18n.length?item.tools_i18n:(Array.isArray(item.tools)?item.tools:[]);dashiToolDraft=skills.map(s=>({title:tl(s.title,typeof s.title==='string'?s.title:''),desc:tl(s.desc,typeof s.desc==='string'?s.desc:'')}));showDaShiForm(item);}
@@ -923,7 +930,39 @@ async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.ge
 async function renderHomeCats(){const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;const visible=cats.map(c=>({c,name:catNameStrict(c)})).filter(x=>x.name);maj.innerHTML=visible.map(({name})=>`<span class="home-cat-tag ${homeActiveMajor===name?'active':''}" onclick="selectHomeMajor('${escapeAttr(name)}')">${escapeHtml(name)}</span>`).join('')||`<span style="font-size:12px;color:#94a3b8">${t('tip.noData')}</span>`;if(homeActiveMajor){const hit=visible.find(x=>x.name===homeActiveMajor);const subs=hit?catSubsStrict(hit.c):[];if(min)min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${escapeHtml(s)}</span>`).join('');}else if(min)min.innerHTML='';}
 function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
 function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
-async function renderHome(){let list=await fetchDaShi();if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor||d.major_category===homeActiveMajor);list=filterDaShiByQ(list,(document.getElementById('home-ds-q')||{}).value||'');const pd=paginate(list,homeDsPage,PAGE_SIZE);homeDsPage=pd.page;const box=document.getElementById('home-dashi-list');if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{const hasUrl=!!((d.tool_url||'').trim());const motto=dashiDisplayMotto(d);return`<div class="card"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d))}<span class="tag tag-power">⚡${Number(d.power)||0}</span></div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d))}</div>${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}<button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');if(homeCatsOpen)renderHomeCats();}
+
+/* ========== 198 首页 SI：对齐金主卡片风格 ========== */
+async function renderHome(){
+  let list=await fetchDaShi();
+  if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor||d.major_category===homeActiveMajor);
+  list=filterDaShiByQ(list,(document.getElementById('home-ds-q')||{}).value||'');
+  const pd=paginate(list,homeDsPage,PAGE_SIZE);homeDsPage=pd.page;
+  const box=document.getElementById('home-dashi-list');
+  if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{
+    const hasUrl=!!((d.tool_url||'').trim());
+    const motto=dashiDisplayMotto(d);
+    const intro=dashiDisplayIntro(d);
+    const major=dashiDisplayMajor(d),minor=dashiDisplayMinor(d);
+    const power=Number(d.power)||0;
+    return`<div class="card">
+      <div class="avatar avatar-dashi">SI</div>
+      <div class="card-content">
+        <div class="card-title">
+          <span class="tag">${t('si.idLabel')} ${d.id}</span>
+          <span class="tag tag-power">⚡${power}</span>
+          ${major?`<span class="tag tag-major">${escapeHtml(major)}</span>`:''}
+          ${minor?`<span class="tag tag-sub">${escapeHtml(minor)}</span>`:''}
+        </div>
+        <div class="si-name-line">${escapeHtml(dashiDisplayName(d)||'-')}</div>
+        ${intro?`<div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(intro)}</div>`:''}
+        ${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}
+        <button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>
+      </div>
+    </div>`;
+  }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
+  renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
+  if(homeCatsOpen)renderHomeCats();
+}
 function goHomeDsPage(p){homeDsPage=p;renderHome();}
 
 async function renderHero(){const user=getUser();const box=document.getElementById('hero-list');if(!box)return;let list=await fetchHero();let emptyMsg='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='yingxiao'){list=list.filter(h=>String(h.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('hero.emptyMine')}</div>`;}list=filterHeroByQ(list,(document.getElementById('hero-q')||{}).value||'');const sort=(document.getElementById('hero-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));else if(sort==='name')list=list.slice().sort((a,b)=>heroDisplayName(a).localeCompare(heroDisplayName(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));const pg=paginate(list,heroPage,PAGE_SIZE);heroPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');box.innerHTML=pg.slice.length?pg.slice.map(h=>{const pn=escapeAttr(h.phone||''),nm=escapeAttr(heroDisplayName(h)),power=Number(h.power)||0;return`<div class="card"><div class="avatar avatar-hero">★</div><div class="card-content"><div class="card-title">${escapeHtml(heroDisplayName(h)||'-')}<span class="tag tag-power">⚡${power}</span>${canEdit(h)?`<button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(heroDisplayIntro(h)||'-')}</div>${renderBizCard(h.card,h.phone)}${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noHeroes')}</div>`);renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');}
