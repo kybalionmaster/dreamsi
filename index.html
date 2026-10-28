@@ -59,13 +59,11 @@ button,input,select,textarea{font:inherit}
 .avatar-coop{background:linear-gradient(135deg,#14b8a6,#0f766e)}
 .avatar-case{background:linear-gradient(135deg,#a855f7,#7c3aed)}
 .card-content{flex:1;min-width:0}
-/* 金主 / 首页 SI / 超级智能：第1行编号+操作，第2行名称 */
 .card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:4px}
 .jz-name-line,.si-name-line{font-size:16px;font-weight:700;color:#0f172a;margin:2px 0 6px;word-break:break-word;line-height:1.35}
 .jz-title-line,.si-sub-line{font-size:14px;font-weight:600;color:#334155;margin-bottom:4px}
 .card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
 .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
-.tag-industry{background:#ecfdf5;color:#047857}
 .tag-power{background:#fef3c7;color:#b45309}.tag-sub{background:#e0e7ff;color:#3730a3;margin:2px}
 .tag-tool{background:#ede9fe;color:#5b21b6;margin:2px;cursor:pointer}
 .tag-reject{background:#fee2e2;color:#b91c1c;margin:2px}
@@ -79,10 +77,36 @@ button,input,select,textarea{font:inherit}
 .role-admin{background:#fee2e2;color:#b91c1c}.role-yingxiao{background:#fce7f3;color:#9d174d}
 .role-kefu,.role-shenhe{background:#e0f2fe;color:#0369a1}
 .motto-box{background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:13px;color:#6b21a8;font-style:italic}
+
+/* ========== 199/200 附图式多技能（省手机空间） ========== */
+.skills-compact{margin:8px 0 10px;font-size:13px;line-height:1.55;color:#334155}
+.skills-compact .skills-head{
+  font-weight:600;color:#0f172a;margin-bottom:4px;
+}
+.skills-compact ul{
+  list-style:none;padding:0;margin:0;
+}
+.skills-compact li{
+  position:relative;
+  padding-left:1em;
+  margin:2px 0;
+  word-break:break-word;
+}
+.skills-compact li::before{
+  content:'•';
+  position:absolute;left:0;top:0;
+  color:#64748b;font-weight:700;
+}
+.skills-compact .sk-name{font-weight:600;color:#1e293b}
+.skills-compact .sk-sep{color:#64748b}
+.skills-compact .sk-desc{color:#475569;font-weight:400}
+
+/* 编辑区仍用块状 dynamic-item */
 .skill-list{margin:8px 0}
 .skill-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin-bottom:6px;font-size:13px}
 .skill-item .sk-title{font-weight:600;color:#334155}
 .skill-item .sk-desc{color:#64748b;margin-top:4px;font-size:12px}
+
 .field-row{font-size:13px;color:#475569;margin:4px 0;display:flex;flex-wrap:wrap;gap:4px 8px}
 .field-row .k{color:#94a3b8;min-width:4.5em}
 .biz-card{display:flex;gap:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;flex-wrap:wrap}
@@ -164,14 +188,14 @@ th{background:#f8fafc;font-weight:600}
 .kyb-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(15,23,42,.14);background:#0b1220 center top/cover no-repeat;background-image:url('poster-vertical.jpg');min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 12px 18px}
 .kyb-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%)}
 .kyb-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
-/* 197 悬停浮层提示 */
 .kyb-step-icon{position:relative;width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(251,191,36,.65);background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .15s}
 .kyb-step-icon:hover,.kyb-step-icon:focus{transform:translateY(-3px);box-shadow:0 6px 16px rgba(251,191,36,.45);outline:none}
 .kyb-step-icon .kyb-tip{
   pointer-events:none;
   position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);
-  background:rgba(15,23,42,.95);color:#f8fafc;font-size:12px;font-weight:500;line-height:1.35;
-  padding:8px 12px;border-radius:10px;white-space:nowrap;max-width:200px;
+  background:rgba(15,23,42,.95);color:#f8fafc;font-size:12px;font-weight:500;line-height:1.4;
+  padding:8px 12px;border-radius:10px;white-space:normal;text-align:center;
+  width:max-content;max-width:min(220px,70vw);
   opacity:0;visibility:hidden;transition:opacity .18s,visibility .18s,transform .18s;
   box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:5;
 }
@@ -243,7 +267,7 @@ th{background:#f8fafc;font-weight:600}
       </div>
     </div>
     <div class="content">
-      <!-- 198 首页：SI 列表风格对齐金主（第1行编号/战力，第2行名称） -->
+      <!-- 199 首页：多技能附图紧凑样式 -->
       <div class="view active" id="view-home">
         <div class="view-header"><h2 data-i18n="menu.home">🏠 首页</h2></div>
         <h3 style="font-size:15px;margin:12px 0 8px" data-i18n="home.siTools">超级智能工具</h3>
@@ -260,30 +284,30 @@ th{background:#f8fafc;font-weight:600}
         <div class="pager" id="home-ds-pager"></div>
       </div>
 
-      <!-- 197 五按钮悬停浮层 -->
+      <!-- 201 提示词更新 -->
       <div class="view" id="view-kybalion">
         <div class="kybalion-wrap">
           <div class="kyb-hero">
             <div class="kyb-step-icons">
               <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('kybalion')" tabindex="0"
-                 data-i18n-title="kyb.tip1" title="宇宙法则指引">
-                ✦<span class="kyb-tip" data-i18n="kyb.tip1">宇宙法则指引</span>
+                 data-i18n-title="kyb.tip1" title="1. 宇宙法则指引方向">
+                ✦<span class="kyb-tip" data-i18n="kyb.tip1">1. 宇宙法则指引方向</span>
               </a>
               <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('dashi')" tabindex="0"
-                 data-i18n-title="kyb.tip2" title="超级智能中心">
-                ⚙<span class="kyb-tip" data-i18n="kyb.tip2">超级智能 · 工具</span>
+                 data-i18n-title="kyb.tip2" title="2. 超级智能零成本自动化执行">
+                ⚙<span class="kyb-tip" data-i18n="kyb.tip2">2. 超级智能零成本自动化执行</span>
               </a>
               <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('diagnosis')" tabindex="0"
-                 data-i18n-title="kyb.tip3" title="需求诊断中心">
-                📡<span class="kyb-tip" data-i18n="kyb.tip3">需求诊断中心</span>
+                 data-i18n-title="kyb.tip3" title="3. 诊断问卷找出问题">
+                📡<span class="kyb-tip" data-i18n="kyb.tip3">3. 诊断问卷找出问题</span>
               </a>
               <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('team')" tabindex="0"
-                 data-i18n-title="kyb.tip4" title="我的超级团队">
-                👥<span class="kyb-tip" data-i18n="kyb.tip4">我的超级团队</span>
+                 data-i18n-title="kyb.tip4" title="4. 自动组合超级精英团队">
+                👥<span class="kyb-tip" data-i18n="kyb.tip4">4. 自动组合超级精英团队</span>
               </a>
               <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('jinzhu')" tabindex="0"
-                 data-i18n-title="kyb.tip5" title="金主需求中心">
-                ♥<span class="kyb-tip" data-i18n="kyb.tip5">金主需求中心</span>
+                 data-i18n-title="kyb.tip5" title="5. 自动把客户送到企业怀抱">
+                ♥<span class="kyb-tip" data-i18n="kyb.tip5">5. 自动把客户送到企业怀抱</span>
               </a>
             </div>
           </div>
@@ -314,8 +338,6 @@ th{background:#f8fafc;font-weight:600}
         <div id="team-list"></div>
         <div class="pager" id="team-pager"></div>
       </div>
-
-      <!-- 196 金主：无经理字段 -->
       <div class="view" id="view-jinzhu">
         <div class="view-header">
           <h2 data-i18n="menu.jinzhu">💰 金主需求中心</h2>
@@ -338,7 +360,7 @@ th{background:#f8fafc;font-weight:600}
         <div class="pager" id="jz-pager"></div>
       </div>
 
-      <!-- 198 超级智能：列表风格对齐金主 -->
+      <!-- 200 超级智能：多技能附图紧凑样式 -->
       <div class="view" id="view-dashi">
         <div class="view-header">
           <h2 data-i18n="menu.dashi">🤖 超级智能中心</h2>
@@ -353,12 +375,6 @@ th{background:#f8fafc;font-weight:600}
             <option value="name" data-i18n="sort.name">名称</option>
           </select>
         </div>
-        <!--
-          列表约定（对齐金主）：
-          第1行：编号/战力 + 编辑删除（分类可用小标签）
-          第2行：名称
-          然后：简介、座右铭、多技能、工具网址、名片、操作
-        -->
         <div id="dashi-list"></div>
         <div class="pager" id="ds-pager"></div>
       </div>
@@ -521,6 +537,7 @@ th{background:#f8fafc;font-weight:600}
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
 
+
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
@@ -536,13 +553,18 @@ zh:{
   brand:'梦想显化器',
   menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
+  /* 201 新提示词 */
   kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>',
-    tip1:'宇宙法则指引',tip2:'超级智能 · 工具',tip3:'需求诊断中心',tip4:'我的超级团队',tip5:'金主需求中心'},
+    tip1:'1. 宇宙法则指引方向',
+    tip2:'2. 超级智能零成本自动化执行',
+    tip3:'3. 诊断问卷找出问题',
+    tip4:'4. 自动组合超级精英团队',
+    tip5:'5. 自动把客户送到企业怀抱'},
   btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加',verify:'验证',addSkill:'+ 添加技能',copyFrom:'复制他人再改',addPiece:'+ 添加拼图',addChecklist:'+ 添加清单项'},
   ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明'},
   sort:{newest:'最新',power:'战力从高到低',powerSum:'战力总和',name:'名称',title:'标题'},
   jz:{filterAll:'全部需求',typeDream:'梦想',typeProblem:'问题需求',typePick:'请先选择需求类型',typeDreamHint:'描述你要显化的梦想，拆成多块拼图',typeProblemHint:'描述要解决的问题，列出问题清单',pieces:'拼图列表',checklist:'问题需求清单',copyDream:'选择并复制其他金主的梦想',copyProblem:'选择并复制其他金主的问题需求',copyEmpty:'暂无可复制内容',copied:'已复制，请修改后保存',idLabel:'需求编号',nameLabel:'名称',introLabel:'简介',titleLabel:'标题',detailLabel:'详情'},
-  si:{idLabel:'工具编号'},
+  si:{idLabel:'工具编号',skillsHead:'技能({n}个)：'},
   coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录',allStatus:'全部状态',typeBiz:'商务合作',typeSwap:'资源互换',typeChannel:'渠道代理',typeOther:'其他'},
   pulse:{compose:'+ 发脉冲',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',sendOk:'发送成功',needLogin:'请先登录',allTypes:'全部类型',typeGreeting:'问候',typeProgress:'进展',typeEvent:'活动',typeCase:'案例',typeTrial:'试用'},
   users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除？',noSelfDel:'不能删除自己',allRoles:'全部角色'},
@@ -563,12 +585,16 @@ en:{
   menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 My Team',jinzhu:'💰 Demands',dashi:'🤖 Super SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},
   home:{siTools:'SI Tools',allCats:'All categories'},
   kyb:{footnote:'Cosmic laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>',
-    tip1:'Cosmic Laws',tip2:'Super SI · Tools',tip3:'Diagnosis Center',tip4:'My Super Team',tip5:'Client Demands'},
+    tip1:'1. Cosmic laws guide the direction',
+    tip2:'2. Super SI zero-cost automation',
+    tip3:'3. Diagnosis surveys find the problems',
+    tip4:'4. Auto-assemble elite super teams',
+    tip5:'5. Deliver clients into enterprise arms'},
   btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Create team',postDemand:'+ Demand',postTool:'+ Tool',postHero:'+ Elite',postCase:'+ Case',newSurvey:'+ Survey',addMajor:'+ Category',viewAllTeams:'All teams',preview:'Preview',publish:'Publish',addSection:'+ Section',addQuestion:'+ Question',reply:'Reply',findClient:'Find client',addLink:'+ Link',viewDetail:'Details',bundle:'Full Pack',superBundle:'Super Pack',pulse:'Pulse',join:'Join',disband:'Disband',setFocus:'Set focus',ok:'OK',addPain:'+ Add',verify:'Verify',addSkill:'+ Skill',copyFrom:'Copy from others',addPiece:'+ Puzzle piece',addChecklist:'+ Checklist item'},
   ph:{homeSearch:'Search tools…',teamSearch:'Search teams…',jinzhuSearch:'Search name, title, detail…',dashiSearch:'Search SI…',caseSearch:'Search cases…',heroSearch:'Search elites…',surveySearch:'Search surveys…',genericSearch:'Search…',pulseSearch:'Search pulse…',catSearch:'Search categories…',coopListSearch:'Search…',usersSearch:'Search phone…',coopName:'Company / name',coopContact:'Phone / email / WeChat',coopDesc:'Describe cooperation',https:'https://',phone:'Phone',password:'Password',painTitle:'Title',painDesc:'Description',siNames:'SI names separated by punctuation',qrUrl:'QR image URL',email:'Email',whatsapp:'WhatsApp',website:'Website',title:'Title / role',motto:'Motto',skillTitle:'Skill title',skillDesc:'Skill description',major:'Major category',minor:'Minor category',jzName:'Company or personal alias',jzIntro:'Company or personal intro',jzTitleDream:'Dream title',jzTitleProblem:'Problem title',jzDetailDream:'Dream detail',jzDetailProblem:'Problem detail',pieceTitle:'Puzzle title',pieceDesc:'Puzzle description',checkTitle:'Issue title',checkDesc:'Issue description'},
   sort:{newest:'Newest',power:'Power high→low',powerSum:'Total power',name:'Name',title:'Title'},
   jz:{filterAll:'All demands',typeDream:'Dream',typeProblem:'Problem demand',typePick:'Select demand type first',typeDreamHint:'Describe the dream and break it into puzzle pieces',typeProblemHint:'Describe the problem and list checklist items',pieces:'Puzzle pieces',checklist:'Problem checklist',copyDream:'Copy another client dream',copyProblem:'Copy another client problem',copyEmpty:'Nothing to copy',copied:'Copied — edit then save',idLabel:'ID',nameLabel:'Name',introLabel:'Intro',titleLabel:'Title',detailLabel:'Detail'},
-  si:{idLabel:'Tool ID'},
+  si:{idLabel:'Tool ID',skillsHead:'Skills ({n}):'},
   coop:{name:'Name / Company *',contact:'Contact *',type:'Type',desc:'Description',intro:'Submit partnership interest.',myList:'My submissions',empty:'No submissions',status:'Status',note:'Note',pending:'Pending',contacted:'Contacted',progress:'In progress',done:'Done',closed:'Closed',centerEmpty:'No records',allStatus:'All status',typeBiz:'Business',typeSwap:'Resource swap',typeChannel:'Channel',typeOther:'Other'},
   pulse:{compose:'+ Compose',inbox:'Inbox',sent:'Sent',toPhone:'To phone *',content:'Content *',type:'Type',empty:'No messages',from:'From',to:'To',markRead:'Mark read',unread:'Unread',sendOk:'Sent',needLogin:'Please login',allTypes:'All types',typeGreeting:'Greeting',typeProgress:'Progress',typeEvent:'Event',typeCase:'Case',typeTrial:'Trial'},
   users:{phone:'Phone',role:'Role',date:'Registered',status:'Status',action:'Actions',blacklist:'Block',unban:'Unban',delConfirm:'Delete?',noSelfDel:'Cannot delete yourself',allRoles:'All roles'},
@@ -585,12 +611,45 @@ en:{
   case:{extractHint:'Enter SI names, Verify, then delete unwanted. Only remaining are saved.',noLinks:'No links',noRelated:'No related SI',okList:'Matched (trim)',rejectList:'Not in library'}
 }
 };
+/* 201 四国语言 tip */
 ['de','fr','ru','ja'].forEach(L=>{
   i18n[L]=JSON.parse(JSON.stringify(i18n.en));
-  if(L==='de'){i18n.de.brand='Traum-Manifestierer';i18n.de.kyb.tip1='Kosmische Gesetze';i18n.de.kyb.tip2='Super-SI · Werkzeuge';i18n.de.kyb.tip3='Diagnosezentrum';i18n.de.kyb.tip4='Mein Super-Team';i18n.de.kyb.tip5='Kundenanforderungen';i18n.de.si={idLabel:'Werkzeug-ID'};}
-  if(L==='fr'){i18n.fr.brand='Manifesteur de Rêves';i18n.fr.kyb.tip1='Lois cosmiques';i18n.fr.kyb.tip2='Super SI · Outils';i18n.fr.kyb.tip3='Centre de diagnostic';i18n.fr.kyb.tip4='Mon super équipe';i18n.fr.kyb.tip5='Demandes clients';i18n.fr.si={idLabel:'ID outil'};}
-  if(L==='ru'){i18n.ru.brand='Манифестор мечты';i18n.ru.kyb.tip1='Космические законы';i18n.ru.kyb.tip2='Супер SI · Инструменты';i18n.ru.kyb.tip3='Центр диагностики';i18n.ru.kyb.tip4='Моя супер-команда';i18n.ru.kyb.tip5='Запросы клиентов';i18n.ru.si={idLabel:'ID инструмента'};}
-  if(L==='ja'){i18n.ja.brand='夢実現装置';i18n.ja.kyb.tip1='宇宙法則の案内';i18n.ja.kyb.tip2='スーパーSI · ツール';i18n.ja.kyb.tip3='需要診断センター';i18n.ja.kyb.tip4='マイスーパーチーム';i18n.ja.kyb.tip5='金主需要センター';i18n.ja.si={idLabel:'ツール番号'};}
+  if(L==='de'){
+    i18n.de.brand='Traum-Manifestierer';
+    i18n.de.kyb.tip1='1. Kosmische Gesetze geben die Richtung';
+    i18n.de.kyb.tip2='2. Super-SI null-Kosten-Automatisierung';
+    i18n.de.kyb.tip3='3. Diagnose-Fragebögen finden Probleme';
+    i18n.de.kyb.tip4='4. Auto-Zusammenstellung Elite-Teams';
+    i18n.de.kyb.tip5='5. Kunden in Unternehmensarme liefern';
+    i18n.de.si={idLabel:'Werkzeug-ID',skillsHead:'Fähigkeiten ({n}):'};
+  }
+  if(L==='fr'){
+    i18n.fr.brand='Manifesteur de Rêves';
+    i18n.fr.kyb.tip1='1. Les lois cosmiques guident la direction';
+    i18n.fr.kyb.tip2='2. Super SI automatisation à coût zéro';
+    i18n.fr.kyb.tip3='3. Questionnaires de diagnostic trouvent les problèmes';
+    i18n.fr.kyb.tip4='4. Assemblage auto d’équipes d’élite';
+    i18n.fr.kyb.tip5='5. Livrer les clients aux entreprises';
+    i18n.fr.si={idLabel:'ID outil',skillsHead:'Compétences ({n}) :'};
+  }
+  if(L==='ru'){
+    i18n.ru.brand='Манифестор мечты';
+    i18n.ru.kyb.tip1='1. Космические законы задают направление';
+    i18n.ru.kyb.tip2='2. Супер SI автоматизация без затрат';
+    i18n.ru.kyb.tip3='3. Диагностические опросы находят проблемы';
+    i18n.ru.kyb.tip4='4. Автосборка суперкоманд элиты';
+    i18n.ru.kyb.tip5='5. Доставка клиентов в объятия бизнеса';
+    i18n.ru.si={idLabel:'ID инструмента',skillsHead:'Навыки ({n}):'};
+  }
+  if(L==='ja'){
+    i18n.ja.brand='夢実現装置';
+    i18n.ja.kyb.tip1='1. 宇宙法則が方向を示す';
+    i18n.ja.kyb.tip2='2. スーパーSIゼロコスト自動化実行';
+    i18n.ja.kyb.tip3='3. 診断アンケートで問題を特定';
+    i18n.ja.kyb.tip4='4. スーパーエリートチームを自動編成';
+    i18n.ja.kyb.tip5='5. 顧客を企業の懐へ自動送客';
+    i18n.ja.si={idLabel:'ツール番号',skillsHead:'スキル（{n}個）：'};
+  }
 });
 
 let currentLang=getInitialLang();
@@ -603,7 +662,6 @@ function applyStaticI18n(){
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const text=t(el.getAttribute('data-i18n-placeholder'));if(typeof text==='string')el.placeholder=text;});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const text=t(el.getAttribute('data-i18n-html'));if(typeof text==='string')el.innerHTML=text;});
   document.querySelectorAll('option[data-i18n]').forEach(opt=>{const text=t(opt.getAttribute('data-i18n'));if(typeof text==='string')opt.textContent=text;});
-  /* 197：title 与浮层同步 */
   document.querySelectorAll('[data-i18n-title]').forEach(el=>{const text=t(el.getAttribute('data-i18n-title'));if(typeof text==='string')el.setAttribute('title',text);});
   document.title=t('brand');
 }
@@ -659,7 +717,22 @@ function dashiAllNames(d){const names=new Set();if(d.name)names.add(String(d.nam
 function dashiSearchText(d){if(!d)return '';return [d.name,d.name_i18n,d.intro,d.intro_i18n,d.motto,d.motto_i18n,d.major_category,d.major_category_i18n,d.minor_category,d.minor_category_i18n,d.tool_url,d.tools,d.tools_i18n].map(textBlob).join(' ').toLowerCase();}
 function filterDaShiByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(d=>{const blob=dashiSearchText(d);return keys.every(k=>blob.includes(k));});}
 function accumulateTools(d){return dashiTools(d).map(x=>(x.title||'')+' '+(x.desc||'')).join(' ')+' '+dashiDisplayIntro(d)+' '+dashiDisplayMotto(d)+' '+dashiDisplayMajor(d)+' '+dashiDisplayMinor(d)+' '+dashiDisplayName(d);}
-function renderSkillsHtml(d){const skills=dashiTools(d);if(!skills.length)return '';return `<div class="skill-list"><div class="field-row"><span class="k">${t('label.skills')}</span></div>${skills.map(s=>`<div class="skill-item"><div class="sk-title">${escapeHtml(s.title||'')}</div>${s.desc?`<div class="sk-desc">${escapeHtml(s.desc)}</div>`:''}</div>`).join('')}</div>`;}
+
+/* ========== 199/200 附图式紧凑多技能 ========== */
+function renderSkillsCompact(d){
+  const skills=dashiTools(d);
+  if(!skills.length)return '';
+  const head=(t('si.skillsHead')||'技能({n}个)：').replace('{n}',String(skills.length));
+  const items=skills.map(s=>{
+    const title=escapeHtml(s.title||'');
+    const desc=escapeHtml(s.desc||'');
+    if(title&&desc)return `<li><span class="sk-name">${title}</span><span class="sk-sep">: </span><span class="sk-desc">${desc}</span></li>`;
+    if(title)return `<li><span class="sk-name">${title}</span></li>`;
+    return `<li><span class="sk-desc">${desc}</span></li>`;
+  }).join('');
+  return `<div class="skills-compact"><div class="skills-head">${escapeHtml(head)}</div><ul>${items}</ul></div>`;
+}
+
 function catNameStrict(c){const ni=c.name_i18n;if(ni&&typeof ni==='object'&&!Array.isArray(ni)){const v=ni[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}if(currentLang==='zh'&&c.name)return String(c.name);return '';}
 function catSubsStrict(c){if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>{if(s&&typeof s==='object'){const v=s[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}return currentLang==='zh'&&typeof s==='string'?s:'';}).filter(Boolean);if(currentLang==='zh'&&Array.isArray(c.subs))return c.subs.filter(s=>typeof s==='string');return [];}
 function heroDisplayName(h){return tl(h.name_i18n,h.name)||'';}
@@ -721,7 +794,6 @@ function closeModal(){document.getElementById('modalMask').style.display='none';
 async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.required'));const{data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert(t('tip.userNotFound'));if(data.blacklisted)return alert(t('tip.blacklisted'));if(data.pwd!==pwd)return alert(t('tip.wrongPwd'));setUser({phone:data.phone,role:data.role});closeModal();switchView('jinzhu');}
 async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert(t('tip.required'));if(pwd!==pwd2)return alert(t('tip.mismatch'));if(pwd.length<4)return alert(t('tip.minPwd'));const{data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert(t('tip.exists'));const{error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('jinzhu');}
 
-/* 196：名片无 manager */
 function normalizeCard(card,fallbackPhone){const c=card&&typeof card==='object'?card:{};return{person:(c.person||'').trim(),title:(c.title||'').trim(),phone:(c.phone||fallbackPhone||'').trim(),email:(c.email||'').trim(),wechat:(c.wechat||'').trim(),whatsapp:(c.whatsapp||'').trim(),website:(c.website||'').trim(),qr:(c.qr||'').trim()};}
 function renderBizCard(card,fallbackPhone){const c=normalizeCard(card,fallbackPhone);if(!c.person&&!c.phone&&!c.wechat&&!c.email&&!c.whatsapp&&!c.website&&!c.qr)return '';const site=c.website;let siteHtml='—';if(site){const href=normalizeExternalUrl(site);siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(site)}</a>`;}const qrSrc=c.qr||(c.wechat?('https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(c.wechat)):'');return`<div class="biz-card"><div class="biz-info"><div class="biz-name">${escapeHtml(c.person||'—')}${c.title?` · ${escapeHtml(c.title)}`:''}</div><div class="biz-row"><span class="k">${t('label.phone')}</span><span>${escapeHtml(c.phone||'—')}</span></div><div class="biz-row"><span class="k">${t('label.email')}</span><span>${escapeHtml(c.email||'—')}</span></div><div class="biz-row"><span class="k">${t('label.wechat')}</span><span>${escapeHtml(c.wechat||'—')}</span></div><div class="biz-row"><span class="k">${t('label.whatsapp')}</span><span>${escapeHtml(c.whatsapp||'—')}</span></div><div class="biz-row"><span class="k">${t('label.website')}</span><span>${siteHtml}</span></div></div>${qrSrc?`<div class="qr-box"><img src="${escapeAttr(qrSrc)}" alt="QR" onerror="this.style.display='none'"></div>`:''}</div>`;}
 
@@ -743,7 +815,6 @@ async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);
 function showTeamForm(item){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.createTeam')}</h3><div class="form-group"><label>${t('form.teamName')}</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div><div class="form-group"><label>${t('form.teamDemand')}</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div><p style="font-size:12px;color:#64748b">${t('team.bundleHint')}</p><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function saveTeam(){const user=getUser();if(!user)return;const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert(t('tip.required'));const demand=(document.getElementById('tm-demand').value||'').trim();let row={id:editingTeamId||Date.now(),name,demand,phone:user.phone,members:[],performances:[],bundled_cases:[],bundled_surveys:[]};if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members||[];row.jinzhu_id=old.jinzhu_id;row.performances=old.performances||[];row.bundled_cases=old.bundled_cases||[];row.bundled_surveys=old.bundled_surveys||[];row.phone=old.phone||user.phone;}}let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();alert(t('tip.saved'));}
 
-/* 金主列表 */
 async function renderJinZhu(){
   const user=getUser();const box=document.getElementById('jinzhu-list');if(!box)return;
   let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
@@ -860,7 +931,6 @@ async function saveJinZhu(){
   const pains_i18n=jinzhuPainDraft.filter(p=>(p.title||'').trim()||(p.desc||'').trim()).map((p,i)=>{const prev=oldPainsI18n[i]&&typeof oldPainsI18n[i]==='object'?oldPainsI18n[i]:{};return{title:mergeI18n(prev.title,currentLang,(p.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(p.desc||'').trim())};});
   const pains=pains_i18n.map(p=>({title:p.title.zh||p.title.en||Object.values(p.title||{}).find(Boolean)||'',desc:p.desc.zh||p.desc.en||Object.values(p.desc||{}).find(Boolean)||''}));
   const newId=editingJinZhuId||Date.now();
-  /* 196：card 无 manager */
   const row={id:newId,type,name:name_i18n.zh||name,intro:intro_i18n.zh||intro,title:title_i18n.zh||title,detail:detail_i18n.zh||detail,name_i18n,intro_i18n,title_i18n,detail_i18n,pains,pains_i18n,phone:old?.phone||phone,card:{person,title:cardTitle,phone:old?.phone||phone,email,wechat,whatsapp,website,qr}};
   let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));
   if(error)return alert(error.message);
@@ -869,7 +939,7 @@ async function saveJinZhu(){
 }
 async function deleteJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('jinzhu').delete().eq('id',id);renderJinZhu();renderTeam();}
 
-/* ========== 198 超级智能：第1行编号+战力，第2行名称 ========== */
+/* ========== 200 超级智能列表：附图式技能 ========== */
 async function renderDaShi(){
   const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;
   let list=await fetchDaShi();let emptyMsg='';
@@ -902,7 +972,7 @@ async function renderDaShi(){
         <div class="si-name-line">${escapeHtml(dashiDisplayName(d)||'-')}</div>
         ${intro?`<div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(intro)}</div>`:''}
         ${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}
-        ${renderSkillsHtml(d)}
+        ${renderSkillsCompact(d)}
         <div class="field-row"><span class="k">${t('label.toolUrl')}</span><span>${renderToolUrl(d.tool_url)}</span></div>
         ${renderBizCard(d.card,d.phone)}
         <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
@@ -931,7 +1001,7 @@ async function renderHomeCats(){const cats=await fetchCategories();const maj=doc
 function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
 function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
 
-/* ========== 198 首页 SI：对齐金主卡片风格 ========== */
+/* ========== 199 首页：附图式技能 ========== */
 async function renderHome(){
   let list=await fetchDaShi();
   if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor||d.major_category===homeActiveMajor);
@@ -956,6 +1026,7 @@ async function renderHome(){
         <div class="si-name-line">${escapeHtml(dashiDisplayName(d)||'-')}</div>
         ${intro?`<div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(intro)}</div>`:''}
         ${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}
+        ${renderSkillsCompact(d)}
         <button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>
       </div>
     </div>`;
@@ -1051,4 +1122,3 @@ document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click'
 </script>
 </body>
 </html>
-
