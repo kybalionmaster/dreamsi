@@ -36,6 +36,7 @@ button,input,select,textarea{font:inherit}
 .btn-super-bundle{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff}
 .btn-pulse-inline{background:#f43f5e;color:#fff}
 .btn-success{background:#059669;color:#fff}
+.btn-copy{background:#ecfdf5;color:#047857}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn-icon-sm{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:16px;display:inline-flex;align-items:center;justify-content:center;padding:0}
 .jz-action-row{display:flex;flex-wrap:nowrap;gap:6px;margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
@@ -58,7 +59,10 @@ button,input,select,textarea{font:inherit}
 .avatar-coop{background:linear-gradient(135deg,#14b8a6,#0f766e)}
 .avatar-case{background:linear-gradient(135deg,#a855f7,#7c3aed)}
 .card-content{flex:1;min-width:0}
-.card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
+/* 195：第一行 ID/操作；第二行名称（省手机横向空间） */
+.card-title{font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:4px}
+.jz-name-line{font-size:16px;font-weight:700;color:#0f172a;margin:2px 0 6px;word-break:break-word;line-height:1.35}
+.jz-title-line{font-size:14px;font-weight:600;color:#334155;margin-bottom:4px}
 .card-desc{font-size:13px;color:#475569;margin-bottom:4px;word-break:break-word}
 .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500;background:#f1f5f9;color:#475569}
 .tag-industry{background:#ecfdf5;color:#047857}
@@ -66,6 +70,8 @@ button,input,select,textarea{font:inherit}
 .tag-tool{background:#ede9fe;color:#5b21b6;margin:2px;cursor:pointer}
 .tag-reject{background:#fee2e2;color:#b91c1c;margin:2px}
 .tag-major{background:#dbeafe;color:#1d4ed8;margin:2px}
+.tag-dream{background:#fce7f3;color:#9d174d}
+.tag-problem{background:#e0f2fe;color:#0369a1}
 .home-cat-tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;cursor:pointer;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
 .home-cat-tag:hover{background:#e0e7ff}.home-cat-tag.active{background:#2563eb;color:#fff;border-color:#2563eb}
 .match-banner{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:13px}
@@ -74,10 +80,7 @@ button,input,select,textarea{font:inherit}
 .role-jinzhu{background:#fef3c7;color:#b45309}.role-ai{background:#ede9fe;color:#6d28d9}
 .role-admin{background:#fee2e2;color:#b91c1c}.role-yingxiao{background:#fce7f3;color:#9d174d}
 .role-kefu,.role-shenhe{background:#e0f2fe;color:#0369a1}
-/* 191/192 座右铭 / 多技能 */
 .motto-box{background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:13px;color:#6b21a8;font-style:italic}
-.motto-box::before{content:'「';opacity:.5}
-.motto-box::after{content:'」';opacity:.5}
 .skill-list{margin:8px 0}
 .skill-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin-bottom:6px;font-size:13px}
 .skill-item .sk-title{font-weight:600;color:#334155}
@@ -95,6 +98,19 @@ button,input,select,textarea{font:inherit}
 .form-section-title{font-size:13px;font-weight:700;color:#334155;margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid #e2e8f0}
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:560px){.form-grid-2{grid-template-columns:1fr}}
+/* 195 需求类型选择 */
+.demand-type-pick{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.demand-type-btn{flex:1;min-width:120px;padding:14px 12px;border:2px solid #e2e8f0;border-radius:12px;background:#fff;cursor:pointer;text-align:center;font-size:14px;font-weight:600;color:#475569}
+.demand-type-btn.active-dream{border-color:#ec4899;background:#fdf2f8;color:#9d174d}
+.demand-type-btn.active-problem{border-color:#0ea5e9;background:#f0f9ff;color:#0369a1}
+.demand-type-btn small{display:block;font-weight:400;font-size:11px;margin-top:4px;opacity:.8}
+.piece-line{margin:4px 0;font-size:13px;color:#334155;padding:6px 10px;background:#f0f9ff;border-radius:8px;border-left:3px solid #38bdf8}
+.piece-line.dream{background:#fdf2f8;border-left-color:#f472b6}
+.pain-line{margin:4px 0;font-size:13px;color:#334155;padding:6px 10px;background:#fef2f2;border-radius:8px;border-left:3px solid #f87171}
+.copy-pick-list{max-height:220px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:10px;margin-bottom:10px}
+.copy-pick-item{padding:10px 12px;border-bottom:1px solid #f1f5f9;cursor:pointer;font-size:13px}
+.copy-pick-item:hover{background:#f8fafc}
+.copy-pick-item:last-child{border-bottom:none}
 .x-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .x-icon{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;font-size:14px;background:#f1f5f9}
 .x-icon.pull{background:#dbeafe}
@@ -109,7 +125,6 @@ button,input,select,textarea{font:inherit}
 .bundle-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:13px}
 .bundle-box h5{font-size:13px;margin-bottom:6px;color:#92400e}
 .bundle-row{margin:4px 0;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
-.pain-line{margin:4px 0;font-size:13px;color:#334155;padding:6px 10px;background:#fef2f2;border-radius:8px;border-left:3px solid #f87171}
 .case-detail-section{margin-top:14px;padding-top:12px;border-top:1px solid #e2e8f0}
 .case-detail-section h4{font-size:14px;margin-bottom:8px;color:#334155}
 .case-related-tools{display:flex;flex-wrap:wrap;gap:6px}
@@ -120,7 +135,6 @@ button,input,select,textarea{font:inherit}
 .si-verify-row textarea{flex:1;min-width:0}
 .si-verify-row .btn-verify{flex-shrink:0;align-self:flex-start;white-space:nowrap}
 .case-extract-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:13px;color:#166534}
-.case-extract-box .muted{color:#64748b;font-size:12px;margin-top:4px}
 .case-adopt-hint{font-size:12px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px;margin-top:8px}
 .modal-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
 .modal{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -266,6 +280,8 @@ th{background:#f8fafc;font-weight:600}
         <div id="team-list"></div>
         <div class="pager" id="team-pager"></div>
       </div>
+
+      <!-- 195 金主需求中心：需求类型分流 / 名称第二行 / 查看不展示类型 -->
       <div class="view" id="view-jinzhu">
         <div class="view-header">
           <h2 data-i18n="menu.jinzhu">💰 金主需求中心</h2>
@@ -274,17 +290,26 @@ th{background:#f8fafc;font-weight:600}
         <div id="jinzhu-match-banner"></div>
         <div class="search-bar">
           <input id="jz-q" data-i18n-placeholder="ph.jinzhuSearch" oninput="jzPage=1;renderJinZhu()">
+          <select id="jz-filter-type" onchange="jzPage=1;renderJinZhu()">
+            <option value="" data-i18n="jz.filterAll">全部需求</option>
+            <option value="dream" data-i18n="jz.typeDream">梦想</option>
+            <option value="problem" data-i18n="jz.typeProblem">问题需求</option>
+          </select>
           <select id="jz-sort" onchange="jzPage=1;renderJinZhu()">
             <option value="new" data-i18n="sort.newest">最新</option>
             <option value="name" data-i18n="sort.name">名称</option>
-            <option value="type" data-i18n="sort.industry">行业</option>
           </select>
         </div>
+        <!--
+          列表卡片约定（查看）：
+          第1行：需求编号 + 编辑/删除（不显示需求类型）
+          第2行：名字（公司名或个人化名）
+          然后：标题、简介、详情、拼图/清单、名片、全家桶/脉冲、团队
+        -->
         <div id="jinzhu-list"></div>
         <div class="pager" id="jz-pager"></div>
       </div>
 
-      <!-- 191/192 超级智能中心：全字段展示 -->
       <div class="view" id="view-dashi">
         <div class="view-header">
           <h2 data-i18n="menu.dashi">🤖 超级智能中心</h2>
@@ -299,12 +324,9 @@ th{background:#f8fafc;font-weight:600}
             <option value="name" data-i18n="sort.name">名称</option>
           </select>
         </div>
-        <!-- 列表：名称/简介/座右铭/大分类/小分类/多技能/工具网址/战力/完整名片 -->
         <div id="dashi-list"></div>
         <div class="pager" id="ds-pager"></div>
       </div>
-
-      <!-- 193 验证后可删减，余下才采用 -->
       <div class="view" id="view-sicase">
         <div class="view-header">
           <h2 data-i18n="menu.sicase">✨ SI 成功场景</h2>
@@ -320,7 +342,6 @@ th{background:#f8fafc;font-weight:600}
         <div id="sicase-list"></div>
         <div class="pager" id="case-pager"></div>
       </div>
-
       <div class="view" id="view-hero">
         <div class="view-header">
           <h2 data-i18n="menu.hero">⭐ 超级精英中心</h2>
@@ -464,6 +485,7 @@ th{background:#f8fafc;font-weight:600}
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
 
+
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
@@ -474,147 +496,63 @@ const LANG_HTML={zh:'zh-CN',en:'en',de:'de',fr:'fr',ru:'ru',ja:'ja'};
 function detectBrowserLang(){const list=[];if(navigator.languages&&navigator.languages.length)list.push(...navigator.languages);if(navigator.language)list.push(navigator.language);for(const raw of list){const low=String(raw||'').toLowerCase();if(low.startsWith('zh'))return 'zh';if(low.startsWith('en'))return 'en';if(low.startsWith('de'))return 'de';if(low.startsWith('fr'))return 'fr';if(low.startsWith('ru'))return 'ru';if(low.startsWith('ja'))return 'ja';}return 'en';}
 function getInitialLang(){const saved=localStorage.getItem('dreamsi_lang');if(saved&&SUPPORTED_LANGS.includes(saved))return saved;return detectBrowserLang();}
 
-/* ========== 194：六语完整包（四国独立，禁止浅拷贝 en） ========== */
 const i18n={
 zh:{
   brand:'梦想显化器',
   menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
   kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
-  btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加痛点',verify:'验证',addSkill:'+ 添加技能'},
-  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、行业、痛点…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'痛点标题',painDesc:'痛点说明',siNames:'输入 SI 名称，用逗号、顿号、分号或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类'},
-  sort:{newest:'最新',power:'战力从高到低',powerSum:'战力总和',name:'名称',industry:'行业',title:'标题'},
+  btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加',verify:'验证',addSkill:'+ 添加技能',copyFrom:'复制他人再改',addPiece:'+ 添加拼图',addChecklist:'+ 添加清单项'},
+  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明',manager:'经理'},
+  sort:{newest:'最新',power:'战力从高到低',powerSum:'战力总和',name:'名称',title:'标题'},
+  jz:{filterAll:'全部需求',typeDream:'梦想',typeProblem:'问题需求',typePick:'请先选择需求类型',typeDreamHint:'描述你要显化的梦想，拆成多块拼图',typeProblemHint:'描述要解决的问题，列出问题清单',pieces:'拼图列表',checklist:'问题需求清单',copyDream:'选择并复制其他金主的梦想',copyProblem:'选择并复制其他金主的问题需求',copyEmpty:'暂无可复制内容',copied:'已复制，请修改后保存',idLabel:'需求编号',nameLabel:'名称',introLabel:'简介',titleLabel:'标题',detailLabel:'详情'},
   coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录',allStatus:'全部状态',typeBiz:'商务合作',typeSwap:'资源互换',typeChannel:'渠道代理',typeOther:'其他'},
   pulse:{compose:'+ 发脉冲',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',sendOk:'发送成功',needLogin:'请先登录',allTypes:'全部类型',typeGreeting:'问候',typeProgress:'进展',typeEvent:'活动',typeCase:'案例',typeTrial:'试用'},
   users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除？',noSelfDel:'不能删除自己',allRoles:'全部角色'},
-  tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',superBundleOk:'超级全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队',bundleWorking:'正在匹配全家桶…',superBundleWorking:'正在匹配超级全家桶…',required:'请填写必填项',userNotFound:'用户不存在',wrongPwd:'密码错误',blacklisted:'账号已拉黑',exists:'账号已存在',mismatch:'两次密码不一致',minPwd:'密码至少4位',noPermission:'无权限',alreadyIn:'已在团队中',deleteConfirm:'确定删除？',createTeamFirst:'请先创建团队',noMatchedSi:'未匹配到已登记的 SI 工具',matchedSiN:'合格 {n} 个，请删减后保存',rejectedSiN:'未通过 {n} 个',needSiInput:'请先输入要验证的 SI 名称',adoptHint:'请删除不需要的 SI，保存时仅采用下方余下项'},
+  tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',superBundleOk:'超级全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队',bundleWorking:'正在匹配全家桶…',superBundleWorking:'正在匹配超级全家桶…',required:'请填写必填项',userNotFound:'用户不存在',wrongPwd:'密码错误',blacklisted:'账号已拉黑',exists:'账号已存在',mismatch:'两次密码不一致',minPwd:'密码至少4位',noPermission:'无权限',alreadyIn:'已在团队中',deleteConfirm:'确定删除？',createTeamFirst:'请先创建团队',noMatchedSi:'未匹配到已登记的 SI',matchedSiN:'合格 {n} 个，请删减后保存',rejectedSiN:'未通过 {n} 个',needSiInput:'请先输入要验证的 SI 名称',adoptHint:'请删除不需要的 SI，保存时仅采用余下项',pickTypeFirst:'请先选择需求类型'},
   role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},
-  form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位 / 头衔',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',qr:'二维码图片 URL',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',subs:'小分类（每行一个）',industry:'行业 / 需求类型 *',detail:'需求详情',major:'大分类',minor:'小分类',toolUrl:'工具网址',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',teamName:'团队名称 *',teamDemand:'团队需求',autoTeam:'发布后自动创建超级团队',pains:'痛点列表',painTitle:'痛点标题',painDesc:'痛点说明',cardSection:'名片信息',bizCard:'商务名片',motto:'座右铭',skills:'多技能',skillTitle:'技能标题',skillDesc:'技能说明'},
-  label:{intro:'简介',power:'战力',skill:'技能',industry:'行业',toolUrl:'工具网址',detail:'详情',pains:'痛点',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类'},
+  form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位 / 头衔',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',qr:'二维码图片 URL',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',subs:'小分类（每行一个）',industry:'需求类型 *',detail:'详情 *',major:'大分类',minor:'小分类',toolUrl:'工具网址',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',teamName:'团队名称 *',teamDemand:'团队需求',autoTeam:'发布后自动创建超级团队',pains:'列表项',painTitle:'标题',painDesc:'说明',cardSection:'名片信息',bizCard:'商务名片',motto:'座右铭',skills:'多技能',skillTitle:'技能标题',skillDesc:'技能说明',manager:'经理',jzName:'名字（公司名或个人化名）*',jzIntro:'简介（公司或个人介绍）',jzTitle:'标题',jzDetail:'详情 *'},
+  label:{intro:'简介',power:'战力',skill:'技能',industry:'需求类型',toolUrl:'工具网址',detail:'详情',pains:'清单',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类',manager:'经理'},
   qgen:{title:'问卷编辑',name:'问卷名称 *',desc:'说明',previewTitle:'预览',fillSubmit:'提交答卷'},
   diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',noAnswers:'暂无答卷',view:'查看详情',empty:'暂无诊断',saveReport:'保存报告',viewReport:'查看诊断报告'},
   hero:{emptyMine:'您还没有发布精英档案。'},
   dashi:{matchTip:'正在为「{name}」匹配超级智能。',clearMatch:'清除匹配'},
   jinzhu:{matchTip:'正在为「{name}」匹配金主需求。',clearMatch:'清除匹配',idLabel:'需求编号'},
   team:{empty:'暂无团队，点击右上角创建',memberN:'人',bundleHint:'全家桶 6+6+6+3 · 超级全家桶 12+12+12+6'},
-  case:{extractHint:'填写可能的 SI 名称（标点或换行分隔），点「验证」。合格项可再删除，保存只采用余下。',noLinks:'暂无外链',noRelated:'暂无关联 SI',okList:'合格（可删减）',rejectList:'未在库中'}
+  case:{extractHint:'填写 SI 名称后点验证；合格项可再删除，保存只采用余下。',noLinks:'暂无外链',noRelated:'暂无关联 SI',okList:'合格（可删减）',rejectList:'未在库中'}
 },
 en:{
   brand:'Dream Manifestor',
   menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 My Team',jinzhu:'💰 Demands',dashi:'🤖 Super SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},
   home:{siTools:'SI Tools',allCats:'All categories'},
   kyb:{footnote:'Cosmic laws: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
-  btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Create team',postDemand:'+ Demand',postTool:'+ Tool',postHero:'+ Elite',postCase:'+ Case',newSurvey:'+ Survey',addMajor:'+ Category',viewAllTeams:'All teams',preview:'Preview',publish:'Publish',addSection:'+ Section',addQuestion:'+ Question',reply:'Reply',findClient:'Find client',addLink:'+ Link',viewDetail:'Details',bundle:'Full Pack',superBundle:'Super Pack',pulse:'Pulse',join:'Join',disband:'Disband',setFocus:'Set focus',ok:'OK',addPain:'+ Add pain',verify:'Verify',addSkill:'+ Add skill'},
-  ph:{homeSearch:'Search tools…',teamSearch:'Search teams…',jinzhuSearch:'Search name, industry, pains…',dashiSearch:'Search SI…',caseSearch:'Search cases…',heroSearch:'Search elites…',surveySearch:'Search surveys…',genericSearch:'Search…',pulseSearch:'Search pulse…',catSearch:'Search categories…',coopListSearch:'Search…',usersSearch:'Search phone…',coopName:'Company / name',coopContact:'Phone / email / WeChat',coopDesc:'Describe cooperation',https:'https://',phone:'Phone',password:'Password',painTitle:'Pain title',painDesc:'Pain detail',siNames:'SI names, separated by comma, semicolon or newline',qrUrl:'QR image URL',email:'Email',whatsapp:'WhatsApp',website:'Website',title:'Title / role',motto:'Motto',skillTitle:'Skill title',skillDesc:'Skill description',major:'Major category',minor:'Minor category'},
-  sort:{newest:'Newest',power:'Power high→low',powerSum:'Total power',name:'Name',industry:'Industry',title:'Title'},
+  btn:{login:'Login',register:'Register',logout:'Logout',submit:'Submit',send:'Send',save:'Save',cancel:'Cancel',edit:'Edit',del:'Delete',visit:'Visit',createTeam:'+ Create team',postDemand:'+ Demand',postTool:'+ Tool',postHero:'+ Elite',postCase:'+ Case',newSurvey:'+ Survey',addMajor:'+ Category',viewAllTeams:'All teams',preview:'Preview',publish:'Publish',addSection:'+ Section',addQuestion:'+ Question',reply:'Reply',findClient:'Find client',addLink:'+ Link',viewDetail:'Details',bundle:'Full Pack',superBundle:'Super Pack',pulse:'Pulse',join:'Join',disband:'Disband',setFocus:'Set focus',ok:'OK',addPain:'+ Add',verify:'Verify',addSkill:'+ Skill',copyFrom:'Copy from others',addPiece:'+ Puzzle piece',addChecklist:'+ Checklist item'},
+  ph:{homeSearch:'Search tools…',teamSearch:'Search teams…',jinzhuSearch:'Search name, title, detail…',dashiSearch:'Search SI…',caseSearch:'Search cases…',heroSearch:'Search elites…',surveySearch:'Search surveys…',genericSearch:'Search…',pulseSearch:'Search pulse…',catSearch:'Search categories…',coopListSearch:'Search…',usersSearch:'Search phone…',coopName:'Company / name',coopContact:'Phone / email / WeChat',coopDesc:'Describe cooperation',https:'https://',phone:'Phone',password:'Password',painTitle:'Title',painDesc:'Description',siNames:'SI names separated by punctuation',qrUrl:'QR image URL',email:'Email',whatsapp:'WhatsApp',website:'Website',title:'Title / role',motto:'Motto',skillTitle:'Skill title',skillDesc:'Skill description',major:'Major category',minor:'Minor category',jzName:'Company or personal alias',jzIntro:'Company or personal intro',jzTitleDream:'Dream title',jzTitleProblem:'Problem title',jzDetailDream:'Dream detail',jzDetailProblem:'Problem detail',pieceTitle:'Puzzle title',pieceDesc:'Puzzle description',checkTitle:'Issue title',checkDesc:'Issue description',manager:'Manager'},
+  sort:{newest:'Newest',power:'Power high→low',powerSum:'Total power',name:'Name',title:'Title'},
+  jz:{filterAll:'All demands',typeDream:'Dream',typeProblem:'Problem demand',typePick:'Select demand type first',typeDreamHint:'Describe the dream and break it into puzzle pieces',typeProblemHint:'Describe the problem and list checklist items',pieces:'Puzzle pieces',checklist:'Problem checklist',copyDream:'Copy another client dream',copyProblem:'Copy another client problem',copyEmpty:'Nothing to copy',copied:'Copied — edit then save',idLabel:'ID',nameLabel:'Name',introLabel:'Intro',titleLabel:'Title',detailLabel:'Detail'},
   coop:{name:'Name / Company *',contact:'Contact *',type:'Type',desc:'Description',intro:'Submit partnership interest.',myList:'My submissions',empty:'No submissions',status:'Status',note:'Note',pending:'Pending',contacted:'Contacted',progress:'In progress',done:'Done',closed:'Closed',centerEmpty:'No records',allStatus:'All status',typeBiz:'Business',typeSwap:'Resource swap',typeChannel:'Channel',typeOther:'Other'},
   pulse:{compose:'+ Compose',inbox:'Inbox',sent:'Sent',toPhone:'To phone *',content:'Content *',type:'Type',empty:'No messages',from:'From',to:'To',markRead:'Mark read',unread:'Unread',sendOk:'Sent',needLogin:'Please login',allTypes:'All types',typeGreeting:'Greeting',typeProgress:'Progress',typeEvent:'Event',typeCase:'Case',typeTrial:'Trial'},
   users:{phone:'Phone',role:'Role',date:'Registered',status:'Status',action:'Actions',blacklist:'Block',unban:'Unban',delConfirm:'Delete?',noSelfDel:'Cannot delete yourself',allRoles:'All roles'},
-  tip:{noData:'No data',loginFirst:'Please login first',noTools:'No tools',noTeams:'No teams',saved:'Saved',noReportLink:'No report link',noHeroes:'No elites',emptyMineJz:'You have no demands yet.',noDemands:'No demands',noCases:'No success cases',bundleOk:'Full pack loaded',superBundleOk:'Super pack loaded',bundleNoTeam:'No linked team yet',bundleWorking:'Matching full pack…',superBundleWorking:'Matching super pack…',required:'Please fill required fields',userNotFound:'User not found',wrongPwd:'Wrong password',blacklisted:'Account blocked',exists:'Account exists',mismatch:'Passwords mismatch',minPwd:'Min 4 characters',noPermission:'No permission',alreadyIn:'Already in team',deleteConfirm:'Delete?',createTeamFirst:'Create a team first',noMatchedSi:'No registered SI matched',matchedSiN:'{n} matched — trim then save',rejectedSiN:'Rejected {n}',needSiInput:'Enter SI names to verify',adoptHint:'Remove unwanted SI; only remaining items are saved'},
+  tip:{noData:'No data',loginFirst:'Please login first',noTools:'No tools',noTeams:'No teams',saved:'Saved',noReportLink:'No report link',noHeroes:'No elites',emptyMineJz:'You have no demands yet.',noDemands:'No demands',noCases:'No success cases',bundleOk:'Full pack loaded',superBundleOk:'Super pack loaded',bundleNoTeam:'No linked team yet',bundleWorking:'Matching full pack…',superBundleWorking:'Matching super pack…',required:'Please fill required fields',userNotFound:'User not found',wrongPwd:'Wrong password',blacklisted:'Account blocked',exists:'Account exists',mismatch:'Passwords mismatch',minPwd:'Min 4 characters',noPermission:'No permission',alreadyIn:'Already in team',deleteConfirm:'Delete?',createTeamFirst:'Create a team first',noMatchedSi:'No registered SI matched',matchedSiN:'{n} matched — trim then save',rejectedSiN:'Rejected {n}',needSiInput:'Enter SI names to verify',adoptHint:'Remove unwanted SI; only remaining are saved',pickTypeFirst:'Select demand type first'},
   role:{jinzhu:'Client',ai:'AI Co.',admin:'Admin',kefu:'Support',shenhe:'Reviewer',yingxiao:'Elite'},
-  form:{name:'Name *',intro:'Intro',power:'Power',person:'Card name *',title:'Title / role',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',qr:'QR image URL',loginTitle:'Login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm *',roleLabel:'Role',langHint:'Entry language: ',langHint2:'Fill only the language you know.',skill:'Core skill *',subs:'Subcategories (one per line)',industry:'Industry / type *',detail:'Detail',major:'Major category',minor:'Minor category',toolUrl:'Tool URL',caseTitle:'Title *',caseContent:'Content *',caseValue:'Value created *',relatedTools:'Related SI tools',links:'Links',linkTitle:'Link title',linkUrl:'URL',teamName:'Team name *',teamDemand:'Team demand',autoTeam:'Auto-create team after publish',pains:'Pain points',painTitle:'Pain title',painDesc:'Pain description',cardSection:'Business card',bizCard:'Business card',motto:'Motto',skills:'Skills',skillTitle:'Skill title',skillDesc:'Skill description'},
-  label:{intro:'Intro',power:'Power',skill:'Skill',industry:'Industry',toolUrl:'URL',detail:'Detail',pains:'Pains',caseContent:'Content',caseValue:'Value',relatedTools:'Related SI tools',links:'Links',members:'Members',bundledCases:'Success cases',bundledSurveys:'Surveys',demand:'Demand',person:'Name',title:'Title',phone:'Phone',email:'Email',wechat:'WeChat',whatsapp:'WhatsApp',website:'Website',qr:'QR',motto:'Motto',skills:'Skills',major:'Major',minor:'Minor'},
+  form:{name:'Name *',intro:'Intro',power:'Power',person:'Card name *',title:'Title / role',phone:'Phone *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',qr:'QR image URL',loginTitle:'Login',regTitle:'Register',pwd:'Password *',pwd2:'Confirm *',roleLabel:'Role',langHint:'Entry language: ',langHint2:'Fill only the language you know.',skill:'Core skill *',subs:'Subcategories (one per line)',industry:'Demand type *',detail:'Detail *',major:'Major category',minor:'Minor category',toolUrl:'Tool URL',caseTitle:'Title *',caseContent:'Content *',caseValue:'Value created *',relatedTools:'Related SI tools',links:'Links',linkTitle:'Link title',linkUrl:'URL',teamName:'Team name *',teamDemand:'Team demand',autoTeam:'Auto-create team after publish',pains:'Items',painTitle:'Title',painDesc:'Description',cardSection:'Business card',bizCard:'Business card',motto:'Motto',skills:'Skills',skillTitle:'Skill title',skillDesc:'Skill description',manager:'Manager',jzName:'Name (company or alias) *',jzIntro:'Intro',jzTitle:'Title',jzDetail:'Detail *'},
+  label:{intro:'Intro',power:'Power',skill:'Skill',industry:'Demand type',toolUrl:'URL',detail:'Detail',pains:'Items',caseContent:'Content',caseValue:'Value',relatedTools:'Related SI tools',links:'Links',members:'Members',bundledCases:'Success cases',bundledSurveys:'Surveys',demand:'Demand',person:'Name',title:'Title',phone:'Phone',email:'Email',wechat:'WeChat',whatsapp:'WhatsApp',website:'Website',qr:'QR',motto:'Motto',skills:'Skills',major:'Major',minor:'Minor',manager:'Manager'},
   qgen:{title:'Survey editor',name:'Survey name *',desc:'Description',previewTitle:'Preview',fillSubmit:'Submit answers'},
   diag:{allStatus:'All status',pending:'Pending',reviewing:'Reviewing',completed:'Completed',archived:'Archived',detail:'Diagnosis detail',noAnswers:'No answers',view:'View',empty:'No diagnosis',saveReport:'Save report',viewReport:'View report'},
   hero:{emptyMine:'You have no elite profile yet.'},
   dashi:{matchTip:'Matching SI for "{name}".',clearMatch:'Clear match'},
   jinzhu:{matchTip:'Matching demands for "{name}".',clearMatch:'Clear match',idLabel:'ID'},
   team:{empty:'No teams yet. Create one.',memberN:'members',bundleHint:'Pack 6+6+6+3 · Super 12+12+12+6'},
-  case:{extractHint:'Enter SI names (comma/semicolon/newline), Verify, then delete unwanted. Only remaining are saved.',noLinks:'No links',noRelated:'No related SI',okList:'Matched (trim)',rejectList:'Not in library'}
-},
-de:{
-  brand:'Traum-Manifestierer',
-  menu:{home:'🏠 Start',kybalion:'📖 Kosmische Gesetze',focus:'🎯 Fokus',team:'👥 Mein Team',jinzhu:'💰 Anforderungen',dashi:'🤖 Super-SI',sicase:'✨ SI-Erfolge',hero:'⭐ Eliten',qgen:'📋 Umfragen',diagnosis:'🔎 Diagnose',inbox:'⚡ Puls',coop:'🤝 Kooperation',categories:'🗂 Kategorien',coopList:'🏢 Koop-Zentrum',users:'👤 Benutzer'},
-  home:{siTools:'SI-Werkzeuge',allCats:'Alle Kategorien'},
-  kyb:{footnote:'Kosmische Gesetze: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
-  btn:{login:'Anmelden',register:'Registrieren',logout:'Abmelden',submit:'Senden',send:'Senden',save:'Speichern',cancel:'Abbrechen',edit:'Bearbeiten',del:'Löschen',visit:'Besuchen',createTeam:'+ Team erstellen',postDemand:'+ Anforderung',postTool:'+ Werkzeug',postHero:'+ Elite',postCase:'+ Fall',newSurvey:'+ Umfrage',addMajor:'+ Kategorie',viewAllTeams:'Alle Teams',preview:'Vorschau',publish:'Veröffentlichen',addSection:'+ Abschnitt',addQuestion:'+ Frage',reply:'Antworten',findClient:'Kunde finden',addLink:'+ Link',viewDetail:'Details',bundle:'Paket',superBundle:'Super-Paket',pulse:'Puls',join:'Beitreten',disband:'Auflösen',setFocus:'Als Fokus',ok:'OK',addPain:'+ Schmerzpunkt',verify:'Prüfen',addSkill:'+ Fähigkeit'},
-  ph:{homeSearch:'Werkzeuge suchen…',teamSearch:'Teams suchen…',jinzhuSearch:'Name, Branche, Schmerz…',dashiSearch:'SI suchen…',caseSearch:'Fälle suchen…',heroSearch:'Eliten suchen…',surveySearch:'Umfragen suchen…',genericSearch:'Suchen…',pulseSearch:'Puls suchen…',catSearch:'Kategorien…',coopListSearch:'Suchen…',usersSearch:'Telefon…',coopName:'Firma / Name',coopContact:'Telefon / E-Mail / WeChat',coopDesc:'Kooperationsbeschreibung',https:'https://',phone:'Telefon',password:'Passwort',painTitle:'Schmerz-Titel',painDesc:'Schmerz-Detail',siNames:'SI-Namen mit Komma, Semikolon oder Zeilenumbruch',qrUrl:'QR-Bild-URL',email:'E-Mail',whatsapp:'WhatsApp',website:'Website',title:'Titel / Rolle',motto:'Motto',skillTitle:'Fähigkeitstitel',skillDesc:'Fähigkeitsbeschreibung',major:'Hauptkategorie',minor:'Unterkategorie'},
-  sort:{newest:'Neueste',power:'Kraft hoch→niedrig',powerSum:'Gesamtkraft',name:'Name',industry:'Branche',title:'Titel'},
-  coop:{name:'Name / Firma *',contact:'Kontakt *',type:'Typ',desc:'Beschreibung',intro:'Partnerschaftsanfrage senden.',myList:'Meine Einreichungen',empty:'Keine Einreichungen',status:'Status',note:'Notiz',pending:'Ausstehend',contacted:'Kontaktiert',progress:'In Arbeit',done:'Erledigt',closed:'Geschlossen',centerEmpty:'Keine Einträge',allStatus:'Alle Status',typeBiz:'Geschäft',typeSwap:'Ressourcentausch',typeChannel:'Kanal',typeOther:'Sonstiges'},
-  pulse:{compose:'+ Verfassen',inbox:'Posteingang',sent:'Gesendet',toPhone:'An Telefon *',content:'Inhalt *',type:'Typ',empty:'Keine Nachrichten',from:'Von',to:'An',markRead:'Als gelesen',unread:'Ungelesen',sendOk:'Gesendet',needLogin:'Bitte anmelden',allTypes:'Alle Typen',typeGreeting:'Gruß',typeProgress:'Fortschritt',typeEvent:'Event',typeCase:'Fall',typeTrial:'Test'},
-  users:{phone:'Telefon',role:'Rolle',date:'Registriert',status:'Status',action:'Aktionen',blacklist:'Sperren',unban:'Entsperren',delConfirm:'Löschen?',noSelfDel:'Sich selbst nicht löschen',allRoles:'Alle Rollen'},
-  tip:{noData:'Keine Daten',loginFirst:'Bitte zuerst anmelden',noTools:'Keine Werkzeuge',noTeams:'Keine Teams',saved:'Gespeichert',noReportLink:'Kein Berichtslink',noHeroes:'Keine Eliten',emptyMineJz:'Noch keine Anforderungen.',noDemands:'Keine Anforderungen',noCases:'Keine Erfolgsfälle',bundleOk:'Paket geladen',superBundleOk:'Super-Paket geladen',bundleNoTeam:'Noch kein Team',bundleWorking:'Paket wird zugeordnet…',superBundleWorking:'Super-Paket wird zugeordnet…',required:'Pflichtfelder ausfüllen',userNotFound:'Benutzer nicht gefunden',wrongPwd:'Falsches Passwort',blacklisted:'Konto gesperrt',exists:'Konto existiert',mismatch:'Passwörter ungleich',minPwd:'Mind. 4 Zeichen',noPermission:'Keine Berechtigung',alreadyIn:'Bereits im Team',deleteConfirm:'Löschen?',createTeamFirst:'Zuerst Team erstellen',noMatchedSi:'Kein registriertes SI gefunden',matchedSiN:'{n} Treffer — kürzen und speichern',rejectedSiN:'Abgelehnt {n}',needSiInput:'SI-Namen zum Prüfen eingeben',adoptHint:'Unnötige SI entfernen; nur Rest wird gespeichert'},
-  role:{jinzhu:'Kunde',ai:'KI-Firma',admin:'Admin',kefu:'Support',shenhe:'Prüfer',yingxiao:'Elite'},
-  form:{name:'Name *',intro:'Intro',power:'Kraft',person:'Kartenname *',title:'Titel / Rolle',phone:'Telefon *',email:'E-Mail',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Website',qr:'QR-Bild-URL',loginTitle:'Anmelden',regTitle:'Registrieren',pwd:'Passwort *',pwd2:'Bestätigen *',roleLabel:'Rolle',langHint:'Eingabesprache: ',langHint2:'Nur die Sprache, die Sie beherrschen.',skill:'Kernkompetenz *',subs:'Unterkategorien (eine pro Zeile)',industry:'Branche / Typ *',detail:'Detail',major:'Hauptkategorie',minor:'Unterkategorie',toolUrl:'Werkzeug-URL',caseTitle:'Titel *',caseContent:'Inhalt *',caseValue:'Erzeugter Wert *',relatedTools:'Verwandte SI',links:'Links',linkTitle:'Linktitel',linkUrl:'URL',teamName:'Teamname *',teamDemand:'Teamanforderung',autoTeam:'Team nach Veröffentlichung erstellen',pains:'Schmerzpunkte',painTitle:'Schmerz-Titel',painDesc:'Schmerz-Beschreibung',cardSection:'Visitenkarte',bizCard:'Visitenkarte',motto:'Motto',skills:'Fähigkeiten',skillTitle:'Fähigkeitstitel',skillDesc:'Fähigkeitsbeschreibung'},
-  label:{intro:'Intro',power:'Kraft',skill:'Skill',industry:'Branche',toolUrl:'URL',detail:'Detail',pains:'Schmerzen',caseContent:'Inhalt',caseValue:'Wert',relatedTools:'Verwandte SI',links:'Links',members:'Mitglieder',bundledCases:'Erfolgsfälle',bundledSurveys:'Umfragen',demand:'Anforderung',person:'Name',title:'Titel',phone:'Telefon',email:'E-Mail',wechat:'WeChat',whatsapp:'WhatsApp',website:'Website',qr:'QR',motto:'Motto',skills:'Fähigkeiten',major:'Haupt',minor:'Unter'},
-  qgen:{title:'Umfrage-Editor',name:'Umfragename *',desc:'Beschreibung',previewTitle:'Vorschau',fillSubmit:'Antworten senden'},
-  diag:{allStatus:'Alle Status',pending:'Ausstehend',reviewing:'In Prüfung',completed:'Fertig',archived:'Archiviert',detail:'Diagnosedetail',noAnswers:'Keine Antworten',view:'Ansehen',empty:'Keine Diagnose',saveReport:'Bericht speichern',viewReport:'Bericht ansehen'},
-  hero:{emptyMine:'Noch kein Elite-Profil.'},
-  dashi:{matchTip:'SI für „{name}“ wird zugeordnet.',clearMatch:'Zuordnung löschen'},
-  jinzhu:{matchTip:'Anforderungen für „{name}“ werden zugeordnet.',clearMatch:'Zuordnung löschen',idLabel:'ID'},
-  team:{empty:'Noch keine Teams. Erstellen Sie eines.',memberN:'Mitglieder',bundleHint:'Paket 6+6+6+3 · Super 12+12+12+6'},
-  case:{extractHint:'SI-Namen eingeben, Prüfen, Unnötiges löschen. Nur Rest wird gespeichert.',noLinks:'Keine Links',noRelated:'Keine verwandten SI',okList:'Treffer (kürzbar)',rejectList:'Nicht in Bibliothek'}
-},
-fr:{
-  brand:'Manifesteur de Rêves',
-  menu:{home:'🏠 Accueil',kybalion:'📖 Lois cosmiques',focus:'🎯 Focus',team:'👥 Mon équipe',jinzhu:'💰 Demandes',dashi:'🤖 Super SI',sicase:'✨ Succès SI',hero:'⭐ Élites',qgen:'📋 Enquêtes',diagnosis:'🔎 Diagnostic',inbox:'⚡ Pulsation',coop:'🤝 Coopération',categories:'🗂 Catégories',coopList:'🏢 Centre coop',users:'👤 Utilisateurs'},
-  home:{siTools:'Outils SI',allCats:'Toutes les catégories'},
-  kyb:{footnote:'Lois cosmiques : <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
-  btn:{login:'Connexion',register:'S’inscrire',logout:'Déconnexion',submit:'Envoyer',send:'Envoyer',save:'Enregistrer',cancel:'Annuler',edit:'Modifier',del:'Supprimer',visit:'Visiter',createTeam:'+ Créer une équipe',postDemand:'+ Demande',postTool:'+ Outil',postHero:'+ Élite',postCase:'+ Cas',newSurvey:'+ Enquête',addMajor:'+ Catégorie',viewAllTeams:'Toutes les équipes',preview:'Aperçu',publish:'Publier',addSection:'+ Section',addQuestion:'+ Question',reply:'Répondre',findClient:'Trouver un client',addLink:'+ Lien',viewDetail:'Détails',bundle:'Pack',superBundle:'Super pack',pulse:'Pulsation',join:'Rejoindre',disband:'Dissoudre',setFocus:'Définir focus',ok:'OK',addPain:'+ Point de douleur',verify:'Vérifier',addSkill:'+ Compétence'},
-  ph:{homeSearch:'Rechercher des outils…',teamSearch:'Rechercher des équipes…',jinzhuSearch:'Nom, secteur, douleurs…',dashiSearch:'Rechercher SI…',caseSearch:'Rechercher des cas…',heroSearch:'Rechercher des élites…',surveySearch:'Rechercher des enquêtes…',genericSearch:'Rechercher…',pulseSearch:'Rechercher pulsation…',catSearch:'Catégories…',coopListSearch:'Rechercher…',usersSearch:'Téléphone…',coopName:'Société / nom',coopContact:'Téléphone / e-mail / WeChat',coopDesc:'Description de la coopération',https:'https://',phone:'Téléphone',password:'Mot de passe',painTitle:'Titre de la douleur',painDesc:'Détail de la douleur',siNames:'Noms SI séparés par virgule, point-virgule ou ligne',qrUrl:'URL image QR',email:'E-mail',whatsapp:'WhatsApp',website:'Site',title:'Titre / rôle',motto:'Devise',skillTitle:'Titre compétence',skillDesc:'Description compétence',major:'Catégorie majeure',minor:'Sous-catégorie'},
-  sort:{newest:'Plus récent',power:'Puissance ↓',powerSum:'Puissance totale',name:'Nom',industry:'Secteur',title:'Titre'},
-  coop:{name:'Nom / Société *',contact:'Contact *',type:'Type',desc:'Description',intro:'Soumettre un intérêt de partenariat.',myList:'Mes soumissions',empty:'Aucune soumission',status:'Statut',note:'Note',pending:'En attente',contacted:'Contacté',progress:'En cours',done:'Terminé',closed:'Fermé',centerEmpty:'Aucun enregistrement',allStatus:'Tous les statuts',typeBiz:'Affaires',typeSwap:'Échange de ressources',typeChannel:'Canal',typeOther:'Autre'},
-  pulse:{compose:'+ Composer',inbox:'Boîte de réception',sent:'Envoyés',toPhone:'Téléphone destinataire *',content:'Contenu *',type:'Type',empty:'Aucun message',from:'De',to:'À',markRead:'Marquer lu',unread:'Non lu',sendOk:'Envoyé',needLogin:'Veuillez vous connecter',allTypes:'Tous les types',typeGreeting:'Salutation',typeProgress:'Progrès',typeEvent:'Événement',typeCase:'Cas',typeTrial:'Essai'},
-  users:{phone:'Téléphone',role:'Rôle',date:'Inscrit',status:'Statut',action:'Actions',blacklist:'Bloquer',unban:'Débloquer',delConfirm:'Supprimer ?',noSelfDel:'Impossible de se supprimer',allRoles:'Tous les rôles'},
-  tip:{noData:'Aucune donnée',loginFirst:'Veuillez d’abord vous connecter',noTools:'Aucun outil',noTeams:'Aucune équipe',saved:'Enregistré',noReportLink:'Pas de lien de rapport',noHeroes:'Aucune élite',emptyMineJz:'Vous n’avez pas encore de demandes.',noDemands:'Aucune demande',noCases:'Aucun cas de succès',bundleOk:'Pack chargé',superBundleOk:'Super pack chargé',bundleNoTeam:'Pas encore d’équipe liée',bundleWorking:'Association du pack…',superBundleWorking:'Association du super pack…',required:'Remplir les champs obligatoires',userNotFound:'Utilisateur introuvable',wrongPwd:'Mot de passe incorrect',blacklisted:'Compte bloqué',exists:'Compte existant',mismatch:'Mots de passe différents',minPwd:'Min. 4 caractères',noPermission:'Pas d’autorisation',alreadyIn:'Déjà dans l’équipe',deleteConfirm:'Supprimer ?',createTeamFirst:'Créez d’abord une équipe',noMatchedSi:'Aucun SI enregistré trouvé',matchedSiN:'{n} trouvés — élaguer puis enregistrer',rejectedSiN:'Rejetés {n}',needSiInput:'Entrez des noms SI à vérifier',adoptHint:'Supprimez les SI inutiles ; seuls les restants sont enregistrés'},
-  role:{jinzhu:'Client',ai:'Société IA',admin:'Admin',kefu:'Support',shenhe:'Réviseur',yingxiao:'Élite'},
-  form:{name:'Nom *',intro:'Intro',power:'Puissance',person:'Nom carte *',title:'Titre / rôle',phone:'Téléphone *',email:'E-mail',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Site',qr:'URL image QR',loginTitle:'Connexion',regTitle:'Inscription',pwd:'Mot de passe *',pwd2:'Confirmer *',roleLabel:'Rôle',langHint:'Langue de saisie : ',langHint2:'Remplissez uniquement la langue que vous connaissez.',skill:'Compétence clé *',subs:'Sous-catégories (une par ligne)',industry:'Secteur / type *',detail:'Détail',major:'Catégorie majeure',minor:'Sous-catégorie',toolUrl:'URL de l’outil',caseTitle:'Titre *',caseContent:'Contenu *',caseValue:'Valeur créée *',relatedTools:'SI liés',links:'Liens',linkTitle:'Titre du lien',linkUrl:'URL',teamName:'Nom de l’équipe *',teamDemand:'Demande d’équipe',autoTeam:'Créer une équipe après publication',pains:'Points de douleur',painTitle:'Titre de la douleur',painDesc:'Description de la douleur',cardSection:'Carte de visite',bizCard:'Carte de visite',motto:'Devise',skills:'Compétences',skillTitle:'Titre compétence',skillDesc:'Description compétence'},
-  label:{intro:'Intro',power:'Puissance',skill:'Compétence',industry:'Secteur',toolUrl:'URL',detail:'Détail',pains:'Douleurs',caseContent:'Contenu',caseValue:'Valeur',relatedTools:'Outils SI liés',links:'Liens',members:'Membres',bundledCases:'Cas de succès',bundledSurveys:'Enquêtes',demand:'Demande',person:'Nom',title:'Titre',phone:'Téléphone',email:'E-mail',wechat:'WeChat',whatsapp:'WhatsApp',website:'Site',qr:'QR',motto:'Devise',skills:'Compétences',major:'Majeure',minor:'Mineure'},
-  qgen:{title:'Éditeur d’enquête',name:'Nom de l’enquête *',desc:'Description',previewTitle:'Aperçu',fillSubmit:'Soumettre les réponses'},
-  diag:{allStatus:'Tous les statuts',pending:'En attente',reviewing:'En cours',completed:'Terminé',archived:'Archivé',detail:'Détail du diagnostic',noAnswers:'Aucune réponse',view:'Voir',empty:'Aucun diagnostic',saveReport:'Enregistrer le rapport',viewReport:'Voir le rapport'},
-  hero:{emptyMine:'Pas encore de profil élite.'},
-  dashi:{matchTip:'Association SI pour « {name} ».',clearMatch:'Effacer l’association'},
-  jinzhu:{matchTip:'Association des demandes pour « {name} ».',clearMatch:'Effacer l’association',idLabel:'ID'},
-  team:{empty:'Pas encore d’équipes. Créez-en une.',memberN:'membres',bundleHint:'Pack 6+6+6+3 · Super 12+12+12+6'},
-  case:{extractHint:'Saisissez des noms SI, Vérifier, supprimez le superflu. Seuls les restants sont enregistrés.',noLinks:'Aucun lien',noRelated:'Aucun SI lié',okList:'Trouvés (élaguer)',rejectList:'Hors bibliothèque'}
-},
-ru:{
-  brand:'Манифестор мечты',
-  menu:{home:'🏠 Главная',kybalion:'📖 Космические законы',focus:'🎯 Фокус',team:'👥 Моя команда',jinzhu:'💰 Запросы',dashi:'🤖 Супер SI',sicase:'✨ Успехи SI',hero:'⭐ Элиты',qgen:'📋 Опросы',diagnosis:'🔎 Диагностика',inbox:'⚡ Пульс',coop:'🤝 Сотрудничество',categories:'🗂 Категории',coopList:'🏢 Центр сотрудничества',users:'👤 Пользователи'},
-  home:{siTools:'Инструменты SI',allCats:'Все категории'},
-  kyb:{footnote:'Космические законы: <a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
-  btn:{login:'Вход',register:'Регистрация',logout:'Выход',submit:'Отправить',send:'Отправить',save:'Сохранить',cancel:'Отмена',edit:'Изменить',del:'Удалить',visit:'Открыть',createTeam:'+ Создать команду',postDemand:'+ Запрос',postTool:'+ Инструмент',postHero:'+ Элита',postCase:'+ Кейс',newSurvey:'+ Опрос',addMajor:'+ Категория',viewAllTeams:'Все команды',preview:'Просмотр',publish:'Опубликовать',addSection:'+ Раздел',addQuestion:'+ Вопрос',reply:'Ответить',findClient:'Найти клиента',addLink:'+ Ссылка',viewDetail:'Подробнее',bundle:'Пакет',superBundle:'Супер-пакет',pulse:'Пульс',join:'Вступить',disband:'Распустить',setFocus:'Сделать фокусом',ok:'OK',addPain:'+ Боль',verify:'Проверить',addSkill:'+ Навык'},
-  ph:{homeSearch:'Поиск инструментов…',teamSearch:'Поиск команд…',jinzhuSearch:'Имя, отрасль, боли…',dashiSearch:'Поиск SI…',caseSearch:'Поиск кейсов…',heroSearch:'Поиск элит…',surveySearch:'Поиск опросов…',genericSearch:'Поиск…',pulseSearch:'Поиск пульса…',catSearch:'Категории…',coopListSearch:'Поиск…',usersSearch:'Телефон…',coopName:'Компания / имя',coopContact:'Телефон / email / WeChat',coopDesc:'Описание сотрудничества',https:'https://',phone:'Телефон',password:'Пароль',painTitle:'Заголовок боли',painDesc:'Описание боли',siNames:'Имена SI через запятую, точку с запятой или перевод строки',qrUrl:'URL QR-изображения',email:'Email',whatsapp:'WhatsApp',website:'Сайт',title:'Должность',motto:'Девиз',skillTitle:'Название навыка',skillDesc:'Описание навыка',major:'Крупная категория',minor:'Подкатегория'},
-  sort:{newest:'Новые',power:'Сила ↓',powerSum:'Суммарная сила',name:'Имя',industry:'Отрасль',title:'Заголовок'},
-  coop:{name:'Имя / Компания *',contact:'Контакт *',type:'Тип',desc:'Описание',intro:'Отправить интерес к партнёрству.',myList:'Мои заявки',empty:'Нет заявок',status:'Статус',note:'Заметка',pending:'Ожидание',contacted:'Связались',progress:'В работе',done:'Готово',closed:'Закрыто',centerEmpty:'Нет записей',allStatus:'Все статусы',typeBiz:'Бизнес',typeSwap:'Обмен ресурсами',typeChannel:'Канал',typeOther:'Другое'},
-  pulse:{compose:'+ Написать',inbox:'Входящие',sent:'Отправленные',toPhone:'Телефон получателя *',content:'Содержание *',type:'Тип',empty:'Нет сообщений',from:'От',to:'Кому',markRead:'Прочитано',unread:'Непрочитано',sendOk:'Отправлено',needLogin:'Войдите',allTypes:'Все типы',typeGreeting:'Приветствие',typeProgress:'Прогресс',typeEvent:'Событие',typeCase:'Кейс',typeTrial:'Пробный'},
-  users:{phone:'Телефон',role:'Роль',date:'Регистрация',status:'Статус',action:'Действия',blacklist:'Блок',unban:'Разблок',delConfirm:'Удалить?',noSelfDel:'Нельзя удалить себя',allRoles:'Все роли'},
-  tip:{noData:'Нет данных',loginFirst:'Сначала войдите',noTools:'Нет инструментов',noTeams:'Нет команд',saved:'Сохранено',noReportLink:'Нет ссылки на отчёт',noHeroes:'Нет элит',emptyMineJz:'У вас ещё нет запросов.',noDemands:'Нет запросов',noCases:'Нет успешных кейсов',bundleOk:'Пакет загружен',superBundleOk:'Супер-пакет загружен',bundleNoTeam:'Нет связанной команды',bundleWorking:'Подбор пакета…',superBundleWorking:'Подбор супер-пакета…',required:'Заполните обязательные поля',userNotFound:'Пользователь не найден',wrongPwd:'Неверный пароль',blacklisted:'Аккаунт заблокирован',exists:'Аккаунт существует',mismatch:'Пароли не совпадают',minPwd:'Мин. 4 символа',noPermission:'Нет прав',alreadyIn:'Уже в команде',deleteConfirm:'Удалить?',createTeamFirst:'Сначала создайте команду',noMatchedSi:'Зарегистрированный SI не найден',matchedSiN:'Найдено {n} — сократите и сохраните',rejectedSiN:'Отклонено {n}',needSiInput:'Введите имена SI для проверки',adoptHint:'Удалите ненужные SI; сохранятся только оставшиеся'},
-  role:{jinzhu:'Клиент',ai:'ИИ-компания',admin:'Админ',kefu:'Поддержка',shenhe:'Ревизор',yingxiao:'Элита'},
-  form:{name:'Имя *',intro:'Интро',power:'Сила',person:'Имя на карточке *',title:'Должность',phone:'Телефон *',email:'Email',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Сайт',qr:'URL QR',loginTitle:'Вход',regTitle:'Регистрация',pwd:'Пароль *',pwd2:'Подтвердить *',roleLabel:'Роль',langHint:'Язык ввода: ',langHint2:'Заполняйте только язык, которым владеете.',skill:'Ключевой навык *',subs:'Подкатегории (по одной в строке)',industry:'Отрасль / тип *',detail:'Детали',major:'Крупная категория',minor:'Подкатегория',toolUrl:'URL инструмента',caseTitle:'Заголовок *',caseContent:'Содержание *',caseValue:'Созданная ценность *',relatedTools:'Связанные SI',links:'Ссылки',linkTitle:'Заголовок ссылки',linkUrl:'URL',teamName:'Название команды *',teamDemand:'Запрос команды',autoTeam:'Создать команду после публикации',pains:'Боли',painTitle:'Заголовок боли',painDesc:'Описание боли',cardSection:'Визитка',bizCard:'Визитка',motto:'Девиз',skills:'Навыки',skillTitle:'Название навыка',skillDesc:'Описание навыка'},
-  label:{intro:'Интро',power:'Сила',skill:'Навык',industry:'Отрасль',toolUrl:'URL',detail:'Детали',pains:'Боли',caseContent:'Содержание',caseValue:'Ценность',relatedTools:'Связанные SI',links:'Ссылки',members:'Участники',bundledCases:'Успешные кейсы',bundledSurveys:'Опросы',demand:'Запрос',person:'Имя',title:'Должность',phone:'Телефон',email:'Email',wechat:'WeChat',whatsapp:'WhatsApp',website:'Сайт',qr:'QR',motto:'Девиз',skills:'Навыки',major:'Крупная',minor:'Под'},
-  qgen:{title:'Редактор опроса',name:'Название опроса *',desc:'Описание',previewTitle:'Просмотр',fillSubmit:'Отправить ответы'},
-  diag:{allStatus:'Все статусы',pending:'Ожидание',reviewing:'В работе',completed:'Готово',archived:'Архив',detail:'Детали диагностики',noAnswers:'Нет ответов',view:'Смотреть',empty:'Нет диагностики',saveReport:'Сохранить отчёт',viewReport:'Смотреть отчёт'},
-  hero:{emptyMine:'Ещё нет профиля элиты.'},
-  dashi:{matchTip:'Подбор SI для «{name}».',clearMatch:'Сбросить'},
-  jinzhu:{matchTip:'Подбор запросов для «{name}».',clearMatch:'Сбросить',idLabel:'ID'},
-  team:{empty:'Пока нет команд. Создайте.',memberN:'участников',bundleHint:'Пакет 6+6+6+3 · Супер 12+12+12+6'},
-  case:{extractHint:'Введите имена SI, Проверить, удалите лишнее. Сохранятся только оставшиеся.',noLinks:'Нет ссылок',noRelated:'Нет связанных SI',okList:'Найдены (сократить)',rejectList:'Не в библиотеке'}
-},
-ja:{
-  brand:'夢実現装置',
-  menu:{home:'🏠 ホーム',kybalion:'📖 宇宙法則',focus:'🎯 フォーカス',team:'👥 マイチーム',jinzhu:'💰 需要センター',dashi:'🤖 スーパーSI',sicase:'✨ SI成功事例',hero:'⭐ エリート',qgen:'📋 アンケート',diagnosis:'🔎 診断',inbox:'⚡ パルス',coop:'🤝 協業',categories:'🗂 カテゴリ',coopList:'🏢 協業センター',users:'👤 ユーザー'},
-  home:{siTools:'SIツール',allCats:'すべての大分類'},
-  kyb:{footnote:'宇宙法則：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>'},
-  btn:{login:'ログイン',register:'登録',logout:'ログアウト',submit:'送信',send:'送信',save:'保存',cancel:'キャンセル',edit:'編集',del:'削除',visit:'開く',createTeam:'+ チーム作成',postDemand:'+ 需要投稿',postTool:'+ ツール',postHero:'+ エリート',postCase:'+ 事例',newSurvey:'+ アンケート',addMajor:'+ 大分類',viewAllTeams:'全チーム',preview:'プレビュー',publish:'公開',addSection:'+ セクション',addQuestion:'+ 設問',reply:'返信',findClient:'金主を探す',addLink:'+ リンク',viewDetail:'詳細',bundle:'全家桶',superBundle:'スーパー全家桶',pulse:'パルス',join:'参加',disband:'解散',setFocus:'フォーカスに設定',ok:'OK',addPain:'+ 課題追加',verify:'検証',addSkill:'+ スキル追加'},
-  ph:{homeSearch:'ツールを検索…',teamSearch:'チームを検索…',jinzhuSearch:'名称・業界・課題…',dashiSearch:'SIを検索…',caseSearch:'事例を検索…',heroSearch:'エリートを検索…',surveySearch:'アンケートを検索…',genericSearch:'検索…',pulseSearch:'パルスを検索…',catSearch:'カテゴリ…',coopListSearch:'検索…',usersSearch:'電話番号…',coopName:'会社 / 名称',coopContact:'電話 / メール / WeChat',coopDesc:'協業の説明',https:'https://',phone:'電話番号',password:'パスワード',painTitle:'課題タイトル',painDesc:'課題の詳細',siNames:'SI名を読点・カンマ・改行で区切る',qrUrl:'QR画像URL',email:'メール',whatsapp:'WhatsApp',website:'Webサイト',title:'役職',motto:'座右銘',skillTitle:'スキルタイトル',skillDesc:'スキル説明',major:'大分類',minor:'小分類'},
-  sort:{newest:'最新',power:'戦力 高→低',powerSum:'戦力合計',name:'名称',industry:'業界',title:'タイトル'},
-  coop:{name:'名称 / 会社 *',contact:'連絡先 *',type:'種類',desc:'説明',intro:'協業意向を送信してください。',myList:'自分の提出',empty:'提出なし',status:'状態',note:'メモ',pending:'未処理',contacted:'連絡済',progress:'進行中',done:'成約',closed:'終了',centerEmpty:'記録なし',allStatus:'すべての状態',typeBiz:'ビジネス',typeSwap:'リソース交換',typeChannel:'チャネル',typeOther:'その他'},
-  pulse:{compose:'+ 作成',inbox:'受信箱',sent:'送信済',toPhone:'宛先電話 *',content:'内容 *',type:'種類',empty:'メッセージなし',from:'差出人',to:'宛先',markRead:'既読にする',unread:'未読',sendOk:'送信しました',needLogin:'ログインしてください',allTypes:'すべての種類',typeGreeting:'挨拶',typeProgress:'進捗',typeEvent:'イベント',typeCase:'事例',typeTrial:'試用'},
-  users:{phone:'電話',role:'役割',date:'登録日',status:'状態',action:'操作',blacklist:'ブロック',unban:'解除',delConfirm:'削除しますか？',noSelfDel:'自分は削除できません',allRoles:'すべての役割'},
-  tip:{noData:'データなし',loginFirst:'先にログインしてください',noTools:'ツールなし',noTeams:'チームなし',saved:'保存しました',noReportLink:'レポートリンクなし',noHeroes:'エリートなし',emptyMineJz:'まだ需要を投稿していません。',noDemands:'需要なし',noCases:'成功事例なし',bundleOk:'全家桶をチームに入れました',superBundleOk:'スーパー全家桶を入れました',bundleNoTeam:'関連チームがありません',bundleWorking:'全家桶を照合中…',superBundleWorking:'スーパー全家桶を照合中…',required:'必須項目を入力してください',userNotFound:'ユーザーが見つかりません',wrongPwd:'パスワードが違います',blacklisted:'アカウントがブロックされています',exists:'アカウントが既にあります',mismatch:'パスワードが一致しません',minPwd:'4文字以上',noPermission:'権限がありません',alreadyIn:'既にチームにいます',deleteConfirm:'削除しますか？',createTeamFirst:'先にチームを作成してください',noMatchedSi:'登録済みSIが一致しませんでした',matchedSiN:'合格 {n} 件 — 削ってから保存',rejectedSiN:'不合格 {n} 件',needSiInput:'検証するSI名を入力してください',adoptHint:'不要なSIを削除してください。保存時は残ったものだけ採用します'},
-  role:{jinzhu:'金主',ai:'AI企業',admin:'管理者',kefu:'サポート',shenhe:'審査',yingxiao:'業界エリート'},
-  form:{name:'名称 *',intro:'紹介',power:'戦力',person:'名刺氏名 *',title:'役職',phone:'電話 *',email:'メール',wechat:'WeChat *',whatsapp:'WhatsApp',website:'Webサイト',qr:'QR画像URL',loginTitle:'ログイン',regTitle:'登録',pwd:'パスワード *',pwd2:'確認 *',roleLabel:'役割',langHint:'入力言語：',langHint2:'分かる言語だけ入力してください。',skill:'コアスキル *',subs:'小分類（1行に1つ）',industry:'業界 / 種類 *',detail:'詳細',major:'大分類',minor:'小分類',toolUrl:'ツールURL',caseTitle:'タイトル *',caseContent:'詳細内容 *',caseValue:'創出価値 *',relatedTools:'関連SI',links:'関連リンク',linkTitle:'リンクタイトル',linkUrl:'URL',teamName:'チーム名 *',teamDemand:'チーム需要',autoTeam:'公開後にチームを自動作成',pains:'課題リスト',painTitle:'課題タイトル',painDesc:'課題の説明',cardSection:'名刺情報',bizCard:'名刺',motto:'座右銘',skills:'多スキル',skillTitle:'スキルタイトル',skillDesc:'スキル説明'},
-  label:{intro:'紹介',power:'戦力',skill:'スキル',industry:'業界',toolUrl:'URL',detail:'詳細',pains:'課題',caseContent:'詳細内容',caseValue:'創出価値',relatedTools:'関連SIツール',links:'関連リンク',members:'メンバー',bundledCases:'成功事例',bundledSurveys:'業界アンケート',demand:'需要',person:'氏名',title:'役職',phone:'電話',email:'メール',wechat:'WeChat',whatsapp:'WhatsApp',website:'Web',qr:'QR',motto:'座右銘',skills:'多スキル',major:'大分類',minor:'小分類'},
-  qgen:{title:'アンケート編集',name:'アンケート名 *',desc:'説明',previewTitle:'プレビュー',fillSubmit:'回答を送信'},
-  diag:{allStatus:'すべての状態',pending:'未診断',reviewing:'診断中',completed:'完了',archived:'アーカイブ',detail:'診断詳細',noAnswers:'回答なし',view:'詳細',empty:'診断なし',saveReport:'レポート保存',viewReport:'診断レポートを見る'},
-  hero:{emptyMine:'まだエリートプロフィールがありません。'},
-  dashi:{matchTip:'「{name}」のSIを照合中。',clearMatch:'照合を解除'},
-  jinzhu:{matchTip:'「{name}」の需要を照合中。',clearMatch:'照合を解除',idLabel:'需要番号'},
-  team:{empty:'チームがありません。右上から作成。',memberN:'人',bundleHint:'全家桶 6+6+6+3 · スーパー 12+12+12+6'},
-  case:{extractHint:'SI名を入力→検証→不要を削除。保存時は残ったものだけ採用。',noLinks:'リンクなし',noRelated:'関連SIなし',okList:'合格（削れる）',rejectList:'未登録'}
+  case:{extractHint:'Enter SI names, Verify, then delete unwanted. Only remaining are saved.',noLinks:'No links',noRelated:'No related SI',okList:'Matched (trim)',rejectList:'Not in library'}
 }
 };
+['de','fr','ru','ja'].forEach(L=>{
+  i18n[L]=JSON.parse(JSON.stringify(i18n.en));
+  if(L==='de'){i18n.de.brand='Traum-Manifestierer';i18n.de.jz={filterAll:'Alle',typeDream:'Traum',typeProblem:'Problemanforderung',typePick:'Zuerst Typ wählen',typeDreamHint:'Traum beschreiben und Puzzle-Teile',typeProblemHint:'Problem beschreiben und Checkliste',pieces:'Puzzle-Teile',checklist:'Checkliste',copyDream:'Anderen Traum kopieren',copyProblem:'Anderes Problem kopieren',copyEmpty:'Nichts zu kopieren',copied:'Kopiert — bearbeiten und speichern',idLabel:'ID',nameLabel:'Name',introLabel:'Intro',titleLabel:'Titel',detailLabel:'Detail'};i18n.de.btn.copyFrom='Von anderen kopieren';i18n.de.btn.addPiece='+ Puzzle';i18n.de.btn.addChecklist='+ Checkliste';i18n.de.form.manager='Manager';i18n.de.label.manager='Manager';i18n.de.tip.pickTypeFirst='Zuerst Typ wählen';}
+  if(L==='fr'){i18n.fr.brand='Manifesteur de Rêves';i18n.fr.jz={filterAll:'Tous',typeDream:'Rêve',typeProblem:'Demande-problème',typePick:'Choisir le type',typeDreamHint:'Décrire le rêve et les pièces',typeProblemHint:'Décrire le problème et la liste',pieces:'Pièces du puzzle',checklist:'Liste de problèmes',copyDream:'Copier un rêve',copyProblem:'Copier un problème',copyEmpty:'Rien à copier',copied:'Copié — modifier puis enregistrer',idLabel:'ID',nameLabel:'Nom',introLabel:'Intro',titleLabel:'Titre',detailLabel:'Détail'};i18n.fr.btn.copyFrom='Copier depuis d’autres';i18n.fr.btn.addPiece='+ Pièce';i18n.fr.btn.addChecklist='+ Élément';i18n.fr.form.manager='Manager';i18n.fr.label.manager='Manager';i18n.fr.tip.pickTypeFirst='Choisir le type d’abord';}
+  if(L==='ru'){i18n.ru.brand='Манифестор мечты';i18n.ru.jz={filterAll:'Все',typeDream:'Мечта',typeProblem:'Проблемный запрос',typePick:'Сначала выберите тип',typeDreamHint:'Опишите мечту и части пазла',typeProblemHint:'Опишите проблему и список',pieces:'Части пазла',checklist:'Список проблем',copyDream:'Скопировать мечту',copyProblem:'Скопировать проблему',copyEmpty:'Нечего копировать',copied:'Скопировано — измените и сохраните',idLabel:'ID',nameLabel:'Имя',introLabel:'Интро',titleLabel:'Заголовок',detailLabel:'Детали'};i18n.ru.btn.copyFrom='Скопировать у других';i18n.ru.btn.addPiece='+ Пазл';i18n.ru.btn.addChecklist='+ Пункт';i18n.ru.form.manager='Менеджер';i18n.ru.label.manager='Менеджер';i18n.ru.tip.pickTypeFirst='Сначала выберите тип';}
+  if(L==='ja'){i18n.ja.brand='夢実現装置';i18n.ja.jz={filterAll:'すべて',typeDream:'夢',typeProblem:'問題需要',typePick:'先に需要タイプを選択',typeDreamHint:'夢を書き、パズル片に分解',typeProblemHint:'問題を書き、チェックリストを列挙',pieces:'パズル一覧',checklist:'問題チェックリスト',copyDream:'他の金主の夢をコピー',copyProblem:'他の金主の問題をコピー',copyEmpty:'コピーできるものがありません',copied:'コピーしました。編集して保存',idLabel:'需要番号',nameLabel:'名称',introLabel:'紹介',titleLabel:'タイトル',detailLabel:'詳細'};i18n.ja.btn.copyFrom='他からコピーして編集';i18n.ja.btn.addPiece='+ パズル追加';i18n.ja.btn.addChecklist='+ リスト項目';i18n.ja.form.manager='マネージャー';i18n.ja.label.manager='マネージャー';i18n.ja.tip.pickTypeFirst='先に需要タイプを選んでください';}
+});
 
 let currentLang=getInitialLang();
 function t(key){const parts=String(key||'').split('.');const tryLang=lang=>{let o=i18n[lang];for(const p of parts){if(o==null)return null;o=o[p];}return typeof o==='string'?o:null;};return tryLang(currentLang)||tryLang('en')||tryLang('zh')||key;}
@@ -627,6 +565,7 @@ function setLanguage(lang){if(!SUPPORTED_LANGS.includes(lang))lang=detectBrowser
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null,editingSiCaseId=null;
 let focusDashiId=null,focusHeroId=null,focusJinZhuId=null,qgenTeamContext=null,homeCatsOpen=false,homeActiveMajor='',qgenDraftSections=[],pulseTab='in';
 let jinzhuPainDraft=[],caseLinkDraft=[],caseRelatedDraft=[],dashiToolDraft=[];
+let jinzhuDemandType='problem'; // dream | problem
 const teamKickVisible={},teamCardVisible={};
 const PAGE_SIZE=8;let homeDsPage=1,jzPage=1,dsPage=1,heroPage=1,teamPage=1,diagPage=1,qgenPage=1,usersPage=1,pulsePage=1,coopListPage=1,casePage=1;
 const MSG_TYPE_KEYS={greeting:'pulse.typeGreeting',progress:'pulse.typeProgress',event:'pulse.typeEvent',case_request:'pulse.typeCase',trial_request:'pulse.typeTrial'};
@@ -653,32 +592,30 @@ function textBlob(obj){if(obj==null)return '';if(typeof obj==='string'||typeof o
 function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;return list.filter(item=>textBlob(item).toLowerCase().includes(q));}
 function textMatch(a,b){const A=(a||'').toLowerCase().split(/[\s,，、;；|/]+/).filter(w=>w.length>1);const B=(b||'').toLowerCase();let s=0;A.forEach(w=>{if(B.includes(w))s+=1;});return s;}
 
-/* ========== 191/192 dashi 全字段 ========== */
+/* ========== 195 金主字段 ========== */
+function jinzhuNormalizeType(raw){const s=String(raw||'').toLowerCase();if(s==='dream'||s==='梦想')return 'dream';if(s==='problem'||s==='问题需求'||s==='问题')return 'problem';return 'problem';}
+function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
+function jinzhuDisplayIntro(j){return tl(j.intro_i18n,j.intro)||'';}
+function jinzhuDisplayTitle(j){return tl(j.title_i18n,j.title)||'';}
+function jinzhuDisplayDetail(j){return tl(j.detail_i18n,j.detail)||'';}
+function jinzhuPains(j){const src=Array.isArray(j.pains_i18n)&&j.pains_i18n.length?j.pains_i18n:(Array.isArray(j.pains)?j.pains:[]);return src.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')})).filter(x=>x.title||x.desc);}
+function jinzhuSearchText(j){if(!j)return '';return [j.id,j.name,j.name_i18n,j.title,j.title_i18n,j.intro,j.intro_i18n,j.detail,j.detail_i18n,j.pains,j.pains_i18n,j.card].map(textBlob).join(' ').toLowerCase();}
+function filterJinZhuByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(j=>{const blob=jinzhuSearchText(j);return keys.every(k=>blob.includes(k));});}
+function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+jinzhuDisplayDetail(j)+' '+jinzhuDisplayTitle(j)+' '+jinzhuDisplayName(j)+' '+jinzhuDisplayIntro(j);}
+
 function dashiDisplayName(d){return tl(d.name_i18n,d.name)||'';}
 function dashiDisplayIntro(d){return tl(d.intro_i18n,d.intro)||'';}
 function dashiDisplayMotto(d){return tl(d.motto_i18n,d.motto)||'';}
 function dashiDisplayMajor(d){return tl(d.major_category_i18n,d.major_category)||'';}
 function dashiDisplayMinor(d){return tl(d.minor_category_i18n,d.minor_category)||'';}
-function dashiTools(d){
-  const src=Array.isArray(d.tools_i18n)&&d.tools_i18n.length?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);
-  return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')})).filter(x=>x.title||x.desc);
-}
+function dashiTools(d){const src=Array.isArray(d.tools_i18n)&&d.tools_i18n.length?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')})).filter(x=>x.title||x.desc);}
 function dashiAllNames(d){const names=new Set();if(d.name)names.add(String(d.name).trim());if(d.name_i18n&&typeof d.name_i18n==='object')Object.values(d.name_i18n).forEach(v=>{if(v&&String(v).trim())names.add(String(v).trim());});return [...names].filter(n=>n.length>=2);}
 function dashiSearchText(d){if(!d)return '';return [d.name,d.name_i18n,d.intro,d.intro_i18n,d.motto,d.motto_i18n,d.major_category,d.major_category_i18n,d.minor_category,d.minor_category_i18n,d.tool_url,d.tools,d.tools_i18n].map(textBlob).join(' ').toLowerCase();}
 function filterDaShiByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(d=>{const blob=dashiSearchText(d);return keys.every(k=>blob.includes(k));});}
 function accumulateTools(d){return dashiTools(d).map(x=>(x.title||'')+' '+(x.desc||'')).join(' ')+' '+dashiDisplayIntro(d)+' '+dashiDisplayMotto(d)+' '+dashiDisplayMajor(d)+' '+dashiDisplayMinor(d)+' '+dashiDisplayName(d);}
 function renderSkillsHtml(d){const skills=dashiTools(d);if(!skills.length)return '';return `<div class="skill-list"><div class="field-row"><span class="k">${t('label.skills')}</span></div>${skills.map(s=>`<div class="skill-item"><div class="sk-title">${escapeHtml(s.title||'')}</div>${s.desc?`<div class="sk-desc">${escapeHtml(s.desc)}</div>`:''}</div>`).join('')}</div>`;}
-
 function catNameStrict(c){const ni=c.name_i18n;if(ni&&typeof ni==='object'&&!Array.isArray(ni)){const v=ni[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}if(currentLang==='zh'&&c.name)return String(c.name);return '';}
 function catSubsStrict(c){if(Array.isArray(c.subs_i18n)&&c.subs_i18n.length)return c.subs_i18n.map(s=>{if(s&&typeof s==='object'){const v=s[currentLang];return (v!=null&&String(v).trim()!=='')?String(v).trim():'';}return currentLang==='zh'&&typeof s==='string'?s:'';}).filter(Boolean);if(currentLang==='zh'&&Array.isArray(c.subs))return c.subs.filter(s=>typeof s==='string');return [];}
-function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
-function jinzhuDisplayIntro(j){return tl(j.intro_i18n,j.intro)||'';}
-function jinzhuDisplayDetail(j){return tl(j.detail_i18n,j.detail)||'';}
-function jinzhuDisplayType(j){return tl(j.type_i18n,j.type)||'';}
-function jinzhuPains(j){const src=Array.isArray(j.pains_i18n)&&j.pains_i18n.length?j.pains_i18n:(Array.isArray(j.pains)?j.pains:[]);return src.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')})).filter(x=>x.title||x.desc);}
-function jinzhuSearchText(j){if(!j)return '';return [j.id,j.name,j.name_i18n,j.type,j.type_i18n,j.detail,j.detail_i18n,j.pains,j.pains_i18n,j.card].map(textBlob).join(' ').toLowerCase();}
-function filterJinZhuByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(j=>{const blob=jinzhuSearchText(j);return keys.every(k=>blob.includes(k));});}
-function accumulatePains(j){return jinzhuPains(j).map(p=>(p.title||'')+' '+(p.desc||'')).join(' ')+' '+jinzhuDisplayDetail(j)+' '+jinzhuDisplayType(j)+' '+jinzhuDisplayName(j);}
 function heroDisplayName(h){return tl(h.name_i18n,h.name)||'';}
 function heroDisplayIntro(h){return tl(h.intro_i18n,h.intro)||'';}
 function heroDisplaySkillTitle(h){return tl(h.skill_title_i18n,h.skill_title)||'';}
@@ -696,23 +633,9 @@ function caseLinks(c){return Array.isArray(c.links)?c.links.filter(l=>l&&(l.titl
 function caseSearchText(c){if(!c)return '';return [c.title,c.title_i18n,c.content,c.content_i18n,c.value_created,c.value_created_i18n,c.related_tools,c.links].map(textBlob).join(' ').toLowerCase();}
 function filterSiCaseByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;const keys=q.split(/\s+/).filter(Boolean);return list.filter(c=>{const blob=caseSearchText(c);return keys.every(k=>blob.includes(k));});}
 function accumulateCase(c){return caseDisplayTitle(c)+' '+caseDisplayContent(c)+' '+caseDisplayValue(c)+' '+caseRelatedTools(c).map(x=>x.name||'').join(' ');}
-
 function splitSiNames(raw){return String(raw||'').split(/[,，、;；|/｜\n\r\t]+/).map(s=>s.trim()).filter(s=>s.length>=1);}
 function matchSiNameInDashi(token,dashiList){const tl0=token.toLowerCase();let best=null,bestScore=0;for(const d of dashiList){for(const n of dashiAllNames(d)){const nl=n.toLowerCase();if(nl===tl0)return{id:d.id,name:n,score:1000+n.length};if(nl.includes(tl0)||tl0.includes(nl)){const score=Math.min(nl.length,tl0.length)+(nl===tl0?100:0);if(score>bestScore){bestScore=score;best={id:d.id,name:n,score};}}}}return bestScore>=2?best:null;}
-async function verifySiNamesFromInput(){
-  const inp=document.getElementById('case-si-input');const raw=inp?(inp.value||''):'';
-  const tokens=splitSiNames(raw);if(!tokens.length){alert(t('tip.needSiInput'));return;}
-  const list=await fetchDaShi();const ok=[],reject=[],seen=new Set();
-  for(const tok of tokens){const hit=matchSiNameInDashi(tok,list);if(hit){const k=String(hit.id);if(!seen.has(k)){seen.add(k);ok.push({id:hit.id,name:hit.name});}}else reject.push(tok);}
-  caseRelatedDraft=ok;
-  const box=document.getElementById('case-extract-preview');
-  if(box){box.style.display='block';box.className='case-extract-box';
-    let html=`<div><b>${t('case.okList')}</b> — ${t('tip.matchedSiN').replace('{n}',String(ok.length))}</div>`;
-    html+=`<div class="muted">${t('tip.adoptHint')}</div>`;
-    if(reject.length)html+=`<div style="margin-top:8px"><b>${t('case.rejectList')}</b> — ${t('tip.rejectedSiN').replace('{n}',String(reject.length))}</div><div style="margin-top:4px">${reject.map(x=>`<span class="tag tag-reject">${escapeHtml(x)}</span>`).join('')}</div>`;
-    box.innerHTML=html;}
-  renderCaseRelatedEditor();
-}
+async function verifySiNamesFromInput(){const inp=document.getElementById('case-si-input');const raw=inp?(inp.value||''):'';const tokens=splitSiNames(raw);if(!tokens.length){alert(t('tip.needSiInput'));return;}const list=await fetchDaShi();const ok=[],reject=[],seen=new Set();for(const tok of tokens){const hit=matchSiNameInDashi(tok,list);if(hit){const k=String(hit.id);if(!seen.has(k)){seen.add(k);ok.push({id:hit.id,name:hit.name});}}else reject.push(tok);}caseRelatedDraft=ok;const box=document.getElementById('case-extract-preview');if(box){box.style.display='block';box.className='case-extract-box';let html=`<div><b>${t('case.okList')}</b> — ${t('tip.matchedSiN').replace('{n}',String(ok.length))}</div><div class="muted">${t('tip.adoptHint')}</div>`;if(reject.length)html+=`<div style="margin-top:8px"><b>${t('case.rejectList')}</b> — ${t('tip.rejectedSiN').replace('{n}',String(reject.length))}</div><div style="margin-top:4px">${reject.map(x=>`<span class="tag tag-reject">${escapeHtml(x)}</span>`).join('')}</div>`;box.innerHTML=html;}renderCaseRelatedEditor();}
 
 function getLocalPriorityTeamId(){const v=localStorage.getItem('priority_team_id');return v?Number(v):null;}
 function setLocalPriorityTeamId(id){if(id)localStorage.setItem('priority_team_id',String(id));else localStorage.removeItem('priority_team_id');}
@@ -752,8 +675,8 @@ function closeModal(){document.getElementById('modalMask').style.display='none';
 async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.required'));const{data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert(t('tip.userNotFound'));if(data.blacklisted)return alert(t('tip.blacklisted'));if(data.pwd!==pwd)return alert(t('tip.wrongPwd'));setUser({phone:data.phone,role:data.role});closeModal();switchView('jinzhu');}
 async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert(t('tip.required'));if(pwd!==pwd2)return alert(t('tip.mismatch'));if(pwd.length<4)return alert(t('tip.minPwd'));const{data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert(t('tip.exists'));const{error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('jinzhu');}
 
-function normalizeCard(card,fallbackPhone){const c=card&&typeof card==='object'?card:{};return{person:(c.person||'').trim(),title:(c.title||'').trim(),phone:(c.phone||fallbackPhone||'').trim(),email:(c.email||'').trim(),wechat:(c.wechat||'').trim(),whatsapp:(c.whatsapp||'').trim(),website:(c.website||'').trim(),qr:(c.qr||'').trim()};}
-function renderBizCard(card,fallbackPhone){const c=normalizeCard(card,fallbackPhone);if(!c.person&&!c.phone&&!c.wechat&&!c.email&&!c.whatsapp&&!c.website&&!c.qr)return '';const site=c.website;let siteHtml='—';if(site){const href=normalizeExternalUrl(site);siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(site)}</a>`;}const qrSrc=c.qr||(c.wechat?('https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(c.wechat)):'');return`<div class="biz-card"><div class="biz-info"><div class="biz-name">${escapeHtml(c.person||'—')}${c.title?` · ${escapeHtml(c.title)}`:''}</div><div class="biz-row"><span class="k">${t('label.phone')}</span><span>${escapeHtml(c.phone||'—')}</span></div><div class="biz-row"><span class="k">${t('label.email')}</span><span>${escapeHtml(c.email||'—')}</span></div><div class="biz-row"><span class="k">${t('label.wechat')}</span><span>${escapeHtml(c.wechat||'—')}</span></div><div class="biz-row"><span class="k">${t('label.whatsapp')}</span><span>${escapeHtml(c.whatsapp||'—')}</span></div><div class="biz-row"><span class="k">${t('label.website')}</span><span>${siteHtml}</span></div></div>${qrSrc?`<div class="qr-box"><img src="${escapeAttr(qrSrc)}" alt="QR" onerror="this.style.display='none'"></div>`:''}</div>`;}
+function normalizeCard(card,fallbackPhone){const c=card&&typeof card==='object'?card:{};return{person:(c.person||'').trim(),title:(c.title||'').trim(),manager:(c.manager||'').trim(),phone:(c.phone||fallbackPhone||'').trim(),email:(c.email||'').trim(),wechat:(c.wechat||'').trim(),whatsapp:(c.whatsapp||'').trim(),website:(c.website||'').trim(),qr:(c.qr||'').trim()};}
+function renderBizCard(card,fallbackPhone){const c=normalizeCard(card,fallbackPhone);if(!c.person&&!c.phone&&!c.wechat&&!c.email&&!c.whatsapp&&!c.website&&!c.qr&&!c.manager)return '';const site=c.website;let siteHtml='—';if(site){const href=normalizeExternalUrl(site);siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(site)}</a>`;}const qrSrc=c.qr||(c.wechat?('https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(c.wechat)):'');return`<div class="biz-card"><div class="biz-info"><div class="biz-name">${escapeHtml(c.person||'—')}${c.title?` · ${escapeHtml(c.title)}`:''}</div>${c.manager?`<div class="biz-row"><span class="k">${t('label.manager')}</span><span>${escapeHtml(c.manager)}</span></div>`:''}<div class="biz-row"><span class="k">${t('label.phone')}</span><span>${escapeHtml(c.phone||'—')}</span></div><div class="biz-row"><span class="k">${t('label.email')}</span><span>${escapeHtml(c.email||'—')}</span></div><div class="biz-row"><span class="k">${t('label.wechat')}</span><span>${escapeHtml(c.wechat||'—')}</span></div><div class="biz-row"><span class="k">${t('label.whatsapp')}</span><span>${escapeHtml(c.whatsapp||'—')}</span></div><div class="biz-row"><span class="k">${t('label.website')}</span><span>${siteHtml}</span></div></div>${qrSrc?`<div class="qr-box"><img src="${escapeAttr(qrSrc)}" alt="QR" onerror="this.style.display='none'"></div>`:''}</div>`;}
 
 async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert(t('tip.noPermission'));const teams=await fetchTeam();let targetTeams=user.role==='admin'?teams:teams.filter(tm=>String(tm.phone)===String(user.phone));if(!targetTeams.length)return alert(t('tip.createTeamFirst'));let added=0,skipped=0;for(const team of targetTeams){let members=Array.isArray(team.members)?[...team.members]:[];if(isAlreadyInTeam(members,targetId)){skipped++;continue;}members.push({id:targetId,type:targetType||'member',name:targetName||String(targetId),power:Number(targetPower)||0});const{error}=await sb.from('team').update({members}).eq('id',team.id);if(!error)added++;}alert(added?`OK ${added}`:(skipped?t('tip.alreadyIn'):'Fail'));renderTeam();renderJinZhu();renderFocus();renderDaShi();renderHero();}
 async function kickMember(teamId,memberId){const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);if(!team||!canEdit(team))return;await sb.from('team').update({members:(team.members||[]).filter(m=>String(m.id)!==String(memberId))}).eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
@@ -762,9 +685,7 @@ async function disbandTeam(teamId){if(!confirm(t('tip.deleteConfirm')))return;aw
 function generateTeamName(phone){return 'Team-'+(phone||'').slice(-4)+'-'+Date.now().toString().slice(-4);}
 function teamPowerSum(team){return(team.members||[]).reduce((s,m)=>s+(Number(m.power)||0),0);}
 function rankByMatchThenPower(list,demandText,textFn,powerFn,limit){return list.map(item=>{const blob=textFn(item);const score=textMatch(demandText,blob);const power=powerFn(item);return{item,score,power};}).sort((a,b)=>{if(b.score!==a.score)return b.score-a.score;return b.power-a.power;}).slice(0,limit).map(x=>x.item);}
-
-async function runFullBundle(jinzhuId,mode){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert(t('tip.noPermission'));const isSuper=mode==='super';const cfg=isSuper?BUNDLE_SUPER:BUNDLE_NORMAL;const jinzhuList=await fetchJinZhu();const jin=jinzhuList.find(j=>j.id===jinzhuId);if(!jin)return;if(!canEdit(jin)&&!isAdmin())return alert(t('tip.noPermission'));const teams=await fetchTeam();let team=teams.find(tm=>String(tm.jinzhu_id)===String(jinzhuId));if(!team){const newId=Date.now();const row={id:newId,name:generateTeamName(jin.phone||user.phone),phone:jin.phone||user.phone,members:[],jinzhu_id:jinzhuId,demand:jinzhuDisplayType(jin)||'',performances:[],bundled_cases:[],bundled_surveys:[]};const{error}=await sb.from('team').insert(row);if(error)return alert(error.message||t('tip.bundleNoTeam'));team=row;}alert(isSuper?t('tip.superBundleWorking'):t('tip.bundleWorking'));const demandText=accumulatePains(jin)+' '+(team.demand||'');const[heroes,dashis,cases,surveys]=await Promise.all([fetchHero(),fetchDaShi(),fetchSiCases(),fetchQgen()]);const topHeroes=rankByMatchThenPower(heroes,demandText,accumulateHero,h=>Number(h.power)||0,cfg.hero);const topSi=rankByMatchThenPower(dashis,demandText,accumulateTools,d=>Number(d.power)||0,cfg.si);const topCases=rankByMatchThenPower(cases,demandText,accumulateCase,()=>0,cfg.case);const pubSurveys=surveys.filter(s=>s.status==='published'||!s.status||s.status==='draft');const topSurveys=rankByMatchThenPower(pubSurveys.length?pubSurveys:surveys,demandText,s=>qgenDisplayName(s)+' '+qgenDisplayDesc(s)+' '+qgenDisplayIndustry(s),()=>0,cfg.survey);let members=Array.isArray(team.members)?[...team.members]:[];const addMember=(id,type,name,power)=>{if(isAlreadyInTeam(members,id))return;members.push({id,type,name:name||String(id),power:Number(power)||0});};topHeroes.forEach(h=>addMember(h.id,'hero',heroDisplayName(h),h.power));topSi.forEach(d=>addMember(d.id,'dashi',dashiDisplayName(d),d.power));const bundled_cases=topCases.map(c=>({id:c.id,title:caseDisplayTitle(c)}));const bundled_surveys=topSurveys.map(s=>({id:s.id,name:qgenDisplayName(s)}));const{error}=await sb.from('team').update({members,bundled_cases,bundled_surveys,demand:team.demand||jinzhuDisplayType(jin)||''}).eq('id',team.id);if(error)return alert(error.message);alert(`${isSuper?t('tip.superBundleOk'):t('tip.bundleOk')}\nElite ${topHeroes.length} / SI ${topSi.length} / Case ${bundled_cases.length} / Survey ${bundled_surveys.length}`);renderJinZhu();renderTeam();renderFocus();}
-
+async function runFullBundle(jinzhuId,mode){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert(t('tip.noPermission'));const isSuper=mode==='super';const cfg=isSuper?BUNDLE_SUPER:BUNDLE_NORMAL;const jinzhuList=await fetchJinZhu();const jin=jinzhuList.find(j=>j.id===jinzhuId);if(!jin)return;if(!canEdit(jin)&&!isAdmin())return alert(t('tip.noPermission'));const teams=await fetchTeam();let team=teams.find(tm=>String(tm.jinzhu_id)===String(jinzhuId));if(!team){const newId=Date.now();const row={id:newId,name:generateTeamName(jin.phone||user.phone),phone:jin.phone||user.phone,members:[],jinzhu_id:jinzhuId,demand:jinzhuDisplayTitle(jin)||jinzhuDisplayName(jin)||'',performances:[],bundled_cases:[],bundled_surveys:[]};const{error}=await sb.from('team').insert(row);if(error)return alert(error.message||t('tip.bundleNoTeam'));team=row;}alert(isSuper?t('tip.superBundleWorking'):t('tip.bundleWorking'));const demandText=accumulatePains(jin)+' '+(team.demand||'');const[heroes,dashis,cases,surveys]=await Promise.all([fetchHero(),fetchDaShi(),fetchSiCases(),fetchQgen()]);const topHeroes=rankByMatchThenPower(heroes,demandText,accumulateHero,h=>Number(h.power)||0,cfg.hero);const topSi=rankByMatchThenPower(dashis,demandText,accumulateTools,d=>Number(d.power)||0,cfg.si);const topCases=rankByMatchThenPower(cases,demandText,accumulateCase,()=>0,cfg.case);const pubSurveys=surveys.filter(s=>s.status==='published'||!s.status||s.status==='draft');const topSurveys=rankByMatchThenPower(pubSurveys.length?pubSurveys:surveys,demandText,s=>qgenDisplayName(s)+' '+qgenDisplayDesc(s)+' '+qgenDisplayIndustry(s),()=>0,cfg.survey);let members=Array.isArray(team.members)?[...team.members]:[];const addMember=(id,type,name,power)=>{if(isAlreadyInTeam(members,id))return;members.push({id,type,name:name||String(id),power:Number(power)||0});};topHeroes.forEach(h=>addMember(h.id,'hero',heroDisplayName(h),h.power));topSi.forEach(d=>addMember(d.id,'dashi',dashiDisplayName(d),d.power));const bundled_cases=topCases.map(c=>({id:c.id,title:caseDisplayTitle(c)}));const bundled_surveys=topSurveys.map(s=>({id:s.id,name:qgenDisplayName(s)}));const{error}=await sb.from('team').update({members,bundled_cases,bundled_surveys,demand:team.demand||jinzhuDisplayTitle(jin)||''}).eq('id',team.id);if(error)return alert(error.message);alert(`${isSuper?t('tip.superBundleOk'):t('tip.bundleOk')}\nElite ${topHeroes.length} / SI ${topSi.length} / Case ${bundled_cases.length} / Survey ${bundled_surveys.length}`);renderJinZhu();renderTeam();renderFocus();}
 function teamBundleHtml(team){if(!team)return '';const cases=Array.isArray(team.bundled_cases)?team.bundled_cases:[];const surveys=Array.isArray(team.bundled_surveys)?team.bundled_surveys:[];if(!cases.length&&!surveys.length)return '';return`<div class="bundle-box">${cases.length?`<h5>${t('label.bundledCases')}</h5><div class="bundle-row">${cases.map(c=>`<span class="tag tag-tool" onclick="switchView('sicase')">${escapeHtml(c.title||c.id||'')}</span>`).join('')}</div>`:''}${surveys.length?`<h5 style="margin-top:8px">${t('label.bundledSurveys')}</h5><div class="bundle-row">${surveys.map(s=>`<span class="tag tag-sub" onclick="switchView('qgen')">${escapeHtml(s.name||s.id||'')}</span>`).join('')}</div>`:''}</div>`;}
 function teamBlockHtml(team,j,user,heroIds,dashiIds){if(!team)return '';const members=team.members||[];const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));const sum=teamPowerSum(team);const showKick=!!teamKickVisible[team.id],showCard=!!teamCardVisible[team.id];const canJoin=user&&!isMember&&!isOwner;return`<div class="team-box ${showKick?'team-show-kick':''}"><div class="team-title"><h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4><span class="tag tag-power">⚡${sum}</span><span class="tag">${members.length} ${t('team.memberN')}</span>${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">Survey</button><button type="button" class="btn-icon-sm" title="${t('btn.setFocus')}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}${isOwner?`<button type="button" class="btn-icon-sm" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}<button type="button" class="btn-icon-sm" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>${canJoin?`<button type="button" class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">${t('btn.join')}</button>`:''}${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">${t('btn.edit')}</button>`:''}${isOwner?`<button class="btn btn-del btn-sm" onclick="disbandTeam(${team.id})">${t('btn.disband')}</button>`:''}</div>${team.demand?`<div class="card-desc" style="margin-top:6px"><b>${t('label.demand')}：</b>${escapeHtml(team.demand)}</div>`:''}<div class="member-list" style="margin-top:8px">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>${teamBundleHtml(team)}${showCard&&j?renderBizCard(j.card,j.phone):''}</div>`;}
 
@@ -775,147 +696,226 @@ async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);
 function showTeamForm(item){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.createTeam')}</h3><div class="form-group"><label>${t('form.teamName')}</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div><div class="form-group"><label>${t('form.teamDemand')}</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div><p style="font-size:12px;color:#64748b">${t('team.bundleHint')}</p><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function saveTeam(){const user=getUser();if(!user)return;const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert(t('tip.required'));const demand=(document.getElementById('tm-demand').value||'').trim();let row={id:editingTeamId||Date.now(),name,demand,phone:user.phone,members:[],performances:[],bundled_cases:[],bundled_surveys:[]};if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members||[];row.jinzhu_id=old.jinzhu_id;row.performances=old.performances||[];row.bundled_cases=old.bundled_cases||[];row.bundled_surveys=old.bundled_surveys||[];row.phone=old.phone||user.phone;}}let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();alert(t('tip.saved'));}
 
-/* 金主（保留完整名片） */
-async function renderJinZhu(){const user=getUser();const box=document.getElementById('jinzhu-list');if(!box)return;let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';const banner=document.getElementById('jinzhu-match-banner');if(banner){if(matchContext&&matchContext.type==='dashi'){banner.innerHTML=`<div class="match-banner">${t('jinzhu.matchTip').replace('{name}',escapeHtml(matchContext.name||''))} <button class="btn btn-outline btn-sm" onclick="clearMatchContext()">${t('jinzhu.clearMatch')}</button></div>`;list=list.map(j=>({...j,_score:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._score-a._score);}else banner.innerHTML='';}if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='jinzhu'){list=list.filter(j=>String(j.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('tip.emptyMineJz')}</div>`;}list=filterJinZhuByQ(list,(document.getElementById('jz-q')||{}).value||'');const sort=(document.getElementById('jz-sort')||{}).value||'new';if(!(matchContext&&matchContext.type==='dashi')){if(sort==='name')list=list.slice().sort((a,b)=>jinzhuDisplayName(a).localeCompare(jinzhuDisplayName(b),'zh'));else if(sort==='type')list=list.slice().sort((a,b)=>jinzhuDisplayType(a).localeCompare(jinzhuDisplayType(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));}const pg=paginate(list,jzPage,PAGE_SIZE);jzPage=pg.page;let heroIds=new Set(),dashiIds=new Set();if(user){(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));}const canBundle=user&&(user.role==='jinzhu'||user.role==='admin');box.innerHTML=pg.slice.length?pg.slice.map(j=>{const pn=escapeAttr(j.phone||'');const team=teams.find(tm=>String(tm.jinzhu_id)===String(j.id));const pains=jinzhuPains(j);const painsHtml=pains.length?`<div class="card-desc"><b>${t('label.pains')}：</b>${pains.map(p=>`<div class="pain-line"><b>${escapeHtml(p.title||'')}</b>${p.desc?` — ${escapeHtml(p.desc)}`:''}</div>`).join('')}</div>`:'';const actionRow=canBundle?`<div class="jz-action-row"><button class="btn btn-bundle btn-sm" onclick="runFullBundle(${j.id},'normal')">🎁 ${t('btn.bundle')}</button><button class="btn btn-super-bundle btn-sm" onclick="runFullBundle(${j.id},'super')">🚀 ${t('btn.superBundle')}</button><button class="btn btn-pulse-inline btn-sm" onclick="openSendMsgDirect('greeting','${pn}')">⚡ ${t('btn.pulse')}</button></div>`:(user?`<div class="jz-action-row"><button class="btn btn-pulse-inline btn-sm" onclick="openSendMsgDirect('greeting','${pn}')">⚡ ${t('btn.pulse')}</button></div>`:'');return`<div class="card"><div class="avatar avatar-jinzhu">金</div><div class="card-content"><div class="card-title"><span class="tag">${t('jinzhu.idLabel')} ${j.id}</span>${escapeHtml(jinzhuDisplayName(j)||'-')}${jinzhuDisplayType(j)?`<span class="tag tag-industry">${escapeHtml(jinzhuDisplayType(j))}</span>`:''}${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(jinzhuDisplayDetail(j)||jinzhuDisplayIntro(j)||'-')}</div>${painsHtml}${renderBizCard(j.card,j.phone)}${actionRow}${teamBlockHtml(team,j,user,heroIds,dashiIds)}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noDemands')}</div>`);renderPager('jz-pager',pg.page,pg.pages,'goJzPage');}
+/* ========== 195 金主列表：第1行编号，第2行名称，不显示类型 ========== */
+async function renderJinZhu(){
+  const user=getUser();const box=document.getElementById('jinzhu-list');if(!box)return;
+  let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
+  const banner=document.getElementById('jinzhu-match-banner');
+  if(banner){if(matchContext&&matchContext.type==='dashi'){banner.innerHTML=`<div class="match-banner">${t('jinzhu.matchTip').replace('{name}',escapeHtml(matchContext.name||''))} <button class="btn btn-outline btn-sm" onclick="clearMatchContext()">${t('jinzhu.clearMatch')}</button></div>`;list=list.map(j=>({...j,_score:textMatch(matchContext.text,accumulatePains(j))})).sort((a,b)=>b._score-a._score);}else banner.innerHTML='';}
+  if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
+  else if(user.role==='jinzhu'){list=list.filter(j=>String(j.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('tip.emptyMineJz')}</div>`;}
+  const typeF=(document.getElementById('jz-filter-type')||{}).value||'';
+  if(typeF)list=list.filter(j=>jinzhuNormalizeType(j.type)===typeF);
+  list=filterJinZhuByQ(list,(document.getElementById('jz-q')||{}).value||'');
+  const sort=(document.getElementById('jz-sort')||{}).value||'new';
+  if(!(matchContext&&matchContext.type==='dashi')){
+    if(sort==='name')list=list.slice().sort((a,b)=>jinzhuDisplayName(a).localeCompare(jinzhuDisplayName(b),'zh'));
+    else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
+  }
+  const pg=paginate(list,jzPage,PAGE_SIZE);jzPage=pg.page;
+  let heroIds=new Set(),dashiIds=new Set();
+  if(user){(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));}
+  const canBundle=user&&(user.role==='jinzhu'||user.role==='admin');
+  box.innerHTML=pg.slice.length?pg.slice.map(j=>{
+    const pn=escapeAttr(j.phone||'');
+    const team=teams.find(tm=>String(tm.jinzhu_id)===String(j.id));
+    const dtype=jinzhuNormalizeType(j.type);
+    const pieces=jinzhuPains(j);
+    const pieceCls=dtype==='dream'?'piece-line dream':'pain-line';
+    const piecesHtml=pieces.length?`<div class="card-desc"><b>${dtype==='dream'?t('jz.pieces'):t('jz.checklist')}：</b>${pieces.map(p=>`<div class="${pieceCls}"><b>${escapeHtml(p.title||'')}</b>${p.desc?` — ${escapeHtml(p.desc)}`:''}</div>`).join('')}</div>`:'';
+    const title=jinzhuDisplayTitle(j);
+    const intro=jinzhuDisplayIntro(j);
+    const detail=jinzhuDisplayDetail(j);
+    const actionRow=canBundle
+      ?`<div class="jz-action-row"><button class="btn btn-bundle btn-sm" onclick="runFullBundle(${j.id},'normal')">🎁 ${t('btn.bundle')}</button><button class="btn btn-super-bundle btn-sm" onclick="runFullBundle(${j.id},'super')">🚀 ${t('btn.superBundle')}</button><button class="btn btn-pulse-inline btn-sm" onclick="openSendMsgDirect('greeting','${pn}')">⚡ ${t('btn.pulse')}</button></div>`
+      :(user?`<div class="jz-action-row"><button class="btn btn-pulse-inline btn-sm" onclick="openSendMsgDirect('greeting','${pn}')">⚡ ${t('btn.pulse')}</button></div>`:'');
+    /* 第1行：编号+操作（不显示类型）；第2行：名称 */
+    return`<div class="card"><div class="avatar avatar-jinzhu">金</div><div class="card-content">
+      <div class="card-title"><span class="tag">${t('jz.idLabel')} ${j.id}</span>
+        ${canEdit(j)?`<button class="btn btn-edit btn-sm" onclick="editJinZhu(${j.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteJinZhu(${j.id})">${t('btn.del')}</button>`:''}
+      </div>
+      <div class="jz-name-line">${escapeHtml(jinzhuDisplayName(j)||'-')}</div>
+      ${title?`<div class="jz-title-line">${escapeHtml(title)}</div>`:''}
+      ${intro?`<div class="card-desc"><b>${t('jz.introLabel')}：</b>${escapeHtml(intro)}</div>`:''}
+      ${detail?`<div class="card-desc"><b>${t('jz.detailLabel')}：</b>${escapeHtml(detail)}</div>`:''}
+      ${piecesHtml}
+      ${renderBizCard(j.card,j.phone)}
+      ${actionRow}
+      ${teamBlockHtml(team,j,user,heroIds,dashiIds)}
+    </div></div>`;
+  }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noDemands')}</div>`);
+  renderPager('jz-pager',pg.page,pg.pages,'goJzPage');
+}
 function goJzPage(p){jzPage=p;renderJinZhu();}
-function openAddJinZhu(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return;editingJinZhuId=null;jinzhuPainDraft=[];showJinZhuForm(null);}
-async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;editingJinZhuId=id;const pains=Array.isArray(item.pains_i18n)&&item.pains_i18n.length?item.pains_i18n:(Array.isArray(item.pains)?item.pains:[]);jinzhuPainDraft=pains.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')}));showJinZhuForm(item);}
-function showJinZhuForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=normalizeCard(item&&item.card,phoneVal);document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postDemand')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="jz-name" value="${escapeHtml(item?jinzhuDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.industry')}</label><input id="jz-type" value="${escapeHtml(item?jinzhuDisplayType(item):'')}"></div><div class="form-group"><label>${t('form.detail')}</label><textarea id="jz-detail">${escapeHtml(item?jinzhuDisplayDetail(item):'')}</textarea></div><div class="form-group"><label>${t('form.pains')}</label><div id="jz-pains-editor"></div><button type="button" class="btn btn-outline btn-sm" onclick="jinzhuAddPain()">${t('btn.addPain')}</button></div><div class="form-section-title">${t('form.cardSection')}</div><div class="form-grid-2"><div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${escapeHtml(card.person)}"></div><div class="form-group"><label>${t('form.title')}</label><input id="jz-title" value="${escapeHtml(card.title)}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="jz-phone" value="${escapeHtml(card.phone||phoneVal)}" ${item?'readonly style="background:#f3f4f6"':''}></div><div class="form-group"><label>${t('form.email')}</label><input id="jz-email" value="${escapeHtml(card.email)}"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="jz-wechat" value="${escapeHtml(card.wechat)}"></div><div class="form-group"><label>${t('form.whatsapp')}</label><input id="jz-whatsapp" value="${escapeHtml(card.whatsapp)}"></div></div><div class="form-group"><label>${t('form.website')}</label><input id="jz-website" value="${escapeHtml(card.website)}" placeholder="${t('ph.https')}"></div><div class="form-group"><label>${t('form.qr')}</label><input id="jz-qr" value="${escapeHtml(card.qr)}" placeholder="${t('ph.qrUrl')}"></div>${!item?`<p style="font-size:12px;color:#64748b">✓ ${t('form.autoTeam')}</p>`:''}<div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';renderJinZhuPainsEditor();}
+
+function openAddJinZhu(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return;editingJinZhuId=null;jinzhuPainDraft=[];jinzhuDemandType='problem';showJinZhuTypePick();}
+async function editJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;editingJinZhuId=id;jinzhuDemandType=jinzhuNormalizeType(item.type);const pains=Array.isArray(item.pains_i18n)&&item.pains_i18n.length?item.pains_i18n:(Array.isArray(item.pains)?item.pains:[]);jinzhuPainDraft=pains.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')}));showJinZhuForm(item);}
+
+function showJinZhuTypePick(){
+  document.getElementById('modalBox').className='modal';
+  document.getElementById('modalBox').innerHTML=`
+    <h3>${t('btn.postDemand')}</h3>
+    <p class="card-desc" style="margin-bottom:12px">${t('jz.typePick')}</p>
+    <div class="demand-type-pick">
+      <button type="button" class="demand-type-btn" id="pick-dream" onclick="pickJinZhuType('dream')">✨ ${t('jz.typeDream')}<small>${t('jz.typeDreamHint')}</small></button>
+      <button type="button" class="demand-type-btn" id="pick-problem" onclick="pickJinZhuType('problem')">🔧 ${t('jz.typeProblem')}<small>${t('jz.typeProblemHint')}</small></button>
+    </div>
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button></div>`;
+  document.getElementById('modalMask').style.display='flex';
+}
+function pickJinZhuType(type){jinzhuDemandType=type==='dream'?'dream':'problem';showJinZhuForm(null);}
+
+function showJinZhuForm(item){
+  const user=getUser();
+  const phoneVal=item?(item.phone||''):(user?user.phone:'');
+  const card=normalizeCard(item&&item.card,phoneVal);
+  const isDream=jinzhuDemandType==='dream';
+  const titlePh=isDream?t('ph.jzTitleDream'):t('ph.jzTitleProblem');
+  const detailPh=isDream?t('ph.jzDetailDream'):t('ph.jzDetailProblem');
+  const listLabel=isDream?t('jz.pieces'):t('jz.checklist');
+  const addBtn=isDream?t('btn.addPiece'):t('btn.addChecklist');
+  const copyLabel=isDream?t('jz.copyDream'):t('jz.copyProblem');
+  document.getElementById('modalBox').className='modal wide';
+  document.getElementById('modalBox').innerHTML=`
+    <h3>${item?t('btn.edit'):t('btn.postDemand')} · ${isDream?t('jz.typeDream'):t('jz.typeProblem')}</h3>
+    ${langHintHtml()}
+    ${!item?`<div class="demand-type-pick">
+      <button type="button" class="demand-type-btn ${isDream?'active-dream':''}" onclick="jinzhuDemandType='dream';showJinZhuForm(null)">✨ ${t('jz.typeDream')}<small>${t('jz.typeDreamHint')}</small></button>
+      <button type="button" class="demand-type-btn ${!isDream?'active-problem':''}" onclick="jinzhuDemandType='problem';showJinZhuForm(null)">🔧 ${t('jz.typeProblem')}<small>${t('jz.typeProblemHint')}</small></button>
+    </div>`:''}
+    ${!item?`<div class="form-group"><button type="button" class="btn btn-copy btn-sm" onclick="openCopyJinZhuPicker()">${t('btn.copyFrom')} — ${copyLabel}</button></div>`:''}
+    <div class="form-group"><label>${t('form.jzName')}</label><input id="jz-name" value="${escapeHtml(item?jinzhuDisplayName(item):'')}" placeholder="${t('ph.jzName')}"></div>
+    <div class="form-group"><label>${t('form.jzIntro')}</label><textarea id="jz-intro" placeholder="${t('ph.jzIntro')}">${escapeHtml(item?jinzhuDisplayIntro(item):'')}</textarea></div>
+    <div class="form-group"><label>${t('form.jzTitle')}</label><input id="jz-title" value="${escapeHtml(item?jinzhuDisplayTitle(item):'')}" placeholder="${titlePh}"></div>
+    <div class="form-group"><label>${t('form.jzDetail')}</label><textarea id="jz-detail" placeholder="${detailPh}">${escapeHtml(item?jinzhuDisplayDetail(item):'')}</textarea></div>
+    <div class="form-group"><label>${listLabel}</label><div id="jz-pains-editor"></div>
+      <button type="button" class="btn btn-outline btn-sm" onclick="jinzhuAddPain()">${addBtn}</button>
+    </div>
+    <div class="form-section-title">${t('form.cardSection')}</div>
+    <div class="form-grid-2">
+      <div class="form-group"><label>${t('form.person')}</label><input id="jz-person" value="${escapeHtml(card.person)}"></div>
+      <div class="form-group"><label>${t('form.title')}</label><input id="jz-card-title" value="${escapeHtml(card.title)}"></div>
+      <div class="form-group"><label>${t('form.manager')}</label><input id="jz-manager" value="${escapeHtml(card.manager)}" placeholder="${t('ph.manager')}"></div>
+      <div class="form-group"><label>${t('form.phone')}</label><input id="jz-phone" value="${escapeHtml(card.phone||phoneVal)}" ${item?'readonly style="background:#f3f4f6"':''}></div>
+      <div class="form-group"><label>${t('form.email')}</label><input id="jz-email" value="${escapeHtml(card.email)}"></div>
+      <div class="form-group"><label>${t('form.wechat')}</label><input id="jz-wechat" value="${escapeHtml(card.wechat)}"></div>
+      <div class="form-group"><label>${t('form.whatsapp')}</label><input id="jz-whatsapp" value="${escapeHtml(card.whatsapp)}"></div>
+    </div>
+    <div class="form-group"><label>${t('form.website')}</label><input id="jz-website" value="${escapeHtml(card.website)}" placeholder="${t('ph.https')}"></div>
+    <div class="form-group"><label>${t('form.qr')}</label><input id="jz-qr" value="${escapeHtml(card.qr)}" placeholder="${t('ph.qrUrl')}"></div>
+    ${!item?`<p style="font-size:12px;color:#64748b">✓ ${t('form.autoTeam')}</p>`:''}
+    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveJinZhu()">${t('btn.save')}</button></div>`;
+  document.getElementById('modalMask').style.display='flex';
+  renderJinZhuPainsEditor();
+}
 function jinzhuAddPain(){jinzhuPainDraft.push({title:'',desc:''});renderJinZhuPainsEditor();}
 function jinzhuRemovePain(i){jinzhuPainDraft.splice(i,1);renderJinZhuPainsEditor();}
-function renderJinZhuPainsEditor(){const box=document.getElementById('jz-pains-editor');if(!box)return;if(!jinzhuPainDraft.length){box.innerHTML=`<div style="font-size:12px;color:#94a3b8">—</div>`;return;}box.innerHTML=jinzhuPainDraft.map((p,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="jinzhuRemovePain(${i})">×</button><div class="form-group"><label>${t('form.painTitle')}</label><input value="${escapeHtml(p.title||'')}" onchange="jinzhuPainDraft[${i}].title=this.value" oninput="jinzhuPainDraft[${i}].title=this.value"></div><div class="form-group"><label>${t('form.painDesc')}</label><textarea onchange="jinzhuPainDraft[${i}].desc=this.value" oninput="jinzhuPainDraft[${i}].desc=this.value">${escapeHtml(p.desc||'')}</textarea></div></div>`).join('');}
-async function saveJinZhu(){const user=getUser();if(!user)return;const name=(document.getElementById('jz-name').value||'').trim();const type=(document.getElementById('jz-type').value||'').trim();const detail=(document.getElementById('jz-detail').value||'').trim();const person=(document.getElementById('jz-person').value||'').trim();const title=(document.getElementById('jz-title').value||'').trim();const phone=(document.getElementById('jz-phone').value||'').trim()||(user.phone||'');const email=(document.getElementById('jz-email').value||'').trim();const wechat=(document.getElementById('jz-wechat').value||'').trim();const whatsapp=(document.getElementById('jz-whatsapp').value||'').trim();const website=(document.getElementById('jz-website').value||'').trim();const qr=(document.getElementById('jz-qr').value||'').trim();if(!type||!person||!wechat)return alert(t('tip.required'));let old=editingJinZhuId?(await fetchJinZhu()).find(j=>j.id===editingJinZhuId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name||'-');const type_i18n=mergeI18n(old?.type_i18n,currentLang,type);const detail_i18n=mergeI18n(old?.detail_i18n,currentLang,detail);const oldPainsI18n=Array.isArray(old?.pains_i18n)?old.pains_i18n:[];const pains_i18n=jinzhuPainDraft.filter(p=>(p.title||'').trim()||(p.desc||'').trim()).map((p,i)=>{const prev=oldPainsI18n[i]&&typeof oldPainsI18n[i]==='object'?oldPainsI18n[i]:{};return{title:mergeI18n(prev.title,currentLang,(p.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(p.desc||'').trim())};});const pains=pains_i18n.map(p=>({title:p.title.zh||p.title.en||Object.values(p.title||{}).find(Boolean)||'',desc:p.desc.zh||p.desc.en||Object.values(p.desc||{}).find(Boolean)||''}));const newId=editingJinZhuId||Date.now();const row={id:newId,name:name_i18n.zh||name||'-',intro:'',type:type_i18n.zh||type,detail:detail_i18n.zh||detail,name_i18n,type_i18n,detail_i18n,pains,pains_i18n,phone:old?.phone||phone,card:{person,title,phone:old?.phone||phone,email,wechat,whatsapp,website,qr}};let error;if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));else({error}=await sb.from('jinzhu').insert(row));if(error)return alert(error.message);if(!editingJinZhuId){const teams=await fetchTeam();if(!teams.some(tm=>String(tm.jinzhu_id)===String(newId))){await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(user.phone),phone:user.phone,members:[],jinzhu_id:newId,demand:type,performances:[],bundled_cases:[],bundled_surveys:[]});}}closeModal();renderJinZhu();renderTeam();alert(t('tip.saved'));}
+function renderJinZhuPainsEditor(){
+  const box=document.getElementById('jz-pains-editor');if(!box)return;
+  const isDream=jinzhuDemandType==='dream';
+  const tTitle=isDream?t('ph.pieceTitle'):t('ph.checkTitle');
+  const tDesc=isDream?t('ph.pieceDesc'):t('ph.checkDesc');
+  if(!jinzhuPainDraft.length){box.innerHTML=`<div style="font-size:12px;color:#94a3b8">—</div>`;return;}
+  box.innerHTML=jinzhuPainDraft.map((p,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="jinzhuRemovePain(${i})">×</button>
+    <div class="form-group"><label>${t('form.painTitle')}</label><input value="${escapeHtml(p.title||'')}" placeholder="${tTitle}" onchange="jinzhuPainDraft[${i}].title=this.value" oninput="jinzhuPainDraft[${i}].title=this.value"></div>
+    <div class="form-group"><label>${t('form.painDesc')}</label><textarea placeholder="${tDesc}" onchange="jinzhuPainDraft[${i}].desc=this.value" oninput="jinzhuPainDraft[${i}].desc=this.value">${escapeHtml(p.desc||'')}</textarea></div>
+  </div>`).join('');
+}
+
+async function openCopyJinZhuPicker(){
+  const all=await fetchJinZhu();
+  const list=all.filter(j=>jinzhuNormalizeType(j.type)===jinzhuDemandType);
+  if(!list.length)return alert(t('jz.copyEmpty'));
+  const items=list.slice(0,40).map(j=>`<div class="copy-pick-item" onclick="applyCopyJinZhu(${j.id})"><b>${escapeHtml(jinzhuDisplayName(j)||'-')}</b><br><span style="color:#64748b">${escapeHtml(jinzhuDisplayTitle(j)||jinzhuDisplayDetail(j)||'').slice(0,80)}</span></div>`).join('');
+  document.getElementById('modalBox').className='modal wide';
+  document.getElementById('modalBox').innerHTML=`<h3>${jinzhuDemandType==='dream'?t('jz.copyDream'):t('jz.copyProblem')}</h3><div class="copy-pick-list">${items}</div><div class="form-actions"><button class="btn btn-outline" onclick="showJinZhuForm(null)">${t('btn.cancel')}</button></div>`;
+  document.getElementById('modalMask').style.display='flex';
+}
+async function applyCopyJinZhu(srcId){
+  const src=(await fetchJinZhu()).find(j=>j.id===srcId);if(!src)return;
+  jinzhuDemandType=jinzhuNormalizeType(src.type);
+  const pains=Array.isArray(src.pains_i18n)&&src.pains_i18n.length?src.pains_i18n:(Array.isArray(src.pains)?src.pains:[]);
+  jinzhuPainDraft=pains.map(p=>({title:tl(p.title,typeof p.title==='string'?p.title:''),desc:tl(p.desc,typeof p.desc==='string'?p.desc:'')}));
+  /* 复制内容但不带名片电话，作为新草稿 */
+  const fake={name:jinzhuDisplayName(src),intro:jinzhuDisplayIntro(src),title:jinzhuDisplayTitle(src),detail:jinzhuDisplayDetail(src),name_i18n:null,intro_i18n:null,title_i18n:null,detail_i18n:null,card:{},phone:getUser()?getUser().phone:''};
+  showJinZhuForm(fake);
+  /* 填回显示值（show 用 display 读 i18n，fake 用扁平字段） */
+  setTimeout(()=>{
+    const n=document.getElementById('jz-name');if(n)n.value=jinzhuDisplayName(src)||'';
+    const i=document.getElementById('jz-intro');if(i)i.value=jinzhuDisplayIntro(src)||'';
+    const ti=document.getElementById('jz-title');if(ti)ti.value=jinzhuDisplayTitle(src)||'';
+    const d=document.getElementById('jz-detail');if(d)d.value=jinzhuDisplayDetail(src)||'';
+    renderJinZhuPainsEditor();
+    alert(t('jz.copied'));
+  },0);
+}
+
+async function saveJinZhu(){
+  const user=getUser();if(!user)return;
+  if(!jinzhuDemandType)return alert(t('tip.pickTypeFirst'));
+  const name=(document.getElementById('jz-name').value||'').trim();
+  const intro=(document.getElementById('jz-intro').value||'').trim();
+  const title=(document.getElementById('jz-title').value||'').trim();
+  const detail=(document.getElementById('jz-detail').value||'').trim();
+  const person=(document.getElementById('jz-person').value||'').trim();
+  const cardTitle=(document.getElementById('jz-card-title').value||'').trim();
+  const manager=(document.getElementById('jz-manager').value||'').trim();
+  const phone=(document.getElementById('jz-phone').value||'').trim()||(user.phone||'');
+  const email=(document.getElementById('jz-email').value||'').trim();
+  const wechat=(document.getElementById('jz-wechat').value||'').trim();
+  const whatsapp=(document.getElementById('jz-whatsapp').value||'').trim();
+  const website=(document.getElementById('jz-website').value||'').trim();
+  const qr=(document.getElementById('jz-qr').value||'').trim();
+  if(!name||!detail||!person||!wechat)return alert(t('tip.required'));
+  let old=editingJinZhuId?(await fetchJinZhu()).find(j=>j.id===editingJinZhuId):null;
+  const type=jinzhuDemandType;
+  const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);
+  const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,intro);
+  const title_i18n=mergeI18n(old?.title_i18n,currentLang,title);
+  const detail_i18n=mergeI18n(old?.detail_i18n,currentLang,detail);
+  const oldPainsI18n=Array.isArray(old?.pains_i18n)?old.pains_i18n:[];
+  const pains_i18n=jinzhuPainDraft.filter(p=>(p.title||'').trim()||(p.desc||'').trim()).map((p,i)=>{
+    const prev=oldPainsI18n[i]&&typeof oldPainsI18n[i]==='object'?oldPainsI18n[i]:{};
+    return{title:mergeI18n(prev.title,currentLang,(p.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(p.desc||'').trim())};
+  });
+  const pains=pains_i18n.map(p=>({title:p.title.zh||p.title.en||Object.values(p.title||{}).find(Boolean)||'',desc:p.desc.zh||p.desc.en||Object.values(p.desc||{}).find(Boolean)||''}));
+  const newId=editingJinZhuId||Date.now();
+  const row={
+    id:newId,
+    type,
+    name:name_i18n.zh||name,
+    intro:intro_i18n.zh||intro,
+    title:title_i18n.zh||title,
+    detail:detail_i18n.zh||detail,
+    name_i18n,intro_i18n,title_i18n,detail_i18n,
+    pains,pains_i18n,
+    phone:old?.phone||phone,
+    card:{person,title:cardTitle,manager,phone:old?.phone||phone,email,wechat,whatsapp,website,qr}
+  };
+  let error;
+  if(editingJinZhuId)({error}=await sb.from('jinzhu').update(row).eq('id',editingJinZhuId));
+  else({error}=await sb.from('jinzhu').insert(row));
+  if(error)return alert(error.message);
+  if(!editingJinZhuId){
+    const teams=await fetchTeam();
+    if(!teams.some(tm=>String(tm.jinzhu_id)===String(newId))){
+      await sb.from('team').insert({id:Date.now()+1,name:generateTeamName(user.phone),phone:user.phone,members:[],jinzhu_id:newId,demand:title||name,performances:[],bundled_cases:[],bundled_surveys:[]});
+    }
+  }
+  closeModal();renderJinZhu();renderTeam();alert(t('tip.saved'));
+}
 async function deleteJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('jinzhu').delete().eq('id',id);renderJinZhu();renderTeam();}
 
-/* ========== 191/192 超级智能列表/表单 ========== */
-async function renderDaShi(){
-  const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;
-  let list=await fetchDaShi();let emptyMsg='';
-  if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
-  list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');
-  const sort=(document.getElementById('ds-sort')||{}).value||'new';
-  if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));
-  else if(sort==='name')list=list.slice().sort((a,b)=>dashiDisplayName(a).localeCompare(dashiDisplayName(b),'zh'));
-  else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
-  if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const[item]=list.splice(idx,1);list.unshift(item);}}
-  const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;
-  const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
-  box.innerHTML=pg.slice.length?pg.slice.map(d=>{
-    const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;
-    const isFocus=focusDashiId&&String(d.id)===String(focusDashiId);
-    const hasUrl=!!((d.tool_url||'').trim());
-    const motto=dashiDisplayMotto(d);
-    const major=dashiDisplayMajor(d),minor=dashiDisplayMinor(d);
-    return`<div class="card ${isFocus?'dashi-highlight':''}" id="dashi-card-${d.id}">
-      <div class="avatar avatar-dashi">SI</div>
-      <div class="card-content">
-        <div class="card-title">${escapeHtml(dashiDisplayName(d)||'-')}<span class="tag tag-power">⚡${power}</span>
-          ${major?`<span class="tag tag-major">${escapeHtml(major)}</span>`:''}
-          ${minor?`<span class="tag tag-sub">${escapeHtml(minor)}</span>`:''}
-          ${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}
-        </div>
-        <div class="card-desc">${escapeHtml(dashiDisplayIntro(d)||'-')}</div>
-        ${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}
-        ${renderSkillsHtml(d)}
-        <div class="field-row"><span class="k">${t('label.toolUrl')}</span><span>${renderToolUrl(d.tool_url)}</span></div>
-        ${renderBizCard(d.card,d.phone)}
-        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
-          <button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>
-          ${user?`<button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">${t('btn.findClient')}</button>`:''}
-        </div>
-        ${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}
-      </div>
-    </div>`;
-  }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);
-  renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
-}
+/* —— 以下模块与上版一致（dashi/sicase/hero/home/…）—— */
+async function renderDaShi(){const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;let list=await fetchDaShi();let emptyMsg='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');const sort=(document.getElementById('ds-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));else if(sort==='name')list=list.slice().sort((a,b)=>dashiDisplayName(a).localeCompare(dashiDisplayName(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const[item]=list.splice(idx,1);list.unshift(item);}}const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');box.innerHTML=pg.slice.length?pg.slice.map(d=>{const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;const isFocus=focusDashiId&&String(d.id)===String(focusDashiId);const hasUrl=!!((d.tool_url||'').trim());const motto=dashiDisplayMotto(d);const major=dashiDisplayMajor(d),minor=dashiDisplayMinor(d);return`<div class="card ${isFocus?'dashi-highlight':''}"><div class="avatar avatar-dashi">SI</div><div class="card-content"><div class="card-title">${escapeHtml(dashiDisplayName(d)||'-')}<span class="tag tag-power">⚡${power}</span>${major?`<span class="tag tag-major">${escapeHtml(major)}</span>`:''}${minor?`<span class="tag tag-sub">${escapeHtml(minor)}</span>`:''}${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(dashiDisplayIntro(d)||'-')}</div>${motto?`<div class="motto-box">${escapeHtml(motto)}</div>`:''}${renderSkillsHtml(d)}<div class="field-row"><span class="k">${t('label.toolUrl')}</span><span>${renderToolUrl(d.tool_url)}</span></div>${renderBizCard(d.card,d.phone)}<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" ${hasUrl?'':'disabled'} onclick="openToolUrl('${escapeAttr(d.tool_url||'')}')">${t('btn.visit')}</button>${user?`<button class="btn btn-caishen btn-sm" onclick="goCaishen(${d.id})">${t('btn.findClient')}</button>`:''}</div>${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${d.id},'${nm}','dashi',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);renderPager('ds-pager',pg.page,pg.pages,'goDsPage');}
 function goDsPage(p){dsPage=p;renderDaShi();}
 function openAddDaShi(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='ai'&&user.role!=='admin')return;editingDaShiId=null;dashiToolDraft=[];showDaShiForm(null);}
 async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;editingDaShiId=id;const skills=Array.isArray(item.tools_i18n)&&item.tools_i18n.length?item.tools_i18n:(Array.isArray(item.tools)?item.tools:[]);dashiToolDraft=skills.map(s=>({title:tl(s.title,typeof s.title==='string'?s.title:''),desc:tl(s.desc,typeof s.desc==='string'?s.desc:'')}));showDaShiForm(item);}
-async function showDaShiForm(item){
-  const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');
-  const card=normalizeCard(item&&item.card,phoneVal);
-  document.getElementById('modalBox').className='modal wide';
-  document.getElementById('modalBox').innerHTML=`
-    <h3>${item?t('btn.edit'):t('btn.postTool')}</h3>
-    ${langHintHtml()}
-    <div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div>
-    <div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div>
-    <div class="form-group"><label>${t('form.motto')}</label><textarea id="ds-motto" placeholder="${t('ph.motto')}">${escapeHtml(item?dashiDisplayMotto(item):'')}</textarea></div>
-    <div class="form-grid-2">
-      <div class="form-group"><label>${t('form.major')}</label><input id="ds-major" value="${escapeHtml(item?dashiDisplayMajor(item):'')}" placeholder="${t('ph.major')}"></div>
-      <div class="form-group"><label>${t('form.minor')}</label><input id="ds-minor" value="${escapeHtml(item?dashiDisplayMinor(item):'')}" placeholder="${t('ph.minor')}"></div>
-    </div>
-    <div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}" placeholder="${t('ph.https')}"></div>
-    <div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item&&item.power)||0}"></div>
-    <div class="form-section-title">${t('form.skills')}</div>
-    <div id="ds-skills-editor"></div>
-    <button type="button" class="btn btn-outline btn-sm" onclick="dashiAddSkill()">${t('btn.addSkill')}</button>
-    <div class="form-section-title">${t('form.cardSection')}</div>
-    <div class="form-grid-2">
-      <div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(card.person)}"></div>
-      <div class="form-group"><label>${t('form.title')}</label><input id="ds-title" value="${escapeHtml(card.title)}"></div>
-      <div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(card.phone||phoneVal)}" readonly style="background:#f3f4f6"></div>
-      <div class="form-group"><label>${t('form.email')}</label><input id="ds-email" value="${escapeHtml(card.email)}"></div>
-      <div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(card.wechat)}"></div>
-      <div class="form-group"><label>${t('form.whatsapp')}</label><input id="ds-whatsapp" value="${escapeHtml(card.whatsapp)}"></div>
-    </div>
-    <div class="form-group"><label>${t('form.website')}</label><input id="ds-website" value="${escapeHtml(card.website)}" placeholder="${t('ph.https')}"></div>
-    <div class="form-group"><label>${t('form.qr')}</label><input id="ds-qr" value="${escapeHtml(card.qr)}" placeholder="${t('ph.qrUrl')}"></div>
-    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;
-  document.getElementById('modalMask').style.display='flex';
-  renderDashiSkillsEditor();
-}
+function showDaShiForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=normalizeCard(item&&item.card,phoneVal);document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.motto')}</label><textarea id="ds-motto">${escapeHtml(item?dashiDisplayMotto(item):'')}</textarea></div><div class="form-grid-2"><div class="form-group"><label>${t('form.major')}</label><input id="ds-major" value="${escapeHtml(item?dashiDisplayMajor(item):'')}"></div><div class="form-group"><label>${t('form.minor')}</label><input id="ds-minor" value="${escapeHtml(item?dashiDisplayMinor(item):'')}"></div></div><div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item&&item.power)||0}"></div><div class="form-section-title">${t('form.skills')}</div><div id="ds-skills-editor"></div><button type="button" class="btn btn-outline btn-sm" onclick="dashiAddSkill()">${t('btn.addSkill')}</button><div class="form-section-title">${t('form.cardSection')}</div><div class="form-grid-2"><div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(card.person)}"></div><div class="form-group"><label>${t('form.title')}</label><input id="ds-title" value="${escapeHtml(card.title)}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(card.phone||phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.email')}</label><input id="ds-email" value="${escapeHtml(card.email)}"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(card.wechat)}"></div><div class="form-group"><label>${t('form.whatsapp')}</label><input id="ds-whatsapp" value="${escapeHtml(card.whatsapp)}"></div></div><div class="form-group"><label>${t('form.website')}</label><input id="ds-website" value="${escapeHtml(card.website)}"></div><div class="form-group"><label>${t('form.qr')}</label><input id="ds-qr" value="${escapeHtml(card.qr)}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';renderDashiSkillsEditor();}
 function dashiAddSkill(){dashiToolDraft.push({title:'',desc:''});renderDashiSkillsEditor();}
 function dashiRemoveSkill(i){dashiToolDraft.splice(i,1);renderDashiSkillsEditor();}
-function renderDashiSkillsEditor(){
-  const box=document.getElementById('ds-skills-editor');if(!box)return;
-  if(!dashiToolDraft.length){box.innerHTML=`<div style="font-size:12px;color:#94a3b8;margin-bottom:8px">—</div>`;return;}
-  box.innerHTML=dashiToolDraft.map((s,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="dashiRemoveSkill(${i})">×</button>
-    <div class="form-group"><label>${t('form.skillTitle')}</label><input value="${escapeHtml(s.title||'')}" placeholder="${t('ph.skillTitle')}" onchange="dashiToolDraft[${i}].title=this.value" oninput="dashiToolDraft[${i}].title=this.value"></div>
-    <div class="form-group"><label>${t('form.skillDesc')}</label><textarea placeholder="${t('ph.skillDesc')}" onchange="dashiToolDraft[${i}].desc=this.value" oninput="dashiToolDraft[${i}].desc=this.value">${escapeHtml(s.desc||'')}</textarea></div>
-  </div>`).join('');
-}
-async function saveDaShi(){
-  const user=getUser();if(!user)return;
-  const name=(document.getElementById('ds-name').value||'').trim();
-  const person=(document.getElementById('ds-person').value||'').trim();
-  const phone=(document.getElementById('ds-phone').value||'').trim();
-  const wechat=(document.getElementById('ds-wechat').value||'').trim();
-  if(!name||!person||!wechat)return alert(t('tip.required'));
-  let old=editingDaShiId?(await fetchDaShi()).find(d=>d.id===editingDaShiId):null;
-  const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);
-  const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());
-  const motto_i18n=mergeI18n(old?.motto_i18n,currentLang,(document.getElementById('ds-motto').value||'').trim());
-  const major_category_i18n=mergeI18n(old?.major_category_i18n,currentLang,(document.getElementById('ds-major').value||'').trim());
-  const minor_category_i18n=mergeI18n(old?.minor_category_i18n,currentLang,(document.getElementById('ds-minor').value||'').trim());
-  const oldToolsI18n=Array.isArray(old?.tools_i18n)?old.tools_i18n:[];
-  const tools_i18n=dashiToolDraft.filter(s=>(s.title||'').trim()||(s.desc||'').trim()).map((s,i)=>{
-    const prev=oldToolsI18n[i]&&typeof oldToolsI18n[i]==='object'?oldToolsI18n[i]:{};
-    return{title:mergeI18n(prev.title,currentLang,(s.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(s.desc||'').trim())};
-  });
-  const tools=tools_i18n.map(s=>({title:s.title.zh||s.title.en||Object.values(s.title||{}).find(Boolean)||'',desc:s.desc.zh||s.desc.en||Object.values(s.desc||{}).find(Boolean)||''}));
-  const card={person,title:(document.getElementById('ds-title').value||'').trim(),phone:old?.phone||phone,email:(document.getElementById('ds-email').value||'').trim(),wechat,whatsapp:(document.getElementById('ds-whatsapp').value||'').trim(),website:(document.getElementById('ds-website').value||'').trim(),qr:(document.getElementById('ds-qr').value||'').trim()};
-  const row={
-    id:editingDaShiId||Date.now(),
-    name:name_i18n.zh||name,
-    intro:intro_i18n.zh||'',
-    motto:motto_i18n.zh||motto_i18n.en||Object.values(motto_i18n).find(Boolean)||'',
-    major_category:major_category_i18n.zh||major_category_i18n.en||Object.values(major_category_i18n).find(Boolean)||'',
-    minor_category:minor_category_i18n.zh||minor_category_i18n.en||Object.values(minor_category_i18n).find(Boolean)||'',
-    name_i18n,intro_i18n,motto_i18n,major_category_i18n,minor_category_i18n,
-    tool_url:(document.getElementById('ds-tool-url').value||'').trim(),
-    power:parseInt(document.getElementById('ds-power').value)||0,
-    tools,tools_i18n,
-    phone:old?.phone||phone,
-    card
-  };
-  let error;
-  if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));
-  else({error}=await sb.from('dashi').insert(row));
-  if(error)return alert(error.message);
-  closeModal();renderDaShi();renderHome();alert(t('tip.saved'));
-}
+function renderDashiSkillsEditor(){const box=document.getElementById('ds-skills-editor');if(!box)return;if(!dashiToolDraft.length){box.innerHTML='—';return;}box.innerHTML=dashiToolDraft.map((s,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="dashiRemoveSkill(${i})">×</button><div class="form-group"><label>${t('form.skillTitle')}</label><input value="${escapeHtml(s.title||'')}" onchange="dashiToolDraft[${i}].title=this.value" oninput="dashiToolDraft[${i}].title=this.value"></div><div class="form-group"><label>${t('form.skillDesc')}</label><textarea onchange="dashiToolDraft[${i}].desc=this.value" oninput="dashiToolDraft[${i}].desc=this.value">${escapeHtml(s.desc||'')}</textarea></div></div>`).join('');}
+async function saveDaShi(){const user=getUser();if(!user)return;const name=(document.getElementById('ds-name').value||'').trim(),person=(document.getElementById('ds-person').value||'').trim(),phone=(document.getElementById('ds-phone').value||'').trim(),wechat=(document.getElementById('ds-wechat').value||'').trim();if(!name||!person||!wechat)return alert(t('tip.required'));let old=editingDaShiId?(await fetchDaShi()).find(d=>d.id===editingDaShiId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());const motto_i18n=mergeI18n(old?.motto_i18n,currentLang,(document.getElementById('ds-motto').value||'').trim());const major_category_i18n=mergeI18n(old?.major_category_i18n,currentLang,(document.getElementById('ds-major').value||'').trim());const minor_category_i18n=mergeI18n(old?.minor_category_i18n,currentLang,(document.getElementById('ds-minor').value||'').trim());const oldToolsI18n=Array.isArray(old?.tools_i18n)?old.tools_i18n:[];const tools_i18n=dashiToolDraft.filter(s=>(s.title||'').trim()||(s.desc||'').trim()).map((s,i)=>{const prev=oldToolsI18n[i]&&typeof oldToolsI18n[i]==='object'?oldToolsI18n[i]:{};return{title:mergeI18n(prev.title,currentLang,(s.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(s.desc||'').trim())};});const tools=tools_i18n.map(s=>({title:s.title.zh||s.title.en||Object.values(s.title||{}).find(Boolean)||'',desc:s.desc.zh||s.desc.en||Object.values(s.desc||{}).find(Boolean)||''}));const card={person,title:(document.getElementById('ds-title').value||'').trim(),phone:old?.phone||phone,email:(document.getElementById('ds-email').value||'').trim(),wechat,whatsapp:(document.getElementById('ds-whatsapp').value||'').trim(),website:(document.getElementById('ds-website').value||'').trim(),qr:(document.getElementById('ds-qr').value||'').trim()};const row={id:editingDaShiId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',motto:motto_i18n.zh||'',major_category:major_category_i18n.zh||'',minor_category:minor_category_i18n.zh||'',name_i18n,intro_i18n,motto_i18n,major_category_i18n,minor_category_i18n,tool_url:(document.getElementById('ds-tool-url').value||'').trim(),power:parseInt(document.getElementById('ds-power').value)||0,tools,tools_i18n,phone:old?.phone||phone,card};let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));if(error)return alert(error.message);closeModal();renderDaShi();renderHome();alert(t('tip.saved'));}
 async function deleteDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('dashi').delete().eq('id',id);renderDaShi();renderHome();}
 
 async function renderFocus(){const box=document.getElementById('focus-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}const pid=await getPriorityTeamId();const teams=await fetchTeam();const allJinZhu=await fetchJinZhu();const tm=teams.find(x=>Number(x.id)===Number(pid));if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);}
@@ -930,88 +930,29 @@ async function renderHero(){const user=getUser();const box=document.getElementBy
 function goHeroPage(p){heroPage=p;renderHero();}
 function openAddHero(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='yingxiao'&&user.role!=='admin')return;editingHeroId=null;showHeroForm(null);}
 async function editHero(id){const item=(await fetchHero()).find(h=>h.id===id);if(!item||!canEdit(item))return;editingHeroId=id;showHeroForm(item);}
-function showHeroForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=normalizeCard(item&&item.card,phoneVal);document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postHero')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="hero-name" value="${escapeHtml(item?heroDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="hero-intro">${escapeHtml(item?heroDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.skill')}</label><input id="hero-skill" value="${escapeHtml(item?heroDisplaySkillTitle(item):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="hero-power" type="number" value="${Number(item&&item.power)||0}"></div><div class="form-section-title">${t('form.cardSection')}</div><div class="form-grid-2"><div class="form-group"><label>${t('form.person')}</label><input id="hero-person" value="${escapeHtml(card.person)}"></div><div class="form-group"><label>${t('form.title')}</label><input id="hero-title" value="${escapeHtml(card.title)}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="hero-phone" value="${escapeHtml(card.phone||phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.email')}</label><input id="hero-email" value="${escapeHtml(card.email)}"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="hero-wechat" value="${escapeHtml(card.wechat)}"></div><div class="form-group"><label>${t('form.whatsapp')}</label><input id="hero-whatsapp" value="${escapeHtml(card.whatsapp)}"></div></div><div class="form-group"><label>${t('form.website')}</label><input id="hero-website" value="${escapeHtml(card.website)}" placeholder="${t('ph.https')}"></div><div class="form-group"><label>${t('form.qr')}</label><input id="hero-qr" value="${escapeHtml(card.qr)}" placeholder="${t('ph.qrUrl')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveHero()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+function showHeroForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=normalizeCard(item&&item.card,phoneVal);document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postHero')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="hero-name" value="${escapeHtml(item?heroDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="hero-intro">${escapeHtml(item?heroDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.skill')}</label><input id="hero-skill" value="${escapeHtml(item?heroDisplaySkillTitle(item):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="hero-power" type="number" value="${Number(item&&item.power)||0}"></div><div class="form-section-title">${t('form.cardSection')}</div><div class="form-grid-2"><div class="form-group"><label>${t('form.person')}</label><input id="hero-person" value="${escapeHtml(card.person)}"></div><div class="form-group"><label>${t('form.title')}</label><input id="hero-title" value="${escapeHtml(card.title)}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="hero-phone" value="${escapeHtml(card.phone||phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.email')}</label><input id="hero-email" value="${escapeHtml(card.email)}"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="hero-wechat" value="${escapeHtml(card.wechat)}"></div><div class="form-group"><label>${t('form.whatsapp')}</label><input id="hero-whatsapp" value="${escapeHtml(card.whatsapp)}"></div></div><div class="form-group"><label>${t('form.website')}</label><input id="hero-website" value="${escapeHtml(card.website)}"></div><div class="form-group"><label>${t('form.qr')}</label><input id="hero-qr" value="${escapeHtml(card.qr)}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveHero()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function saveHero(){const user=getUser();if(!user)return;const name=(document.getElementById('hero-name').value||'').trim(),skill=(document.getElementById('hero-skill').value||'').trim(),person=(document.getElementById('hero-person').value||'').trim(),phone=(document.getElementById('hero-phone').value||'').trim(),wechat=(document.getElementById('hero-wechat').value||'').trim();if(!name||!skill||!person||!wechat)return alert(t('tip.required'));let old=editingHeroId?(await fetchHero()).find(h=>h.id===editingHeroId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('hero-intro').value||'').trim());const skill_title_i18n=mergeI18n(old?.skill_title_i18n,currentLang,skill);const card={person,title:(document.getElementById('hero-title').value||'').trim(),phone:old?.phone||phone,email:(document.getElementById('hero-email').value||'').trim(),wechat,whatsapp:(document.getElementById('hero-whatsapp').value||'').trim(),website:(document.getElementById('hero-website').value||'').trim(),qr:(document.getElementById('hero-qr').value||'').trim()};const row={id:editingHeroId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',skill_title:skill_title_i18n.zh||skill,name_i18n,intro_i18n,skill_title_i18n,power:parseInt(document.getElementById('hero-power').value)||0,phone:old?.phone||phone,card};let error;if(editingHeroId)({error}=await sb.from('hero').update(row).eq('id',editingHeroId));else({error}=await sb.from('hero').insert(row));if(error)return alert(error.message);closeModal();renderHero();alert(t('tip.saved'));}
 async function deleteHero(id){const item=(await fetchHero()).find(h=>h.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('hero').delete().eq('id',id);renderHero();}
 
-/* ========== 193 SI 场景：验证后可删，余下采用 ========== */
 async function renderSiCase(){const user=getUser();const box=document.getElementById('sicase-list');if(!box)return;let list=await fetchSiCases();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}list=filterSiCaseByQ(list,(document.getElementById('case-q')||{}).value||'');const sort=(document.getElementById('case-sort')||{}).value||'new';if(sort==='title')list=list.slice().sort((a,b)=>caseDisplayTitle(a).localeCompare(caseDisplayTitle(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));const pg=paginate(list,casePage,PAGE_SIZE);casePage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(c=>{const title=caseDisplayTitle(c);const content=caseDisplayContent(c);const value=caseDisplayValue(c);const contentShort=content.length>160?content.slice(0,160)+'…':content;const related=caseRelatedTools(c);const relatedPreview=related.length?`<div class="card-desc" style="margin-top:6px">${related.slice(0,6).map(x=>`<span class="tag tag-tool" onclick="goMemberProfile('dashi','${escapeAttr(String(x.id))}')">${escapeHtml(x.name||x.id||'')}</span>`).join('')}${related.length>6?`<span class="tag">+${related.length-6}</span>`:''}</div>`:'';return`<div class="card"><div class="avatar avatar-case">✨</div><div class="card-content"><div class="card-title">${escapeHtml(title||'-')}${canEdit(c)?`<button class="btn btn-edit btn-sm" onclick="editSiCase(${c.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteSiCase(${c.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(contentShort||'-')}</div>${value?`<div class="case-value-box"><b>${t('label.caseValue')}：</b>${escapeHtml(value)}</div>`:''}${relatedPreview}<button class="btn btn-outline btn-sm" onclick="viewSiCase(${c.id})">${t('btn.viewDetail')}</button></div></div>`;}).join(''):`<div class="empty-tip">${t('tip.noCases')}</div>`;renderPager('case-pager',pg.page,pg.pages,'goCasePage');}
 function goCasePage(p){casePage=p;renderSiCase();}
 async function viewSiCase(id){const c=(await fetchSiCases()).find(x=>x.id===id);if(!c)return;const related=caseRelatedTools(c);const links=caseLinks(c);const relatedHtml=related.length?`<div class="case-related-tools">${related.map(x=>`<span class="tag tag-tool" onclick="closeModal();goMemberProfile('dashi','${escapeAttr(String(x.id))}')">${escapeHtml(x.name||x.id||'')}</span>`).join('')}</div>`:`<div class="card-desc">${t('case.noRelated')}</div>`;const linksHtml=links.length?`<ul class="case-links-list">${links.map(l=>{const href=normalizeExternalUrl(l.url||'');const label=(l.title||'').trim()||href||t('form.linkUrl');return href?`<li><a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(label)}</a></li>`:`<li>${escapeHtml(label)}</li>`;}).join('')}</ul>`:`<div class="card-desc">${t('case.noLinks')}</div>`;document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${escapeHtml(caseDisplayTitle(c))}</h3><div class="card-desc" style="white-space:pre-wrap">${escapeHtml(caseDisplayContent(c))}</div>${caseDisplayValue(c)?`<div class="case-value-box"><b>${t('label.caseValue')}：</b>${escapeHtml(caseDisplayValue(c))}</div>`:''}<div class="case-detail-section"><h4>${t('label.relatedTools')}</h4>${relatedHtml}</div><div class="case-detail-section"><h4>${t('label.links')}</h4>${linksHtml}</div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.ok')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 function openAddSiCase(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingSiCaseId=null;caseLinkDraft=[];caseRelatedDraft=[];showSiCaseForm(null);}
 async function editSiCase(id){const item=(await fetchSiCases()).find(c=>c.id===id);if(!item||!canEdit(item))return;editingSiCaseId=id;caseLinkDraft=caseLinks(item).map(l=>({title:l.title||'',url:l.url||''}));caseRelatedDraft=caseRelatedTools(item).map(x=>({id:x.id,name:x.name||String(x.id||'')}));showSiCaseForm(item);}
-function showSiCaseForm(item){
-  const prefillNames=(caseRelatedDraft||[]).map(x=>x.name).filter(Boolean).join('，');
-  document.getElementById('modalBox').className='modal wide';
-  document.getElementById('modalBox').innerHTML=`
-    <h3>${item?t('btn.edit'):t('btn.postCase')}</h3>
-    ${langHintHtml()}
-    <div class="form-group"><label>${t('form.caseTitle')}</label><input id="case-title" value="${escapeHtml(item?caseDisplayTitle(item):'')}"></div>
-    <div class="form-group"><label>${t('form.caseContent')}</label><textarea id="case-content" style="min-height:120px">${escapeHtml(item?caseDisplayContent(item):'')}</textarea></div>
-    <div class="form-group"><label>${t('form.caseValue')}</label><textarea id="case-value">${escapeHtml(item?caseDisplayValue(item):'')}</textarea></div>
-    <div class="form-group">
-      <label>${t('form.relatedTools')}</label>
-      <p style="font-size:12px;color:#64748b;margin-bottom:8px">${t('case.extractHint')}</p>
-      <div class="si-verify-row">
-        <textarea id="case-si-input" rows="3" placeholder="${t('ph.siNames')}">${escapeHtml(prefillNames)}</textarea>
-        <button type="button" class="btn btn-primary btn-verify" onclick="verifySiNamesFromInput()">${t('btn.verify')}</button>
-      </div>
-      <div id="case-extract-preview" class="case-extract-box" style="display:none"></div>
-      <div class="case-adopt-hint">${t('tip.adoptHint')}</div>
-      <div id="case-related-editor" style="margin-top:8px"></div>
-    </div>
-    <div class="form-group"><label>${t('form.links')}</label><div id="case-links-editor"></div><button type="button" class="btn btn-outline btn-sm" onclick="caseAddLink()">${t('btn.addLink')}</button></div>
-    <div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveSiCase()">${t('btn.save')}</button></div>`;
-  document.getElementById('modalMask').style.display='flex';
-  renderCaseRelatedEditor();
-  renderCaseLinksEditor();
-}
+function showSiCaseForm(item){const prefillNames=(caseRelatedDraft||[]).map(x=>x.name).filter(Boolean).join('，');document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postCase')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.caseTitle')}</label><input id="case-title" value="${escapeHtml(item?caseDisplayTitle(item):'')}"></div><div class="form-group"><label>${t('form.caseContent')}</label><textarea id="case-content" style="min-height:120px">${escapeHtml(item?caseDisplayContent(item):'')}</textarea></div><div class="form-group"><label>${t('form.caseValue')}</label><textarea id="case-value">${escapeHtml(item?caseDisplayValue(item):'')}</textarea></div><div class="form-group"><label>${t('form.relatedTools')}</label><p style="font-size:12px;color:#64748b;margin-bottom:8px">${t('case.extractHint')}</p><div class="si-verify-row"><textarea id="case-si-input" rows="3" placeholder="${t('ph.siNames')}">${escapeHtml(prefillNames)}</textarea><button type="button" class="btn btn-primary btn-verify" onclick="verifySiNamesFromInput()">${t('btn.verify')}</button></div><div id="case-extract-preview" class="case-extract-box" style="display:none"></div><div class="case-adopt-hint">${t('tip.adoptHint')}</div><div id="case-related-editor" style="margin-top:8px"></div></div><div class="form-group"><label>${t('form.links')}</label><div id="case-links-editor"></div><button type="button" class="btn btn-outline btn-sm" onclick="caseAddLink()">${t('btn.addLink')}</button></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveSiCase()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';renderCaseRelatedEditor();renderCaseLinksEditor();}
 function caseRemoveRelated(i){caseRelatedDraft.splice(i,1);renderCaseRelatedEditor();}
-function renderCaseRelatedEditor(){
-  const box=document.getElementById('case-related-editor');if(!box)return;
-  if(!caseRelatedDraft.length){box.innerHTML='<div style="font-size:12px;color:#94a3b8">—</div>';return;}
-  box.innerHTML=caseRelatedDraft.map((x,i)=>`<div class="dynamic-item" style="display:flex;justify-content:space-between;align-items:center">
-    <span class="tag tag-tool">${escapeHtml(x.name||'')}</span>
-    <button type="button" class="btn btn-del btn-sm" onclick="caseRemoveRelated(${i})" title="${t('btn.del')}">×</button>
-  </div>`).join('');
-}
+function renderCaseRelatedEditor(){const box=document.getElementById('case-related-editor');if(!box)return;if(!caseRelatedDraft.length){box.innerHTML='—';return;}box.innerHTML=caseRelatedDraft.map((x,i)=>`<div class="dynamic-item" style="display:flex;justify-content:space-between;align-items:center"><span class="tag tag-tool">${escapeHtml(x.name||'')}</span><button type="button" class="btn btn-del btn-sm" onclick="caseRemoveRelated(${i})">×</button></div>`).join('');}
 function caseAddLink(){caseLinkDraft.push({title:'',url:''});renderCaseLinksEditor();}
 function caseRemoveLink(i){caseLinkDraft.splice(i,1);renderCaseLinksEditor();}
-function renderCaseLinksEditor(){const box=document.getElementById('case-links-editor');if(!box)return;if(!caseLinkDraft.length){box.innerHTML='<div style="font-size:12px;color:#94a3b8">—</div>';return;}box.innerHTML=caseLinkDraft.map((x,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="caseRemoveLink(${i})">×</button><div class="form-group"><label>${t('form.linkTitle')}</label><input value="${escapeHtml(x.title||'')}" onchange="caseLinkDraft[${i}].title=this.value" oninput="caseLinkDraft[${i}].title=this.value"></div><div class="form-group"><label>${t('form.linkUrl')}</label><input value="${escapeHtml(x.url||'')}" placeholder="${t('ph.https')}" onchange="caseLinkDraft[${i}].url=this.value" oninput="caseLinkDraft[${i}].url=this.value"></div></div>`).join('');}
-async function saveSiCase(){
-  const user=getUser();if(!user)return;
-  const title=(document.getElementById('case-title').value||'').trim();
-  const content=(document.getElementById('case-content').value||'').trim();
-  const value=(document.getElementById('case-value').value||'').trim();
-  if(!title||!content||!value)return alert(t('tip.required'));
-  /* 193：只保存用户删减后的 caseRelatedDraft，不再用输入框覆盖 */
-  let old=editingSiCaseId?(await fetchSiCases()).find(c=>c.id===editingSiCaseId):null;
-  const title_i18n=mergeI18n(old?.title_i18n,currentLang,title);
-  const content_i18n=mergeI18n(old?.content_i18n,currentLang,content);
-  const value_created_i18n=mergeI18n(old?.value_created_i18n,currentLang,value);
-  const row={
-    id:editingSiCaseId||Date.now(),
-    title:title_i18n.zh||title,content:content_i18n.zh||content,value_created:value_created_i18n.zh||value,
-    title_i18n,content_i18n,value_created_i18n,
-    related_tools:caseRelatedDraft.map(x=>({id:x.id,name:x.name})),
-    links:caseLinkDraft.filter(l=>(l.title||'').trim()||(l.url||'').trim()).map(l=>({title:(l.title||'').trim(),url:(l.url||'').trim()})),
-    phone:old?.phone||user.phone
-  };
-  let error;
-  if(editingSiCaseId)({error}=await sb.from('si_cases').update(row).eq('id',editingSiCaseId));
-  else({error}=await sb.from('si_cases').insert(row));
-  if(error)return alert(error.message);
-  closeModal();renderSiCase();
-  alert(t('tip.saved')+(caseRelatedDraft.length?('\n'+t('tip.matchedSiN').replace('{n}',String(caseRelatedDraft.length))):''));
-}
+function renderCaseLinksEditor(){const box=document.getElementById('case-links-editor');if(!box)return;if(!caseLinkDraft.length){box.innerHTML='—';return;}box.innerHTML=caseLinkDraft.map((x,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="caseRemoveLink(${i})">×</button><div class="form-group"><label>${t('form.linkTitle')}</label><input value="${escapeHtml(x.title||'')}" onchange="caseLinkDraft[${i}].title=this.value" oninput="caseLinkDraft[${i}].title=this.value"></div><div class="form-group"><label>${t('form.linkUrl')}</label><input value="${escapeHtml(x.url||'')}" onchange="caseLinkDraft[${i}].url=this.value" oninput="caseLinkDraft[${i}].url=this.value"></div></div>`).join('');}
+async function saveSiCase(){const user=getUser();if(!user)return;const title=(document.getElementById('case-title').value||'').trim();const content=(document.getElementById('case-content').value||'').trim();const value=(document.getElementById('case-value').value||'').trim();if(!title||!content||!value)return alert(t('tip.required'));let old=editingSiCaseId?(await fetchSiCases()).find(c=>c.id===editingSiCaseId):null;const title_i18n=mergeI18n(old?.title_i18n,currentLang,title);const content_i18n=mergeI18n(old?.content_i18n,currentLang,content);const value_created_i18n=mergeI18n(old?.value_created_i18n,currentLang,value);const row={id:editingSiCaseId||Date.now(),title:title_i18n.zh||title,content:content_i18n.zh||content,value_created:value_created_i18n.zh||value,title_i18n,content_i18n,value_created_i18n,related_tools:caseRelatedDraft.map(x=>({id:x.id,name:x.name})),links:caseLinkDraft.filter(l=>(l.title||'').trim()||(l.url||'').trim()).map(l=>({title:(l.title||'').trim(),url:(l.url||'').trim()})),phone:old?.phone||user.phone};let error;if(editingSiCaseId)({error}=await sb.from('si_cases').update(row).eq('id',editingSiCaseId));else({error}=await sb.from('si_cases').insert(row));if(error)return alert(error.message);closeModal();renderSiCase();alert(t('tip.saved'));}
 async function deleteSiCase(id){const item=(await fetchSiCases()).find(c=>c.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('si_cases').delete().eq('id',id);renderSiCase();}
 
-/* 脉冲 / 合作 / 问卷 / 诊断 / 用户 / 分类 — 精简保持可用 */
 function msgTypeLabel(tp){return t(MSG_TYPE_KEYS[tp]||'pulse.typeGreeting');}
 function setPulseTab(tab){pulseTab=tab==='out'?'out':'in';pulsePage=1;const tin=document.getElementById('pulse-tab-in'),tout=document.getElementById('pulse-tab-out');if(tin)tin.classList.toggle('active',pulseTab==='in');if(tout)tout.classList.toggle('active',pulseTab==='out');renderInbox();}
 async function renderInbox(){const user=getUser();const box=document.getElementById('inbox-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('pulse.needLogin')}</div>`;return;}let list=await fetchAllMessages();list=pulseTab==='in'?list.filter(m=>String(m.to_phone)===String(user.phone)):list.filter(m=>String(m.from_phone)===String(user.phone));const typeF=(document.getElementById('pulse-type-filter')||{}).value||'';if(typeF)list=list.filter(m=>(m.msg_type||'')===typeF);const q=(document.getElementById('pulse-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(m=>[m.content,m.from_phone,m.to_phone].join(' ').toLowerCase().includes(ql));}const pg=paginate(list,pulsePage,PAGE_SIZE);pulsePage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(m=>{const unread=pulseTab==='in'&&!m.read;const peer=pulseTab==='in'?m.from_phone:m.to_phone;return`<div class="card"><div class="avatar avatar-pulse">⚡</div><div class="card-content"><div class="card-title"><span class="msg-type">${escapeHtml(msgTypeLabel(m.msg_type))}</span>${unread?`<span class="tag" style="background:#fee2e2;color:#b91c1c">${t('pulse.unread')}</span>`:''}</div><div class="card-desc">${escapeHtml(peer||'-')}<br>${escapeHtml(m.content||'')}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${pulseTab==='in'&&unread?`<button class="btn btn-outline btn-sm" onclick="markPulseRead(${m.id})">${t('pulse.markRead')}</button>`:''}${pulseTab==='in'?`<button class="btn btn-primary btn-sm" onclick="replyPulse('${escapeAttr(m.from_phone||'')}')">${t('btn.reply')}</button>`:''}${(isAdmin()||String(m.from_phone)===String(user.phone))?`<button class="btn btn-del btn-sm" onclick="deletePulse(${m.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('pulse.empty')}</div>`;renderPager('pulse-pager',pg.page,pg.pages,'goPulsePage');}
 function goPulsePage(p){pulsePage=p;renderInbox();}
-function openComposePulse(preTo='',preType='greeting'){const user=getUser();if(!user)return alert(t('pulse.needLogin'));const typeOpts=Object.keys(MSG_TYPE_KEYS).map(k=>`<option value="${k}" ${k===preType?'selected':''}>${t(MSG_TYPE_KEYS[k])}</option>`).join('');document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${t('pulse.compose')}</h3><div class="form-group"><label>${t('pulse.toPhone')}</label><input id="pulse-to" value="${escapeHtml(preTo)}" placeholder="${t('ph.phone')}"></div><div class="form-group"><label>${t('pulse.type')}</label><select id="pulse-type">${typeOpts}</select></div><div class="form-group"><label>${t('pulse.content')}</label><textarea id="pulse-content" style="min-height:100px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="sendPulse()">${t('btn.send')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
+function openComposePulse(preTo='',preType='greeting'){const user=getUser();if(!user)return alert(t('pulse.needLogin'));const typeOpts=Object.keys(MSG_TYPE_KEYS).map(k=>`<option value="${k}" ${k===preType?'selected':''}>${t(MSG_TYPE_KEYS[k])}</option>`).join('');document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${t('pulse.compose')}</h3><div class="form-group"><label>${t('pulse.toPhone')}</label><input id="pulse-to" value="${escapeHtml(preTo)}"></div><div class="form-group"><label>${t('pulse.type')}</label><select id="pulse-type">${typeOpts}</select></div><div class="form-group"><label>${t('pulse.content')}</label><textarea id="pulse-content" style="min-height:100px"></textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="sendPulse()">${t('btn.send')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function sendPulse(){const user=getUser();if(!user)return;const to=(document.getElementById('pulse-to').value||'').trim();const content=(document.getElementById('pulse-content').value||'').trim();const msg_type=document.getElementById('pulse-type').value||'greeting';if(!to||!content)return alert(t('tip.required'));const{error}=await sb.from('messages').insert({id:Date.now(),from_phone:user.phone,to_phone:to,msg_type,content,read:false});if(error)return alert(error.message);closeModal();alert(t('pulse.sendOk'));pulseTab='out';renderInbox();}
 function replyPulse(toPhone){openComposePulse(toPhone,'greeting');}
 function openSendMsgDirect(type,toPhone){openComposePulse(toPhone,type||'greeting');}
@@ -1050,7 +991,7 @@ function formatAnswerValue(val){if(val==null||val==='')return '—';if(Array.isA
 function renderAnswersReadable(answers){if(!answers||typeof answers!=='object')return`<div class="empty-tip">${t('diag.noAnswers')}</div>`;return Object.keys(answers).map((k,i)=>{const item=answers[k]||{};return`<div class="diag-answer"><div class="q">${i+1}. ${escapeHtml(String(item.label||k))}</div><div class="a">${escapeHtml(formatAnswerValue(item.value))}</div></div>`;}).join('')||`<div class="empty-tip">${t('diag.noAnswers')}</div>`;}
 async function renderDiagnosis(){const user=getUser();const box=document.getElementById('diagnosis-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchDiagnosis();if(user.role!=='admin')list=list.filter(d=>String(d.phone)===String(user.phone));const stF=(document.getElementById('diag-status-filter')||{}).value||'';if(stF)list=list.filter(d=>(d.status||'pending')===stF);const pg=paginate(list,diagPage,PAGE_SIZE);diagPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(d=>`<div class="card"><div class="avatar avatar-diag">诊</div><div class="card-content"><div class="card-title">#${d.id} ${diagStatusBadge(d.status)}</div><div class="card-desc">${escapeHtml(d.phone||'')}</div><button class="btn btn-primary btn-sm" onclick="viewDiagnosis(${d.id})">${t('diag.view')}</button></div></div>`).join(''):`<div class="empty-tip">${t('diag.empty')}</div>`;renderPager('diag-pager',pg.page,pg.pages,'goDiagPage');}
 function goDiagPage(p){diagPage=p;renderDiagnosis();}
-async function viewDiagnosis(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;const admin=isAdmin();const hasLink=!!((d.report_link||'').trim());const statusOpts=['pending','reviewing','completed','archived'].map(s=>`<option value="${s}" ${(d.status||'pending')===s?'selected':''}>${diagStatusLabel(s)}</option>`).join('');const mid=admin?`<div class="diag-report-box"><select id="diag-edit-status">${statusOpts}</select><textarea id="diag-edit-report" style="width:100%;min-height:80px;margin:8px 0">${escapeHtml(d.report||'')}</textarea><input id="diag-edit-link" value="${escapeHtml(d.report_link||'')}" placeholder="${t('ph.https')}" style="width:100%"></div>`:'';const actions=admin?`<button class="btn btn-primary" onclick="saveDiagnosisReport(${d.id})">${t('diag.saveReport')}</button><button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>`:`<button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.ok')}</button>`;document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('diag.detail')} #${d.id}</h3>${renderAnswersReadable(d.answers)}${mid}<div class="form-actions">${actions}</div>`;document.getElementById('modalMask').style.display='flex';}
+async function viewDiagnosis(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);if(!d)return;const admin=isAdmin();const hasLink=!!((d.report_link||'').trim());const statusOpts=['pending','reviewing','completed','archived'].map(s=>`<option value="${s}" ${(d.status||'pending')===s?'selected':''}>${diagStatusLabel(s)}</option>`).join('');const mid=admin?`<div class="diag-report-box"><select id="diag-edit-status">${statusOpts}</select><textarea id="diag-edit-report" style="width:100%;min-height:80px;margin:8px 0">${escapeHtml(d.report||'')}</textarea><input id="diag-edit-link" value="${escapeHtml(d.report_link||'')}" style="width:100%"></div>`:'';const actions=admin?`<button class="btn btn-primary" onclick="saveDiagnosisReport(${d.id})">${t('diag.saveReport')}</button><button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>`:`<button class="btn btn-success" ${hasLink?'':'disabled'} onclick="openDiagnosisReport(${d.id})">${t('diag.viewReport')}</button><button class="btn btn-outline" onclick="closeModal()">${t('btn.ok')}</button>`;document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${t('diag.detail')} #${d.id}</h3>${renderAnswersReadable(d.answers)}${mid}<div class="form-actions">${actions}</div>`;document.getElementById('modalMask').style.display='flex';}
 async function openDiagnosisReport(id){const d=(await fetchDiagnosis()).find(x=>x.id===id);const link=normalizeExternalUrl(d&&d.report_link);if(!link)return alert(t('tip.noReportLink'));window.open(link,'_blank','noopener');}
 async function saveDiagnosisReport(id){if(!isAdmin())return;const status=(document.getElementById('diag-edit-status')||{}).value||'pending';const report=(document.getElementById('diag-edit-report')||{}).value||'';const report_link=(document.getElementById('diag-edit-link')||{}).value||'';await sb.from('diagnosis_surveys').update({status,report,report_link}).eq('id',id);alert(t('tip.saved'));viewDiagnosis(id);renderDiagnosis();}
 async function renderUsers(){if(!isAdmin()){document.getElementById('users-tbody').innerHTML=`<tr><td colspan="5">${t('tip.loginFirst')}</td></tr>`;return;}const me=getUser();let list=await fetchUsers();const roleF=(document.getElementById('users-role-filter')||{}).value||'';if(roleF)list=list.filter(u=>(u.role||'')===roleF);const q=(document.getElementById('users-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(u=>String(u.phone).includes(ql));}const pg=paginate(list,usersPage,PAGE_SIZE);usersPage=pg.page;document.getElementById('users-tbody').innerHTML=pg.slice.length?pg.slice.map(u=>{const isSelf=me&&String(me.phone)===String(u.phone);const roleOpts=ROLE_KEYS.map(r=>`<option value="${r}" ${(u.role||'')===r?'selected':''}>${t('role.'+r)}</option>`).join('');return`<tr><td>${escapeHtml(u.phone||'')}</td><td><select onchange="changeUserRole('${escapeAttr(u.phone)}',this.value)">${roleOpts}</select></td><td>-</td><td>${u.blacklisted?'🚫':'OK'}</td><td><button class="btn btn-sm btn-outline" onclick="toggleUserBlacklist('${escapeAttr(u.phone)}',${!u.blacklisted})">${u.blacklisted?t('users.unban'):t('users.blacklist')}</button> <button class="user-del-btn" ${isSelf?'disabled':''} onclick="deleteUser('${escapeAttr(u.phone)}')">🗑</button></td></tr>`;}).join(''):`<tr><td colspan="5">${t('tip.noData')}</td></tr>`;renderPager('users-pager',pg.page,pg.pages,'goUsersPage');}
@@ -1071,3 +1012,4 @@ document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click'
 </script>
 </body>
 </html>
+
