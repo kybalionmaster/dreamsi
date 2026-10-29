@@ -182,8 +182,27 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
   #btnMenu{display:inline-flex!important}
 }
 .kybalion-wrap{max-width:480px;margin:0 auto}
-.kyb-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(15,23,42,.14);background:#0b1220 center top/cover no-repeat;background-image:url('poster-vertical.jpg');min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 12px 18px}
-.kyb-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%)}
+.kyb-hero{
+  position:relative;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 32px rgba(15,23,42,.14);
+  background:#0b1220 center top/cover no-repeat;
+  /* 不要写死 background-image:url('poster-vertical.jpg'); */
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  padding:0 12px 18px;
+}
+.kyb-hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(to bottom,transparent 0%,transparent 55%,rgba(8,12,28,.28) 70%,rgba(8,12,28,.55) 100%);
+}
 .kyb-step-icons{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
 .kyb-step-icon{position:relative;width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(251,191,36,.65);background:radial-gradient(circle at 30% 30%,#fde68a,#b45309);color:#1c1917;font-size:18px;text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .15s}
 .kyb-step-icon:hover,.kyb-step-icon:focus{transform:translateY(-3px);box-shadow:0 6px 16px rgba(251,191,36,.45);outline:none}
@@ -206,7 +225,9 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 }
 .kyb-footnote{margin-top:14px;text-align:center;font-size:12px;color:#64748b;line-height:1.6}
 .kyb-footnote a{color:#2563eb}
-@media(min-width:768px){.kyb-hero{min-height:600px}}
+@media(min-width:768px){
+  .kyb-hero{min-height:600px}
+}
 .lang-select{padding:6px 8px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;background:#fff;cursor:pointer;max-width:140px}
 .lang-hint{font-size:12px;color:#64748b;background:#f1f5f9;border-radius:8px;padding:8px 10px;margin-bottom:12px}
 .lang-hint b{color:#2563eb}
@@ -231,7 +252,15 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .btn-icon-sm.active-reorg{background:#fef3c7;border-color:#f59e0b}
 .progress-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:13px}
 .progress-box h5{font-size:13px;margin:0 0 8px;color:#0f172a;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
-.progress-box textarea{width:100%;min-height:88px;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;resize:vertical}
+.progress-box textarea{
+  width:100%;
+  min-height:176px;  /* 约一倍 */
+  padding:8px 10px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:13px;
+  resize:vertical;
+}
 .progress-box .progress-view{white-space:pre-wrap;word-break:break-word;color:#334155;line-height:1.55;min-height:1.5em}
 </style>
 </head>
@@ -292,10 +321,10 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
         <div class="pager" id="home-ds-pager"></div>
       </div>
 
-      <div class="view" id="view-kybalion">
-        <div class="kybalion-wrap">
-          <div class="kyb-hero">
-            <div class="kyb-step-icons">
+<div class="view" id="view-kybalion">
+  <div class="kybalion-wrap">
+    <div class="kyb-hero" id="kyb-hero">
+      <div class="kyb-step-icons">
               <a href="javascript:void(0)" class="kyb-step-icon" onclick="switchView('kybalion')" tabindex="0"
                  data-i18n-title="kyb.tip1" title="1. 宇宙法则指引方向">
                 ✦<span class="kyb-tip" data-i18n="kyb.tip1">1. 宇宙法则指引方向</span>
@@ -316,11 +345,12 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
                  data-i18n-title="kyb.tip5" title="5. 自动把客户送到企业怀抱">
                 ♥<span class="kyb-tip" data-i18n="kyb.tip5">5. 自动把客户送到企业怀抱</span>
               </a>
-            </div>
-          </div>
-          <div class="kyb-footnote" data-i18n-html="kyb.footnote">宇宙法则</div>
-        </div>
-      </div>
+</div>
+    </div>
+    <div class="kyb-footnote" data-i18n-html="kyb.footnote">宇宙法则</div>
+  </div>
+</div>
+
 
       <div class="view" id="view-focus">
         <div class="view-header">
@@ -540,6 +570,24 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 <div class="fab-menu"><button onclick="toggleSidebar(true)">☰</button></div>
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <script>
+
+const KYB_POSTERS={
+  zh:'assets/kyb-zh.png',
+  en:'assets/kyb-en.png',
+  de:'assets/kyb-de.png',
+  fr:'assets/kyb-fr.png',
+  ru:'assets/kyb-ru.png',
+  ja:'assets/kyb-ja.png',
+  ar:'assets/kyb-ar.png'
+};
+function kybPosterUrl(lang){
+  return KYB_POSTERS[lang]||KYB_POSTERS.zh||'assets/kyb-zh.png';
+}
+function applyKybPoster(){
+  const el=document.getElementById('kyb-hero');
+  if(!el)return;
+  el.style.backgroundImage=`url('${kybPosterUrl(currentLang)}')`;
+}
 
 const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
 const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
@@ -770,20 +818,17 @@ function applyStaticI18n(){
   document.title=t('brand');
 }
 function setLanguage(lang){
-  if(!SUPPORTED_LANGS.includes(lang))lang=detectBrowserLang();
+  if(!SUPPORTED_LANGS.includes(lang))lang='zh';
   currentLang=lang;
   localStorage.setItem('dreamsi_lang',lang);
-  document.documentElement.lang=LANG_HTML[lang]||lang;
-  document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
+  document.documentElement.lang=lang==='zh'?'zh-CN':lang;
+  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
   const sel=document.getElementById('langSelect');
   if(sel)sel.value=lang;
   applyStaticI18n();
-  homeActiveMajor='';
-  renderUserArea();updateButtons();renderAll();
-  const active=document.querySelector('.menu-item.active');
-  if(active&&active.dataset.view)switchView(active.dataset.view);
+  applyKybPoster();
+  renderAll();
 }
-
 
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null,editingSiCaseId=null;
 let focusDashiId=null,focusHeroId=null,focusJinZhuId=null,qgenTeamContext=null,homeCatsOpen=false,homeActiveMajor='',qgenDraftSections=[],pulseTab='in';
