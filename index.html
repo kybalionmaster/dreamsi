@@ -572,16 +572,16 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 <script>
 
 const KYB_POSTERS={
-  zh:'assets/kyb-zh.png',
-  en:'assets/kyb-en.png',
-  de:'assets/kyb-de.png',
-  fr:'assets/kyb-fr.png',
-  ru:'assets/kyb-ru.png',
-  ja:'assets/kyb-ja.png',
-  ar:'assets/kyb-ar.png'
+  zh:'kyb-zh.png',
+  en:'kyb-en.png',
+  de:'kyb-de.png',
+  fr:'kyb-fr.png',
+  ru:'kyb-ru.png',
+  ja:'kyb-ja.png',
+  ar:'kyb-ar.png'
 };
 function kybPosterUrl(lang){
-  return KYB_POSTERS[lang]||KYB_POSTERS.zh||'assets/kyb-zh.png';
+  return KYB_POSTERS[lang]||KYB_POSTERS.zh||'kyb-zh.png';
 }
 function applyKybPoster(){
   const el=document.getElementById('kyb-hero');
