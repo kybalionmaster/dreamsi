@@ -1007,9 +1007,77 @@ async function joinTeam(teamId){const user=getUser();if(!user)return alert(t('ti
 async function disbandTeam(teamId){if(!confirm(t('tip.deleteConfirm')))return;await sb.from('team').delete().eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
 function generateTeamName(phone){return 'Team-'+(phone||'').slice(-4)+'-'+Date.now().toString().slice(-4);}
 function teamPowerSum(team){return(team.members||[]).reduce((s,m)=>s+(Number(m.power)||0),0);}
-function rankByMatchThenPower(list,demandText,textFn,powerFn,limit){return list.map(item=>{const blob=textFn(item);const score=textMatch(demandText,blob);const power=powerFn(item);return{item,score,power};}).sort((a,b)=>{if(b.score!==a.score)return b.score-a.score;return b.power-a.power;}).slice(0,limit).map(x=>x.item);}
-async function runFullBundle(jinzhuId,mode){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert(t('tip.noPermission'));const isSuper=mode==='super';const cfg=isSuper?BUNDLE_SUPER:BUNDLE_NORMAL;const jinzhuList=await fetchJinZhu();const jin=jinzhuList.find(j=>j.id===jinzhuId);if(!jin)return;if(!canEdit(jin)&&!isAdmin())return alert(t('tip.noPermission'));const teams=await fetchTeam();let team=teams.find(tm=>String(tm.jinzhu_id)===String(jinzhuId));if(!team){const newId=Date.now();const row={id:newId,name:generateTeamName(jin.phone||user.phone),phone:jin.phone||user.phone,members:[],jinzhu_id:jinzhuId,demand:jinzhuDisplayTitle(jin)||jinzhuDisplayName(jin)||'',performances:[],bundled_cases:[],bundled_surveys:[]};const{error}=await sb.from('team').insert(row);if(error)return alert(error.message||t('tip.bundleNoTeam'));team=row;}alert(isSuper?t('tip.superBundleWorking'):t('tip.bundleWorking'));const demandText=accumulatePains(jin)+' '+(team.demand||'');const[heroes,dashis,cases,surveys]=await Promise.all([fetchHero(),fetchDaShi(),fetchSiCases(),fetchQgen()]);const topHeroes=rankByMatchThenPower(heroes,demandText,accumulateHero,h=>Number(h.power)||0,cfg.hero);const topSi=rankByMatchThenPower(dashis,demandText,accumulateTools,d=>Number(d.power)||0,cfg.si);const topCases=rankByMatchThenPower(cases,demandText,accumulateCase,()=>0,cfg.case);const pubSurveys=surveys.filter(s=>s.status==='published'||!s.status||s.status==='draft');const topSurveys=rankByMatchThenPower(pubSurveys.length?pubSurveys:surveys,demandText,s=>qgenDisplayName(s)+' '+qgenDisplayDesc(s)+' '+qgenDisplayIndustry(s),()=>0,cfg.survey);let members=Array.isArray(team.members)?[...team.members]:[];const addMember=(id,type,name,power)=>{if(isAlreadyInTeam(members,id))return;members.push({id,type,name:name||String(id),power:Number(power)||0});};topHeroes.forEach(h=>addMember(h.id,'hero',heroDisplayName(h),h.power));topSi.forEach(d=>addMember(d.id,'dashi',dashiDisplayName(d),d.power));const bundled_cases=topCases.map(c=>({id:c.id,title:caseDisplayTitle(c)}));const bundled_surveys=topSurveys.map(s=>({id:s.id,name:qgenDisplayName(s)}));const{error}=await sb.from('team').update({members,bundled_cases,bundled_surveys,demand:team.demand||jinzhuDisplayTitle(jin)||''}).eq('id',team.id);if(error)return alert(error.message);alert(`${isSuper?t('tip.superBundleOk'):t('tip.bundleOk')}\nElite ${topHeroes.length} / SI ${topSi.length} / Case ${bundled_cases.length} / Survey ${bundled_surveys.length}`);renderJinZhu();renderTeam();renderFocus();}
 
+async function runFullBundle(jinzhuId,mode){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  if(user.role!=='jinzhu'&&user.role!=='admin')return alert(t('tip.noPermission'));
+  const isSuper=mode==='super';
+  const cfg=isSuper?BUNDLE_SUPER:BUNDLE_NORMAL;
+  const jinzhuList=await fetchJinZhu();
+  const jin=jinzhuList.find(j=>j.id===jinzhuId);
+  if(!jin)return;
+  if(!canEdit(jin)&&!isAdmin())return alert(t('tip.noPermission'));
+  const teams=await fetchTeam();
+  let team=teams.find(tm=>String(tm.jinzhu_id)===String(jinzhuId));
+  if(!team){
+    const newId=Date.now();
+    const row={
+      id:newId,
+      name:generateTeamName(jin.phone||user.phone),
+      phone:jin.phone||user.phone,
+      members:[],
+      jinzhu_id:jinzhuId,
+      demand:jinzhuDisplayTitle(jin)||jinzhuDisplayName(jin)||'',
+      performances:[],
+      bundled_cases:[],
+      bundled_surveys:[],
+      progress_text:''
+    };
+    const{error}=await sb.from('team').insert(row);
+    if(error)return alert(error.message||t('tip.bundleNoTeam'));
+    team=row;
+  }
+  alert(isSuper?t('tip.superBundleWorking'):t('tip.bundleWorking'));
+  const demandText=accumulatePains(jin)+' '+(team.demand||'');
+  const[heroes,dashis,cases,surveys]=await Promise.all([
+    fetchHero(),fetchDaShi(),fetchSiCases(),fetchQgen()
+  ]);
+  const topHeroes=rankByMatchThenPower(heroes,demandText,accumulateHero,h=>Number(h.power)||0,cfg.hero);
+  // 超级全家桶：SI 只按战力，不匹配；普通全家桶仍匹配
+  const topSi=isSuper
+    ? (dashis||[]).slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0)).slice(0,cfg.si)
+    : rankByMatchThenPower(dashis,demandText,accumulateTools,d=>Number(d.power)||0,cfg.si);
+  const topCases=rankByMatchThenPower(cases,demandText,accumulateCase,()=>0,cfg.case);
+  const pubSurveys=surveys.filter(s=>s.status==='published'||!s.status||s.status==='draft');
+  const topSurveys=rankByMatchThenPower(
+    pubSurveys.length?pubSurveys:surveys,
+    demandText,
+    s=>qgenDisplayName(s)+' '+qgenDisplayDesc(s)+' '+qgenDisplayIndustry(s),
+    ()=>0,
+    cfg.survey
+  );
+  let members=Array.isArray(team.members)?[...team.members]:[];
+  const addMember=(id,type,name,power)=>{
+    if(isAlreadyInTeam(members,id))return;
+    members.push({id,type,name:name||String(id),power:Number(power)||0});
+  };
+  topHeroes.forEach(h=>addMember(h.id,'hero',heroDisplayName(h),h.power));
+  topSi.forEach(d=>addMember(d.id,'dashi',dashiDisplayName(d),d.power));
+  const bundled_cases=topCases.map(c=>({id:c.id,title:caseDisplayTitle(c)}));
+  const bundled_surveys=topSurveys.map(s=>({id:s.id,name:qgenDisplayName(s)}));
+  const{error}=await sb.from('team').update({
+    members,
+    bundled_cases,
+    bundled_surveys,
+    demand:team.demand||jinzhuDisplayTitle(jin)||''
+  }).eq('id',team.id);
+  if(error)return alert(error.message);
+  alert(`${isSuper?t('tip.superBundleOk'):t('tip.bundleOk')}\nElite ${topHeroes.length} / SI ${topSi.length} / Case ${bundled_cases.length} / Survey ${bundled_surveys.length}`);
+  renderJinZhu();
+  renderTeam();
+  renderFocus();
+}
 function teamBundleHtml(team){
   if(!team)return '';
   const cases=Array.isArray(team.bundled_cases)?team.bundled_cases:[];
