@@ -223,6 +223,16 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .badge-reviewing{background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-completed{background:#d1fae5;color:#047857;padding:2px 8px;border-radius:999px;font-size:11px}
 .badge-archived{background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:999px;font-size:11px}
+.member-x,.bundle-x{width:22px;height:22px;border-radius:50%;border:none;background:#fee2e2;color:#b91c1c;cursor:pointer;font-size:14px;line-height:1;opacity:0;display:inline-flex;align-items:center;justify-content:center}
+.team-show-kick .member-x{opacity:1}
+.team-show-case .bundle-x.case-x{opacity:1}
+.team-show-survey .bundle-x.survey-x{opacity:1}
+.bundle-chip{display:inline-flex;align-items:center;gap:4px}
+.btn-icon-sm.active-reorg{background:#fef3c7;border-color:#f59e0b}
+.progress-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:13px}
+.progress-box h5{font-size:13px;margin:0 0 8px;color:#0f172a;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.progress-box textarea{width:100%;min-height:88px;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;resize:vertical}
+.progress-box .progress-view{white-space:pre-wrap;word-break:break-word;color:#334155;line-height:1.55;min-height:1.5em}
 </style>
 </head>
 <body>
@@ -581,7 +591,7 @@ i18n.zh={
   hero:{emptyMine:'您还没有发布精英档案。'},
   dashi:{matchTip:'正在为「{name}」匹配超级智能。',clearMatch:'清除匹配'},
   jinzhu:{matchTip:'正在为「{name}」匹配金主需求。',clearMatch:'清除匹配',idLabel:'需求编号'},
-  team:{empty:'暂无团队，点击右上角创建',memberN:'人',bundleHint:'全家桶 6+6+6+3 · 超级全家桶 12+12+12+6'},
+  team:{empty:'暂无团队，点击右上角创建',memberN:'人',bundleHint:'全家桶 6+6+6+3 · 超级全家桶 12+12+12+6',progress:'团队进展',progressPh:'在此记录团队进展…',saveProgress:'保存进展',noProgress:'暂无进展',tipKickOn:'关闭成员重组',tipKickOff:'开启成员重组',tipCardOn:'隐藏名片',tipCardOff:'显示名片',tipCaseOn:'关闭 SI 成功场景重组',tipCaseOff:'开启 SI 成功场景重组',tipSurveyOn:'关闭问卷调查重组',tipSurveyOff:'开启问卷调查重组'},
   case:{extractHint:'填写 SI 名称后点验证；合格项可再删除，保存只采用余下。',noLinks:'暂无外链',noRelated:'暂无关联 SI',okList:'合格（可删减）',rejectList:'未在库中'}
 };
 
@@ -608,11 +618,11 @@ i18n.en={
   hero:{emptyMine:'You have no elite profile yet.'},
   dashi:{matchTip:'Matching SI for "{name}".',clearMatch:'Clear match'},
   jinzhu:{matchTip:'Matching demands for "{name}".',clearMatch:'Clear match',idLabel:'ID'},
-  team:{empty:'No teams yet. Create one.',memberN:'members',bundleHint:'Pack 6+6+6+3 · Super 12+12+12+6'},
+  team:{empty:'No teams yet. Create one.',memberN:'members',bundleHint:'Pack 6+6+6+3 · Super 12+12+12+6',progress:'Progress',progressPh:'Record team progress…',saveProgress:'Save progress',noProgress:'No progress yet',tipKickOn:'Close member reorg',tipKickOff:'Open member reorg',tipCardOn:'Hide card',tipCardOff:'Show card',tipCaseOn:'Close SI case reorg',tipCaseOff:'Open SI case reorg',tipSurveyOn:'Close survey reorg',tipSurveyOff:'Open survey reorg'},
   case:{extractHint:'Enter SI names, Verify, then delete unwanted. Only remaining are saved.',noLinks:'No links',noRelated:'No related SI',okList:'Matched (trim)',rejectList:'Not in library'}
 };
 
-/* ===== 203 德语 全量 ===== */
+/* ===== 德语 ===== */
 i18n.de={
   brand:'Traum-Manifestierer',
   menu:{home:'🏠 Start',kybalion:'📖 Kosmische Gesetze',focus:'🎯 Aktuelles Manifestationszentrum',team:'👥 Mein Super-Team',jinzhu:'💰 Nachfrage',dashi:'🤖 Super-SI',sicase:'✨ SI-Erfolgsszenen',hero:'⭐ Eliten',qgen:'📋 Umfragen',diagnosis:'🔎 Diagnose',inbox:'⚡ Puls',coop:'🤝 Kooperation',categories:'🗂 Kategorien',coopList:'🏢 Kooperationszentrum',users:'👤 Benutzer'},
@@ -635,11 +645,11 @@ i18n.de={
   hero:{emptyMine:'Sie haben noch kein Elite-Profil.'},
   dashi:{matchTip:'SI für „{name}“ wird gematcht.',clearMatch:'Match löschen'},
   jinzhu:{matchTip:'Nachfragen für „{name}“ werden gematcht.',clearMatch:'Match löschen',idLabel:'ID'},
-  team:{empty:'Noch keine Teams. Erstellen Sie eines.',memberN:'Mitglieder',bundleHint:'Paket 6+6+6+3 · Super 12+12+12+6'},
+  team:{empty:'Noch keine Teams. Erstellen Sie eines.',memberN:'Mitglieder',bundleHint:'Paket 6+6+6+3 · Super 12+12+12+6',progress:'Fortschritt',progressPh:'Teamfortschritt hier eintragen…',saveProgress:'Fortschritt speichern',noProgress:'Noch kein Fortschritt',tipKickOn:'Mitglieder-Reorg schließen',tipKickOff:'Mitglieder-Reorg öffnen',tipCardOn:'Visitenkarte ausblenden',tipCardOff:'Visitenkarte zeigen',tipCaseOn:'SI-Fall-Reorg schließen',tipCaseOff:'SI-Fall-Reorg öffnen',tipSurveyOn:'Umfrage-Reorg schließen',tipSurveyOff:'Umfrage-Reorg öffnen'},
   case:{extractHint:'SI-Namen eingeben, prüfen, unerwünschte löschen. Nur Rest wird gespeichert.',noLinks:'Keine Links',noRelated:'Kein verwandtes SI',okList:'Gefunden (kürzen)',rejectList:'Nicht in Bibliothek'}
 };
 
-/* ===== 203 法语 全量 ===== */
+/* ===== 法语 ===== */
 i18n.fr={
   brand:'Manifesteur de Rêves',
   menu:{home:'🏠 Accueil',kybalion:'📖 Lois cosmiques',focus:'🎯 Centre de manifestation actuel',team:'👥 Mon super équipe',jinzhu:'💰 Demandes',dashi:'🤖 Super SI',sicase:'✨ Scènes de succès SI',hero:'⭐ Élites',qgen:'📋 Enquêtes',diagnosis:'🔎 Diagnostic',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Catégories',coopList:'🏢 Centre de coop',users:'👤 Utilisateurs'},
@@ -662,11 +672,11 @@ i18n.fr={
   hero:{emptyMine:'Vous n’avez pas encore de profil élite.'},
   dashi:{matchTip:'Correspondance SI pour « {name} ».',clearMatch:'Effacer la correspondance'},
   jinzhu:{matchTip:'Correspondance des demandes pour « {name} ».',clearMatch:'Effacer la correspondance',idLabel:'ID'},
-  team:{empty:'Pas encore d’équipes. Créez-en une.',memberN:'membres',bundleHint:'Pack 6+6+6+3 · Super 12+12+12+6'},
+  team:{empty:'Pas encore d’équipes. Créez-en une.',memberN:'membres',bundleHint:'Pack 6+6+6+3 · Super 12+12+12+6',progress:'Progrès',progressPh:'Noter le progrès de l’équipe…',saveProgress:'Enregistrer le progrès',noProgress:'Pas encore de progrès',tipKickOn:'Fermer réorg. membres',tipKickOff:'Ouvrir réorg. membres',tipCardOn:'Masquer carte',tipCardOff:'Afficher carte',tipCaseOn:'Fermer réorg. cas SI',tipCaseOff:'Ouvrir réorg. cas SI',tipSurveyOn:'Fermer réorg. enquêtes',tipSurveyOff:'Ouvrir réorg. enquêtes'},
   case:{extractHint:'Entrer les noms SI, vérifier, supprimer les indésirables. Seuls les restants sont enregistrés.',noLinks:'Aucun lien',noRelated:'Aucun SI lié',okList:'Trouvé (réduire)',rejectList:'Pas dans la bibliothèque'}
 };
 
-/* ===== 203 俄语 全量 ===== */
+/* ===== 俄语 ===== */
 i18n.ru={
   brand:'Манифестор мечты',
   menu:{home:'🏠 Главная',kybalion:'📖 Космические законы',focus:'🎯 Текущий центр манифестации',team:'👥 Моя супер-команда',jinzhu:'💰 Запросы',dashi:'🤖 Супер SI',sicase:'✨ Сцены успеха SI',hero:'⭐ Элита',qgen:'📋 Опросы',diagnosis:'🔎 Диагностика',inbox:'⚡ Пульс',coop:'🤝 Сотрудничество',categories:'🗂 Категории',coopList:'🏢 Центр сотрудничества',users:'👤 Пользователи'},
@@ -689,11 +699,11 @@ i18n.ru={
   hero:{emptyMine:'У вас ещё нет профиля элиты.'},
   dashi:{matchTip:'Подбор SI для «{name}».',clearMatch:'Сбросить подбор'},
   jinzhu:{matchTip:'Подбор запросов для «{name}».',clearMatch:'Сбросить подбор',idLabel:'ID'},
-  team:{empty:'Пока нет команд. Создайте.',memberN:'участников',bundleHint:'Пакет 6+6+6+3 · Супер 12+12+12+6'},
+  team:{empty:'Пока нет команд. Создайте.',memberN:'участников',bundleHint:'Пакет 6+6+6+3 · Супер 12+12+12+6',progress:'Прогресс',progressPh:'Запишите прогресс команды…',saveProgress:'Сохранить прогресс',noProgress:'Прогресса пока нет',tipKickOn:'Закрыть реорг. участников',tipKickOff:'Открыть реорг. участников',tipCardOn:'Скрыть визитку',tipCardOff:'Показать визитку',tipCaseOn:'Закрыть реорг. кейсов SI',tipCaseOff:'Открыть реорг. кейсов SI',tipSurveyOn:'Закрыть реорг. опросов',tipSurveyOff:'Открыть реорг. опросов'},
   case:{extractHint:'Введите имена SI, проверьте, удалите ненужные. Сохраняются только оставшиеся.',noLinks:'Нет ссылок',noRelated:'Нет связанного SI',okList:'Найдено (сократить)',rejectList:'Нет в библиотеке'}
 };
 
-/* ===== 203 日语 全量 ===== */
+/* ===== 日语 ===== */
 i18n.ja={
   brand:'夢実現装置',
   menu:{home:'🏠 ホーム',kybalion:'📖 宇宙法則',focus:'🎯 現在の顕現センター',team:'👥 マイスーパーチーム',jinzhu:'💰 金主需要',dashi:'🤖 スーパーSI',sicase:'✨ SI成功シーン',hero:'⭐ エリート',qgen:'📋 アンケート',diagnosis:'🔎 診断',inbox:'⚡ パルス',coop:'🤝 協力',categories:'🗂 カテゴリ',coopList:'🏢 協力センター',users:'👤 ユーザー'},
@@ -716,11 +726,11 @@ i18n.ja={
   hero:{emptyMine:'まだエリートプロフィールがありません。'},
   dashi:{matchTip:'「{name}」にSIをマッチ中。',clearMatch:'マッチを解除'},
   jinzhu:{matchTip:'「{name}」に需要をマッチ中。',clearMatch:'マッチを解除',idLabel:'番号'},
-  team:{empty:'チームがありません。作成してください。',memberN:'人',bundleHint:'全家桶 6+6+6+3 · スーパー 12+12+12+6'},
+  team:{empty:'チームがありません。作成してください。',memberN:'人',bundleHint:'全家桶 6+6+6+3 · スーパー 12+12+12+6',progress:'進捗',progressPh:'チーム進捗を記録…',saveProgress:'進捗を保存',noProgress:'進捗なし',tipKickOn:'メンバー再編を閉じる',tipKickOff:'メンバー再編を開く',tipCardOn:'名刺を隠す',tipCardOff:'名刺を表示',tipCaseOn:'SI事例再編を閉じる',tipCaseOff:'SI事例再編を開く',tipSurveyOn:'アンケート再編を閉じる',tipSurveyOff:'アンケート再編を開く'},
   case:{extractHint:'SI名を入力し検証。不要なものを削除。残りだけ保存。',noLinks:'リンクなし',noRelated:'関連SIなし',okList:'一致（削る）',rejectList:'ライブラリにない'}
 };
 
-/* ===== 阿拉伯语（与 202 一致，完整） ===== */
+/* ===== 阿拉伯语 ===== */
 i18n.ar={
   brand:'مُظهّر الأحلام',
   menu:{home:'🏠 الرئيسية',kybalion:'📖 القوانين الكونية',focus:'🎯 مركز التجلي الحالي',team:'👥 فريقي الخارق',jinzhu:'💰 مركز طلبات العملاء',dashi:'🤖 مركز الذكاء الفائق',sicase:'✨ مشاهد نجاح SI',hero:'⭐ مركز النخبة',qgen:'📋 مركز الاستبيانات',diagnosis:'🔎 مركز التشخيص',inbox:'⚡ مركز النبض',coop:'🤝 التعاون التجاري',categories:'🗂 التصنيفات',coopList:'🏢 مركز التعاون',users:'👤 إدارة المستخدمين'},
@@ -743,10 +753,9 @@ i18n.ar={
   hero:{emptyMine:'ليس لديك ملف نخبة بعد.'},
   dashi:{matchTip:'مطابقة SI لـ "{name}".',clearMatch:'مسح المطابقة'},
   jinzhu:{matchTip:'مطابقة الطلبات لـ "{name}".',clearMatch:'مسح المطابقة',idLabel:'الرقم'},
-  team:{empty:'لا فرق بعد. أنشئ واحداً.',memberN:'أعضاء',bundleHint:'حزمة 6+6+6+3 · فائقة 12+12+12+6'},
+  team:{empty:'لا فرق بعد. أنشئ واحداً.',memberN:'أعضاء',bundleHint:'حزمة 6+6+6+3 · فائقة 12+12+12+6',progress:'التقدم',progressPh:'سجّل تقدم الفريق هنا…',saveProgress:'حفظ التقدم',noProgress:'لا تقدم بعد',tipKickOn:'إغلاق إعادة تنظيم الأعضاء',tipKickOff:'فتح إعادة تنظيم الأعضاء',tipCardOn:'إخفاء البطاقة',tipCardOff:'إظهار البطاقة',tipCaseOn:'إغلاق إعادة تنظيم حالات SI',tipCaseOff:'فتح إعادة تنظيم حالات SI',tipSurveyOn:'إغلاق إعادة تنظيم الاستبيانات',tipSurveyOff:'فتح إعادة تنظيم الاستبيانات'},
   case:{extractHint:'أدخل أسماء SI، تحقق، ثم احذف غير المرغوب. يُحفظ الباقي فقط.',noLinks:'لا روابط',noRelated:'لا SI مرتبط',okList:'مطابق (احذف)',rejectList:'غير موجود في المكتبة'}
 };
-
 let currentLang=getInitialLang();
 function t(key){const parts=String(key||'').split('.');const tryLang=lang=>{let o=i18n[lang];for(const p of parts){if(o==null)return null;o=o[p];}return typeof o==='string'?o:null;};return tryLang(currentLang)||tryLang('en')||tryLang('zh')||key;}
 function tl(val,fallback=''){if(val==null||val==='')return fallback||'';if(typeof val==='string')return val;if(typeof val==='object'){const v=val[currentLang]||val.zh||val.en||val.ar||Object.values(val).find(x=>x&&String(x).trim())||'';return (v==null||v==='')?(fallback||''):String(v);}return String(val);}
@@ -876,6 +885,48 @@ async function resolveJoinIdentity(user){let displayName=user.phone,memberType='
 function memberMatchesUser(m,user,heroIds,dashiIds){if(!user||!m)return false;if(String(m.id)===String(user.phone))return true;if(m.phone&&String(m.phone)===String(user.phone))return true;if((m.type==='hero'||m.type==='yingxiao')&&heroIds&&heroIds.has(String(m.id)))return true;if((m.type==='dashi'||m.type==='si')&&dashiIds&&dashiIds.has(String(m.id)))return true;return false;}
 function toggleTeamKick(teamId){teamKickVisible[teamId]=!teamKickVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
 function toggleTeamCard(teamId){teamCardVisible[teamId]=!teamCardVisible[teamId];renderTeam();renderJinZhu();renderFocus();}
+function toggleTeamCaseKick(teamId){
+  teamCaseKickVisible[teamId]=!teamCaseKickVisible[teamId];
+  renderTeam();renderJinZhu();renderFocus();
+}
+function toggleTeamSurveyKick(teamId){
+  teamSurveyKickVisible[teamId]=!teamSurveyKickVisible[teamId];
+  renderTeam();renderJinZhu();renderFocus();
+}
+function teamProgressText(team){return (team&&team.progress_text!=null)?String(team.progress_text):'';}
+function teamProgressHtml(team,isOwner){
+  if(!team)return '';
+  const txt=teamProgressText(team);
+  if(isOwner){
+    return `<div class="progress-box"><h5><span>📈 ${t('team.progress')}</span>
+      <button type="button" class="btn btn-primary btn-sm" onclick="saveTeamProgress(${team.id})">${t('team.saveProgress')}</button></h5>
+      <textarea id="team-progress-${team.id}" placeholder="${escapeAttr(t('team.progressPh'))}">${escapeHtml(txt)}</textarea></div>`;
+  }
+  return `<div class="progress-box"><h5>📈 ${t('team.progress')}</h5>
+    <div class="progress-view">${txt?escapeHtml(txt):`<span style="color:#94a3b8">${t('team.noProgress')}</span>`}</div></div>`;
+}
+async function saveTeamProgress(teamId){
+  const user=getUser();if(!user)return alert(t('tip.loginFirst'));
+  const ta=document.getElementById('team-progress-'+teamId);if(!ta)return;
+  const progress_text=ta.value||'';
+  const{error}=await sb.from('team').update({progress_text}).eq('id',teamId);
+  if(error)return alert(error.message);
+  alert(t('tip.saved'));renderTeam();renderFocus();renderJinZhu();
+}
+async function kickBundledCase(teamId,caseId){
+  const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);
+  if(!team||!canEdit(team))return;
+  const bundled_cases=(Array.isArray(team.bundled_cases)?team.bundled_cases:[]).filter(c=>Number(c.id)!==Number(caseId));
+  await sb.from('team').update({bundled_cases}).eq('id',teamId);
+  renderTeam();renderJinZhu();renderFocus();
+}
+async function kickBundledSurvey(teamId,surveyId){
+  const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);
+  if(!team||!canEdit(team))return;
+  const bundled_surveys=(Array.isArray(team.bundled_surveys)?team.bundled_surveys:[]).filter(s=>Number(s.id)!==Number(surveyId));
+  await sb.from('team').update({bundled_surveys}).eq('id',teamId);
+  renderTeam();renderJinZhu();renderFocus();
+}
 function goQgenFromTeam(teamId,teamName){qgenTeamContext={teamId,teamName:teamName||''};switchView('qgen');}
 function toggleSidebar(open){const sbEl=document.getElementById('sidebar'),ov=document.getElementById('sidebarOverlay');if(open){sbEl.classList.add('open');ov.classList.add('open');}else{sbEl.classList.remove('open');ov.classList.remove('open');}}
 
@@ -913,16 +964,106 @@ function generateTeamName(phone){return 'Team-'+(phone||'').slice(-4)+'-'+Date.n
 function teamPowerSum(team){return(team.members||[]).reduce((s,m)=>s+(Number(m.power)||0),0);}
 function rankByMatchThenPower(list,demandText,textFn,powerFn,limit){return list.map(item=>{const blob=textFn(item);const score=textMatch(demandText,blob);const power=powerFn(item);return{item,score,power};}).sort((a,b)=>{if(b.score!==a.score)return b.score-a.score;return b.power-a.power;}).slice(0,limit).map(x=>x.item);}
 async function runFullBundle(jinzhuId,mode){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='jinzhu'&&user.role!=='admin')return alert(t('tip.noPermission'));const isSuper=mode==='super';const cfg=isSuper?BUNDLE_SUPER:BUNDLE_NORMAL;const jinzhuList=await fetchJinZhu();const jin=jinzhuList.find(j=>j.id===jinzhuId);if(!jin)return;if(!canEdit(jin)&&!isAdmin())return alert(t('tip.noPermission'));const teams=await fetchTeam();let team=teams.find(tm=>String(tm.jinzhu_id)===String(jinzhuId));if(!team){const newId=Date.now();const row={id:newId,name:generateTeamName(jin.phone||user.phone),phone:jin.phone||user.phone,members:[],jinzhu_id:jinzhuId,demand:jinzhuDisplayTitle(jin)||jinzhuDisplayName(jin)||'',performances:[],bundled_cases:[],bundled_surveys:[]};const{error}=await sb.from('team').insert(row);if(error)return alert(error.message||t('tip.bundleNoTeam'));team=row;}alert(isSuper?t('tip.superBundleWorking'):t('tip.bundleWorking'));const demandText=accumulatePains(jin)+' '+(team.demand||'');const[heroes,dashis,cases,surveys]=await Promise.all([fetchHero(),fetchDaShi(),fetchSiCases(),fetchQgen()]);const topHeroes=rankByMatchThenPower(heroes,demandText,accumulateHero,h=>Number(h.power)||0,cfg.hero);const topSi=rankByMatchThenPower(dashis,demandText,accumulateTools,d=>Number(d.power)||0,cfg.si);const topCases=rankByMatchThenPower(cases,demandText,accumulateCase,()=>0,cfg.case);const pubSurveys=surveys.filter(s=>s.status==='published'||!s.status||s.status==='draft');const topSurveys=rankByMatchThenPower(pubSurveys.length?pubSurveys:surveys,demandText,s=>qgenDisplayName(s)+' '+qgenDisplayDesc(s)+' '+qgenDisplayIndustry(s),()=>0,cfg.survey);let members=Array.isArray(team.members)?[...team.members]:[];const addMember=(id,type,name,power)=>{if(isAlreadyInTeam(members,id))return;members.push({id,type,name:name||String(id),power:Number(power)||0});};topHeroes.forEach(h=>addMember(h.id,'hero',heroDisplayName(h),h.power));topSi.forEach(d=>addMember(d.id,'dashi',dashiDisplayName(d),d.power));const bundled_cases=topCases.map(c=>({id:c.id,title:caseDisplayTitle(c)}));const bundled_surveys=topSurveys.map(s=>({id:s.id,name:qgenDisplayName(s)}));const{error}=await sb.from('team').update({members,bundled_cases,bundled_surveys,demand:team.demand||jinzhuDisplayTitle(jin)||''}).eq('id',team.id);if(error)return alert(error.message);alert(`${isSuper?t('tip.superBundleOk'):t('tip.bundleOk')}\nElite ${topHeroes.length} / SI ${topSi.length} / Case ${bundled_cases.length} / Survey ${bundled_surveys.length}`);renderJinZhu();renderTeam();renderFocus();}
-function teamBundleHtml(team){if(!team)return '';const cases=Array.isArray(team.bundled_cases)?team.bundled_cases:[];const surveys=Array.isArray(team.bundled_surveys)?team.bundled_surveys:[];if(!cases.length&&!surveys.length)return '';return`<div class="bundle-box">${cases.length?`<h5>${t('label.bundledCases')}</h5><div class="bundle-row">${cases.map(c=>`<span class="tag tag-tool" onclick="switchView('sicase')">${escapeHtml(c.title||c.id||'')}</span>`).join('')}</div>`:''}${surveys.length?`<h5 style="margin-top:8px">${t('label.bundledSurveys')}</h5><div class="bundle-row">${surveys.map(s=>`<span class="tag tag-sub" onclick="switchView('qgen')">${escapeHtml(s.name||s.id||'')}</span>`).join('')}</div>`:''}</div>`;}
-function teamBlockHtml(team,j,user,heroIds,dashiIds){if(!team)return '';const members=team.members||[];const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));const sum=teamPowerSum(team);const showKick=!!teamKickVisible[team.id],showCard=!!teamCardVisible[team.id];const canJoin=user&&!isMember&&!isOwner;return`<div class="team-box ${showKick?'team-show-kick':''}"><div class="team-title"><h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4><span class="tag tag-power">⚡${sum}</span><span class="tag">${members.length} ${t('team.memberN')}</span>${user?`<button class="btn btn-survey btn-sm" onclick="goQgenFromTeam(${team.id},'${escapeAttr(team.name||'')}')">Survey</button><button type="button" class="btn-icon-sm" title="${t('btn.setFocus')}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}${isOwner?`<button type="button" class="btn-icon-sm" onclick="toggleTeamKick(${team.id})">${showKick?'✅':'🔀'}</button>`:''}<button type="button" class="btn-icon-sm" onclick="toggleTeamCard(${team.id})">${showCard?'🪪':'📇'}</button>${canJoin?`<button type="button" class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">${t('btn.join')}</button>`:''}${canEdit(team)?`<button class="btn btn-edit btn-sm" onclick="editTeam(${team.id})">${t('btn.edit')}</button>`:''}${isOwner?`<button class="btn btn-del btn-sm" onclick="disbandTeam(${team.id})">${t('btn.disband')}</button>`:''}</div>${team.demand?`<div class="card-desc" style="margin-top:6px"><b>${t('label.demand')}：</b>${escapeHtml(team.demand)}</div>`:''}<div class="member-list" style="margin-top:8px">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>${teamBundleHtml(team)}${showCard&&j?renderBizCard(j.card,j.phone):''}</div>`;}
-
+function teamBundleHtml(team){
+  if(!team)return '';
+  const cases=Array.isArray(team.bundled_cases)?team.bundled_cases:[];
+  const surveys=Array.isArray(team.bundled_surveys)?team.bundled_surveys:[];
+  if(!cases.length&&!surveys.length)return '';
+  const showCase=!!teamCaseKickVisible[team.id];
+  const showSurvey=!!teamSurveyKickVisible[team.id];
+  const isOwner=(()=>{const user=getUser();return user&&(String(team.phone)===String(user.phone)||isAdmin());})();
+  return`<div class="bundle-box ${showCase?'team-show-case':''} ${showSurvey?'team-show-survey':''}">
+    ${cases.length?`<h5>${t('label.bundledCases')}</h5><div class="bundle-row">${cases.map(c=>{
+      const kick=isOwner?`<button type="button" class="bundle-x case-x" onclick="kickBundledCase(${team.id},${Number(c.id)})">×</button>`:'';
+      return `<span class="tag tag-tool bundle-chip" onclick="switchView('sicase')">${escapeHtml(c.title||c.id||'')}${kick}</span>`;
+    }).join('')}</div>`:''}
+    ${surveys.length?`<h5 style="margin-top:8px">${t('label.bundledSurveys')}</h5><div class="bundle-row">${surveys.map(s=>{
+      const kick=isOwner?`<button type="button" class="bundle-x survey-x" onclick="kickBundledSurvey(${team.id},${Number(s.id)})">×</button>`:'';
+      return `<span class="tag tag-sub bundle-chip" onclick="switchView('qgen')">${escapeHtml(s.name||s.id||'')}${kick}</span>`;
+    }).join('')}</div>`:''}
+  </div>`;
+}
+function teamBlockHtml(team,j,user,heroIds,dashiIds){
+  if(!team)return '';
+  const members=team.members||[];
+  const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
+  const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));
+  const sum=teamPowerSum(team);
+  const showKick=!!teamKickVisible[team.id];
+  const showCard=!!teamCardVisible[team.id];
+  const showCase=!!teamCaseKickVisible[team.id];
+  const showSurvey=!!teamSurveyKickVisible[team.id];
+  const canJoin=user&&!isMember&&!isOwner;
+  const tipKick=showKick?t('team.tipKickOn'):t('team.tipKickOff');
+  const tipCard=showCard?t('team.tipCardOn'):t('team.tipCardOff');
+  const tipCase=showCase?t('team.tipCaseOn'):t('team.tipCaseOff');
+  const tipSurvey=showSurvey?t('team.tipSurveyOn'):t('team.tipSurveyOff');
+  const cls=['team-box'];
+  if(showKick)cls.push('team-show-kick');
+  if(showCase)cls.push('team-show-case');
+  if(showSurvey)cls.push('team-show-survey');
+  return`<div class="${cls.join(' ')}">
+    <div class="team-title">
+      <h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4>
+      <span class="tag tag-power">⚡${sum}</span>
+      ${user?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('btn.setFocus'))}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
+      ${isOwner?`<button type="button" class="btn-icon-sm ${showKick?'active-reorg':''}" title="${escapeAttr(tipKick)}" onclick="toggleTeamKick(${team.id})">🔀</button>`:''}
+      <button type="button" class="btn-icon-sm ${showCard?'active-reorg':''}" title="${escapeAttr(tipCard)}" onclick="toggleTeamCard(${team.id})">📇</button>
+      ${isOwner?`<button type="button" class="btn-icon-sm ${showCase?'active-reorg':''}" title="${escapeAttr(tipCase)}" onclick="toggleTeamCaseKick(${team.id})">✨</button>`:''}
+      ${isOwner?`<button type="button" class="btn-icon-sm ${showSurvey?'active-reorg':''}" title="${escapeAttr(tipSurvey)}" onclick="toggleTeamSurveyKick(${team.id})">📋</button>`:''}
+      ${canJoin?`<button type="button" class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">${t('btn.join')}</button>`:''}
+      ${isOwner?`<button class="btn btn-del btn-sm" onclick="disbandTeam(${team.id})">${t('btn.disband')}</button>`:''}
+    </div>
+    ${team.demand?`<div class="card-desc" style="margin-top:6px"><b>${t('label.demand')}：</b>${escapeHtml(team.demand)}</div>`:''}
+    <div class="member-list" style="margin-top:8px">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>
+    ${teamBundleHtml(team)}
+    ${showCard&&j?renderBizCard(j.card,j.phone):''}
+    ${teamProgressHtml(team,isOwner)}
+  </div>`;
+}
 async function renderTeam(){const user=getUser();const box=document.getElementById('team-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchTeam();const allJin=await fetchJinZhu();let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));if(user.role!=='admin')list=list.filter(tm=>String(tm.phone)===String(user.phone)||(tm.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds)));const q=(document.getElementById('team-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(tm=>[tm.name,tm.demand,tm.phone,JSON.stringify(tm.members||[])].join(' ').toLowerCase().includes(ql));}const sort=(document.getElementById('team-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>teamPowerSum(b)-teamPowerSum(a));else if(sort==='name')list=list.slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));const pg=paginate(list,teamPage,PAGE_SIZE);teamPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(tm=>{const j=allJin.find(x=>String(x.id)===String(tm.jinzhu_id));return`<div class="card"><div class="avatar avatar-team">T</div><div class="card-content">${teamBlockHtml(tm,j,user,heroIds,dashiIds)}</div></div>`;}).join(''):`<div class="empty-tip">${t('team.empty')}</div>`;renderPager('team-pager',pg.page,pg.pages,'goTeamPage');}
 function goTeamPage(p){teamPage=p;renderTeam();}
 function openAddTeam(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingTeamId=null;showTeamForm(null);}
 async function editTeam(id){const item=(await fetchTeam()).find(tm=>tm.id===id);if(!item||!canEdit(item))return;editingTeamId=id;showTeamForm(item);}
 function showTeamForm(item){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.createTeam')}</h3><div class="form-group"><label>${t('form.teamName')}</label><input id="tm-name" value="${escapeHtml(item?(item.name||''):'')}"></div><div class="form-group"><label>${t('form.teamDemand')}</label><textarea id="tm-demand">${escapeHtml(item?(item.demand||''):'')}</textarea></div><p style="font-size:12px;color:#64748b">${t('team.bundleHint')}</p><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveTeam()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
-async function saveTeam(){const user=getUser();if(!user)return;const name=(document.getElementById('tm-name').value||'').trim();if(!name)return alert(t('tip.required'));const demand=(document.getElementById('tm-demand').value||'').trim();let row={id:editingTeamId||Date.now(),name,demand,phone:user.phone,members:[],performances:[],bundled_cases:[],bundled_surveys:[]};if(editingTeamId){const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);if(old){row.members=old.members||[];row.jinzhu_id=old.jinzhu_id;row.performances=old.performances||[];row.bundled_cases=old.bundled_cases||[];row.bundled_surveys=old.bundled_surveys||[];row.phone=old.phone||user.phone;}}let error;if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));else({error}=await sb.from('team').insert(row));if(error)return alert(error.message);closeModal();renderTeam();renderJinZhu();alert(t('tip.saved'));}
-
+async function saveTeam(){
+  const user=getUser();
+  if(!user)return;
+  const name=(document.getElementById('tm-name').value||'').trim();
+  if(!name)return alert(t('tip.required'));
+  const demand=(document.getElementById('tm-demand').value||'').trim();
+  let row={
+    id:editingTeamId||Date.now(),
+    name,
+    demand,
+    phone:user.phone,
+    members:[],
+    performances:[],
+    bundled_cases:[],
+    bundled_surveys:[],
+    progress_text:''
+  };
+  if(editingTeamId){
+    const old=(await fetchTeam()).find(tm=>tm.id===editingTeamId);
+    if(old){
+      row.members=old.members||[];
+      row.jinzhu_id=old.jinzhu_id;
+      row.performances=old.performances||[];
+      row.bundled_cases=old.bundled_cases||[];
+      row.bundled_surveys=old.bundled_surveys||[];
+      row.phone=old.phone||user.phone;
+      row.progress_text=old.progress_text||'';
+    }
+  }
+  let error;
+  if(editingTeamId)({error}=await sb.from('team').update(row).eq('id',editingTeamId));
+  else({error}=await sb.from('team').insert(row));
+  if(error)return alert(error.message);
+  closeModal();
+  renderTeam();
+  renderJinZhu();
+  alert(t('tip.saved'));
+}
 async function renderJinZhu(){
   const user=getUser();const box=document.getElementById('jinzhu-list');if(!box)return;
   let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
