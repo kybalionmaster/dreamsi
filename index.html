@@ -1479,16 +1479,15 @@ async function sendCaseToAllTeams(caseId){
   const title=caseDisplayTitle(c)||c.title||String(c.id);
   const item={id:c.id,title};
 
-  const teams=await fetchTeam();
-  // 作者：写入自己名下所有团队；管理员：写入全部团队
-  const teams=isAdmin()
-    ? teams
-    : teams.filter(tm=>String(tm.phone)===String(user.phone));
+  const allTeams=await fetchTeam();
+  const targetTeams=isAdmin()
+    ? allTeams
+    : allTeams.filter(tm=>String(tm.phone)===String(user.phone));
 
-  if(!teams.length)return alert(t('tip.sendCaseNone'));
+  if(!targetTeams.length)return alert(t('tip.sendCaseNone'));
 
   let n=0;
-  for(const tm of teams){
+  for(const tm of targetTeams){
     let list=Array.isArray(tm.bundled_cases)?[...tm.bundled_cases]:[];
     if(list.some(x=>Number(x.id)===Number(c.id)))continue;
     list.push(item);
@@ -1500,6 +1499,7 @@ async function sendCaseToAllTeams(caseId){
   renderFocus();
   renderJinZhu();
 }
+
 function msgTypeLabel(tp){return t(MSG_TYPE_KEYS[tp]||'pulse.typeGreeting');}
 function setPulseTab(tab){pulseTab=tab==='out'?'out':'in';pulsePage=1;const tin=document.getElementById('pulse-tab-in'),tout=document.getElementById('pulse-tab-out');if(tin)tin.classList.toggle('active',pulseTab==='in');if(tout)tout.classList.toggle('active',pulseTab==='out');renderInbox();}
 async function renderInbox(){const user=getUser();const box=document.getElementById('inbox-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('pulse.needLogin')}</div>`;return;}let list=await fetchAllMessages();list=pulseTab==='in'?list.filter(m=>String(m.to_phone)===String(user.phone)):list.filter(m=>String(m.from_phone)===String(user.phone));const typeF=(document.getElementById('pulse-type-filter')||{}).value||'';if(typeF)list=list.filter(m=>(m.msg_type||'')===typeF);const q=(document.getElementById('pulse-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(m=>[m.content,m.from_phone,m.to_phone].join(' ').toLowerCase().includes(ql));}const pg=paginate(list,pulsePage,PAGE_SIZE);pulsePage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(m=>{const unread=pulseTab==='in'&&!m.read;const peer=pulseTab==='in'?m.from_phone:m.to_phone;return`<div class="card"><div class="avatar avatar-pulse">⚡</div><div class="card-content"><div class="card-title"><span class="msg-type">${escapeHtml(msgTypeLabel(m.msg_type))}</span>${unread?`<span class="tag" style="background:#fee2e2;color:#b91c1c">${t('pulse.unread')}</span>`:''}</div><div class="card-desc">${escapeHtml(peer||'-')}<br>${escapeHtml(m.content||'')}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${pulseTab==='in'&&unread?`<button class="btn btn-outline btn-sm" onclick="markPulseRead(${m.id})">${t('pulse.markRead')}</button>`:''}${pulseTab==='in'?`<button class="btn btn-primary btn-sm" onclick="replyPulse('${escapeAttr(m.from_phone||'')}')">${t('btn.reply')}</button>`:''}${(isAdmin()||String(m.from_phone)===String(user.phone))?`<button class="btn btn-del btn-sm" onclick="deletePulse(${m.id})">${t('btn.del')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty-tip">${t('pulse.empty')}</div>`;renderPager('pulse-pager',pg.page,pg.pages,'goPulsePage');}
