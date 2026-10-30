@@ -1007,6 +1007,7 @@ async function joinTeam(teamId){const user=getUser();if(!user)return alert(t('ti
 async function disbandTeam(teamId){if(!confirm(t('tip.deleteConfirm')))return;await sb.from('team').delete().eq('id',teamId);renderTeam();renderJinZhu();renderFocus();}
 function generateTeamName(phone){return 'Team-'+(phone||'').slice(-4)+'-'+Date.now().toString().slice(-4);}
 function teamPowerSum(team){return(team.members||[]).reduce((s,m)=>s+(Number(m.power)||0),0);}
+function rankByMatchThenPower(list,demandText,textFn,powerFn,limit){return list.map(item=>{const blob=textFn(item);const score=textMatch(demandText,blob);const power=powerFn(item);return{item,score,power};}).sort((a,b)=>{if(b.score!==a.score)return b.score-a.score;return b.power-a.power;}).slice(0,limit).map(x=>x.item);}
 
 async function runFullBundle(jinzhuId,mode){
   const user=getUser();
