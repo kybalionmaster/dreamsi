@@ -973,6 +973,7 @@ function toggleTeamSurveyKick(teamId){
   teamSurveyKickVisible[teamId]=!teamSurveyKickVisible[teamId];
   renderTeam();renderJinZhu();renderFocus();
 }
+
 function teamProgressText(team){return (team&&team.progress_text!=null)?String(team.progress_text):'';}
 function teamProgressHtml(team,isOwner){
   if(!team)return '';
@@ -987,12 +988,16 @@ function teamProgressHtml(team,isOwner){
 }
 async function saveTeamProgress(teamId){
   const user=getUser();if(!user)return alert(t('tip.loginFirst'));
-  const ta=document.getElementById('team-progress-'+teamId);if(!ta)return;
+  const active=document.querySelector('.view.active');
+  let ta=active?active.querySelector('textarea[id="team-progress-'+teamId+'"]'):null;
+  if(!ta)ta=document.getElementById('team-progress-'+teamId);
+  if(!ta)return;
   const progress_text=ta.value||'';
   const{error}=await sb.from('team').update({progress_text}).eq('id',teamId);
   if(error)return alert(error.message);
   alert(t('tip.saved'));renderTeam();renderFocus();renderJinZhu();
 }
+
 async function kickBundledCase(teamId,caseId){
   const teams=await fetchTeam();const team=teams.find(tm=>tm.id===teamId);
   if(!team||!canEdit(team))return;
@@ -1129,7 +1134,7 @@ function teamBundleHtml(team){
     }).join('')}</div>`:''}
     ${surveys.length?`<h5 style="margin-top:8px">${t('label.bundledSurveys')}</h5><div class="bundle-row">${surveys.map(s=>{
       const kick=isOwner?`<button type="button" class="bundle-x survey-x" onclick="event.stopPropagation();kickBundledSurvey(${team.id},${Number(s.id)})">×</button>`:'';
-      return `<span class="tag tag-sub bundle-chip" onclick="switchView('qgen')">${escapeHtml(s.name||s.id||'')}${kick}</span>`;
+      return `<span class="tag tag-sub bundle-chip" onclick="previewQgen(${Number(s.id)})">${escapeHtml(s.name||s.id||'')}${kick}</span>`;
     }).join('')}</div>`:''}
   </div>`;
 }
@@ -1576,10 +1581,10 @@ async function renderQgen(){
         <div class="card-title">${escapeHtml(qgenDisplayName(tpl))}</div>
         <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
           ${can?`<button class="btn btn-edit btn-sm" onclick="editQgen(${tpl.id})">${t('btn.edit')}</button>`:''}
+         ${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${tpl.id})">${t('btn.del')}</button>`:''}
           <button class="btn btn-primary btn-sm" onclick="previewQgen(${tpl.id})">${t('btn.preview')}</button>
           ${showPull?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('btn.pullToTeam'))}" onclick="pullSurveyToTeams(${tpl.id})">📥</button>`:''}
-          ${can?`<button class="btn btn-del btn-sm" onclick="deleteQgen(${tpl.id})">${t('btn.del')}</button>`:''}
-        </div>
+         </div>
       </div>
     </div>`;
   }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
