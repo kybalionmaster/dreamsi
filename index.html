@@ -262,6 +262,13 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
   resize:vertical;
 }
 .progress-box .progress-view{white-space:pre-wrap;word-break:break-word;color:#334155;line-height:1.55;min-height:1.5em}
+.io-config-box{border:1px solid #fde68a;background:#fffbeb;border-radius:12px;padding:12px 14px;margin:14px 0}
+.io-config-box .io-head{font-size:13px;font-weight:700;color:#92400e;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.io-chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
+.io-chip{border:1px solid #e2e8f0;background:#fff;color:#475569;border-radius:999px;padding:4px 12px;font-size:12px;cursor:pointer;user-select:none}
+.io-chip.on{background:#fbbf24;border-color:#f59e0b;color:#0f172a;font-weight:600}
+.tag-io{background:#ecfdf5;color:#047857;margin:2px}
+.tag-io-out{background:#eff6ff;color:#1d4ed8;margin:2px}
 </style>
 </head>
 <body>
@@ -274,6 +281,7 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
     <div class="menu-item" data-view="focus" data-i18n="menu.focus">🎯 当前显化中心</div>
     <div class="menu-item" data-view="team" data-i18n="menu.team">👥 我的超级团队</div>
     <div class="menu-item" data-view="jinzhu" data-i18n="menu.jinzhu">💰 金主需求中心</div>
+    <div class="menu-item" data-view="taskwf" data-i18n="menu.taskwf">🔗 任务工作流配置</div>
     <div class="menu-item" data-view="dashi" data-i18n="menu.dashi">🤖 超级智能中心</div>
     <div class="menu-item" data-view="sicase" data-i18n="menu.sicase">✨ SI 成功场景</div>
     <div class="menu-item" data-view="hero" data-i18n="menu.hero">⭐ 超级精英中心</div>
@@ -444,6 +452,19 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
         <div id="hero-list"></div>
         <div class="pager" id="hero-pager"></div>
       </div>
+
+<div class="view" id="view-taskwf">
+  <div class="view-header">
+    <h2 data-i18n="menu.taskwf">🔗 任务工作流配置</h2>
+    <button class="btn btn-primary btn-sm" id="btn-add-taskwf" onclick="openAddTaskWf()">+ 新建任务</button>
+  </div>
+  <div class="search-bar">
+    <input id="taskwf-q" placeholder="搜索任务…" oninput="taskwfPage=1;renderTaskWf()">
+  </div>
+  <div id="taskwf-list"></div>
+  <div class="pager" id="taskwf-pager"></div>
+</div>
+
       <div class="view" id="view-qgen">
         <div class="view-header">
           <h2 data-i18n="menu.qgen">📋 问卷生成中心</h2>
@@ -456,6 +477,7 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
         <div id="qgen-list"></div>
         <div class="pager" id="qgen-pager"></div>
       </div>
+
       <div class="view" id="view-diagnosis">
         <div class="view-header"><h2 data-i18n="menu.diagnosis">🔎 需求诊断中心</h2></div>
         <div class="search-bar">
@@ -620,22 +642,23 @@ const i18n={};
 /* ===== 中文 ===== */
 i18n.zh={
   brand:'梦想显化器',
-  menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
+  menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',taskwf:'🔗 任务工作流配置',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
   kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>',tip1:'1. 宇宙法则指引方向',tip2:'2. 超级智能零成本自动化执行',tip3:'3. 诊断问卷找出问题',tip4:'4. 自动组合超级精英团队',tip5:'5. 自动把客户送到企业怀抱'},
-  btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',sendToTeams:'发送给所有团队',pullToTeam:'拉入团队',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加',verify:'验证',addSkill:'+ 添加技能',copyFrom:'复制他人再改',addPiece:'+ 添加拼图',addChecklist:'+ 添加清单项'},
-  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明'},
+  btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',newTaskWf:'+ 新建任务',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',sendToTeams:'发送给所有团队',pullToTeam:'拉入团队',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加',verify:'验证',addSkill:'+ 添加技能',copyFrom:'复制他人再改',addPiece:'+ 添加拼图',addChecklist:'+ 添加清单项',runWf:'启动运行',addSiNode:'+ SI 节点',addHeroNode:'+ 精英节点'},
+  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',taskwfSearch:'搜索任务…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明',taskWfName:'任务名称',taskWfDesc:'任务说明',taskWfNodeTitle:'节点标题（可选）'},
   sort:{newest:'最新',power:'战力从高到低',powerSum:'战力总和',name:'名称',title:'标题'},
   jz:{filterAll:'全部需求',typeDream:'梦想',typeProblem:'问题需求',typePick:'请先选择需求类型',typeDreamHint:'描述你要显化的梦想，拆成多块拼图',typeProblemHint:'描述要解决的问题，列出问题清单',pieces:'拼图列表',checklist:'问题需求清单',copyDream:'选择并复制其他金主的梦想',copyProblem:'选择并复制其他金主的问题需求',copyEmpty:'暂无可复制内容',copied:'已复制，请修改后保存',idLabel:'需求编号',nameLabel:'名称',introLabel:'简介',titleLabel:'标题',detailLabel:'详情'},
   si:{idLabel:'工具编号',skillsHead:'技能({n}个)：'},
   coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录',allStatus:'全部状态',typeBiz:'商务合作',typeSwap:'资源互换',typeChannel:'渠道代理',typeOther:'其他'},
   pulse:{compose:'+ 发脉冲',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',sendOk:'发送成功',needLogin:'请先登录',allTypes:'全部类型',typeGreeting:'问候',typeProgress:'进展',typeEvent:'活动',typeCase:'案例',typeTrial:'试用'},
   users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除？',noSelfDel:'不能删除自己',allRoles:'全部角色'},
-  tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',superBundleOk:'超级全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队',bundleWorking:'正在匹配全家桶…',superBundleWorking:'正在匹配超级全家桶…',required:'请填写必填项',userNotFound:'用户不存在',wrongPwd:'密码错误',blacklisted:'账号已拉黑',exists:'账号已存在',mismatch:'两次密码不一致',minPwd:'密码至少4位',noPermission:'无权限',alreadyIn:'已在团队中',deleteConfirm:'确定删除？',createTeamFirst:'请先创建团队',noMatchedSi:'未匹配到已登记的 SI',matchedSiN:'合格 {n} 个，请删减后保存',rejectedSiN:'未通过 {n} 个',needSiInput:'请先输入要验证的 SI 名称',adoptHint:'请删除不需要的 SI，保存时仅采用余下项',pickTypeFirst:'请先选择需求类型',sendCaseOk:'已发送到 {n} 个团队',sendCaseNone:'没有可写入的团队',sendCaseNoPerm:'仅作者或管理员可发送',pullSurveyOk:'已写入 {n} 个团队',pullSurveyNone:'没有可写入的团队',pullSurveyNoPerm:'仅金主或管理员可操作',pullSurveyDup:'该问卷已在团队中'},
+  tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',superBundleOk:'超级全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队',bundleWorking:'正在匹配全家桶…',superBundleWorking:'正在匹配超级全家桶…',required:'请填写必填项',userNotFound:'用户不存在',wrongPwd:'密码错误',blacklisted:'账号已拉黑',exists:'账号已存在',mismatch:'两次密码不一致',minPwd:'密码至少4位',noPermission:'无权限',alreadyIn:'已在团队中',deleteConfirm:'确定删除？',createTeamFirst:'请先创建团队',noMatchedSi:'未匹配到已登记的 SI',matchedSiN:'合格 {n} 个，请删减后保存',rejectedSiN:'未通过 {n} 个',needSiInput:'请先输入要验证的 SI 名称',adoptHint:'请删除不需要的 SI，保存时仅采用余下项',pickTypeFirst:'请先选择需求类型',sendCaseOk:'已发送到 {n} 个团队',sendCaseNone:'没有可写入的团队',sendCaseNoPerm:'仅作者或管理员可发送',pullSurveyOk:'已写入 {n} 个团队',pullSurveyNone:'没有可写入的团队',pullSurveyNoPerm:'仅金主或管理员可操作',pullSurveyDup:'该问卷已在团队中',pullWfOk:'已写入 {n} 个团队',pullWfNone:'没有可写入的团队',pullWfNoPerm:'仅发布者或管理员可拉入团队',pullWfDup:'该任务工作流已在团队中',taskWfNeedNode:'请至少添加一个节点',taskWfEmptyNode:'流程无节点',taskWfNoTool:'未找到工具或无网址'},
   role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},
   form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位 / 头衔',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',qr:'二维码图片 URL',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',subs:'小分类（每行一个）',industry:'需求类型 *',detail:'详情 *',major:'大分类',minor:'小分类',toolUrl:'工具网址',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',teamName:'团队名称 *',teamDemand:'团队需求',autoTeam:'发布后自动创建超级团队',pains:'列表项',painTitle:'标题',painDesc:'说明',cardSection:'名片信息',bizCard:'商务名片',motto:'座右铭',skills:'多技能',skillTitle:'技能标题',skillDesc:'技能说明',jzName:'名字（公司名或个人化名）*',jzIntro:'简介（公司或个人介绍）',jzTitle:'标题',jzDetail:'详情 *'},
-  label:{intro:'简介',power:'战力',skill:'技能',industry:'需求类型',toolUrl:'工具网址',detail:'详情',pains:'清单',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类'},
+  label:{intro:'简介',power:'战力',skill:'技能',industry:'需求类型',toolUrl:'工具网址',detail:'详情',pains:'清单',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',bundledWorkflows:'任务工作流',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类'},
   qgen:{title:'问卷编辑',name:'问卷名称 *',desc:'说明',previewTitle:'预览',fillSubmit:'提交答卷'},
+  taskwf:{title:'任务工作流',name:'任务名称 *',desc:'说明',nodes:'流程节点（按顺序执行）',nodeStep:'步骤 {n}',pickSi:'选择超级智能',pickHero:'选择行业精英',runTitle:'运行：{name}',runHint:'按节点顺序执行。SI 将打开工具链接；精英显示资料。第一期为半自动运行。',runStep:'执行此步',emptyNodes:'尚未添加节点',nodeCount:'{n} 节点'},
   diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',noAnswers:'暂无答卷',view:'查看详情',empty:'暂无诊断',saveReport:'保存报告',viewReport:'查看诊断报告'},
   hero:{emptyMine:'您还没有发布精英档案。'},
   dashi:{matchTip:'正在为「{name}」匹配超级智能。',clearMatch:'清除匹配'},
@@ -877,6 +900,103 @@ function dashiDisplayIntro(d){return tl(d.intro_i18n,d.intro)||'';}
 function dashiDisplayMotto(d){return tl(d.motto_i18n,d.motto)||'';}
 function dashiDisplayMajor(d){return tl(d.major_category_i18n,d.major_category)||'';}
 function dashiDisplayMinor(d){return tl(d.minor_category_i18n,d.minor_category)||'';}
+
+const IO_TYPES=[
+  {code:'text',zh:'文本',en:'Text'},
+  {code:'image',zh:'图片',en:'Image'},
+  {code:'video',zh:'视频',en:'Video'},
+  {code:'audio',zh:'音频',en:'Audio'},
+  {code:'code',zh:'代码',en:'Code'},
+  {code:'data',zh:'数据',en:'Data'},
+  {code:'file',zh:'文件',en:'File'},
+  {code:'web',zh:'网页',en:'Web'},
+  {code:'app',zh:'应用',en:'App'},
+  {code:'any',zh:'任意',en:'Any'}
+];
+function ioLabel(code){
+  const hit=IO_TYPES.find(x=>x.code===code);
+  if(!hit)return code||'';
+  return currentLang==='zh'?hit.zh:(hit.en||hit.zh);
+}
+function normalizeIoArr(v){
+  if(Array.isArray(v))return v.map(String).filter(c=>IO_TYPES.some(t=>t.code===c));
+  if(typeof v==='string'&&v.trim())return normalizeIoArr(v.split(/[,，\s]+/));
+  return [];
+}
+function dashiIoBadgeHtml(d){
+  const ins=normalizeIoArr(d&&d.input_types);
+  const outs=normalizeIoArr(d&&d.output_types);
+  if(!ins.length&&!outs.length)return '';
+  const inT=ins.map(ioLabel).filter(Boolean).join('+')||'—';
+  const outT=outs.map(ioLabel).filter(Boolean).join('+')||'—';
+  return `<span class="tag tag-io">吃:${escapeHtml(inT)}</span><span class="tag tag-io-out">吐:${escapeHtml(outT)}</span>`;
+}
+function ioChipHtml(kind,selected){
+  selected=normalizeIoArr(selected);
+  // kind: 'in' multi; 'out' multi (方案B)；若只要输出单选可在 toggle 里限制
+  return IO_TYPES.map(t=>{
+    const on=selected.includes(t.code)?' on':'';
+    return `<span class="io-chip${on}" data-io-kind="${kind}" data-io-code="${t.code}" onclick="toggleIoChip(this)">${escapeHtml(ioLabel(t.code))}</span>`;
+  }).join('');
+}
+function toggleIoChip(el){
+  if(!el)return;
+  const kind=el.getAttribute('data-io-kind');
+  // 输出单选（与示意图一致）：点选时先清同组
+  if(kind==='out'){
+    el.parentElement.querySelectorAll('.io-chip').forEach(c=>c.classList.remove('on'));
+    el.classList.add('on');
+  }else{
+    el.classList.toggle('on');
+  }
+  syncPrimaryIoSelects();
+}
+function readIoChips(kind){
+  return [...document.querySelectorAll(`.io-chip[data-io-kind="${kind}"].on`)].map(el=>el.getAttribute('data-io-code')).filter(Boolean);
+}
+function syncPrimaryIoSelects(){
+  const ins=readIoChips('in'),outs=readIoChips('out');
+  const fill=(id,arr)=>{
+    const sel=document.getElementById(id);if(!sel)return;
+    const cur=sel.value;
+    sel.innerHTML=`<option value="">—</option>`+arr.map(c=>`<option value="${c}">${escapeHtml(ioLabel(c))}</option>`).join('');
+    if(arr.includes(cur))sel.value=cur;
+    else if(arr.length)sel.value=arr[0];
+  };
+  fill('ds-primary-input',ins);
+  fill('ds-primary-output',outs);
+}
+function dashiConfigSectionHtml(item){
+  const ins=normalizeIoArr(item&&item.input_types);
+  const outs=normalizeIoArr(item&&item.output_types);
+  // 兼容旧单字段
+  if(!outs.length&&item&&item.primary_output)outs.push(item.primary_output);
+  if(!ins.length&&item&&item.primary_input)ins.push(item.primary_input);
+  const note=item?(tl(item.io_note_i18n,item.io_note)||''):'';
+  const pin=item&&item.primary_input||(ins[0]||'');
+  const pout=item&&item.primary_output||(outs[0]||'');
+  return `<div class="io-config-box" id="ds-io-config">
+    <div class="io-head">✨ 超级智能配置 · 输入输出形态（方案B）</div>
+    <div class="form-group"><label>输入类型（多选）</label>
+      <div class="io-chip-row" id="ds-io-in">${ioChipHtml('in',ins)}</div>
+    </div>
+    <div class="form-group"><label>输出类型（单选）</label>
+      <div class="io-chip-row" id="ds-io-out">${ioChipHtml('out',outs.slice(0,1))}</div>
+    </div>
+    <div class="form-grid-2">
+      <div class="form-group"><label>主输入</label>
+        <select id="ds-primary-input"><option value="">—</option>${ins.map(c=>`<option value="${c}" ${c===pin?'selected':''}>${escapeHtml(ioLabel(c))}</option>`).join('')}</select>
+      </div>
+      <div class="form-group"><label>主输出</label>
+        <select id="ds-primary-output"><option value="">—</option>${outs.slice(0,1).map(c=>`<option value="${c}" ${c===pout?'selected':''}>${escapeHtml(ioLabel(c))}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="form-group"><label>形态说明</label>
+      <textarea id="ds-io-note" maxlength="300" placeholder="描述该方案下输入输出的处理逻辑和边界">${escapeHtml(note)}</textarea>
+    </div>
+  </div>`;
+}
+
 function dashiTools(d){const src=Array.isArray(d.tools_i18n)&&d.tools_i18n.length?d.tools_i18n:(Array.isArray(d.tools)?d.tools:[]);return src.map(x=>({title:tl(x.title,typeof x.title==='string'?x.title:''),desc:tl(x.desc,typeof x.desc==='string'?x.desc:'')})).filter(x=>x.title||x.desc);}
 function dashiAllNames(d){const names=new Set();if(d.name)names.add(String(d.name).trim());if(d.name_i18n&&typeof d.name_i18n==='object')Object.values(d.name_i18n).forEach(v=>{if(v&&String(v).trim())names.add(String(v).trim());});return [...names].filter(n=>n.length>=2);}
 function dashiSearchText(d){if(!d)return '';return [d.name,d.name_i18n,d.intro,d.intro_i18n,d.motto,d.motto_i18n,d.major_category,d.major_category_i18n,d.minor_category,d.minor_category_i18n,d.tool_url,d.tools,d.tools_i18n].map(textBlob).join(' ').toLowerCase();}
@@ -1027,9 +1147,394 @@ async function fetchCategories(){const{data,error}=await sb.from('categories').s
 async function fetchAllMessages(){const{data,error}=await sb.from('messages').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchSiCases(){const{data,error}=await sb.from('si_cases').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 
+async function fetchTaskWf(){
+  const{data,error}=await sb.from('task_workflows').select('*').order('id',{ascending:false});
+  if(error)return[];
+  return data||[];
+}
+
+
+
+let editingTaskWfId=null, taskWfNodeDraft=[], taskwfPage=1;
+
+function openAddTaskWf(){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  editingTaskWfId=null;
+  taskWfNodeDraft=[];
+  showTaskWfForm(null);
+}
+
+async function editTaskWf(id){
+  const item=(await fetchTaskWf()).find(x=>Number(x.id)===Number(id));
+  if(!item)return;
+  const user=getUser();
+  if(!user)return;
+  if(!isAdmin()&&String(item.owner_phone)!==String(user.phone))return alert(t('tip.noPermission'));
+  editingTaskWfId=id;
+  taskWfNodeDraft=Array.isArray(item.nodes)?item.nodes.map(n=>({...n})).sort((a,b)=>(a.order||0)-(b.order||0)):[];
+  showTaskWfForm(item);
+}
+
+function showTaskWfForm(item){
+  document.getElementById('modalBox').className='modal wide';
+  document.getElementById('modalBox').innerHTML=`
+    <h3>${item?'编辑任务工作流':'新建任务工作流'}</h3>
+    <div class="form-group"><label>任务名称 *</label>
+      <input id="tw-name" value="${escapeHtml(item?(item.name||''):'')}"></div>
+    <div class="form-group"><label>说明</label>
+      <textarea id="tw-desc">${escapeHtml(item?(item.description||''):'')}</textarea></div>
+    <div class="form-section-title">流程节点（按顺序执行）</div>
+    <div id="tw-nodes-editor"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <button type="button" class="btn btn-outline btn-sm" onclick="taskWfAddNode('dashi')">+ SI 节点</button>
+      <button type="button" class="btn btn-outline btn-sm" onclick="taskWfAddNode('hero')">+ 精英节点</button>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>
+      <button class="btn btn-primary" onclick="saveTaskWf()">${t('btn.save')}</button>
+    </div>`;
+  document.getElementById('modalMask').style.display='flex';
+  renderTaskWfNodesEditor();
+}
+
+async function taskWfAddNode(refType){
+  const list=refType==='hero'?await fetchHero():await fetchDaShi();
+  if(!list.length)return alert(t('tip.noData'));
+  const options=list.slice(0,80).map(x=>{
+    const id=x.id;
+    const name=refType==='hero'?(heroDisplayName(x)||id):(dashiDisplayName(x)||id);
+    const power=Number(x.power)||0;
+    return`<option value="${id}" data-name="${escapeAttr(name)}" data-power="${power}">#${id} ${escapeHtml(name)} ⚡${power}</option>`;
+  }).join('');
+  document.getElementById('modalBox').insertAdjacentHTML('beforeend',`
+    <div id="tw-pick-mask" style="margin-top:12px;padding:12px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc">
+      <div class="form-group"><label>选择${refType==='hero'?'精英':'超级智能'}</label>
+        <select id="tw-pick-ref">${options}</select></div>
+      <div class="form-group"><label>节点标题（可选）</label>
+        <input id="tw-pick-title" placeholder="默认用工具/精英名称"></div>
+      <button class="btn btn-primary btn-sm" onclick="taskWfConfirmNode('${refType}')">加入节点</button>
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('tw-pick-mask')?.remove()">取消</button>
+    </div>`);
+}
+
+function taskWfConfirmNode(refType){
+  const sel=document.getElementById('tw-pick-ref');
+  if(!sel)return;
+  const opt=sel.selectedOptions[0];
+  const ref_id=sel.value;
+  const ref_name=opt?.getAttribute('data-name')||ref_id;
+  const power=parseInt(opt?.getAttribute('data-power')||'0',10)||0;
+  const title=((document.getElementById('tw-pick-title')||{}).value||'').trim()||ref_name;
+  taskWfNodeDraft.push({
+    id:'n'+Date.now()+Math.floor(Math.random()*1000),
+    order:taskWfNodeDraft.length+1,
+    title, ref_type:refType, ref_id, ref_name, power
+  });
+  document.getElementById('tw-pick-mask')?.remove();
+  renderTaskWfNodesEditor();
+}
+
+function taskWfRemoveNode(i){
+  taskWfNodeDraft.splice(i,1);
+  taskWfNodeDraft.forEach((n,idx)=>n.order=idx+1);
+  renderTaskWfNodesEditor();
+}
+
+function renderTaskWfNodesEditor(){
+  const box=document.getElementById('tw-nodes-editor');
+  if(!box)return;
+  if(!taskWfNodeDraft.length){box.innerHTML='<div class="empty-tip">尚未添加节点</div>';return;}
+  box.innerHTML=taskWfNodeDraft.map((n,i)=>`
+    <div class="dynamic-item">
+      <button type="button" class="btn btn-del btn-sm remove-btn" onclick="taskWfRemoveNode(${i})">×</button>
+      <div style="font-size:13px;font-weight:600">步骤 ${n.order} · ${escapeHtml(n.title||'')}</div>
+      <div class="card-desc">${n.ref_type==='hero'?'精英':'SI'} #${escapeHtml(String(n.ref_id))} ${escapeHtml(n.ref_name||'')} ⚡${Number(n.power)||0}</div>
+    </div>`).join('');
+}
+
+async function saveTaskWf(){
+  const user=getUser();
+  if(!user)return;
+  const name=(document.getElementById('tw-name').value||'').trim();
+  if(!name)return alert(t('tip.required'));
+  if(!taskWfNodeDraft.length)return alert('请至少添加一个节点');
+  const description=(document.getElementById('tw-desc').value||'').trim();
+  let old=editingTaskWfId?(await fetchTaskWf()).find(x=>Number(x.id)===Number(editingTaskWfId)):null;
+  if(old&&!isAdmin()&&String(old.owner_phone)!==String(user.phone))return alert(t('tip.noPermission'));
+  const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);
+  const description_i18n=mergeI18n(old?.description_i18n,currentLang,description);
+  const nodes=taskWfNodeDraft.map((n,i)=>({...n,order:i+1}));
+  const row={
+    id:editingTaskWfId||Date.now(),
+    name:name_i18n.zh||name,
+    name_i18n,
+    description:description_i18n.zh||description,
+    description_i18n,
+    nodes,
+    owner_phone:old?.owner_phone||user.phone,
+    status:'published'
+  };
+  let error;
+  if(editingTaskWfId)({error}=await sb.from('task_workflows').update(row).eq('id',editingTaskWfId));
+  else({error}=await sb.from('task_workflows').insert(row));
+  if(error)return alert(error.message);
+  closeModal();
+  renderTaskWf();
+  alert(t('tip.saved'));
+}
+
+
+async function runTaskWorkflow(wfId){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const wf=(await fetchTaskWf()).find(x=>Number(x.id)===Number(wfId));
+  if(!wf)return alert(t('tip.noData'));
+  const nodes=(Array.isArray(wf.nodes)?wf.nodes:[]).slice().sort((a,b)=>(a.order||0)-(b.order||0));
+  if(!nodes.length)return alert('流程无节点');
+
+  let html=`<h3>运行：${escapeHtml(wf.name||'')}</h3>
+    <p class="card-desc">按节点顺序执行。SI 将打开工具链接；精英显示资料。第一期为半自动运行。</p>`;
+  nodes.forEach((n,i)=>{
+    html+=`<div class="dynamic-item">
+      <div style="font-weight:600">步骤 ${i+1}. ${escapeHtml(n.title||n.ref_name||'')}</div>
+      <div class="card-desc">${n.ref_type==='hero'?'行业精英':'超级智能'} · ${escapeHtml(n.ref_name||'')} #${escapeHtml(String(n.ref_id))}</div>
+      <button class="btn btn-primary btn-sm" onclick="runTaskWfStep('${escapeAttr(n.ref_type)}',${Number(n.ref_id)})">执行此步</button>
+    </div>`;
+  });
+  html+=`<div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.ok')}</button></div>`;
+  document.getElementById('modalBox').className='modal wide';
+  document.getElementById('modalBox').innerHTML=html;
+  document.getElementById('modalMask').style.display='flex';
+}
+
+async function runTaskWfStep(refType,refId){
+  if(refType==='dashi'||refType==='si'){
+    const d=(await fetchDaShi()).find(x=>Number(x.id)===Number(refId));
+    if(d&&(d.tool_url||'').trim()){
+      openToolUrl(d.tool_url);
+      return;
+    }
+    return alert(t('tip.taskWfNoTool')||'未找到工具或无网址');
+  }
+  if(refType==='hero'||refType==='yingxiao'||refType==='elite'){
+    const h=(await fetchHero()).find(x=>Number(x.id)===Number(refId));
+    if(!h)return alert(t('tip.noHeroes')||'未找到该精英');
+    openHeroInNewTab(h);
+    return;
+  }
+  alert(t('tip.noData'));
+}
+
+/** 行业精英：新标签页打开（优先名片网址，否则独立简介页） */
+function openHeroInNewTab(h){
+  if(!h)return;
+  const card=typeof normalizeCard==='function'
+    ?normalizeCard(h.card,h.phone)
+    :(h.card||{});
+  let site=(card.website||h.website||'').trim();
+  if(site){
+    if(!/^https?:\/\//i.test(site))site='https://'+site;
+    if(typeof openToolUrl==='function')openToolUrl(site);
+    else window.open(site,'_blank','noopener,noreferrer');
+    return;
+  }
+  const name=(typeof heroDisplayName==='function'?heroDisplayName(h):h.name)||('#'+h.id);
+  const intro=(typeof heroDisplayIntro==='function'?heroDisplayIntro(h):(h.intro||''))||'';
+  const skill=(h.skill||'')+'';
+  const power=Number(h.power)||0;
+  const person=card.person||name;
+  const title=card.title||'';
+  const phone=card.phone||h.phone||'';
+  const email=card.email||'';
+  const wechat=card.wechat||'';
+  const whatsapp=card.whatsapp||'';
+  const qr=card.qr||'';
+  const esc=(s)=>String(s||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const html=`<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${esc(name)} · 超级精英</title>
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#f1f5f9;color:#0f172a;line-height:1.5}
+  .wrap{max-width:480px;margin:24px auto;padding:16px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#be185d);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px}
+  h1{font-size:20px;margin:0 0 6px}
+  .sub{color:#64748b;font-size:13px;margin-bottom:12px}
+  .tag{display:inline-block;background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:12px;margin-right:6px}
+  .sec{margin-top:14px;font-size:14px;color:#334155}
+  .k{color:#94a3b8;min-width:4em;display:inline-block}
+  .qr{width:96px;height:96px;border-radius:8px;border:1px solid #e2e8f0;object-fit:cover;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+  <div class="av">Elite</div>
+  <h1>${esc(name)}</h1>
+  <div class="sub"><span class="tag">⚡${power}</span>ID #${esc(h.id)}</div>
+  ${intro?`<div class="sec">${esc(intro)}</div>`:''}
+  ${skill?`<div class="sec"><span class="k">技能</span>${esc(skill)}</div>`:''}
+  <div class="sec" style="margin-top:16px;border-top:1px solid #e2e8f0;padding-top:12px">
+    <div><span class="k">姓名</span>${esc(person)}</div>
+    ${title?`<div><span class="k">职位</span>${esc(title)}</div>`:''}
+    ${phone?`<div><span class="k">电话</span>${esc(phone)}</div>`:''}
+    ${email?`<div><span class="k">邮箱</span>${esc(email)}</div>`:''}
+    ${wechat?`<div><span class="k">微信</span>${esc(wechat)}</div>`:''}
+    ${whatsapp?`<div><span class="k">WhatsApp</span>${esc(whatsapp)}</div>`:''}
+    ${qr?`<div><span class="k">二维码</span><br><img class="qr" src="${esc(qr)}" alt="qr"></div>`:''}
+  </div>
+</div></div>
+</body></html>`;
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  window.open(url,'_blank','noopener,noreferrer');
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+}
+
+
+async function renderTaskWf(){
+  const box=document.getElementById('taskwf-list');
+  if(!box)return;
+  const user=getUser();
+  let list=await fetchTaskWf();
+  const q=((document.getElementById('taskwf-q')||{}).value||'').trim().toLowerCase();
+  if(q)list=list.filter(x=>String(x.name||'').toLowerCase().includes(q));
+  const pg=paginate(list,taskwfPage,PAGE_SIZE);
+  taskwfPage=pg.page;
+  box.innerHTML=pg.slice.length?pg.slice.map(w=>{
+    const nodes=Array.isArray(w.nodes)?w.nodes:[];
+    const canEditWf=user&&(isAdmin()||String(w.owner_phone)===String(user.phone));
+    return`<div class="card">
+      <div class="avatar avatar-dashi">流</div>
+      <div class="card-content">
+        <div class="card-title">
+          <span class="tag">#${w.id}</span>
+          <span class="tag tag-sub">${nodes.length} 节点</span>
+          ${canEditWf?`<button class="btn btn-edit btn-sm" onclick="editTaskWf(${w.id})">${t('btn.edit')}</button>
+          <button class="btn btn-del btn-sm" onclick="deleteTaskWf(${w.id})">${t('btn.del')}</button>`:''}
+        </div>
+        <div class="si-name-line">${escapeHtml(w.name||'-')}</div>
+        <div class="card-desc">${escapeHtml(w.description||'')}</div>
+        <div class="bundle-row">${nodes.map(n=>`<span class="tag">${escapeHtml(n.title||n.ref_name||'')}</span>`).join('')}</div>
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="runTaskWorkflow(${w.id})">启动运行</button>
+          <button class="btn btn-survey btn-sm" onclick="pullTaskWfToTeam(${w.id})">拉入团队</button>
+        </div>
+      </div>
+    </div>`;
+  }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
+  renderPager('taskwf-pager',pg.page,pg.pages,'p=>{taskwfPage=p;renderTaskWf();}');
+}
+
+async function deleteTaskWf(id){
+  const user=getUser();
+  if(!user)return;
+  const item=(await fetchTaskWf()).find(x=>Number(x.id)===Number(id));
+  if(!item)return;
+  if(!isAdmin()&&String(item.owner_phone)!==String(user.phone))return alert(t('tip.noPermission'));
+  if(!confirm(t('tip.deleteConfirm')))return;
+  await sb.from('task_workflows').delete().eq('id',id);
+  renderTaskWf();
+}
+
+async function pullTaskWfToTeam(wfId){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const wf=(await fetchTaskWf()).find(x=>Number(x.id)===Number(wfId));
+  if(!wf)return;
+  const isOwner=String(wf.owner_phone)===String(user.phone);
+  const admin=isAdmin();
+
+  // 非发布者且非管理员 → 商务合作预填
+  if(!admin&&!isOwner){
+    switchView('coop');
+    setTimeout(()=>{
+      const nameEl=document.getElementById('coop-name');
+      const contactEl=document.getElementById('coop-contact');
+      const typeEl=document.getElementById('coop-type');
+      const descEl=document.getElementById('coop-desc');
+      if(nameEl&&!nameEl.value)nameEl.value=user.phone||'';
+      if(contactEl)contactEl.value=user.phone||'';
+      if(typeEl){
+        // 若有「其他」选项
+        typeEl.value='其他';
+      }
+      if(descEl){
+        descEl.value=`【任务工作流需求】\n希望使用任务工作流：${wf.name||''}（ID:${wf.id}）\n节点数：${(wf.nodes||[]).length}\n需求说明：希望将该工作流配置到我的团队中使用。\n联系人手机：${user.phone||''}`;
+      }
+    },50);
+    return;
+  }
+
+  const teams=await fetchTeam();
+  let targets=[];
+  if(admin){
+    targets=teams;
+  }else{
+    // 发布者：写入自己作为成员/金主相关的团队（按 members 含自己 phone 或 id）
+    targets=teams.filter(tm=>{
+      const mems=Array.isArray(tm.members)?tm.members:[];
+      return mems.some(m=>String(m.id)===String(user.phone)||String(m.phone)===String(user.phone))
+        ||String(tm.owner_phone)===String(user.phone)
+        ||String(tm.jinzhu_id)===String(user.phone);
+    });
+    // 若过滤过空，退化为「用户确认的全部自己可见团队」——可按你们规则再收紧
+    if(!targets.length)targets=teams.filter(tm=>String(tm.phone)===String(user.phone));
+  }
+  if(!targets.length)return alert(t('tip.pullSurveyNone')||'没有可写入的团队');
+
+  const payload={id:wf.id,name:wf.name||('流程'+wf.id)};
+  let n=0;
+  for(const tm of targets){
+    let arr=Array.isArray(tm.bundled_workflows)?tm.bundled_workflows.slice():[];
+    if(arr.some(x=>Number(x.id)===Number(wf.id)))continue;
+    arr.push(payload);
+    const{error}=await sb.from('team').update({bundled_workflows:arr}).eq('id',tm.id);
+    if(!error)n++;
+  }
+  alert(n?`已写入 ${n} 个团队`:(t('tip.pullSurveyDup')||'已在团队中或无更新'));
+  renderTeam();
+  renderFocus();
+}
+
+
 function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return;matchContext={type:'dashi',id:d.id,name:dashiDisplayName(d),text:accumulateTools(d)};switchView('jinzhu');});}
 function clearMatchContext(){matchContext=null;renderJinZhu();renderDaShi();}
-function switchView(view){document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const el=document.getElementById('view-'+view);if(el)el.classList.add('active');toggleSidebar(false);if(view!=='dashi')focusDashiId=null;if(view!=='hero')focusHeroId=null;if(view!=='jinzhu')focusJinZhuId=null;const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,sicase:renderSiCase,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,categories:renderCategories,coop:renderCoopFormPage};if(map[view])map[view]();}
+
+function switchView(view){
+  document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const el=document.getElementById('view-'+view);
+  if(el)el.classList.add('active');
+  toggleSidebar(false);
+  if(view!=='dashi')focusDashiId=null;
+  if(view!=='hero')focusHeroId=null;
+  if(view!=='jinzhu')focusJinZhuId=null;
+  const map={
+    home:renderHome,
+    focus:renderFocus,
+    jinzhu:renderJinZhu,
+    dashi:renderDaShi,
+    sicase:renderSiCase,
+    hero:renderHero,
+    team:renderTeam,
+    diagnosis:renderDiagnosis,
+    qgen:renderQgen,
+    taskwf:renderTaskWf,
+    inbox:renderInbox,
+    users:renderUsers,
+    'coop-list':renderCoopList,
+    categories:renderCategories,
+    coop:renderCoopFormPage,
+    kybalion:null
+  };
+  if(map[view])map[view]();
+}
+
 function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">${t('btn.login')}</button><button class="btn btn-primary" onclick="openModal('register')">${t('btn.register')}</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||''}">${t('role.'+user.role)||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;}
 function updateButtons(){const user=getUser();const set=(id,show)=>{const el=document.getElementById(id);if(el)el.style.display=show?'inline-block':'none';};set('btn-add-jinzhu',user&&(user.role==='jinzhu'||user.role==='admin'));set('btn-add-dashi',user&&(user.role==='ai'||user.role==='admin'));set('btn-add-hero',user&&(user.role==='yingxiao'||user.role==='admin'));set('btn-add-team',user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'));set('btn-add-qgen',!!user);set('btn-pulse-compose',!!user);set('btn-add-sicase',user&&(user.role==='ai'||user.role==='admin'||user.role==='jinzhu'||user.role==='yingxiao'));}
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
@@ -1119,15 +1624,18 @@ async function runFullBundle(jinzhuId,mode){
   renderTeam();
   renderFocus();
 }
+
 function teamBundleHtml(team){
   if(!team)return '';
   const cases=Array.isArray(team.bundled_cases)?team.bundled_cases:[];
   const surveys=Array.isArray(team.bundled_surveys)?team.bundled_surveys:[];
-  if(!cases.length&&!surveys.length)return '';
+  const workflows=Array.isArray(team.bundled_workflows)?team.bundled_workflows:[];
+  if(!cases.length&&!surveys.length&&!workflows.length)return '';
   const showCase=!!teamCaseKickVisible[team.id];
   const showSurvey=!!teamSurveyKickVisible[team.id];
+  const showWf=!!teamWfKickVisible[team.id];
   const isOwner=(()=>{const user=getUser();return user&&(String(team.phone)===String(user.phone)||isAdmin());})();
-  return`<div class="bundle-box ${showCase?'team-show-case':''} ${showSurvey?'team-show-survey':''}">
+  return`<div class="bundle-box ${showCase?'team-show-case':''} ${showSurvey?'team-show-survey':''} ${showWf?'team-show-wf':''}">
     ${cases.length?`<h5>${t('label.bundledCases')}</h5><div class="bundle-row">${cases.map(c=>{
       const kick=isOwner?`<button type="button" class="bundle-x case-x" onclick="event.stopPropagation();kickBundledCase(${team.id},${Number(c.id)})">×</button>`:'';
       return `<span class="tag tag-tool bundle-chip" onclick="viewSiCase(${Number(c.id)})">${escapeHtml(c.title||c.id||'')}${kick}</span>`;
@@ -1136,8 +1644,30 @@ function teamBundleHtml(team){
       const kick=isOwner?`<button type="button" class="bundle-x survey-x" onclick="event.stopPropagation();kickBundledSurvey(${team.id},${Number(s.id)})">×</button>`:'';
       return `<span class="tag tag-sub bundle-chip" onclick="previewQgen(${Number(s.id)})">${escapeHtml(s.name||s.id||'')}${kick}</span>`;
     }).join('')}</div>`:''}
+    ${workflows.length?`<h5 style="margin-top:8px">${t('label.bundledWorkflows')||'任务工作流'}</h5><div class="bundle-row">${workflows.map(w=>{
+      const kick=isOwner?`<button type="button" class="bundle-x wf-x" onclick="event.stopPropagation();kickBundledWorkflow(${team.id},${Number(w.id)})">×</button>`:'';
+      return `<span class="tag tag-tool bundle-chip" style="background:#ede9fe;color:#5b21b6" onclick="runTaskWorkflow(${Number(w.id)})">${escapeHtml(w.name||w.id||'')}${kick}</span>`;
+    }).join('')}</div>`:''}
   </div>`;
 }
+
+
+
+// 与 teamCaseKickVisible / teamSurveyKickVisible 同级声明
+let teamWfKickVisible={};
+
+async function kickBundledWorkflow(teamId,wfId){
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
+  if(!team||!canEdit(team))return;
+  const bundled_workflows=(Array.isArray(team.bundled_workflows)?team.bundled_workflows:[])
+    .filter(w=>Number(w.id)!==Number(wfId));
+  await sb.from('team').update({bundled_workflows}).eq('id',teamId);
+  renderTeam();
+  renderJinZhu();
+  renderFocus();
+}
+
 
 function teamBlockHtml(team,j,user,heroIds,dashiIds){
   if(!team)return '';
@@ -1345,16 +1875,27 @@ async function saveJinZhu(){
 async function deleteJinZhu(id){const item=(await fetchJinZhu()).find(j=>j.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('jinzhu').delete().eq('id',id);renderJinZhu();renderTeam();}
 
 async function renderDaShi(){
-  const user=getUser();const box=document.getElementById('dashi-list');if(!box)return;
-  let list=await fetchDaShi();let emptyMsg='';
-  if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}
+  const user=getUser();
+  const box=document.getElementById('dashi-list');
+  if(!box)return;
+  let list=await fetchDaShi();
+  let emptyMsg='';
+  if(!user){
+    emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;
+    list=[];
+  }
   list=filterDaShiByQ(list,(document.getElementById('ds-q')||{}).value||'');
   const sort=(document.getElementById('ds-sort')||{}).value||'new';
   if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));
   else if(sort==='name')list=list.slice().sort((a,b)=>dashiDisplayName(a).localeCompare(dashiDisplayName(b),'zh'));
   else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));
-  if(focusDashiId){const fid=String(focusDashiId);const idx=list.findIndex(d=>String(d.id)===fid);if(idx>0){const[item]=list.splice(idx,1);list.unshift(item);}}
-  const pg=paginate(list,dsPage,PAGE_SIZE);dsPage=pg.page;
+  if(focusDashiId){
+    const fid=String(focusDashiId);
+    const idx=list.findIndex(d=>String(d.id)===fid);
+    if(idx>0){const[item]=list.splice(idx,1);list.unshift(item);}
+  }
+  const pg=paginate(list,dsPage,PAGE_SIZE);
+  dsPage=pg.page;
   const canPull=user&&(user.role==='jinzhu'||user.role==='admin');
   box.innerHTML=pg.slice.length?pg.slice.map(d=>{
     const pn=escapeAttr(d.phone||''),nm=escapeAttr(dashiDisplayName(d)),power=Number(d.power)||0;
@@ -1371,6 +1912,7 @@ async function renderDaShi(){
           <span class="tag tag-power">⚡${power}</span>
           ${major?`<span class="tag tag-major">${escapeHtml(major)}</span>`:''}
           ${minor?`<span class="tag tag-sub">${escapeHtml(minor)}</span>`:''}
+          ${typeof dashiIoBadgeHtml==='function'?dashiIoBadgeHtml(d):''}
           ${canEdit(d)?`<button class="btn btn-edit btn-sm" onclick="editDaShi(${d.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteDaShi(${d.id})">${t('btn.del')}</button>`:''}
         </div>
         <div class="si-name-line">${escapeHtml(dashiDisplayName(d)||'-')}</div>
@@ -1389,19 +1931,148 @@ async function renderDaShi(){
   }).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noTools')}</div>`);
   renderPager('ds-pager',pg.page,pg.pages,'goDsPage');
 }
+
 function goDsPage(p){dsPage=p;renderDaShi();}
 function openAddDaShi(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));if(user.role!=='ai'&&user.role!=='admin')return;editingDaShiId=null;dashiToolDraft=[];showDaShiForm(null);}
 async function editDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;editingDaShiId=id;const skills=Array.isArray(item.tools_i18n)&&item.tools_i18n.length?item.tools_i18n:(Array.isArray(item.tools)?item.tools:[]);dashiToolDraft=skills.map(s=>({title:tl(s.title,typeof s.title==='string'?s.title:''),desc:tl(s.desc,typeof s.desc==='string'?s.desc:'')}));showDaShiForm(item);}
-function showDaShiForm(item){const user=getUser();const phoneVal=item?(item.phone||''):(user?user.phone:'');const card=normalizeCard(item&&item.card,phoneVal);document.getElementById('modalBox').className='modal wide';document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div><div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div><div class="form-group"><label>${t('form.motto')}</label><textarea id="ds-motto">${escapeHtml(item?dashiDisplayMotto(item):'')}</textarea></div><div class="form-grid-2"><div class="form-group"><label>${t('form.major')}</label><input id="ds-major" value="${escapeHtml(item?dashiDisplayMajor(item):'')}"></div><div class="form-group"><label>${t('form.minor')}</label><input id="ds-minor" value="${escapeHtml(item?dashiDisplayMinor(item):'')}"></div></div><div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}"></div><div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item&&item.power)||0}"></div><div class="form-section-title">${t('form.skills')}</div><div id="ds-skills-editor"></div><button type="button" class="btn btn-outline btn-sm" onclick="dashiAddSkill()">${t('btn.addSkill')}</button><div class="form-section-title">${t('form.cardSection')}</div><div class="form-grid-2"><div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(card.person)}"></div><div class="form-group"><label>${t('form.title')}</label><input id="ds-title" value="${escapeHtml(card.title)}"></div><div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(card.phone||phoneVal)}" readonly style="background:#f3f4f6"></div><div class="form-group"><label>${t('form.email')}</label><input id="ds-email" value="${escapeHtml(card.email)}"></div><div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(card.wechat)}"></div><div class="form-group"><label>${t('form.whatsapp')}</label><input id="ds-whatsapp" value="${escapeHtml(card.whatsapp)}"></div></div><div class="form-group"><label>${t('form.website')}</label><input id="ds-website" value="${escapeHtml(card.website)}"></div><div class="form-group"><label>${t('form.qr')}</label><input id="ds-qr" value="${escapeHtml(card.qr)}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';renderDashiSkillsEditor();}
+
+function showDaShiForm(item){
+  const user=getUser();
+  const phoneVal=item?(item.phone||''):(user?user.phone:'');
+  const card=normalizeCard(item&&item.card,phoneVal);
+  document.getElementById('modalBox').className='modal wide';
+  document.getElementById('modalBox').innerHTML=`<h3>${item?t('btn.edit'):t('btn.postTool')}</h3>${langHintHtml()}
+<div class="form-group"><label>${t('form.name')}</label><input id="ds-name" value="${escapeHtml(item?dashiDisplayName(item):'')}"></div>
+<div class="form-group"><label>${t('form.intro')}</label><textarea id="ds-intro">${escapeHtml(item?dashiDisplayIntro(item):'')}</textarea></div>
+<div class="form-group"><label>${t('form.motto')}</label><textarea id="ds-motto">${escapeHtml(item?dashiDisplayMotto(item):'')}</textarea></div>
+<div class="form-grid-2">
+  <div class="form-group"><label>${t('form.major')}</label><input id="ds-major" value="${escapeHtml(item?dashiDisplayMajor(item):'')}"></div>
+  <div class="form-group"><label>${t('form.minor')}</label><input id="ds-minor" value="${escapeHtml(item?dashiDisplayMinor(item):'')}"></div>
+</div>
+${dashiConfigSectionHtml(item)}
+<div class="form-group"><label>${t('form.toolUrl')}</label><input id="ds-tool-url" value="${escapeHtml(item?(item.tool_url||''):'')}"></div>
+<div class="form-group"><label>${t('form.power')}</label><input id="ds-power" type="number" value="${Number(item&&item.power)||0}"></div>
+<div class="form-section-title">${t('form.skills')}</div>
+<div id="ds-skills-editor"></div>
+<button type="button" class="btn btn-outline btn-sm" onclick="dashiAddSkill()">${t('btn.addSkill')}</button>
+<div class="form-section-title">${t('form.cardSection')}</div>
+<div class="form-grid-2">
+  <div class="form-group"><label>${t('form.person')}</label><input id="ds-person" value="${escapeHtml(card.person)}"></div>
+  <div class="form-group"><label>${t('form.title')}</label><input id="ds-title" value="${escapeHtml(card.title)}"></div>
+  <div class="form-group"><label>${t('form.phone')}</label><input id="ds-phone" value="${escapeHtml(card.phone||phoneVal)}" readonly style="background:#f3f4f6"></div>
+  <div class="form-group"><label>${t('form.email')}</label><input id="ds-email" value="${escapeHtml(card.email)}"></div>
+  <div class="form-group"><label>${t('form.wechat')}</label><input id="ds-wechat" value="${escapeHtml(card.wechat)}"></div>
+  <div class="form-group"><label>${t('form.whatsapp')}</label><input id="ds-whatsapp" value="${escapeHtml(card.whatsapp)}"></div>
+</div>
+<div class="form-group"><label>${t('form.website')}</label><input id="ds-website" value="${escapeHtml(card.website)}"></div>
+<div class="form-group"><label>${t('form.qr')}</label><input id="ds-qr" value="${escapeHtml(card.qr)}"></div>
+<div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveDaShi()">${t('btn.save')}</button></div>`;
+  document.getElementById('modalMask').style.display='flex';
+  renderDashiSkillsEditor();
+  syncPrimaryIoSelects();
+}
+
 function dashiAddSkill(){dashiToolDraft.push({title:'',desc:''});renderDashiSkillsEditor();}
 function dashiRemoveSkill(i){dashiToolDraft.splice(i,1);renderDashiSkillsEditor();}
 function renderDashiSkillsEditor(){const box=document.getElementById('ds-skills-editor');if(!box)return;if(!dashiToolDraft.length){box.innerHTML='—';return;}box.innerHTML=dashiToolDraft.map((s,i)=>`<div class="dynamic-item"><button type="button" class="btn btn-del btn-sm remove-btn" onclick="dashiRemoveSkill(${i})">×</button><div class="form-group"><label>${t('form.skillTitle')}</label><input value="${escapeHtml(s.title||'')}" onchange="dashiToolDraft[${i}].title=this.value" oninput="dashiToolDraft[${i}].title=this.value"></div><div class="form-group"><label>${t('form.skillDesc')}</label><textarea onchange="dashiToolDraft[${i}].desc=this.value" oninput="dashiToolDraft[${i}].desc=this.value">${escapeHtml(s.desc||'')}</textarea></div></div>`).join('');}
-async function saveDaShi(){const user=getUser();if(!user)return;const name=(document.getElementById('ds-name').value||'').trim(),person=(document.getElementById('ds-person').value||'').trim(),phone=(document.getElementById('ds-phone').value||'').trim(),wechat=(document.getElementById('ds-wechat').value||'').trim();if(!name||!person||!wechat)return alert(t('tip.required'));let old=editingDaShiId?(await fetchDaShi()).find(d=>d.id===editingDaShiId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());const motto_i18n=mergeI18n(old?.motto_i18n,currentLang,(document.getElementById('ds-motto').value||'').trim());const major_category_i18n=mergeI18n(old?.major_category_i18n,currentLang,(document.getElementById('ds-major').value||'').trim());const minor_category_i18n=mergeI18n(old?.minor_category_i18n,currentLang,(document.getElementById('ds-minor').value||'').trim());const oldToolsI18n=Array.isArray(old?.tools_i18n)?old.tools_i18n:[];const tools_i18n=dashiToolDraft.filter(s=>(s.title||'').trim()||(s.desc||'').trim()).map((s,i)=>{const prev=oldToolsI18n[i]&&typeof oldToolsI18n[i]==='object'?oldToolsI18n[i]:{};return{title:mergeI18n(prev.title,currentLang,(s.title||'').trim()),desc:mergeI18n(prev.desc,currentLang,(s.desc||'').trim())};});const tools=tools_i18n.map(s=>({title:s.title.zh||s.title.en||Object.values(s.title||{}).find(Boolean)||'',desc:s.desc.zh||s.desc.en||Object.values(s.desc||{}).find(Boolean)||''}));const card={person,title:(document.getElementById('ds-title').value||'').trim(),phone:old?.phone||phone,email:(document.getElementById('ds-email').value||'').trim(),wechat,whatsapp:(document.getElementById('ds-whatsapp').value||'').trim(),website:(document.getElementById('ds-website').value||'').trim(),qr:(document.getElementById('ds-qr').value||'').trim()};const row={id:editingDaShiId||Date.now(),name:name_i18n.zh||name,intro:intro_i18n.zh||'',motto:motto_i18n.zh||'',major_category:major_category_i18n.zh||'',minor_category:minor_category_i18n.zh||'',name_i18n,intro_i18n,motto_i18n,major_category_i18n,minor_category_i18n,tool_url:(document.getElementById('ds-tool-url').value||'').trim(),power:parseInt(document.getElementById('ds-power').value)||0,tools,tools_i18n,phone:old?.phone||phone,card};let error;if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));else({error}=await sb.from('dashi').insert(row));if(error)return alert(error.message);closeModal();renderDaShi();renderHome();alert(t('tip.saved'));}
+
+async function saveDaShi(){
+  const user=getUser();
+  if(!user)return;
+  const name=(document.getElementById('ds-name').value||'').trim();
+  const person=(document.getElementById('ds-person').value||'').trim();
+  const phone=(document.getElementById('ds-phone').value||'').trim();
+  const wechat=(document.getElementById('ds-wechat').value||'').trim();
+  if(!name||!person||!wechat)return alert(t('tip.required'));
+
+  let old=editingDaShiId?(await fetchDaShi()).find(d=>d.id===editingDaShiId):null;
+
+  const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);
+  const intro_i18n=mergeI18n(old?.intro_i18n,currentLang,(document.getElementById('ds-intro').value||'').trim());
+  const motto_i18n=mergeI18n(old?.motto_i18n,currentLang,(document.getElementById('ds-motto').value||'').trim());
+  const major_category_i18n=mergeI18n(old?.major_category_i18n,currentLang,(document.getElementById('ds-major').value||'').trim());
+  const minor_category_i18n=mergeI18n(old?.minor_category_i18n,currentLang,(document.getElementById('ds-minor').value||'').trim());
+
+  const oldToolsI18n=Array.isArray(old?.tools_i18n)?old.tools_i18n:[];
+  const tools_i18n=dashiToolDraft
+    .filter(s=>(s.title||'').trim()||(s.desc||'').trim())
+    .map((s,i)=>{
+      const prev=oldToolsI18n[i]&&typeof oldToolsI18n[i]==='object'?oldToolsI18n[i]:{};
+      return{
+        title:mergeI18n(prev.title,currentLang,(s.title||'').trim()),
+        desc:mergeI18n(prev.desc,currentLang,(s.desc||'').trim())
+      };
+    });
+  const tools=tools_i18n.map(s=>({
+    title:s.title.zh||s.title.en||Object.values(s.title||{}).find(Boolean)||'',
+    desc:s.desc.zh||s.desc.en||Object.values(s.desc||{}).find(Boolean)||''
+  }));
+
+  const card={
+    person,
+    title:(document.getElementById('ds-title').value||'').trim(),
+    phone:old?.phone||phone,
+    email:(document.getElementById('ds-email').value||'').trim(),
+    wechat,
+    whatsapp:(document.getElementById('ds-whatsapp').value||'').trim(),
+    website:(document.getElementById('ds-website').value||'').trim(),
+    qr:(document.getElementById('ds-qr').value||'').trim()
+  };
+
+  /* 212 超级智能配置 · 方案 B */
+  const input_types=typeof readIoChips==='function'?readIoChips('in'):[];
+  const output_types=typeof readIoChips==='function'?readIoChips('out'):[];
+  let primary_input=(document.getElementById('ds-primary-input')||{}).value||'';
+  let primary_output=(document.getElementById('ds-primary-output')||{}).value||'';
+  if(primary_input&&input_types.length&&!input_types.includes(primary_input))primary_input=input_types[0]||'';
+  if(primary_output&&output_types.length&&!output_types.includes(primary_output))primary_output=output_types[0]||'';
+  if(!primary_input&&input_types[0])primary_input=input_types[0];
+  if(!primary_output&&output_types[0])primary_output=output_types[0];
+  const ioNoteRaw=((document.getElementById('ds-io-note')||{}).value||'').trim();
+  const io_note_i18n=mergeI18n(old?.io_note_i18n,currentLang,ioNoteRaw);
+
+  const row={
+    id:editingDaShiId||Date.now(),
+    name:name_i18n.zh||name,
+    intro:intro_i18n.zh||'',
+    motto:motto_i18n.zh||'',
+    major_category:major_category_i18n.zh||'',
+    minor_category:minor_category_i18n.zh||'',
+    name_i18n,
+    intro_i18n,
+    motto_i18n,
+    major_category_i18n,
+    minor_category_i18n,
+    tool_url:(document.getElementById('ds-tool-url').value||'').trim(),
+    power:parseInt(document.getElementById('ds-power').value,10)||0,
+    tools,
+    tools_i18n,
+    phone:old?.phone||phone,
+    card,
+    input_types,
+    output_types,
+    primary_input:primary_input||null,
+    primary_output:primary_output||null,
+    io_note:io_note_i18n.zh||ioNoteRaw||'',
+    io_note_i18n
+  };
+
+  let error;
+  if(editingDaShiId)({error}=await sb.from('dashi').update(row).eq('id',editingDaShiId));
+  else({error}=await sb.from('dashi').insert(row));
+  if(error)return alert(error.message);
+  closeModal();
+  renderDaShi();
+  renderHome();
+  alert(t('tip.saved'));
+}
 async function deleteDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('dashi').delete().eq('id',id);renderDaShi();renderHome();}
 
 async function renderFocus(){const box=document.getElementById('focus-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}const pid=await getPriorityTeamId();const teams=await fetchTeam();const allJinZhu=await fetchJinZhu();const tm=teams.find(x=>Number(x.id)===Number(pid));if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);}
 async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
+
 async function renderHomeCats(){const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;const visible=cats.map(c=>({c,name:catNameStrict(c)})).filter(x=>x.name);maj.innerHTML=visible.map(({name})=>`<span class="home-cat-tag ${homeActiveMajor===name?'active':''}" onclick="selectHomeMajor('${escapeAttr(name)}')">${escapeHtml(name)}</span>`).join('')||`<span style="font-size:12px;color:#94a3b8">${t('tip.noData')}</span>`;if(homeActiveMajor){const hit=visible.find(x=>x.name===homeActiveMajor);const subs=hit?catSubsStrict(hit.c):[];if(min)min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${escapeHtml(s)}</span>`).join('');}else if(min)min.innerHTML='';}
+
 function selectHomeMajor(name){homeActiveMajor=homeActiveMajor===name?'':name;homeDsPage=1;renderHomeCats();renderHome();}
 function filterHomeByMinor(s){const inp=document.getElementById('home-ds-q');if(inp)inp.value=s;homeDsPage=1;renderHome();}
 
@@ -1409,7 +2080,8 @@ async function renderHome(){
   let list=await fetchDaShi();
   if(homeActiveMajor)list=list.filter(d=>dashiDisplayMajor(d)===homeActiveMajor||d.major_category===homeActiveMajor);
   list=filterDaShiByQ(list,(document.getElementById('home-ds-q')||{}).value||'');
-  const pd=paginate(list,homeDsPage,PAGE_SIZE);homeDsPage=pd.page;
+  const pd=paginate(list,homeDsPage,PAGE_SIZE);
+  homeDsPage=pd.page;
   const box=document.getElementById('home-dashi-list');
   if(box)box.innerHTML=pd.slice.length?pd.slice.map(d=>{
     const hasUrl=!!((d.tool_url||'').trim());
@@ -1425,6 +2097,7 @@ async function renderHome(){
           <span class="tag tag-power">⚡${power}</span>
           ${major?`<span class="tag tag-major">${escapeHtml(major)}</span>`:''}
           ${minor?`<span class="tag tag-sub">${escapeHtml(minor)}</span>`:''}
+          ${typeof dashiIoBadgeHtml==='function'?dashiIoBadgeHtml(d):''}
         </div>
         <div class="si-name-line">${escapeHtml(dashiDisplayName(d)||'-')}</div>
         ${intro?`<div class="card-desc"><b>${t('label.intro')}：</b>${escapeHtml(intro)}</div>`:''}
@@ -1437,6 +2110,7 @@ async function renderHome(){
   renderPager('home-ds-pager',pd.page,pd.pages,'goHomeDsPage');
   if(homeCatsOpen)renderHomeCats();
 }
+
 function goHomeDsPage(p){homeDsPage=p;renderHome();}
 
 async function renderHero(){const user=getUser();const box=document.getElementById('hero-list');if(!box)return;let list=await fetchHero();let emptyMsg='';if(!user){emptyMsg=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;list=[];}else if(user.role==='yingxiao'){list=list.filter(h=>String(h.phone)===String(user.phone));if(!list.length)emptyMsg=`<div class="empty-tip">${t('hero.emptyMine')}</div>`;}list=filterHeroByQ(list,(document.getElementById('hero-q')||{}).value||'');const sort=(document.getElementById('hero-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>(Number(b.power)||0)-(Number(a.power)||0));else if(sort==='name')list=list.slice().sort((a,b)=>heroDisplayName(a).localeCompare(heroDisplayName(b),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));const pg=paginate(list,heroPage,PAGE_SIZE);heroPage=pg.page;const canPull=user&&(user.role==='jinzhu'||user.role==='admin');box.innerHTML=pg.slice.length?pg.slice.map(h=>{const pn=escapeAttr(h.phone||''),nm=escapeAttr(heroDisplayName(h)),power=Number(h.power)||0;return`<div class="card"><div class="avatar avatar-hero">★</div><div class="card-content"><div class="card-title">${escapeHtml(heroDisplayName(h)||'-')}<span class="tag tag-power">⚡${power}</span>${canEdit(h)?`<button class="btn btn-edit btn-sm" onclick="editHero(${h.id})">${t('btn.edit')}</button><button class="btn btn-del btn-sm" onclick="deleteHero(${h.id})">${t('btn.del')}</button>`:''}</div><div class="card-desc">${escapeHtml(heroDisplayIntro(h)||'-')}</div>${renderBizCard(h.card,h.phone)}${user?`<div class="x-actions"><button class="x-icon" onclick="openSendMsgDirect('greeting','${pn}')">👋</button>${canPull?`<button class="x-icon pull" onclick="pullIntoTeam(${h.id},'${nm}','hero',${power})">➕</button>`:''}</div>`:''}</div></div>`;}).join(''):(emptyMsg||`<div class="empty-tip">${t('tip.noHeroes')}</div>`);renderPager('hero-pager',pg.page,pg.pages,'goHeroPage');}
