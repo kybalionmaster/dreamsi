@@ -281,7 +281,6 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
     <div class="menu-item" data-view="focus" data-i18n="menu.focus">🎯 当前显化中心</div>
     <div class="menu-item" data-view="team" data-i18n="menu.team">👥 我的超级团队</div>
     <div class="menu-item" data-view="jinzhu" data-i18n="menu.jinzhu">💰 金主需求中心</div>
-    <div class="menu-item" data-view="taskwf" data-i18n="menu.taskwf">🔗 任务工作流配置</div>
     <div class="menu-item" data-view="dashi" data-i18n="menu.dashi">🤖 超级智能中心</div>
     <div class="menu-item" data-view="sicase" data-i18n="menu.sicase">✨ SI 成功场景</div>
     <div class="menu-item" data-view="hero" data-i18n="menu.hero">⭐ 超级精英中心</div>
@@ -452,19 +451,6 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
         <div id="hero-list"></div>
         <div class="pager" id="hero-pager"></div>
       </div>
-
-<div class="view" id="view-taskwf">
-  <div class="view-header">
-    <h2 data-i18n="menu.taskwf">🔗 任务工作流配置</h2>
-    <button class="btn btn-primary btn-sm" id="btn-add-taskwf" onclick="openAddTaskWf()">+ 新建任务</button>
-  </div>
-  <div class="search-bar">
-    <input id="taskwf-q" placeholder="搜索任务…" oninput="taskwfPage=1;renderTaskWf()">
-  </div>
-  <div id="taskwf-list"></div>
-  <div class="pager" id="taskwf-pager"></div>
-</div>
-
       <div class="view" id="view-qgen">
         <div class="view-header">
           <h2 data-i18n="menu.qgen">📋 问卷生成中心</h2>
@@ -477,7 +463,6 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
         <div id="qgen-list"></div>
         <div class="pager" id="qgen-pager"></div>
       </div>
-
       <div class="view" id="view-diagnosis">
         <div class="view-header"><h2 data-i18n="menu.diagnosis">🔎 需求诊断中心</h2></div>
         <div class="search-bar">
@@ -642,23 +627,22 @@ const i18n={};
 /* ===== 中文 ===== */
 i18n.zh={
   brand:'梦想显化器',
-  menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',taskwf:'🔗 任务工作流配置',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
+  menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
   kyb:{footnote:'宇宙法则：<a href="http://www.kybalion.org/" target="_blank" rel="noopener">www.kybalion.org</a>',tip1:'1. 宇宙法则指引方向',tip2:'2. 超级智能零成本自动化执行',tip3:'3. 诊断问卷找出问题',tip4:'4. 自动组合超级精英团队',tip5:'5. 自动把客户送到企业怀抱'},
-  btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',newTaskWf:'+ 新建任务',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',sendToTeams:'发送给所有团队',pullToTeam:'拉入团队',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加',verify:'验证',addSkill:'+ 添加技能',copyFrom:'复制他人再改',addPiece:'+ 添加拼图',addChecklist:'+ 添加清单项',runWf:'启动运行',addSiNode:'+ SI 节点',addHeroNode:'+ 精英节点'},
-  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',taskwfSearch:'搜索任务…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明',taskWfName:'任务名称',taskWfDesc:'任务说明',taskWfNodeTitle:'节点标题（可选）'},
+  btn:{login:'登录',register:'注册',logout:'退出',submit:'提交',send:'发送',save:'保存',cancel:'取消',edit:'编辑',del:'删除',visit:'Visit',createTeam:'+ 创建团队',postDemand:'+ 发布需求',postTool:'+ 发布工具',postHero:'+ 发布精英',postCase:'+ 发布场景',newSurvey:'+ 新建问卷',addMajor:'+ 新增大分类',viewAllTeams:'查看全部团队',preview:'预览',publish:'发布',addSection:'+ 添加分区',addQuestion:'+ 添加题目',reply:'回复',findClient:'找金主',addLink:'+ 添加链接',viewDetail:'查看详情',sendToTeams:'发送给所有团队',pullToTeam:'拉入团队',bundle:'全家桶',superBundle:'超级全家桶',pulse:'脉冲',join:'加入',disband:'解散',setFocus:'设为当前显化',ok:'确定',addPain:'+ 添加',verify:'验证',addSkill:'+ 添加技能',copyFrom:'复制他人再改',addPiece:'+ 添加拼图',addChecklist:'+ 添加清单项'},
+  ph:{homeSearch:'搜索工具…',teamSearch:'搜索团队…',jinzhuSearch:'搜索名称、标题、详情…',dashiSearch:'搜索超级智能…',caseSearch:'搜索场景…',heroSearch:'搜索精英…',surveySearch:'搜索问卷…',genericSearch:'搜索…',pulseSearch:'搜索脉冲…',catSearch:'搜索分类…',coopListSearch:'搜索…',usersSearch:'搜索手机号…',coopName:'公司 / 名称',coopContact:'电话 / 邮箱 / 微信',coopDesc:'合作说明',https:'https://',phone:'手机号',password:'密码',painTitle:'标题',painDesc:'说明',siNames:'输入 SI 名称，用标点或换行分隔',qrUrl:'二维码图片 URL',email:'邮箱',whatsapp:'WhatsApp',website:'网址',title:'职位 / 头衔',motto:'座右铭',skillTitle:'技能标题',skillDesc:'技能说明',major:'大分类',minor:'小分类',jzName:'公司名或个人化名',jzIntro:'公司或个人介绍',jzTitleDream:'梦想标题',jzTitleProblem:'问题需求标题',jzDetailDream:'梦想详细内容',jzDetailProblem:'问题需求详细内容',pieceTitle:'拼图标题',pieceDesc:'拼图说明',checkTitle:'问题标题',checkDesc:'问题说明'},
   sort:{newest:'最新',power:'战力从高到低',powerSum:'战力总和',name:'名称',title:'标题'},
   jz:{filterAll:'全部需求',typeDream:'梦想',typeProblem:'问题需求',typePick:'请先选择需求类型',typeDreamHint:'描述你要显化的梦想，拆成多块拼图',typeProblemHint:'描述要解决的问题，列出问题清单',pieces:'拼图列表',checklist:'问题需求清单',copyDream:'选择并复制其他金主的梦想',copyProblem:'选择并复制其他金主的问题需求',copyEmpty:'暂无可复制内容',copied:'已复制，请修改后保存',idLabel:'需求编号',nameLabel:'名称',introLabel:'简介',titleLabel:'标题',detailLabel:'详情'},
   si:{idLabel:'工具编号',skillsHead:'技能({n}个)：'},
   coop:{name:'名称 / 公司 *',contact:'联系方式 *',type:'合作类型',desc:'合作说明',intro:'填写合作意向。',myList:'我的提交',empty:'暂无合作申请',status:'状态',note:'备注',pending:'待处理',contacted:'已联系',progress:'推进中',done:'已成交',closed:'已关闭',centerEmpty:'暂无记录',allStatus:'全部状态',typeBiz:'商务合作',typeSwap:'资源互换',typeChannel:'渠道代理',typeOther:'其他'},
   pulse:{compose:'+ 发脉冲',inbox:'收件箱',sent:'已发送',toPhone:'收件人手机号 *',content:'内容 *',type:'类型',empty:'暂无脉冲',from:'来自',to:'发给',markRead:'标为已读',unread:'未读',sendOk:'发送成功',needLogin:'请先登录',allTypes:'全部类型',typeGreeting:'问候',typeProgress:'进展',typeEvent:'活动',typeCase:'案例',typeTrial:'试用'},
   users:{phone:'手机号',role:'角色',date:'注册日期',status:'状态',action:'操作',blacklist:'拉黑',unban:'解除',delConfirm:'确定删除？',noSelfDel:'不能删除自己',allRoles:'全部角色'},
-  tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',superBundleOk:'超级全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队',bundleWorking:'正在匹配全家桶…',superBundleWorking:'正在匹配超级全家桶…',required:'请填写必填项',userNotFound:'用户不存在',wrongPwd:'密码错误',blacklisted:'账号已拉黑',exists:'账号已存在',mismatch:'两次密码不一致',minPwd:'密码至少4位',noPermission:'无权限',alreadyIn:'已在团队中',deleteConfirm:'确定删除？',createTeamFirst:'请先创建团队',noMatchedSi:'未匹配到已登记的 SI',matchedSiN:'合格 {n} 个，请删减后保存',rejectedSiN:'未通过 {n} 个',needSiInput:'请先输入要验证的 SI 名称',adoptHint:'请删除不需要的 SI，保存时仅采用余下项',pickTypeFirst:'请先选择需求类型',sendCaseOk:'已发送到 {n} 个团队',sendCaseNone:'没有可写入的团队',sendCaseNoPerm:'仅作者或管理员可发送',pullSurveyOk:'已写入 {n} 个团队',pullSurveyNone:'没有可写入的团队',pullSurveyNoPerm:'仅金主或管理员可操作',pullSurveyDup:'该问卷已在团队中',pullWfOk:'已写入 {n} 个团队',pullWfNone:'没有可写入的团队',pullWfNoPerm:'仅发布者或管理员可拉入团队',pullWfDup:'该任务工作流已在团队中',taskWfNeedNode:'请至少添加一个节点',taskWfEmptyNode:'流程无节点',taskWfNoTool:'未找到工具或无网址'},
+  tip:{noData:'暂无数据',loginFirst:'请先登录',noTools:'暂无工具',noTeams:'暂无团队',saved:'保存成功',noReportLink:'无报告链接',noHeroes:'暂无超级精英',emptyMineJz:'您还没有发布需求。',noDemands:'暂无需求',noCases:'暂无成功场景',bundleOk:'全家桶已装入团队',superBundleOk:'超级全家桶已装入团队',bundleNoTeam:'该需求尚无关联团队',bundleWorking:'正在匹配全家桶…',superBundleWorking:'正在匹配超级全家桶…',required:'请填写必填项',userNotFound:'用户不存在',wrongPwd:'密码错误',blacklisted:'账号已拉黑',exists:'账号已存在',mismatch:'两次密码不一致',minPwd:'密码至少4位',noPermission:'无权限',alreadyIn:'已在团队中',deleteConfirm:'确定删除？',createTeamFirst:'请先创建团队',noMatchedSi:'未匹配到已登记的 SI',matchedSiN:'合格 {n} 个，请删减后保存',rejectedSiN:'未通过 {n} 个',needSiInput:'请先输入要验证的 SI 名称',adoptHint:'请删除不需要的 SI，保存时仅采用余下项',pickTypeFirst:'请先选择需求类型',sendCaseOk:'已发送到 {n} 个团队',sendCaseNone:'没有可写入的团队',sendCaseNoPerm:'仅作者或管理员可发送',pullSurveyOk:'已写入 {n} 个团队',pullSurveyNone:'没有可写入的团队',pullSurveyNoPerm:'仅金主或管理员可操作',pullSurveyDup:'该问卷已在团队中'},
   role:{jinzhu:'金主',ai:'AI公司',admin:'管理员',kefu:'客服',shenhe:'审核员',yingxiao:'行业精英'},
   form:{name:'名称 *',intro:'简介',power:'战力',person:'名片姓名 *',title:'职位 / 头衔',phone:'手机号 *',email:'邮箱',wechat:'微信ID *',whatsapp:'WhatsApp',website:'网址',qr:'二维码图片 URL',loginTitle:'登录',regTitle:'注册',pwd:'密码 *',pwd2:'确认密码 *',roleLabel:'角色',langHint:'当前录入语言：',langHint2:'只填您会的语言。',skill:'核心技能 *',subs:'小分类（每行一个）',industry:'需求类型 *',detail:'详情 *',major:'大分类',minor:'小分类',toolUrl:'工具网址',caseTitle:'场景标题 *',caseContent:'详细内容 *',caseValue:'产生的价值 *',relatedTools:'相关 SI 工具',links:'相关链接',linkTitle:'链接标题',linkUrl:'链接网址',teamName:'团队名称 *',teamDemand:'团队需求',autoTeam:'发布后自动创建超级团队',pains:'列表项',painTitle:'标题',painDesc:'说明',cardSection:'名片信息',bizCard:'商务名片',motto:'座右铭',skills:'多技能',skillTitle:'技能标题',skillDesc:'技能说明',jzName:'名字（公司名或个人化名）*',jzIntro:'简介（公司或个人介绍）',jzTitle:'标题',jzDetail:'详情 *'},
-  label:{intro:'简介',power:'战力',skill:'技能',industry:'需求类型',toolUrl:'工具网址',detail:'详情',pains:'清单',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',bundledWorkflows:'任务工作流',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类'},
+  label:{intro:'简介',power:'战力',skill:'技能',industry:'需求类型',toolUrl:'工具网址',detail:'详情',pains:'清单',caseContent:'详细内容',caseValue:'产生的价值',relatedTools:'相关 SI 工具',links:'相关链接',members:'成员',bundledCases:'成功场景',bundledSurveys:'行业问卷',demand:'需求',person:'姓名',title:'职位',phone:'电话',email:'邮箱',wechat:'微信',whatsapp:'WhatsApp',website:'网址',qr:'二维码',motto:'座右铭',skills:'多技能',major:'大分类',minor:'小分类'},
   qgen:{title:'问卷编辑',name:'问卷名称 *',desc:'说明',previewTitle:'预览',fillSubmit:'提交答卷'},
-  taskwf:{title:'任务工作流',name:'任务名称 *',desc:'说明',nodes:'流程节点（按顺序执行）',nodeStep:'步骤 {n}',pickSi:'选择超级智能',pickHero:'选择行业精英',runTitle:'运行：{name}',runHint:'按节点顺序执行。SI 将打开工具链接；精英显示资料。第一期为半自动运行。',runStep:'执行此步',emptyNodes:'尚未添加节点',nodeCount:'{n} 节点'},
   diag:{allStatus:'全部状态',pending:'待诊',reviewing:'诊断中',completed:'已完成',archived:'已归档',detail:'诊断详情',noAnswers:'暂无答卷',view:'查看详情',empty:'暂无诊断',saveReport:'保存报告',viewReport:'查看诊断报告'},
   hero:{emptyMine:'您还没有发布精英档案。'},
   dashi:{matchTip:'正在为「{name}」匹配超级智能。',clearMatch:'清除匹配'},
@@ -1147,394 +1131,9 @@ async function fetchCategories(){const{data,error}=await sb.from('categories').s
 async function fetchAllMessages(){const{data,error}=await sb.from('messages').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 async function fetchSiCases(){const{data,error}=await sb.from('si_cases').select('*').order('id',{ascending:false});if(error)return[];return data||[];}
 
-async function fetchTaskWf(){
-  const{data,error}=await sb.from('task_workflows').select('*').order('id',{ascending:false});
-  if(error)return[];
-  return data||[];
-}
-
-
-
-let editingTaskWfId=null, taskWfNodeDraft=[], taskwfPage=1;
-
-function openAddTaskWf(){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  editingTaskWfId=null;
-  taskWfNodeDraft=[];
-  showTaskWfForm(null);
-}
-
-async function editTaskWf(id){
-  const item=(await fetchTaskWf()).find(x=>Number(x.id)===Number(id));
-  if(!item)return;
-  const user=getUser();
-  if(!user)return;
-  if(!isAdmin()&&String(item.owner_phone)!==String(user.phone))return alert(t('tip.noPermission'));
-  editingTaskWfId=id;
-  taskWfNodeDraft=Array.isArray(item.nodes)?item.nodes.map(n=>({...n})).sort((a,b)=>(a.order||0)-(b.order||0)):[];
-  showTaskWfForm(item);
-}
-
-function showTaskWfForm(item){
-  document.getElementById('modalBox').className='modal wide';
-  document.getElementById('modalBox').innerHTML=`
-    <h3>${item?'编辑任务工作流':'新建任务工作流'}</h3>
-    <div class="form-group"><label>任务名称 *</label>
-      <input id="tw-name" value="${escapeHtml(item?(item.name||''):'')}"></div>
-    <div class="form-group"><label>说明</label>
-      <textarea id="tw-desc">${escapeHtml(item?(item.description||''):'')}</textarea></div>
-    <div class="form-section-title">流程节点（按顺序执行）</div>
-    <div id="tw-nodes-editor"></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
-      <button type="button" class="btn btn-outline btn-sm" onclick="taskWfAddNode('dashi')">+ SI 节点</button>
-      <button type="button" class="btn btn-outline btn-sm" onclick="taskWfAddNode('hero')">+ 精英节点</button>
-    </div>
-    <div class="form-actions">
-      <button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>
-      <button class="btn btn-primary" onclick="saveTaskWf()">${t('btn.save')}</button>
-    </div>`;
-  document.getElementById('modalMask').style.display='flex';
-  renderTaskWfNodesEditor();
-}
-
-async function taskWfAddNode(refType){
-  const list=refType==='hero'?await fetchHero():await fetchDaShi();
-  if(!list.length)return alert(t('tip.noData'));
-  const options=list.slice(0,80).map(x=>{
-    const id=x.id;
-    const name=refType==='hero'?(heroDisplayName(x)||id):(dashiDisplayName(x)||id);
-    const power=Number(x.power)||0;
-    return`<option value="${id}" data-name="${escapeAttr(name)}" data-power="${power}">#${id} ${escapeHtml(name)} ⚡${power}</option>`;
-  }).join('');
-  document.getElementById('modalBox').insertAdjacentHTML('beforeend',`
-    <div id="tw-pick-mask" style="margin-top:12px;padding:12px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc">
-      <div class="form-group"><label>选择${refType==='hero'?'精英':'超级智能'}</label>
-        <select id="tw-pick-ref">${options}</select></div>
-      <div class="form-group"><label>节点标题（可选）</label>
-        <input id="tw-pick-title" placeholder="默认用工具/精英名称"></div>
-      <button class="btn btn-primary btn-sm" onclick="taskWfConfirmNode('${refType}')">加入节点</button>
-      <button class="btn btn-outline btn-sm" onclick="document.getElementById('tw-pick-mask')?.remove()">取消</button>
-    </div>`);
-}
-
-function taskWfConfirmNode(refType){
-  const sel=document.getElementById('tw-pick-ref');
-  if(!sel)return;
-  const opt=sel.selectedOptions[0];
-  const ref_id=sel.value;
-  const ref_name=opt?.getAttribute('data-name')||ref_id;
-  const power=parseInt(opt?.getAttribute('data-power')||'0',10)||0;
-  const title=((document.getElementById('tw-pick-title')||{}).value||'').trim()||ref_name;
-  taskWfNodeDraft.push({
-    id:'n'+Date.now()+Math.floor(Math.random()*1000),
-    order:taskWfNodeDraft.length+1,
-    title, ref_type:refType, ref_id, ref_name, power
-  });
-  document.getElementById('tw-pick-mask')?.remove();
-  renderTaskWfNodesEditor();
-}
-
-function taskWfRemoveNode(i){
-  taskWfNodeDraft.splice(i,1);
-  taskWfNodeDraft.forEach((n,idx)=>n.order=idx+1);
-  renderTaskWfNodesEditor();
-}
-
-function renderTaskWfNodesEditor(){
-  const box=document.getElementById('tw-nodes-editor');
-  if(!box)return;
-  if(!taskWfNodeDraft.length){box.innerHTML='<div class="empty-tip">尚未添加节点</div>';return;}
-  box.innerHTML=taskWfNodeDraft.map((n,i)=>`
-    <div class="dynamic-item">
-      <button type="button" class="btn btn-del btn-sm remove-btn" onclick="taskWfRemoveNode(${i})">×</button>
-      <div style="font-size:13px;font-weight:600">步骤 ${n.order} · ${escapeHtml(n.title||'')}</div>
-      <div class="card-desc">${n.ref_type==='hero'?'精英':'SI'} #${escapeHtml(String(n.ref_id))} ${escapeHtml(n.ref_name||'')} ⚡${Number(n.power)||0}</div>
-    </div>`).join('');
-}
-
-async function saveTaskWf(){
-  const user=getUser();
-  if(!user)return;
-  const name=(document.getElementById('tw-name').value||'').trim();
-  if(!name)return alert(t('tip.required'));
-  if(!taskWfNodeDraft.length)return alert('请至少添加一个节点');
-  const description=(document.getElementById('tw-desc').value||'').trim();
-  let old=editingTaskWfId?(await fetchTaskWf()).find(x=>Number(x.id)===Number(editingTaskWfId)):null;
-  if(old&&!isAdmin()&&String(old.owner_phone)!==String(user.phone))return alert(t('tip.noPermission'));
-  const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);
-  const description_i18n=mergeI18n(old?.description_i18n,currentLang,description);
-  const nodes=taskWfNodeDraft.map((n,i)=>({...n,order:i+1}));
-  const row={
-    id:editingTaskWfId||Date.now(),
-    name:name_i18n.zh||name,
-    name_i18n,
-    description:description_i18n.zh||description,
-    description_i18n,
-    nodes,
-    owner_phone:old?.owner_phone||user.phone,
-    status:'published'
-  };
-  let error;
-  if(editingTaskWfId)({error}=await sb.from('task_workflows').update(row).eq('id',editingTaskWfId));
-  else({error}=await sb.from('task_workflows').insert(row));
-  if(error)return alert(error.message);
-  closeModal();
-  renderTaskWf();
-  alert(t('tip.saved'));
-}
-
-
-async function runTaskWorkflow(wfId){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  const wf=(await fetchTaskWf()).find(x=>Number(x.id)===Number(wfId));
-  if(!wf)return alert(t('tip.noData'));
-  const nodes=(Array.isArray(wf.nodes)?wf.nodes:[]).slice().sort((a,b)=>(a.order||0)-(b.order||0));
-  if(!nodes.length)return alert('流程无节点');
-
-  let html=`<h3>运行：${escapeHtml(wf.name||'')}</h3>
-    <p class="card-desc">按节点顺序执行。SI 将打开工具链接；精英显示资料。第一期为半自动运行。</p>`;
-  nodes.forEach((n,i)=>{
-    html+=`<div class="dynamic-item">
-      <div style="font-weight:600">步骤 ${i+1}. ${escapeHtml(n.title||n.ref_name||'')}</div>
-      <div class="card-desc">${n.ref_type==='hero'?'行业精英':'超级智能'} · ${escapeHtml(n.ref_name||'')} #${escapeHtml(String(n.ref_id))}</div>
-      <button class="btn btn-primary btn-sm" onclick="runTaskWfStep('${escapeAttr(n.ref_type)}',${Number(n.ref_id)})">执行此步</button>
-    </div>`;
-  });
-  html+=`<div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.ok')}</button></div>`;
-  document.getElementById('modalBox').className='modal wide';
-  document.getElementById('modalBox').innerHTML=html;
-  document.getElementById('modalMask').style.display='flex';
-}
-
-async function runTaskWfStep(refType,refId){
-  if(refType==='dashi'||refType==='si'){
-    const d=(await fetchDaShi()).find(x=>Number(x.id)===Number(refId));
-    if(d&&(d.tool_url||'').trim()){
-      openToolUrl(d.tool_url);
-      return;
-    }
-    return alert(t('tip.taskWfNoTool')||'未找到工具或无网址');
-  }
-  if(refType==='hero'||refType==='yingxiao'||refType==='elite'){
-    const h=(await fetchHero()).find(x=>Number(x.id)===Number(refId));
-    if(!h)return alert(t('tip.noHeroes')||'未找到该精英');
-    openHeroInNewTab(h);
-    return;
-  }
-  alert(t('tip.noData'));
-}
-
-/** 行业精英：新标签页打开（优先名片网址，否则独立简介页） */
-function openHeroInNewTab(h){
-  if(!h)return;
-  const card=typeof normalizeCard==='function'
-    ?normalizeCard(h.card,h.phone)
-    :(h.card||{});
-  let site=(card.website||h.website||'').trim();
-  if(site){
-    if(!/^https?:\/\//i.test(site))site='https://'+site;
-    if(typeof openToolUrl==='function')openToolUrl(site);
-    else window.open(site,'_blank','noopener,noreferrer');
-    return;
-  }
-  const name=(typeof heroDisplayName==='function'?heroDisplayName(h):h.name)||('#'+h.id);
-  const intro=(typeof heroDisplayIntro==='function'?heroDisplayIntro(h):(h.intro||''))||'';
-  const skill=(h.skill||'')+'';
-  const power=Number(h.power)||0;
-  const person=card.person||name;
-  const title=card.title||'';
-  const phone=card.phone||h.phone||'';
-  const email=card.email||'';
-  const wechat=card.wechat||'';
-  const whatsapp=card.whatsapp||'';
-  const qr=card.qr||'';
-  const esc=(s)=>String(s||'')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  const html=`<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(name)} · 超级精英</title>
-<style>
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#f1f5f9;color:#0f172a;line-height:1.5}
-  .wrap{max-width:480px;margin:24px auto;padding:16px}
-  .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
-  .av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#be185d);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px}
-  h1{font-size:20px;margin:0 0 6px}
-  .sub{color:#64748b;font-size:13px;margin-bottom:12px}
-  .tag{display:inline-block;background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:999px;font-size:12px;margin-right:6px}
-  .sec{margin-top:14px;font-size:14px;color:#334155}
-  .k{color:#94a3b8;min-width:4em;display:inline-block}
-  .qr{width:96px;height:96px;border-radius:8px;border:1px solid #e2e8f0;object-fit:cover;margin-top:8px}
-</style>
-</head>
-<body>
-<div class="wrap"><div class="card">
-  <div class="av">Elite</div>
-  <h1>${esc(name)}</h1>
-  <div class="sub"><span class="tag">⚡${power}</span>ID #${esc(h.id)}</div>
-  ${intro?`<div class="sec">${esc(intro)}</div>`:''}
-  ${skill?`<div class="sec"><span class="k">技能</span>${esc(skill)}</div>`:''}
-  <div class="sec" style="margin-top:16px;border-top:1px solid #e2e8f0;padding-top:12px">
-    <div><span class="k">姓名</span>${esc(person)}</div>
-    ${title?`<div><span class="k">职位</span>${esc(title)}</div>`:''}
-    ${phone?`<div><span class="k">电话</span>${esc(phone)}</div>`:''}
-    ${email?`<div><span class="k">邮箱</span>${esc(email)}</div>`:''}
-    ${wechat?`<div><span class="k">微信</span>${esc(wechat)}</div>`:''}
-    ${whatsapp?`<div><span class="k">WhatsApp</span>${esc(whatsapp)}</div>`:''}
-    ${qr?`<div><span class="k">二维码</span><br><img class="qr" src="${esc(qr)}" alt="qr"></div>`:''}
-  </div>
-</div></div>
-</body></html>`;
-  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  window.open(url,'_blank','noopener,noreferrer');
-  setTimeout(()=>URL.revokeObjectURL(url),60000);
-}
-
-
-async function renderTaskWf(){
-  const box=document.getElementById('taskwf-list');
-  if(!box)return;
-  const user=getUser();
-  let list=await fetchTaskWf();
-  const q=((document.getElementById('taskwf-q')||{}).value||'').trim().toLowerCase();
-  if(q)list=list.filter(x=>String(x.name||'').toLowerCase().includes(q));
-  const pg=paginate(list,taskwfPage,PAGE_SIZE);
-  taskwfPage=pg.page;
-  box.innerHTML=pg.slice.length?pg.slice.map(w=>{
-    const nodes=Array.isArray(w.nodes)?w.nodes:[];
-    const canEditWf=user&&(isAdmin()||String(w.owner_phone)===String(user.phone));
-    return`<div class="card">
-      <div class="avatar avatar-dashi">流</div>
-      <div class="card-content">
-        <div class="card-title">
-          <span class="tag">#${w.id}</span>
-          <span class="tag tag-sub">${nodes.length} 节点</span>
-          ${canEditWf?`<button class="btn btn-edit btn-sm" onclick="editTaskWf(${w.id})">${t('btn.edit')}</button>
-          <button class="btn btn-del btn-sm" onclick="deleteTaskWf(${w.id})">${t('btn.del')}</button>`:''}
-        </div>
-        <div class="si-name-line">${escapeHtml(w.name||'-')}</div>
-        <div class="card-desc">${escapeHtml(w.description||'')}</div>
-        <div class="bundle-row">${nodes.map(n=>`<span class="tag">${escapeHtml(n.title||n.ref_name||'')}</span>`).join('')}</div>
-        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
-          <button class="btn btn-primary btn-sm" onclick="runTaskWorkflow(${w.id})">启动运行</button>
-          <button class="btn btn-survey btn-sm" onclick="pullTaskWfToTeam(${w.id})">拉入团队</button>
-        </div>
-      </div>
-    </div>`;
-  }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
-  renderPager('taskwf-pager',pg.page,pg.pages,'p=>{taskwfPage=p;renderTaskWf();}');
-}
-
-async function deleteTaskWf(id){
-  const user=getUser();
-  if(!user)return;
-  const item=(await fetchTaskWf()).find(x=>Number(x.id)===Number(id));
-  if(!item)return;
-  if(!isAdmin()&&String(item.owner_phone)!==String(user.phone))return alert(t('tip.noPermission'));
-  if(!confirm(t('tip.deleteConfirm')))return;
-  await sb.from('task_workflows').delete().eq('id',id);
-  renderTaskWf();
-}
-
-async function pullTaskWfToTeam(wfId){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  const wf=(await fetchTaskWf()).find(x=>Number(x.id)===Number(wfId));
-  if(!wf)return;
-  const isOwner=String(wf.owner_phone)===String(user.phone);
-  const admin=isAdmin();
-
-  // 非发布者且非管理员 → 商务合作预填
-  if(!admin&&!isOwner){
-    switchView('coop');
-    setTimeout(()=>{
-      const nameEl=document.getElementById('coop-name');
-      const contactEl=document.getElementById('coop-contact');
-      const typeEl=document.getElementById('coop-type');
-      const descEl=document.getElementById('coop-desc');
-      if(nameEl&&!nameEl.value)nameEl.value=user.phone||'';
-      if(contactEl)contactEl.value=user.phone||'';
-      if(typeEl){
-        // 若有「其他」选项
-        typeEl.value='其他';
-      }
-      if(descEl){
-        descEl.value=`【任务工作流需求】\n希望使用任务工作流：${wf.name||''}（ID:${wf.id}）\n节点数：${(wf.nodes||[]).length}\n需求说明：希望将该工作流配置到我的团队中使用。\n联系人手机：${user.phone||''}`;
-      }
-    },50);
-    return;
-  }
-
-  const teams=await fetchTeam();
-  let targets=[];
-  if(admin){
-    targets=teams;
-  }else{
-    // 发布者：写入自己作为成员/金主相关的团队（按 members 含自己 phone 或 id）
-    targets=teams.filter(tm=>{
-      const mems=Array.isArray(tm.members)?tm.members:[];
-      return mems.some(m=>String(m.id)===String(user.phone)||String(m.phone)===String(user.phone))
-        ||String(tm.owner_phone)===String(user.phone)
-        ||String(tm.jinzhu_id)===String(user.phone);
-    });
-    // 若过滤过空，退化为「用户确认的全部自己可见团队」——可按你们规则再收紧
-    if(!targets.length)targets=teams.filter(tm=>String(tm.phone)===String(user.phone));
-  }
-  if(!targets.length)return alert(t('tip.pullSurveyNone')||'没有可写入的团队');
-
-  const payload={id:wf.id,name:wf.name||('流程'+wf.id)};
-  let n=0;
-  for(const tm of targets){
-    let arr=Array.isArray(tm.bundled_workflows)?tm.bundled_workflows.slice():[];
-    if(arr.some(x=>Number(x.id)===Number(wf.id)))continue;
-    arr.push(payload);
-    const{error}=await sb.from('team').update({bundled_workflows:arr}).eq('id',tm.id);
-    if(!error)n++;
-  }
-  alert(n?`已写入 ${n} 个团队`:(t('tip.pullSurveyDup')||'已在团队中或无更新'));
-  renderTeam();
-  renderFocus();
-}
-
-
 function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return;matchContext={type:'dashi',id:d.id,name:dashiDisplayName(d),text:accumulateTools(d)};switchView('jinzhu');});}
 function clearMatchContext(){matchContext=null;renderJinZhu();renderDaShi();}
-
-function switchView(view){
-  document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const el=document.getElementById('view-'+view);
-  if(el)el.classList.add('active');
-  toggleSidebar(false);
-  if(view!=='dashi')focusDashiId=null;
-  if(view!=='hero')focusHeroId=null;
-  if(view!=='jinzhu')focusJinZhuId=null;
-  const map={
-    home:renderHome,
-    focus:renderFocus,
-    jinzhu:renderJinZhu,
-    dashi:renderDaShi,
-    sicase:renderSiCase,
-    hero:renderHero,
-    team:renderTeam,
-    diagnosis:renderDiagnosis,
-    qgen:renderQgen,
-    taskwf:renderTaskWf,
-    inbox:renderInbox,
-    users:renderUsers,
-    'coop-list':renderCoopList,
-    categories:renderCategories,
-    coop:renderCoopFormPage,
-    kybalion:null
-  };
-  if(map[view])map[view]();
-}
-
+function switchView(view){document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const el=document.getElementById('view-'+view);if(el)el.classList.add('active');toggleSidebar(false);if(view!=='dashi')focusDashiId=null;if(view!=='hero')focusHeroId=null;if(view!=='jinzhu')focusJinZhuId=null;const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,sicase:renderSiCase,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,categories:renderCategories,coop:renderCoopFormPage};if(map[view])map[view]();}
 function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">${t('btn.login')}</button><button class="btn btn-primary" onclick="openModal('register')">${t('btn.register')}</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||''}">${t('role.'+user.role)||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;}
 function updateButtons(){const user=getUser();const set=(id,show)=>{const el=document.getElementById(id);if(el)el.style.display=show?'inline-block':'none';};set('btn-add-jinzhu',user&&(user.role==='jinzhu'||user.role==='admin'));set('btn-add-dashi',user&&(user.role==='ai'||user.role==='admin'));set('btn-add-hero',user&&(user.role==='yingxiao'||user.role==='admin'));set('btn-add-team',user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'));set('btn-add-qgen',!!user);set('btn-pulse-compose',!!user);set('btn-add-sicase',user&&(user.role==='ai'||user.role==='admin'||user.role==='jinzhu'||user.role==='yingxiao'));}
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
@@ -1624,18 +1223,15 @@ async function runFullBundle(jinzhuId,mode){
   renderTeam();
   renderFocus();
 }
-
 function teamBundleHtml(team){
   if(!team)return '';
   const cases=Array.isArray(team.bundled_cases)?team.bundled_cases:[];
   const surveys=Array.isArray(team.bundled_surveys)?team.bundled_surveys:[];
-  const workflows=Array.isArray(team.bundled_workflows)?team.bundled_workflows:[];
-  if(!cases.length&&!surveys.length&&!workflows.length)return '';
+  if(!cases.length&&!surveys.length)return '';
   const showCase=!!teamCaseKickVisible[team.id];
   const showSurvey=!!teamSurveyKickVisible[team.id];
-  const showWf=!!teamWfKickVisible[team.id];
   const isOwner=(()=>{const user=getUser();return user&&(String(team.phone)===String(user.phone)||isAdmin());})();
-  return`<div class="bundle-box ${showCase?'team-show-case':''} ${showSurvey?'team-show-survey':''} ${showWf?'team-show-wf':''}">
+  return`<div class="bundle-box ${showCase?'team-show-case':''} ${showSurvey?'team-show-survey':''}">
     ${cases.length?`<h5>${t('label.bundledCases')}</h5><div class="bundle-row">${cases.map(c=>{
       const kick=isOwner?`<button type="button" class="bundle-x case-x" onclick="event.stopPropagation();kickBundledCase(${team.id},${Number(c.id)})">×</button>`:'';
       return `<span class="tag tag-tool bundle-chip" onclick="viewSiCase(${Number(c.id)})">${escapeHtml(c.title||c.id||'')}${kick}</span>`;
@@ -1644,30 +1240,8 @@ function teamBundleHtml(team){
       const kick=isOwner?`<button type="button" class="bundle-x survey-x" onclick="event.stopPropagation();kickBundledSurvey(${team.id},${Number(s.id)})">×</button>`:'';
       return `<span class="tag tag-sub bundle-chip" onclick="previewQgen(${Number(s.id)})">${escapeHtml(s.name||s.id||'')}${kick}</span>`;
     }).join('')}</div>`:''}
-    ${workflows.length?`<h5 style="margin-top:8px">${t('label.bundledWorkflows')||'任务工作流'}</h5><div class="bundle-row">${workflows.map(w=>{
-      const kick=isOwner?`<button type="button" class="bundle-x wf-x" onclick="event.stopPropagation();kickBundledWorkflow(${team.id},${Number(w.id)})">×</button>`:'';
-      return `<span class="tag tag-tool bundle-chip" style="background:#ede9fe;color:#5b21b6" onclick="runTaskWorkflow(${Number(w.id)})">${escapeHtml(w.name||w.id||'')}${kick}</span>`;
-    }).join('')}</div>`:''}
   </div>`;
 }
-
-
-
-// 与 teamCaseKickVisible / teamSurveyKickVisible 同级声明
-let teamWfKickVisible={};
-
-async function kickBundledWorkflow(teamId,wfId){
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
-  if(!team||!canEdit(team))return;
-  const bundled_workflows=(Array.isArray(team.bundled_workflows)?team.bundled_workflows:[])
-    .filter(w=>Number(w.id)!==Number(wfId));
-  await sb.from('team').update({bundled_workflows}).eq('id',teamId);
-  renderTeam();
-  renderJinZhu();
-  renderFocus();
-}
-
 
 function teamBlockHtml(team,j,user,heroIds,dashiIds){
   if(!team)return '';
