@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>梦想显化器 V215</title>
+<title>梦想显化器 V213</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>𝕏</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -269,26 +269,6 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .io-chip.on{background:#fbbf24;border-color:#f59e0b;color:#0f172a;font-weight:600}
 .tag-io{background:#ecfdf5;color:#047857;margin:2px}
 .tag-io-out{background:#eff6ff;color:#1d4ed8;margin:2px}
-/* 215 企业相亲大厅 */
-.modal.xiangqin{max-width:960px;width:96vw;padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:92vh}
-.xq-header{background:linear-gradient(135deg,#0f172a,#1e3a5f);color:#e2e8f0;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.xq-header h3{margin:0;font-size:18px;color:#fbbf24}
-.xq-search{flex:1;min-width:160px;max-width:320px;padding:8px 14px;border-radius:20px;border:1px solid #334155;background:#1e293b;color:#f1f5f9;outline:none}
-.xq-body{display:flex;flex:1;min-height:280px;overflow:hidden}
-.xq-left,.xq-right{flex:1;padding:14px;overflow-y:auto;font-size:13px}
-.xq-left{background:#f8fafc;border-right:1px solid #e2e8f0}
-.xq-right{background:#fff}
-.xq-panel-title{font-size:13px;font-weight:700;color:#64748b;margin-bottom:10px}
-.xq-match{font-size:28px;font-weight:800;color:#059669;margin:8px 0}
-.xq-match.low{color:#b45309}.xq-match.mid{color:#2563eb}
-.xq-footer{padding:12px 14px;background:#0f172a;border-top:1px solid #1e293b}
-.xq-scroll{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
-.xq-card{flex:0 0 200px;background:linear-gradient(160deg,#1e293b,#0f172a);border:1px solid #334155;border-radius:12px;padding:12px;color:#e2e8f0;cursor:pointer;transition:border-color .2s,transform .15s}
-.xq-card:hover,.xq-card.active{border-color:#fbbf24;transform:translateY(-2px)}
-.xq-card .xq-name{font-weight:700;font-size:14px;color:#fbbf24;margin-bottom:4px}
-.xq-card .xq-desc{font-size:12px;color:#94a3b8;line-height:1.4;max-height:2.8em;overflow:hidden}
-.xq-card .xq-btns{margin-top:8px;display:flex;gap:6px}
-.xq-empty{color:#94a3b8;padding:20px;text-align:center}
 </style>
 </head>
 <body>
@@ -379,16 +359,12 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 </div>
 
 
-<div class="view" id="view-focus">
-  <div class="view-header">
-    <h2 data-i18n="menu.focus">🎯 当前显化中心</h2>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary btn-sm" onclick="openXiangQin()" data-i18n="btn.xiangqin">企业相亲中心</button>
-      <button class="btn btn-outline btn-sm" data-i18n="btn.viewAllTeams" onclick="switchView('team')">查看全部团队</button>
-    </div>
-  </div>
-  <div id="focus-list"></div>
-</div>
+      <div class="view" id="view-focus">
+        <div class="view-header">
+          <h2 data-i18n="menu.focus">🎯 当前显化中心</h2>
+        </div>
+        <div id="focus-list"></div>
+      </div>
 
       <div class="view" id="view-team">
         <div class="view-header">
@@ -650,16 +626,6 @@ const i18n={};
 
 /* ===== 中文 ===== */
 i18n.zh={
-// 放在 btn 对象里
-xiangqin: '企业相亲中心',
-enterpriseHall: '企业相亲大厅',
-selectEnterprise: '选中',
-viewEnterprise: '查看',
-matchScore: '匹配度',
-currentManifest: '当前显化',
-searchEnterprise: '搜索企业…',
-noEnterprise: '暂无相关企业',
-selectOk: '已选中并拉入团队',
   brand:'梦想显化器',
   menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
@@ -687,15 +653,6 @@ selectOk: '已选中并拉入团队',
 
 /* ===== English ===== */
 i18n.en={
-xiangqin: 'Enterprise Matchmaking',
-enterpriseHall: 'Enterprise Matchmaking Hall',
-selectEnterprise: 'Select',
-viewEnterprise: 'View',
-matchScore: 'Match Score',
-currentManifest: 'Current Manifestation',
-searchEnterprise: 'Search enterprises…',
-noEnterprise: 'No matching enterprises',
-selectOk: 'Selected and added to team',
   brand:'Dream Manifestor',
   menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 My Team',jinzhu:'💰 Demands',dashi:'🤖 Super SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},
   home:{siTools:'SI Tools',allCats:'All categories'},
@@ -719,8 +676,7 @@ selectOk: 'Selected and added to team',
   jinzhu:{matchTip:'Matching demands for "{name}".',clearMatch:'Clear match',idLabel:'ID'},
   team:{empty:'No teams yet. Create one.',memberN:'members',bundleHint:'Pack 6+6+6+3 · Super 12+12+12+6',progress:'Progress',progressPh:'Record team progress…',saveProgress:'Save progress',noProgress:'No progress yet',tipKickOn:'Close member reorg',tipKickOff:'Open member reorg',tipCardOn:'Hide card',tipCardOff:'Show card',tipCaseOn:'Close SI case reorg',tipCaseOff:'Open SI case reorg',tipSurveyOn:'Close survey reorg',tipSurveyOff:'Open survey reorg'},
   case:{extractHint:'Enter SI names, Verify, then delete unwanted. Only remaining are saved.',noLinks:'No links',noRelated:'No related SI',okList:'Matched (trim)',rejectList:'Not in library'}
- };
-
+};
 
 /* ===== 德语 ===== */
 i18n.de={
@@ -1287,8 +1243,9 @@ function teamBundleHtml(team){
   </div>`;
 }
 
-function teamBlockHtml(team,j,user,heroIds,dashiIds){
+function teamBlockHtml(team,j,user,heroIds,dashiIds,opts){
   if(!team)return '';
+  opts=opts||{};
   const members=team.members||[];
   const isOwner=user&&(String(team.phone)===String(user.phone)||isAdmin());
   const isMember=user&&members.some(m=>memberMatchesUser(m,user,heroIds||new Set(),dashiIds||new Set()));
@@ -1310,13 +1267,13 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds){
     <div class="team-title">
       <h4 style="margin:0">👥 ${escapeHtml(team.name||'')}</h4>
       <span class="tag tag-power">⚡${sum}</span>
-      ${user?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('btn.setFocus'))}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
+      ${user&&!opts.hideSetFocus?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('btn.setFocus'))}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
       ${isOwner?`<button type="button" class="btn-icon-sm ${showKick?'active-reorg':''}" title="${escapeAttr(tipKick)}" onclick="toggleTeamKick(${team.id})">🔀</button>`:''}
       <button type="button" class="btn-icon-sm ${showCard?'active-reorg':''}" title="${escapeAttr(tipCard)}" onclick="toggleTeamCard(${team.id})">📇</button>
       ${isOwner?`<button type="button" class="btn-icon-sm ${showCase?'active-reorg':''}" title="${escapeAttr(tipCase)}" onclick="toggleTeamCaseKick(${team.id})">✨</button>`:''}
       ${isOwner?`<button type="button" class="btn-icon-sm ${showSurvey?'active-reorg':''}" title="${escapeAttr(tipSurvey)}" onclick="toggleTeamSurveyKick(${team.id})">📋</button>`:''}
       ${canJoin?`<button type="button" class="btn btn-team btn-sm" onclick="joinTeam(${team.id})">${t('btn.join')}</button>`:''}
-      ${isOwner?`<button class="btn btn-del btn-sm" onclick="disbandTeam(${team.id})">${t('btn.disband')}</button>`:''}
+      ${isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('btn.disband'))}" onclick="disbandTeam(${team.id})" style="border-color:#fecaca;color:#b91c1c;background:#fef2f2">🗑️</button>`:''}
     </div>
     ${team.demand?`<div class="card-desc" style="margin-top:6px"><b>${t('label.demand')}：</b>${escapeHtml(team.demand)}</div>`:''}
     <div class="member-list" style="margin-top:8px">${members.length?members.map(m=>memberChipHtml(m,isOwner,team.id)).join(''):'—'}</div>
@@ -1325,6 +1282,7 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds){
     ${teamProgressHtml(team,isOwner)}
   </div>`;
 }
+
 async function renderTeam(){const user=getUser();const box=document.getElementById('team-list');if(!box)return;if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}let list=await fetchTeam();const allJin=await fetchJinZhu();let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));if(user.role!=='admin')list=list.filter(tm=>String(tm.phone)===String(user.phone)||(tm.members||[]).some(m=>memberMatchesUser(m,user,heroIds,dashiIds)));const q=(document.getElementById('team-q')||{}).value||'';if(q.trim()){const ql=q.trim().toLowerCase();list=list.filter(tm=>[tm.name,tm.demand,tm.phone,JSON.stringify(tm.members||[])].join(' ').toLowerCase().includes(ql));}const sort=(document.getElementById('team-sort')||{}).value||'new';if(sort==='power')list=list.slice().sort((a,b)=>teamPowerSum(b)-teamPowerSum(a));else if(sort==='name')list=list.slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'zh'));else list=list.slice().sort((a,b)=>Number(b.id||0)-Number(a.id||0));const pg=paginate(list,teamPage,PAGE_SIZE);teamPage=pg.page;box.innerHTML=pg.slice.length?pg.slice.map(tm=>{const j=allJin.find(x=>String(x.id)===String(tm.jinzhu_id));return`<div class="card"><div class="avatar avatar-team">T</div><div class="card-content">${teamBlockHtml(tm,j,user,heroIds,dashiIds)}</div></div>`;}).join(''):`<div class="empty-tip">${t('team.empty')}</div>`;renderPager('team-pager',pg.page,pg.pages,'goTeamPage');}
 function goTeamPage(p){teamPage=p;renderTeam();}
 function openAddTeam(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingTeamId=null;showTeamForm(null);}
@@ -1686,174 +1644,22 @@ async function saveDaShi(){
 }
 async function deleteDaShi(id){const item=(await fetchDaShi()).find(d=>d.id===id);if(!item||!canEdit(item))return;if(!confirm(t('tip.deleteConfirm')))return;await sb.from('dashi').delete().eq('id',id);renderDaShi();renderHome();}
 
-async function renderFocus(){const box=document.getElementById('focus-list');if(!box)return;const user=getUser();if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}const pid=await getPriorityTeamId();const teams=await fetchTeam();const allJinZhu=await fetchJinZhu();const tm=teams.find(x=>Number(x.id)===Number(pid));if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));let heroIds=new Set(),dashiIds=new Set();(await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));(await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds);}
-/* ===== 215 企业相亲中心 ===== */
-let xqSelectedId = null;
-let xqCurrentTeam = null;
-let xqLinkedJin = null;
-
-function xqEnterpriseText(d){
-  return [dashiDisplayName(d), dashiDisplayIntro(d), dashiDisplayMotto(d), dashiDisplayMajor(d), dashiDisplayMinor(d), d.tool_url||''].join(' ');
+async function renderFocus(){
+  const box=document.getElementById('focus-list');
+  if(!box)return;
+  const user=getUser();
+  if(!user){box.innerHTML=`<div class="empty-tip">${t('tip.loginFirst')}</div>`;return;}
+  const pid=await getPriorityTeamId();
+  const teams=await fetchTeam();
+  const allJinZhu=await fetchJinZhu();
+  const tm=teams.find(x=>Number(x.id)===Number(pid));
+  if(!tm){box.innerHTML=`<div class="empty-tip">${t('tip.noTeams')}</div>`;return;}
+  const linkedJin=allJinZhu.find(j=>String(j.id)===String(tm.jinzhu_id));
+  let heroIds=new Set(),dashiIds=new Set();
+  (await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
+  (await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
+  box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds,{hideSetFocus:true});
 }
-function xqDemandText(team, jin){
-  let s = (team&&team.demand)||'';
-  if(jin){
-    s += ' ' + (jinzhuDisplayName(jin)||'') + ' ' + (jinzhuDisplayTitle(jin)||'') + ' ' + (jinzhuDisplayDetail(jin)||'') + ' ' + (jinzhuDisplayIntro(jin)||'');
-  }
-  return s;
-}
-function xqMatchPercent(demandText, d){
-  const score = textMatch(demandText||'', xqEnterpriseText(d));
-  // textMatch 通常返回关键词命中强度，做简单归一
-  const pct = Math.min(98, Math.round(Math.min(score, 12) / 12 * 100));
-  return pct;
-}
-
-async function openXiangQin(){
-  const user = getUser();
-  if(!user) return alert(t('tip.loginFirst'));
-  const pid = await getPriorityTeamId();
-  const teams = await fetchTeam();
-  const tm = teams.find(x => Number(x.id) === Number(pid));
-  if(!tm) return alert(t('tip.noTeams'));
-  xqCurrentTeam = tm;
-  const allJin = await fetchJinZhu();
-  xqLinkedJin = allJin.find(j => String(j.id) === String(tm.jinzhu_id)) || null;
-  xqSelectedId = null;
-
-  const box = document.getElementById('modalBox');
-  box.className = 'modal xiangqin wide';
-  box.innerHTML = `
-    <div class="xq-header">
-      <h3 data-i18n="btn.enterpriseHall">🏢 ${t('btn.enterpriseHall')||'企业相亲大厅'}</h3>
-      <input class="xq-search" id="xq-q" placeholder="${t('ph.searchEnterprise')||'搜索企业…'}" oninput="renderXiangQinList()">
-      <button class="btn btn-outline btn-sm" onclick="closeModal()" style="color:#e2e8f0;border-color:#475569">${t('btn.cancel')}</button>
-    </div>
-    <div class="xq-body">
-      <div class="xq-left" id="xq-left"></div>
-      <div class="xq-right" id="xq-right"><div class="xq-empty">${t('tip.noData')}</div></div>
-    </div>
-    <div class="xq-footer">
-      <div class="xq-scroll" id="xq-list"></div>
-    </div>`;
-  document.getElementById('modalMask').style.display = 'flex';
-  renderXiangQinLeft();
-  await renderXiangQinList();
-}
-
-function renderXiangQinLeft(){
-  const el = document.getElementById('xq-left');
-  if(!el || !xqCurrentTeam) return;
-  const tm = xqCurrentTeam;
-  const j = xqLinkedJin;
-  const sum = teamPowerSum(tm);
-  el.innerHTML = `
-    <div class="xq-panel-title">${t('btn.currentManifest')||'当前显化'}</div>
-    <div style="font-weight:700;font-size:16px;margin-bottom:6px">👥 ${escapeHtml(tm.name||'')}</div>
-    <div class="tag tag-power">⚡${sum}</div>
-    ${tm.demand ? `<div class="card-desc" style="margin-top:10px"><b>${t('label.demand')}：</b>${escapeHtml(tm.demand)}</div>` : ''}
-    ${j ? `<div style="margin-top:12px;padding-top:10px;border-top:1px solid #e2e8f0">
-      <div style="font-weight:600">${escapeHtml(jinzhuDisplayName(j)||'')}</div>
-      <div class="card-desc">${escapeHtml(jinzhuDisplayTitle(j)||'')}</div>
-      <div class="card-desc" style="margin-top:4px">${escapeHtml((jinzhuDisplayDetail(j)||'').slice(0,120))}${(jinzhuDisplayDetail(j)||'').length>120?'…':''}</div>
-    </div>` : ''}
-    <div class="member-list" style="margin-top:12px">${(tm.members||[]).slice(0,8).map(m=>`<span class="member-chip"><span>${escapeHtml(m.name||m.id)}</span></span>`).join('')}${(tm.members||[]).length>8?'…':''}</div>
-  `;
-}
-
-async function renderXiangQinList(){
-  const listEl = document.getElementById('xq-list');
-  if(!listEl) return;
-  let list = await fetchDaShi();
-  const q = ((document.getElementById('xq-q')||{}).value||'').trim().toLowerCase();
-  if(q){
-    const keys = q.split(/\s+/).filter(Boolean);
-    list = list.filter(d => {
-      const blob = xqEnterpriseText(d).toLowerCase();
-      return keys.every(k => blob.includes(k));
-    });
-  }
-  // 按匹配度排序
-  const demandText = xqDemandText(xqCurrentTeam, xqLinkedJin);
-  list = list.map(d => ({d, pct: xqMatchPercent(demandText, d)}))
-             .sort((a,b) => b.pct - a.pct)
-             .map(x => x.d);
-
-  if(!list.length){
-    listEl.innerHTML = `<div class="xq-empty">${t('btn.noEnterprise')||'暂无相关企业'}</div>`;
-    return;
-  }
-  listEl.innerHTML = list.map(d => {
-    const name = dashiDisplayName(d)||('SI#'+d.id);
-    const intro = (dashiDisplayIntro(d)||dashiDisplayMotto(d)||'').slice(0,40);
-    const active = String(xqSelectedId)===String(d.id) ? 'active' : '';
-    return `<div class="xq-card ${active}" onclick="selectXiangQinView(${d.id})">
-      <div class="xq-name">${escapeHtml(name)}</div>
-      <div class="xq-desc">${escapeHtml(intro)}</div>
-      <div class="xq-btns">
-        <button class="btn btn-sm btn-outline" style="background:#1e293b;color:#e2e8f0;border-color:#475569" onclick="event.stopPropagation();selectXiangQinView(${d.id})">${t('btn.viewEnterprise')||'查看'}</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-async function selectXiangQinView(id){
-  xqSelectedId = id;
-  const list = await fetchDaShi();
-  const d = list.find(x => Number(x.id)===Number(id));
-  const right = document.getElementById('xq-right');
-  if(!right || !d) return;
-  const demandText = xqDemandText(xqCurrentTeam, xqLinkedJin);
-  const pct = xqMatchPercent(demandText, d);
-  const cls = pct>=70 ? '' : (pct>=40 ? 'mid' : 'low');
-  const name = dashiDisplayName(d)||('SI#'+d.id);
-  const intro = dashiDisplayIntro(d)||'';
-  const motto = dashiDisplayMotto(d)||'';
-  const major = dashiDisplayMajor(d)||'';
-  const minor = dashiDisplayMinor(d)||'';
-  right.innerHTML = `
-    <div class="xq-panel-title">${t('btn.viewEnterprise')||'企业信息'}</div>
-    <div style="font-weight:700;font-size:18px;margin-bottom:4px">${escapeHtml(name)}</div>
-    ${major||minor ? `<div class="tag tag-major">${escapeHtml(major)}</div> <span class="tag tag-sub">${escapeHtml(minor)}</span>` : ''}
-    <div class="xq-match ${cls}">${pct}%</div>
-    <div style="font-size:12px;color:#64748b;margin-bottom:10px">${t('btn.matchScore')||'匹配度'}</div>
-    ${motto ? `<div class="motto-box">${escapeHtml(motto)}</div>` : ''}
-    ${intro ? `<div class="card-desc">${escapeHtml(intro)}</div>` : ''}
-    <div class="field-row"><span class="k">⚡</span><span>${Number(d.power)||0}</span></div>
-    ${d.tool_url ? `<div class="field-row"><span class="k">URL</span><a href="${escapeAttr(normalizeExternalUrl(d.tool_url))}" target="_blank" rel="noopener">${escapeHtml(d.tool_url)}</a></div>` : ''}
-    <div style="margin-top:18px">
-      <button class="btn btn-success" onclick="confirmXiangQinSelect(${d.id})">${t('btn.selectEnterprise')||'选中'}</button>
-    </div>
-  `;
-  renderXiangQinList(); // 刷新 active 状态
-}
-
-async function confirmXiangQinSelect(id){
-  const list = await fetchDaShi();
-  const d = list.find(x => Number(x.id)===Number(id));
-  if(!d) return;
-  const name = dashiDisplayName(d)||String(d.id);
-  // 只拉入当前优先团队（而不是所有自己的团队）
-  const user = getUser();
-  if(!user) return alert(t('tip.loginFirst'));
-  if(user.role!=='jinzhu' && user.role!=='admin') return alert(t('tip.noPermission'));
-  const team = xqCurrentTeam;
-  if(!team) return alert(t('tip.noTeams'));
-  let members = Array.isArray(team.members) ? [...team.members] : [];
-  if(isAlreadyInTeam(members, d.id)){
-    alert(t('tip.alreadyIn'));
-    return;
-  }
-  members.push({id: d.id, type: 'dashi', name, power: Number(d.power)||0});
-  const {error} = await sb.from('team').update({members}).eq('id', team.id);
-  if(error) return alert(error.message);
-  alert(t('btn.selectOk')||'已选中并拉入团队');
-  closeModal();
-  renderFocus();
-  renderTeam();
-}
-
-
 async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
 
 async function renderHomeCats(){const cats=await fetchCategories();const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(!maj)return;const visible=cats.map(c=>({c,name:catNameStrict(c)})).filter(x=>x.name);maj.innerHTML=visible.map(({name})=>`<span class="home-cat-tag ${homeActiveMajor===name?'active':''}" onclick="selectHomeMajor('${escapeAttr(name)}')">${escapeHtml(name)}</span>`).join('')||`<span style="font-size:12px;color:#94a3b8">${t('tip.noData')}</span>`;if(homeActiveMajor){const hit=visible.find(x=>x.name===homeActiveMajor);const subs=hit?catSubsStrict(hit.c):[];if(min)min.innerHTML=subs.map(s=>`<span class="home-cat-tag" onclick="filterHomeByMinor('${escapeAttr(s)}')">${escapeHtml(s)}</span>`).join('');}else if(min)min.innerHTML='';}
@@ -2085,11 +1891,9 @@ async function editCategory(id){const item=(await fetchCategories()).find(c=>c.i
 function showCategoryForm(item=null){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${t('btn.addMajor')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="cat-name" value="${escapeHtml(item?catNameStrict(item):'')}"></div><div class="form-group"><label>${t('form.subs')}</label><textarea id="cat-subs">${escapeHtml(item?catSubsStrict(item).join('\n'):'')}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveCategory()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function saveCategory(){const name=(document.getElementById('cat-name').value||'').trim();if(!name)return alert(t('tip.required'));const lines=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);let old=editingCategoryId?(await fetchCategories()).find(c=>c.id===editingCategoryId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const prev=Array.isArray(old?.subs_i18n)?old.subs_i18n:[];const subs_i18n=lines.map((line,i)=>mergeI18n(prev[i]&&typeof prev[i]==='object'?prev[i]:{},currentLang,line));const row={id:editingCategoryId||Date.now(),name:name_i18n.zh||name,name_i18n,subs:subs_i18n.map(s=>s.zh||s.en||''),subs_i18n};let error;if(editingCategoryId)({error}=await sb.from('categories').update(row).eq('id',editingCategoryId));else({error}=await sb.from('categories').insert(row));if(error)return alert(error.message);closeModal();renderCategories();}
 async function deleteCategory(id){if(!confirm(t('tip.deleteConfirm')))return;await sb.from('categories').delete().eq('id',id);renderCategories();}
-
 function renderAll(){renderHome();renderJinZhu();renderDaShi();renderHero();renderTeam();renderFocus();renderSiCase();}
 document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click',()=>{const v=el.dataset.view;if(v)switchView(v);});});
 (function init(){const sel=document.getElementById('langSelect');if(sel)sel.value=currentLang;setLanguage(currentLang);renderUserArea();updateButtons();updateAdminMenus();switchView('home');})();
 </script>
 </body>
 </html>
-
