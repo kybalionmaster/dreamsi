@@ -1874,11 +1874,9 @@ async function editCategory(id){const item=(await fetchCategories()).find(c=>c.i
 function showCategoryForm(item=null){document.getElementById('modalBox').className='modal';document.getElementById('modalBox').innerHTML=`<h3>${t('btn.addMajor')}</h3>${langHintHtml()}<div class="form-group"><label>${t('form.name')}</label><input id="cat-name" value="${escapeHtml(item?catNameStrict(item):'')}"></div><div class="form-group"><label>${t('form.subs')}</label><textarea id="cat-subs">${escapeHtml(item?catSubsStrict(item).join('\n'):'')}</textarea></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="saveCategory()">${t('btn.save')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 async function saveCategory(){const name=(document.getElementById('cat-name').value||'').trim();if(!name)return alert(t('tip.required'));const lines=(document.getElementById('cat-subs').value||'').split('\n').map(s=>s.trim()).filter(Boolean);let old=editingCategoryId?(await fetchCategories()).find(c=>c.id===editingCategoryId):null;const name_i18n=mergeI18n(old?.name_i18n,currentLang,name);const prev=Array.isArray(old?.subs_i18n)?old.subs_i18n:[];const subs_i18n=lines.map((line,i)=>mergeI18n(prev[i]&&typeof prev[i]==='object'?prev[i]:{},currentLang,line));const row={id:editingCategoryId||Date.now(),name:name_i18n.zh||name,name_i18n,subs:subs_i18n.map(s=>s.zh||s.en||''),subs_i18n};let error;if(editingCategoryId)({error}=await sb.from('categories').update(row).eq('id',editingCategoryId));else({error}=await sb.from('categories').insert(row));if(error)return alert(error.message);closeModal();renderCategories();}
 async function deleteCategory(id){if(!confirm(t('tip.deleteConfirm')))return;await sb.from('categories').delete().eq('id',id);renderCategories();}
-
 function renderAll(){renderHome();renderJinZhu();renderDaShi();renderHero();renderTeam();renderFocus();renderSiCase();}
 document.querySelectorAll('.menu-item').forEach(el=>{el.addEventListener('click',()=>{const v=el.dataset.view;if(v)switchView(v);});});
 (function init(){const sel=document.getElementById('langSelect');if(sel)sel.value=currentLang;setLanguage(currentLang);renderUserArea();updateButtons();updateAdminMenus();switchView('home');})();
 </script>
 </body>
 </html>
-
