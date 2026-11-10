@@ -311,7 +311,7 @@ h1{margin:0;font-size:clamp(22px,4.4vw,44px);letter-spacing:.22em;font-weight:80
 
   <!-- HUD -->
   <div class="hud">
-    <div class="grp"><span><i class="dot"></i>SYSTEM ONLINE</span><span>场次 <b id="sessionNo">07</b></span><span>在线 <b>1,024</b></span></div>
+    <div class="grp"><span><i class="dot"></i>SYSTEM ONLINE</span><span>场次 <b id="sessionNo">07</b></span><span>在线 <b>1,024</b></span><span>数据源 <b id="dataSrc">DEMO</b></span></div>
     <div class="grp"><span>MATCH <b id="matchCount">00</b></span><button id="soundBtn" aria-label="切换音效">🔊 音效</button></div>
   </div>
 
@@ -381,8 +381,8 @@ h1{margin:0;font-size:clamp(22px,4.4vw,44px);letter-spacing:.22em;font-weight:80
 </div>
 
 <script>
-/* ================= 数据 ================= */
-const COMPANIES = [
+/* ================= 回退数据（数据库不可用时使用，保持原样） ================= */
+const DEMO_COMPANIES = [
   {id:'dreamtech', cn:'DreamTech 梦想科技', en:'DREAMTECH', short:'DT', color:'#8aa6ff',
    desc:'致力于打造下一代 Dream OS，连接人类与梦想。', sector:'操作系统 · 元宇宙', score:98,
    tags:['下一代OS','空间计算','生态开放'], cap:'A+ 轮', synergy:'全域入口', hr:'320 人',
@@ -424,7 +424,10 @@ const COMPANIES = [
    tags:['供需撮合','供应链','交易结算'], cap:'B 轮', synergy:'变现通路', hr:'230 人',
    radar:'打通 <em>意向到订单</em> 的最后一公里。', rank:false}
 ];
-const RANK_IDS = ['dreamtech','visionai','ecofuture','astos','inaclite','infinite'];
+const DEMO_RANK_IDS = ['dreamtech','visionai','ecofuture','astos','inaclite','infinite'];
+let COMPANIES = DEMO_COMPANIES;          /* 当前生效数据：默认回退，连库成功后被替换 */
+let RANK_IDS  = DEMO_RANK_IDS.slice();   /* 当前榜单：连库后按真实数据动态生成 */
+let MODE      = 'biz';                  /* biz = 企业相亲大厅 / ai = AI 工具选型大厅 */
 
 /* ================= DOM ================= */
 const $ = s => document.querySelector(s);
@@ -432,48 +435,79 @@ const track = $('#track'), leftBody = $('#leftBody'), rightBody = $('#rightBody'
 const leftScreen = $('#leftScreen'), rightScreen = $('#rightScreen');
 const leftTitle = $('#leftTitle'), rightTitle = $('#rightTitle');
 const toast = $('#toast'), bubble = $('#bubble'), hint = $('#hint'), flash = $('#flash');
+const h1El = $('h1'), subEl = $('.sub'), deckH3 = $('.deck-head h3'), dataSrcEl = $('#dataSrc');
 let locked = null, focusedIdx = 0, soundOn = true, matchCount = 0;
 
-/* ================= 卡片渲染 ================= */
-function logoHTML(c, cls){
-  return `<div class="${cls}" style="background:${c.color};color:#06122c;box-shadow:0 0 18px ${c.color}">${c.short}</div>`;
+/* ================= 安全清洗（数据库字段一律先过这一层） ================= */
+function esc(v){
+  return String(v==null?'':v).replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
-track.innerHTML = COMPANIES.map((c,i)=>`
-  <article class="card" data-i="${i}" data-id="${c.id}" tabindex="0" role="button"
-           aria-label="${c.cn}，双击锁定投屏">
-    <span class="corner">NO.${String(i+1).padStart(2,'0')}</span>
-    <div class="row1">${logoHTML(c,'logo')}
-      <div><div class="cn">${c.cn}</div><div class="en">${c.en}</div></div>
-    </div>
-    <div class="desc">${c.desc}</div>
-    <div class="foot">
-      <span class="score">匹配度 <b>${c.score}</b>%</span>
-      <button class="view" data-view="${i}">查看</button>
-    </div>
-  </article>`).join('');
-const cards = [...track.querySelectorAll('.card')];
+function rich(v){ /* 仅放行 <em> 与 <br>，其余按纯文本转义 */
+  return esc(v).replace(/&lt;em&gt;/g,'<em>').replace(/&lt;\/em&gt;/g,'</em>')
+               .replace(/&lt;br\s*\/?&gt;/g,'<br>');
+}
+function safeURL(v){
+  const s=String(v==null?'':v).trim();
+  return /^https?:\/\/[^\s"'<>]+$/i.test(s) ? s : '';
+}
+/* ================= 卡片渲染（可重复调用） ================= */
+function logoHTML(c, cls){
+  const col = /^#[0-9a-f]{3,8}$/i.test(String(c.color||'')) ? c.color : '#8aa6ff';
+  const sh  = esc(String(c.short||'AI').slice(0,4));
+  return `<div class="${cls}" style="background:${col};color:#06122c;box-shadow:0 0 18px ${col}">${sh}</div>`;
+}
+let cards = [];
+function renderDeck(){
+  track.innerHTML = COMPANIES.map((c,i)=>`
+    <article class="card" data-i="${i}" data-id="${c.id}" tabindex="0" role="button"
+             aria-label="${esc(c.cn)}，双击锁定投屏">
+      <span class="corner">NO.${String(i+1).padStart(2,'0')}</span>
+      <div class="row1">${logoHTML(c,'logo')}
+        <div><div class="cn">${esc(c.cn)}</div><div class="en">${esc(c.en)}</div></div>
+      </div>
+      <div class="desc">${esc(c.desc)}</div>
+      <div class="foot">
+        <span class="score">匹配度 <b>${c.score}</b>%</span>
+        <button class="view" data-view="${i}">查看</button>
+      </div>
+    </article>`).join('');
+  cards = [...track.querySelectorAll('.card')];
+  track.scrollLeft = 0;
+  $('#prog').style.width = '22%';
+}
+renderDeck();
 
 /* ================= 默认双屏内容 ================= */
 function renderDefaults(){
-  leftTitle.textContent = '每日参展企业';
+  const ai = MODE==='ai';
+  leftTitle.textContent = ai ? 'AI 工具库 · 实时同步' : '每日参展企业';
   leftBody.innerHTML = `<div class="rank-list">${COMPANIES.slice(0,6).map((c,i)=>`
     <div class="rank-row"><span class="num">${String(i+1).padStart(2,'0')}</span>
-      ${logoHTML(c,'lg')}<span class="nm">${c.cn}</span>
+      ${logoHTML(c,'lg')}<span class="nm">${esc(c.cn)}</span>
       <span class="mini">${c.score}%</span></div>`).join('')}</div>
-    <div class="sc-note">▸ 数据流实时同步中 · 双击下方企业卡可锁定档案并投屏</div>`;
-  rightTitle.textContent = '精简自营核心伙伴榜';
+    <div class="sc-note">▸ ${ai?'数据源 Supabase / public.dashi':'数据流实时同步中'} · 双击下方${ai?'工具':'企业'}卡可锁定档案并投屏</div>`;
+  rightTitle.textContent = ai ? '精选 AI 工具榜' : '精简自营核心伙伴榜';
   rightBody.innerHTML = `<div class="rank-list">${RANK_IDS.map((id,i)=>{
     const c = COMPANIES.find(x=>x.id===id);
+    if(!c) return '';
     return `<div class="rank-row"><span class="num">${i+1}</span>${logoHTML(c,'lg')}
-      <span class="nm">${c.cn}</span><span class="mini">${c.synergy}</span></div>`;
+      <span class="nm">${esc(c.cn)}</span><span class="mini">${esc(c.synergy)}</span></div>`;
   }).join('')}</div>
-  <div class="sc-note">▸ 榜单按协同价值动态排序 · 待锁定候选后生成匹配雷达</div>`;
+  <div class="sc-note">▸ 榜单按${ai?'综合热度':'协同价值'}动态排序 · 待锁定候选后生成匹配雷达</div>`;
 }
 renderDefaults();
 
 /* ================= 锁定投屏 ================= */
+let lastLock = {i:-1, t:0};
 function lock(idx){
   const c = COMPANIES[idx];
+  if(!c) return;
+  /* 移动端连点会同时命中 dblclick 与自定义双击检测，做 350ms 去重 */
+  const now = Date.now();
+  if(lastLock.i===idx && now-lastLock.t<350) return;
+  lastLock = {i:idx, t:now};
+  const ai = MODE==='ai';
   locked = idx;
   matchCount++;
   $('#matchCount').textContent = String(matchCount).padStart(2,'0');
@@ -485,56 +519,60 @@ function lock(idx){
   leftScreen.classList.add('flash-in'); rightScreen.classList.add('flash-in');
   flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go');
 
-  leftTitle.textContent = '锁定档案 · LOCKED';
+  leftTitle.textContent = ai ? '工具档案 · LOCKED' : '锁定档案 · LOCKED';
   leftBody.innerHTML = `
     <div class="dossier">
       <div class="dos-top">${logoHTML(c,'dos-logo')}
-        <div><div class="dos-name">${c.cn}</div><div class="dos-en">${c.en} / ID-${String(idx+1).padStart(3,'0')}</div></div>
+        <div><div class="dos-name">${esc(c.cn)}</div><div class="dos-en">${esc(c.en)} / ID-${String(idx+1).padStart(3,'0')}</div></div>
       </div>
-      <div class="dos-slogan">${c.desc}</div>
-      <div class="chips">${c.tags.map(t=>`<span class="chip">${t}</span>`).join('')}<span class="chip">${c.sector}</span></div>
-      <div class="meter"><div class="lab"><span>双向匹配度 MATCH</span><b>${c.score}%</b></div>
+      <div class="dos-slogan">${esc(c.desc)}</div>
+      <div class="chips">${(c.tags||[]).map(t=>`<span class="chip">${esc(t)}</span>`).join('')}<span class="chip">${esc(c.sector)}</span></div>
+      <div class="meter"><div class="lab"><span>${ai?'工具匹配度 MATCH':'双向匹配度 MATCH'}</span><b>${c.score}%</b></div>
         <div class="bar"><i id="dosBar"></i></div></div>
       <div class="stats">
-        <div class="stat"><b>${c.cap}</b><span>资本阶段</span></div>
-        <div class="stat"><b>${c.hr}</b><span>团队规模</span></div>
-        <div class="stat"><b>${c.synergy}</b><span>协同定位</span></div>
+        <div class="stat"><b>${esc(c.cap)}</b><span>${ai?'定价模式':'资本阶段'}</span></div>
+        <div class="stat"><b>${esc(c.hr)}</b><span>${ai?'厂商 / 体量':'团队规模'}</span></div>
+        <div class="stat"><b>${esc(c.synergy)}</b><span>${ai?'适用场景':'协同定位'}</span></div>
       </div>
-      <div class="locked-banner"><i></i> 档案已同步至左右显示屏</div>
+      <div class="locked-banner"><i></i> ${ai?'档案已同步 · 源自 public.dashi':'档案已同步至左右显示屏'}</div>
     </div>`;
   requestAnimationFrame(()=>{const b=$('#dosBar'); if(b) b.style.width = c.score+'%';});
 
   const inRank = RANK_IDS.includes(c.id);
   const rankPos = inRank ? RANK_IDS.indexOf(c.id)+1 : null;
-  rightTitle.textContent = '匹配雷达 · MATCH RADAR';
+  rightTitle.textContent = ai ? '工具匹配雷达 · MATCH RADAR' : '匹配雷达 · MATCH RADAR';
   rightBody.innerHTML = `
     <div class="dossier">
-      <div class="match-big"><div class="v">${c.score}<small>%</small></div><div class="t">SYNERGY SCORE</div></div>
-      <div class="meter"><div class="lab"><span>撮合置信度</span><b>${Math.min(99,c.score+3)}%</b></div>
+      <div class="match-big"><div class="v">${c.score}<small>%</small></div><div class="t">${ai?'TOOL FIT SCORE':'SYNERGY SCORE'}</div></div>
+      <div class="meter"><div class="lab"><span>${ai?'选型置信度':'撮合置信度'}</span><b>${Math.min(99,c.score+3)}%</b></div>
         <div class="bar"><i id="rdBar"></i></div></div>
-      <div class="radar-txt">${c.radar}<br>榜单状态：<em>${inRank ? '核心伙伴榜 第 '+rankPos+' 位' : '新晋候选 · 待入榜'}</em></div>
+      <div class="radar-txt">${rich(c.radar)}<br>榜单状态：<em>${inRank ? (ai?'精选工具榜':'核心伙伴榜')+' 第 '+rankPos+' 位' : '新晋候选 · 待入榜'}</em></div>
       <div class="rank-list">${RANK_IDS.slice(0,4).map((id,i)=>{
         const x = COMPANIES.find(v=>v.id===id);
+        if(!x) return '';
         return `<div class="rank-row ${x.id===c.id?'on':''}"><span class="num">${i+1}</span>
-          ${logoHTML(x,'lg')}<span class="nm">${x.cn}</span>
+          ${logoHTML(x,'lg')}<span class="nm">${esc(x.cn)}</span>
           <span class="mini">${x.id===c.id?'◉ 已锁定':x.score+'%'}</span></div>`;
       }).join('')}</div>
-      <button class="cta" id="ctaBtn">发起洽谈 ✦</button>
+      <button class="cta" id="ctaBtn">${ai ? (c.website?'访问官网 ↗':'加入选型池 ✓') : '发起洽谈 ✦'}</button>
     </div>`;
   requestAnimationFrame(()=>{const b=$('#rdBar'); if(b) b.style.width = Math.min(99,c.score+3)+'%';});
   $('#ctaBtn').addEventListener('click', ()=>{
-    showBubble(`正在为「${c.cn}」接入洽谈席…`);
+    const url = safeURL(c.website);
+    if(ai && url){ window.open(url,'_blank','noopener,noreferrer'); showBubble(`正在打开 ${c.cn} 官网…`); }
+    else showBubble(ai ? `已将「${c.cn}」加入选型池 ✓` : `正在为「${c.cn}」接入洽谈席…`);
     beep(660,.09); setTimeout(()=>beep(880,.12),110);
   });
 
   showToast(`✦ MATCH LOCKED · ${c.cn}`);
   showBubble(`已锁定 ${c.cn} ✦`);
   beep(523,.09); setTimeout(()=>beep(784,.10),95); setTimeout(()=>beep(1046,.20),200);
-  hint.textContent = `已锁定：${c.cn} ｜ 继续双击其他企业可切换投屏`;
+  hint.textContent = `已锁定：${c.cn} ｜ 继续双击其他${ai?'工具':'企业'}可切换投屏`;
   burst();
 }
 
-/* ================= 交互：hover / 单击聚焦 / 双击锁定 ================= */
+/* ================= 交互：hover / 单击聚焦 / 双击锁定（可重复绑定） ================= */
+function bindCards(){
 let lastTap = {i:-1, t:0};
 cards.forEach((card,i)=>{
   card.addEventListener('mouseenter', ()=>{
@@ -567,6 +605,8 @@ cards.forEach((card,i)=>{
     else { lastTap={i, t:now}; }
   });
 });
+}
+bindCards();
 
 /* ================= 鼠标拖拽横滑 ================= */
 let dragging=false, startX=0, startScroll=0, dragMoved=false;
@@ -677,8 +717,266 @@ function loop(){
 }
 loop();
 
-/* 开场提示 */
-setTimeout(()=>showToast('欢迎进入企业相亲大厅 ✦ 双击企业卡开始匹配'),650);
+/* =======================================================================
+   数据库接入区（与主流程完全隔离）
+   -----------------------------------------------------------------------
+   你给的三行原样保留，但第 3 行加了防护壳：空 URL / SDK 未加载 /
+   createClient 抛错，都只会得到 sb=null，绝不会让页面白屏。
+
+   页面先用 DEMO_COMPANIES 完成渲染与交互，之后才在后台异步尝试取数；
+   只有「查询成功 + 有数据 + 映射出有效行」才整体重绘，任何一步失败
+   都保持现有演示数据，并自动回滚。
+
+   接入方式：填 SUPABASE_URL 与 SUPABASE_ANON 即可。
+     · anon key 是公开可读的，放前端没问题；切勿填 service_role key。
+     · 建议用 http:// 打开（如 python3 -m http.server），file:// 的
+       Origin 为 null，部分浏览器会拦截跨域请求。
+     · dashi 需在 public schema；若开了 RLS，要给 anon 配 select 策略。
+   -----------------------------------------------------------------------
+   SQL（在 Supabase SQL Editor 可直接执行 / 用来核对结构与读权限）：
+
+     select * from public.dashi limit 50;
+
+     -- 若启用了 RLS，放开匿名只读：
+     create policy "anon_read_dashi" on public.dashi
+       for select to anon using (true);
+
+     -- 可选：想让前端真的执行裸 SQL，建一个只读函数并把名字填进 DASHI_RPC
+     create or replace function public.get_dashi()
+       returns setof public.dashi language sql security definer
+       set search_path = public as $$
+         select * from public.dashi limit 50;
+       $$;
+     grant execute on function public.get_dashi() to anon;
+
+   前端 PostgREST 不直接吃裸 SQL，下面 .from().select() 与上面 select
+   等价；DASHI_SELECT_SQL 常量同时保留供复制与日志核对。
+======================================================================= */
+const SUPABASE_URL='https://jvtjsiixvthvjoqjcdft.supabase.co';
+const SUPABASE_ANON='sb_publishable_kFl81SUb0hBxII2Eykb74A_KkDr1n3U';
+
+let sb = null;   /* 原：const sb = supabase.createClient(SUPABASE_URL,SUPABASE_ANON); */
+try {
+  if (SUPABASE_URL && SUPABASE_ANON && typeof supabase !== 'undefined') {
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+      auth: { persistSession:false, autoRefreshToken:false }
+    });
+  }
+} catch (err) {
+  sb = null;
+  console.warn('[dashi] createClient 失败，保持演示数据：', err);
+}
+
+const DASHI_TABLE       = 'dashi';
+const DASHI_COLUMNS     = '*';
+const DASHI_LIMIT       = 50;
+const DASHI_SELECT_SQL  = 'select * from public.dashi limit 50;';
+const DASHI_RPC         = '';     /* 填 'get_dashi' 则改走上面的自定义 SQL 函数 */
+const DASHI_TIMEOUT_MS  = 6000;
+const SDK_TIMEOUT_MS    = 2500;
+const DB_RESULT = { ok:false, rows:[], columns:[], error:null };
+
+/* SDK 动态加载：不阻塞首屏，失败或超时只是返回 false */
+function loadSupabaseSDK(){
+  if (typeof supabase !== 'undefined') return Promise.resolve(true);
+  if (!SUPABASE_URL || !SUPABASE_ANON) return Promise.resolve(false);
+  const urls = [
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js',
+    'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js'
+  ];
+  return new Promise(resolve=>{
+    let k=0, done=false;
+    const finish = ok=>{ if(!done){ done=true; resolve(ok && typeof supabase!=='undefined'); } };
+    const next = ()=>{
+      if(k>=urls.length) return finish(false);
+      const s=document.createElement('script');
+      s.src=urls[k++]; s.async=true;
+      const timer=setTimeout(()=>{ s.remove(); next(); }, SDK_TIMEOUT_MS);
+      s.onload  = ()=>{ clearTimeout(timer); finish(true); };
+      s.onerror = ()=>{ clearTimeout(timer); s.remove(); next(); };
+      document.head.appendChild(s);
+    };
+    next();
+  });
+}
+function withTimeout(p, ms, label){
+  return Promise.race([
+    Promise.resolve(p),
+    new Promise((_,rej)=>setTimeout(()=>rej(new Error(label+' 超时')), ms))
+  ]);
+}
+
+/* 打开数据库 + 执行 select，所有异常都收进 DB_RESULT，不向外抛 */
+async function openDashi(){
+  if(!SUPABASE_URL || !SUPABASE_ANON){
+    DB_RESULT.error = '未填写 SUPABASE_URL / SUPABASE_ANON';
+    return DB_RESULT;
+  }
+  const sdkOK = await loadSupabaseSDK();
+  if(!sdkOK){
+    DB_RESULT.error = 'supabase-js 未加载（离线 / CDN 不可达）';
+    return DB_RESULT;
+  }
+  try{
+    if(typeof supabase === 'undefined') throw new Error('supabase 全局对象缺失');
+    if(sb === null) sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON,
+      { auth:{ persistSession:false, autoRefreshToken:false } });
+    const query = DASHI_RPC
+      ? sb.rpc(DASHI_RPC)
+      : sb.from(DASHI_TABLE).select(DASHI_COLUMNS).limit(DASHI_LIMIT);
+    const res = await withTimeout(query, DASHI_TIMEOUT_MS, 'dashi select');
+    if(res && res.error) throw new Error(res.error.message || JSON.stringify(res.error));
+    const rows = Array.isArray(res && res.data) ? res.data : [];
+    DB_RESULT.rows    = rows;
+    DB_RESULT.columns = rows.length ? Object.keys(rows[0]) : [];
+    DB_RESULT.ok      = rows.length > 0;
+    if(!rows.length) DB_RESULT.error = '查询成功但无数据（检查 schema / RLS 策略）';
+    console.info('[dashi] SQL:', DASHI_SELECT_SQL, '| 实际列名:', DB_RESULT.columns);
+    if(rows.length) console.table(rows.slice(0,3));
+  }catch(err){
+    DB_RESULT.error = err && err.message ? err.message : String(err);
+    console.warn('[dashi] 查询失败，保持演示数据：', DB_RESULT.error);
+  }
+  return DB_RESULT;
+}
+
+/* ============ 字段映射：按常见列名自适应，取不到就降级默认值 ============ */
+const AI_PALETTE = ['#8aa6ff','#66e0ff','#7dffb0','#b79bff','#ff8ad8','#ffd98a',
+                    '#ffb07a','#9ad8ff','#c0a6ff','#6fb6ff'];
+function pick(row, keys, fallback){
+  const norm = k => k.toLowerCase().replace(/[\s_\-]/g,'');
+  for(const k of keys){
+    if(row[k]!=null && String(row[k]).trim()!=='') return row[k];
+  }
+  const map = {};
+  for(const k of Object.keys(row)){
+    const v=row[k];
+    if(v!=null && String(v).trim()!=='') map[norm(k)] = v;
+  }
+  for(const k of keys){ const n=norm(k); if(map[n]!=null) return map[n]; }
+  return fallback;
+}
+function toList(v){
+  if(Array.isArray(v)) return v.map(String).map(s=>s.trim()).filter(Boolean).slice(0,4);
+  if(v==null) return [];
+  return String(v).split(/[,，、|/;；]/).map(s=>s.trim()).filter(Boolean).slice(0,4);
+}
+function toScore(v,i){
+  let n = Number(v);
+  if(!isFinite(n) || n<=0) return 88 - (i%7);
+  if(n<=1) n*=100; else if(n<=5) n*=20; else if(n>100) n%=100;
+  return Math.max(60, Math.min(99, Math.round(n)));
+}
+function mapDashiRow(row,i){
+  const cn = String(pick(row,
+    ['name','tool_name','tool','title','cn_name','company','product','名称','工具名称','名称中文','产品'],
+    'AI Tool '+String(i+1).padStart(2,'0'))).trim().slice(0,40);
+  const en = String(pick(row,
+    ['en_name','name_en','english_name','slug','code','英文名','英文名称'],
+    cn)).toUpperCase().slice(0,26);
+  const desc = String(pick(row,
+    ['description','desc','intro','summary','content','brief','overview','简介','描述','介绍','说明'],
+    '暂无简介，等待补充工具说明。')).replace(/\s+/g,' ').slice(0,120);
+  const sector = String(pick(row,
+    ['category','type','sector','industry','field','genre','分类','类别','领域','赛道'],
+    'AI 工具')).slice(0,24);
+  const score = toScore(pick(row,
+    ['score','rating','stars','match_score','heat','rank_score','热度','评分','匹配度','分数'],''), i);
+  const tags = toList(pick(row,
+    ['tags','keywords','features','labels','labels_json','标签','关键词','特性'],''));
+  if(!tags.length) tags.push(sector, 'AI');
+  const cap = String(pick(row,
+    ['pricing','price','plan','pricing_model','price_model','定价','收费','价格模式','付费方式'],
+    '免费 / 订阅')).slice(0,16);
+  const hr = String(pick(row,
+    ['vendor','developer','publisher','company','users','user_count','厂商','开发方','用户量','公司'],
+    '公开')).slice(0,16);
+  const synergy = String(pick(row,
+    ['use_case','scene','scenario','feature','best_for','application','适用场景','用途','场景','适用'],
+    '通用场景')).slice(0,16);
+  const website = safeURL(pick(row,
+    ['url','website','link','homepage','site','official_url','官网','链接','网址'],''));
+  const rawId = String(pick(row,['id','slug','code','uuid','key','标识'],'')) || ('dashi-'+i);
+  const clean = cn.replace(/[^\w\u4e00-\u9fa5]/g,'');
+  const short = (clean.match(/[A-Za-z]{2}/)?.[0] || clean.slice(0,2) || 'AI').slice(0,4).toUpperCase();
+  const radar = '在 <em>'+esc(sector)+'</em> 方向具备可验证能力，'+
+    (tags.length ? '覆盖 <em>'+esc(tags[0])+'</em> 等场景，' : '')+
+    '建议纳入本轮 AI 工具选型候选池。';
+  return { id:rawId, cn, en, short, color:AI_PALETTE[i%AI_PALETTE.length],
+           desc, sector, score, tags, cap, hr, synergy, radar, website, rank:i<6 };
+}
+function mapDashiRows(rows){
+  const out=[], seen=new Set();
+  rows.forEach((r,i)=>{
+    try{
+      if(!r || typeof r!=='object') return;
+      const c = mapDashiRow(r,i);
+      let id=c.id;
+      if(seen.has(id)) id = id+'-'+i;
+      seen.add(id); c.id=id; out.push(c);
+    }catch(err){ console.warn('[dashi] 第'+i+'行映射失败，已跳过：', err); }
+  });
+  return out;
+}
+
+/* ============ 主题与整体切换 ============ */
+function applyTheme(){
+  if(MODE==='ai'){
+    h1El.textContent='AI 工具选型大厅';
+    subEl.innerHTML='连接工具<span>◆</span>匹配场景<span>◆</span>提升效率';
+    deckH3.textContent='AI 工具展示区';
+    dataSrcEl.textContent='DASHI / DB';
+    document.title='AI 工具选型大厅 · 管理系统';
+  }else{
+    h1El.textContent='企业相亲大厅';
+    subEl.innerHTML='连接未来<span>◆</span>共创价值<span>◆</span>成就梦想';
+    deckH3.textContent='企业自带通展示区';
+    dataSrcEl.textContent='DEMO';
+    document.title='企业相亲大厅 · 管理系统';
+  }
+}
+function applyCompanies(list, mode){
+  COMPANIES = list; MODE = mode;
+  RANK_IDS  = (mode==='ai') ? list.slice(0,6).map(c=>c.id) : DEMO_RANK_IDS.slice();
+  locked=null; focusedIdx=0; matchCount=0; lastLock={i:-1,t:0};
+  $('#matchCount').textContent='00'; $('#sessionNo').textContent='07';
+  applyTheme(); renderDeck(); bindCards(); renderDefaults();
+  hint.textContent = mode==='ai'
+    ? '← 左右滑动查看更多 AI 工具 · 双击工具卡锁定投屏 →'
+    : '← 左右滑动查看更多 · 悬停查看 · 双击 / 连点两次锁定投屏 →';
+}
+
+/* ============ 后台启动：成功才切库数据，否则原样演示数据 ============ */
+(async function bootDatabase(){
+  applyTheme();
+  if(!SUPABASE_URL || !SUPABASE_ANON){
+    console.info('[dashi] 未配置数据库，使用内置演示数据。SQL 参考：', DASHI_SELECT_SQL);
+    return;
+  }
+  try{
+    await openDashi();
+    if(!DB_RESULT.ok || !DB_RESULT.rows.length){
+      console.warn('[dashi] 未取到可用数据，保持演示数据：', DB_RESULT.error);
+      showToast('数据库未接入 · 当前为演示数据');
+      return;
+    }
+    const DB_COMPANIES = mapDashiRows(DB_RESULT.rows);   /* ← 库数据写入这个 const */
+    if(!DB_COMPANIES.length) throw new Error('映射后无有效行');
+    applyCompanies(DB_COMPANIES, 'ai');
+    showToast('已从 dashi 载入 '+DB_COMPANIES.length+' 条 AI 工具数据 ✦');
+    console.info('[dashi] 生效数据：', DB_COMPANIES);
+  }catch(err){
+    console.warn('[dashi] 数据库流程异常，回滚演示数据：', err);
+    try{ applyCompanies(DEMO_COMPANIES, 'biz'); }catch(e){}
+    showToast('数据库异常 · 已回退演示数据');
+  }
+})();
+
+/* 开场提示（连库模式下交给上面的提示，避免文案打架） */
+setTimeout(()=>{
+  if(MODE==='biz' && !SUPABASE_URL)
+    showToast('欢迎进入企业相亲大厅 ✦ 双击企业卡开始匹配');
+},650);
 </script>
 </body>
 </html>
