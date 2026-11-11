@@ -525,6 +525,9 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
   cursor:pointer;
 }
 .em-case-chip:hover{background:#fef3c7}
+
+/* ↓↓↓ 底部滑动区完整 CSS（点工具栏「复制/查看 CSS」可取用）↓↓↓ */
+
 </style>
 </head>
 <body>
@@ -1139,6 +1142,23 @@ function renderPager(id,page,pages,fnName){const el=document.getElementById(id);
 function textBlob(obj){if(obj==null)return '';if(typeof obj==='string'||typeof obj==='number')return String(obj);if(Array.isArray(obj))return obj.map(textBlob).join(' ');if(typeof obj==='object')return Object.values(obj).map(textBlob).join(' ');return '';}
 function filterByQ(list,q){q=(q||'').trim().toLowerCase();if(!q)return list;return list.filter(item=>textBlob(item).toLowerCase().includes(q));}
 function textMatch(a,b){const A=(a||'').toLowerCase().split(/[\s,，、;；|/]+/).filter(w=>w.length>1);const B=(b||'').toLowerCase();let s=0;A.forEach(w=>{if(B.includes(w))s+=1;});return s;}
+function textMatchCn(a,b){
+  const A=(a||'').toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]/g,'');
+  const B=(b||'').toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]/g,'');
+  if(!A||!B)return 0;
+  let score=0;
+  const seen=new Set();
+  // 提取源文本中所有长度>=2的连续子串（中文2字、英文单词）
+  for(let len=2;len<=Math.min(6,A.length);len++){
+    for(let i=0;i<=A.length-len;i++){
+      const sub=A.substr(i,len);
+      if(seen.has(sub))continue;
+      seen.add(sub);
+      if(B.includes(sub))score++;
+    }
+  }
+  return score;
+}
 
 function jinzhuNormalizeType(raw){const s=String(raw||'').toLowerCase();if(s==='dream'||s==='梦想')return 'dream';if(s==='problem'||s==='问题需求'||s==='问题')return 'problem';return 'problem';}
 function jinzhuDisplayName(j){return tl(j.name_i18n,j.name)||'';}
@@ -1468,6 +1488,21 @@ function enterpriseMatchDemandText(team,linkedJin){
   if(linkedJin)s+=' '+accumulatePains(linkedJin);
   return s;
 }
+function jinzhuMatchText(j){
+  if(!j)return '';
+  return [
+    jinzhuDisplayName(j),
+    jinzhuDisplayIntro(j),
+    jinzhuDisplayTitle(j),
+    jinzhuDisplayDetail(j)
+  ].filter(Boolean).join(' ');
+}
+
+function enterpriseMatchSourceText(team, linkedJin){
+  // 优先用已关联金主的完整文本；否则退回团队 demand
+  if(linkedJin) return jinzhuMatchText(linkedJin);
+  return (team&&team.demand)||'';
+}
 
 function closeEnterpriseMatch(){
   if(emAudio){
@@ -1556,11 +1591,14 @@ async function renderEnterpriseMatchList(){
   const allJin=enterpriseMatchCache.length?enterpriseMatchCache:await fetchJinZhu();
   enterpriseMatchCache=allJin;
   const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
-  const demandText=enterpriseMatchDemandText(team,linkedJin);
+
   const q=(document.getElementById('em-q')||{}).value||'';
   let list=filterJinZhuByQ(allJin,q);
+
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
   list=list.map(j=>{
-    const score=textMatch(demandText,accumulatePains(j));
+    const targetText=jinzhuMatchText(j);
+    const score=textMatchCn(sourceText,targetText);
     return {...j,_score:score};
   }).sort((a,b)=>b._score-a._score||Number(b.id||0)-Number(a.id||0));
 
@@ -1576,7 +1614,7 @@ async function renderEnterpriseMatchList(){
     const title=jinzhuDisplayTitle(j)||'';
     return `<div class="em-card ${active?'active':''}" onclick="selectEnterpriseMatch(${j.id})">
       <div class="em-name">${escapeHtml(jinzhuDisplayName(j)||('- #'+j.id))}</div>
-      <div class="em-score">${t('em.score')} ${j._score}</div>
+      <div class="em-score">${t('em.score')||'匹配度'} ${j._score}</div>
       <div class="em-sub">${escapeHtml(title).slice(0,36)}</div>
     </div>`;
   }).join('');
@@ -1584,9 +1622,10 @@ async function renderEnterpriseMatchList(){
   if(enterpriseMatchSelectedId!=null) selectEnterpriseMatch(enterpriseMatchSelectedId);
   else{
     const right=document.getElementById('em-right');
-    if(right)right.innerHTML=`<div style="opacity:.6;text-align:center;padding:12px">${t('em.pickHint')}</div>`;
+    if(right)right.innerHTML=`<div style="opacity:.6;text-align:center;padding:12px">${t('em.pickHint')||'点击卡片查看'}</div>`;
   }
-} 
+}
+
 
 async function selectEnterpriseMatch(id){
   enterpriseMatchSelectedId=id;
@@ -1597,27 +1636,37 @@ async function selectEnterpriseMatch(id){
   if(!right)return;
   const j=(enterpriseMatchCache||[]).find(x=>Number(x.id)===Number(id));
   if(!j){right.innerHTML='';return;}
+
   const teams=await fetchTeam();
   const team=teams.find(tm=>Number(tm.id)===Number(enterpriseMatchTeamId));
   const linkedJin=team?(enterpriseMatchCache||[]).find(x=>String(x.id)===String(team.jinzhu_id)):null;
-  const score=textMatch(enterpriseMatchDemandText(team,linkedJin),accumulatePains(j));
 
-  // 提取网址（网站字段 + 简介/详情里的链接）
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+  const targetText=jinzhuMatchText(j);
+  const score=textMatchCn(sourceText,targetText);
+
+  const name=typeof jinzhuDisplayName==='function'?jinzhuDisplayName(j):(j.name||j.id||'-');
+  const title=typeof jinzhuDisplayTitle==='function'?jinzhuDisplayTitle(j):'';
+  const intro=typeof jinzhuDisplayIntro==='function'?jinzhuDisplayIntro(j):'';
+  const detail=typeof jinzhuDisplayDetail==='function'?jinzhuDisplayDetail(j):'';
+  const scoreLabel=(typeof t==='function'&&t('em.score'))?t('em.score'):'匹配度';
+
   const urls=[];
   if(j.card&&j.card.website)urls.push(j.card.website);
-  const detailText=(jinzhuDisplayDetail(j)||'')+' '+(jinzhuDisplayIntro(j)||'')+' '+(jinzhuDisplayTitle(j)||'');
+  const detailText=(detail||'')+' '+(intro||'')+' '+(title||'');
   const re=/https?:\/\/[^\s<>"']+/gi;
   (detailText.match(re)||[]).forEach(u=>{if(!urls.includes(u))urls.push(u);});
   const urlHtml=urls.slice(0,3).map(u=>`<div class="em-url"><a href="${escapeAttr(u)}" target="_blank" rel="noopener">${escapeHtml(u)}</a></div>`).join('');
 
   right.innerHTML=`
-    <div class="jz-name-line">${escapeHtml(jinzhuDisplayName(j)||'-')} <span class="em-score">${t('em.score')} ${score}</span></div>
-    ${jinzhuDisplayTitle(j)?`<div style="margin:4px 0;opacity:.9">${escapeHtml(jinzhuDisplayTitle(j))}</div>`:''}
-    ${jinzhuDisplayIntro(j)?`<div style="margin:4px 0;opacity:.85"><b>简介：</b>${escapeHtml(jinzhuDisplayIntro(j))}</div>`:''}
-    ${jinzhuDisplayDetail(j)?`<div style="margin:4px 0;opacity:.85"><b>详情：</b>${escapeHtml(jinzhuDisplayDetail(j))}</div>`:''}
+    <div class="jz-name-line">${escapeHtml(name||'-')} <span class="em-score">${escapeHtml(scoreLabel)} ${score}</span></div>
+    ${title?`<div style="margin:4px 0;opacity:.9">${escapeHtml(title)}</div>`:''}
+    ${intro?`<div style="margin:4px 0;opacity:.85"><b>简介：</b>${escapeHtml(intro)}</div>`:''}
+    ${detail?`<div style="margin:4px 0;opacity:.85"><b>详情：</b>${escapeHtml(detail)}</div>`:''}
     ${urlHtml}
   `;
 }
+
 
 let emTheme=localStorage.getItem('emTheme')||'blue';
 let emAudio=null;
