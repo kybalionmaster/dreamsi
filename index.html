@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>梦想显化器-V220</title>
+<title>梦想显化器-V218</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>𝕏</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -527,44 +527,7 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .em-case-chip:hover{background:#fef3c7}
 
 /* ↓↓↓ 底部滑动区完整 CSS（点工具栏「复制/查看 CSS」可取用）↓↓↓ */
-.si-card{
-  flex:0 0 200px;
-  background:#FFFDF8;
-  border:1px solid #E6E8EC;
-  border-radius:14px;
-  padding:12px;
-  cursor:pointer;
-  transition:.18s;
-}
-.si-card.active{
-  background:#FFF7E8;
-  border:1.5px solid #F5A623;
-}
-.si-card .si-name{font-weight:700;font-size:14px}
-.si-card .si-score{font-size:11px;color:#b45309}
 
-//精英配置中心
-#hero-list{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  min-height:120px;
-  padding:8px;
-  background:transparent;
-}
-#hero-list > div{
-  flex:0 0 170px;
-  width:170px;
-  min-height:100px;
-  background:#FFFDF8;
-  border:1px solid #E6E8EC;
-  border-radius:12px;
-  padding:10px;
-  color:#111;
-  box-sizing:border-box;
-  cursor:pointer;
-}
- 
 </style>
 </head>
 <body>
@@ -936,8 +899,6 @@ em:{
   ok:'已拉入团队',
   linked:'已关联需求'
 },
-siConfig:{title:'SI配置中心'},
-heroConfig:{title:'精英配置中心'},
   brand:'梦想显化器',
   menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
@@ -966,8 +927,6 @@ heroConfig:{title:'精英配置中心'},
 /* ===== English ===== */
 i18n.en={
   em:{title:'Enterprise Match',leftTitle:'Focus team',searchTitle:'Search enterprises',searchPh:'Search enterprises…',detailTitle:'Enterprise',score:'Match',pickHint:'Select an enterprise from the list',select:'Select & add to team',confirm:'Confirm', score:'score',ok:'Added to team',linked:'Linked demand'},
- siConfig:{title:'SI Config Center'}, 
- heroConfig:{title:'Elite Config Center'},
   brand:'Dream Manifestor',
   menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 My Team',jinzhu:'💰 Demands',dashi:'🤖 Super SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},
   home:{siTools:'SI Tools',allCats:'All categories'},
@@ -1898,8 +1857,6 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds,opts){
       <span class="tag tag-power">⚡${sum}</span>
       ${user&&!opts.hideSetFocus?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('btn.setFocus'))}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
       ${opts.showEnterpriseMatch&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('em.title'))}" onclick="openEnterpriseMatch(${team.id})">🏢</button>`:''}
-	  ${opts.showSiConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('siConfig.title'))}" onclick="openSiConfig(${team.id})">🤖</button>`:''}
-	  ${opts.showHeroConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('heroConfig.title'))}" onclick="openHeroConfig(${team.id})">⭐</button>`:''}
       ${isOwner?`<button type="button" class="btn-icon-sm ${showKick?'active-reorg':''}" title="${escapeAttr(tipKick)}" onclick="toggleTeamKick(${team.id})">🔀</button>`:''}
       <button type="button" class="btn-icon-sm ${showCard?'active-reorg':''}" title="${escapeAttr(tipCard)}" onclick="toggleTeamCard(${team.id})">📇</button>
       ${isOwner?`<button type="button" class="btn-icon-sm ${showCase?'active-reorg':''}" title="${escapeAttr(tipCase)}" onclick="toggleTeamCaseKick(${team.id})">✨</button>`:''}
@@ -2290,7 +2247,7 @@ async function renderFocus(){
   let heroIds=new Set(),dashiIds=new Set();
   (await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
   (await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
-  box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds,{hideSetFocus:true,showEnterpriseMatch:true,showSiConfig:true,showHeroConfig:true});
+  box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds,{hideSetFocus:true,showEnterpriseMatch:true});
 }
 
 async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
@@ -2488,392 +2445,7 @@ async function renderQgen(){
   }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
   renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');
 }
-//Start 2026/11/11
-let siConfigTeamId=null;
-let siConfigSelectedId=null;
-let siConfigCache=[];
 
-function siMatchText(d){
-  if(!d)return '';
-  return [
-    dashiDisplayName(d),
-    dashiDisplayIntro(d),
-    dashiDisplayMotto(d),
-    (d.skills||[]).map(s=>tl(s.title||s.name,'')+' '+(s.desc||'')).join(' ')
-  ].filter(Boolean).join(' ');
-}
-
-async function openSiConfig(teamId){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
-  if(!team)return;
-  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
-
-  siConfigTeamId=Number(teamId);
-  siConfigSelectedId=null;
-  siConfigCache=await fetchDaShi();
-  const allJin=await fetchJinZhu();
-  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
-
-  const leftHtml=`
-    <div class="em-panel-title">当前显化团队</div>
-    <div style="font-weight:700;font-size:15px;margin-bottom:6px">👥 ${escapeHtml(team.name||'')}</div>
-    ${team.demand?`<div style="font-size:12px;opacity:.85;margin-bottom:6px"><b>需求：</b>${escapeHtml(team.demand)}</div>`:''}
-    ${linkedJin?`<div style="font-size:12px;margin-top:6px;opacity:.85"><b>已关联：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
-  `;
-
-  document.getElementById('modalBox').className='modal xl em-modal';
-  document.getElementById('modalBox').innerHTML=`
-    <div class="em-inner">
-      <div class="em-header">
-        <h2>SI 配置中心</h2>
-        <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
-      </div>
-      <div class="em-toolbar-top">
-        <input id="si-q" class="em-search" placeholder="搜索 SI 工具…" oninput="renderSiConfigList()">
-        <button id="si-music-btn" class="em-icon-btn" title="音乐" onclick="toggleSiMusic()">🎵</button>
-        <button class="em-icon-btn em-icon-confirm" title="确认" onclick="confirmSiConfig()">✓</button>
-        <button class="em-icon-btn" title="取消" onclick="closeSiConfig()">✕</button>
-      </div>
-      <div class="em-body">
-        <div class="em-left">${leftHtml}</div>
-        <div class="em-right">
-          <div class="em-panel-title">SI 详情</div>
-          <div class="em-detail" id="si-right" style="flex:1;min-height:60px"></div>
-        </div>
-      </div>
-      <div class="em-results-bottom">
-        <div class="em-scroll" id="si-list"></div>
-      </div>
-    </div>`;
-
-  document.getElementById('modalMask').style.display='flex';
-  renderSiConfigList();
-}
-
-async function renderSiConfigList(){
-  const box=document.getElementById('si-list');
-  if(!box)return;
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(siConfigTeamId));
-  if(!team){box.innerHTML='';return;}
-  const allJin=await fetchJinZhu();
-  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
-  const sourceText=enterpriseMatchSourceText(team,linkedJin);
-
-  const q=(document.getElementById('si-q')||{}).value||'';
-  let list=siConfigCache.filter(d=>{
-    const blob=(dashiDisplayName(d)+' '+dashiDisplayIntro(d)+' '+(d.major_category||'')+' '+(d.minor_category||'')).toLowerCase();
-    return !q||blob.includes(q.trim().toLowerCase());
-  });
-
-  list=list.map(d=>{
-    const score=textMatchCn(sourceText,siMatchText(d));
-    return {...d,_score:score};
-  }).sort((a,b)=>b._score-a._score||Number(b.id||0)-Number(a.id||0));
-
-  if(!list.length){
-    box.innerHTML=`<div style="padding:20px;opacity:.6;text-align:center">暂无数据</div>`;
-    return;
-  }
-
-  box.innerHTML=list.slice(0,40).map(d=>{
-    const active=siConfigSelectedId!=null&&String(siConfigSelectedId)===String(d.id);
-    return `<div class="si-card ${active?'active':''}" onclick="selectSiConfig(${d.id})">
-      <div class="si-name">${escapeHtml(dashiDisplayName(d)||('- #'+d.id))}</div>
-      <div class="si-score">匹配度 ${d._score}</div>
-      <div class="em-sub">${escapeHtml(dashiDisplayIntro(d)||'').slice(0,36)}</div>
-    </div>`;
-  }).join('');
-
-  if(siConfigSelectedId!=null) selectSiConfig(siConfigSelectedId);
-}
-
-async function selectSiConfig(id){
-  siConfigSelectedId=id;
-  document.querySelectorAll('#si-list .si-card').forEach(el=>{
-    el.classList.toggle('active', el.getAttribute('onclick')===`selectSiConfig(${id})`);
-  });
-  const right=document.getElementById('si-right');
-  if(!right)return;
-  const d=(siConfigCache||[]).find(x=>Number(x.id)===Number(id));
-  if(!d){right.innerHTML='';return;}
-
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(siConfigTeamId));
-  const allJin=await fetchJinZhu();
-  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
-  const sourceText=enterpriseMatchSourceText(team,linkedJin);
-  const score=textMatchCn(sourceText,siMatchText(d));
-
-  right.innerHTML=`
-    <div class="jz-name-line">${escapeHtml(dashiDisplayName(d)||'-')} <span class="em-score">匹配度 ${score}</span></div>
-    ${dashiDisplayIntro(d)?`<div style="margin:4px 0;opacity:.85"><b>简介：</b>${escapeHtml(dashiDisplayIntro(d))}</div>`:''}
-    ${dashiDisplayMotto(d)?`<div style="margin:4px 0;opacity:.85"><b>座右铭：</b>${escapeHtml(dashiDisplayMotto(d))}</div>`:''}
-    <div style="margin:4px 0;font-size:12px">⚡${Number(d.power)||0} ${d.major_category?` · ${escapeHtml(d.major_category)}`:''}</div>
-    ${d.tool_url?`<div class="em-url"><a href="${escapeAttr(normalizeExternalUrl(d.tool_url))}" target="_blank" rel="noopener">${escapeHtml(d.tool_url)}</a></div>`:''}
-  `;
-}
-
-async function confirmSiConfig(){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  const did=siConfigSelectedId;
-  if(did==null)return alert('请先选择一个 SI');
-  const d=(siConfigCache||[]).find(x=>Number(x.id)===Number(did));
-  if(!d)return;
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(siConfigTeamId));
-  if(!team)return;
-  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
-
-  let members=Array.isArray(team.members)?[...team.members]:[];
-  if(isAlreadyInTeam(members,d.id)){
-    alert(t('tip.alreadyIn'));
-    closeSiConfig();
-    return;
-  }
-  members.push({
-    id:d.id,
-    type:'dashi',
-    name:dashiDisplayName(d)||String(d.id),
-    power:Number(d.power)||0
-  });
-  const{error}=await sb.from('team').update({members}).eq('id',team.id);
-  if(error)return alert(error.message);
-  closeSiConfig();
-  alert('已拉入团队');
-  renderFocus();
-  renderTeam();
-}
-
-function closeSiConfig(){
-  if(typeof siAudio!=='undefined'&&siAudio){
-    siAudio.pause();
-    siAudio.currentTime=0;
-  }
-  const btn=document.getElementById('si-music-btn');
-  if(btn)btn.classList.remove('playing');
-  closeModal();
-}
-
-let siAudio=null;
-function toggleSiMusic(){
-  if(!siAudio){
-    siAudio=new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
-    siAudio.loop=true;
-    siAudio.volume=0.3;
-  }
-  const btn=document.getElementById('si-music-btn');
-  if(siAudio.paused){
-    siAudio.play().catch(()=>{});
-    if(btn)btn.classList.add('playing');
-  }else{
-    siAudio.pause();
-    if(btn)btn.classList.remove('playing');
-  }
-}
-
-//End
-//End 2026/11/11
-
-let heroConfigTeamId=null;
-let heroConfigSelectedId=null;
-let heroConfigCache=[];
-
-function heroMatchText(h){
-  if(!h)return '';
-  return [
-    heroDisplayName(h),
-    heroDisplayIntro(h),
-    heroDisplaySkillTitle(h)
-  ].filter(Boolean).join(' ');
-}
-
-async function openHeroConfig(teamId){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
-  if(!team)return;
-  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
-
-  heroConfigTeamId=Number(teamId);
-  heroConfigSelectedId=null;
-  heroConfigCache=await fetchHero();
-  const allJin=await fetchJinZhu();
-  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
-
-  const leftHtml=`
-    <div class="em-panel-title">当前显化团队</div>
-    <div style="font-weight:700;font-size:15px;margin-bottom:6px">👥 ${escapeHtml(team.name||'')}</div>
-    ${team.demand?`<div style="font-size:12px;opacity:.85;margin-bottom:6px"><b>需求：</b>${escapeHtml(team.demand)}</div>`:''}
-    ${linkedJin?`<div style="font-size:12px;margin-top:6px;opacity:.85"><b>已关联：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
-  `;
-
-  document.getElementById('modalBox').className='modal xl em-modal';
-  document.getElementById('modalBox').innerHTML=`
-    <div class="em-inner">
-      <div class="em-header">
-        <h2>${t('heroConfig.title')||'精英配置中心'}</h2>
-        <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
-      </div>
-      <div class="em-toolbar-top">
-        <input id="hero-q" class="em-search" placeholder="${t('ph.heroSearch')||'搜索精英…'}" oninput="renderHeroConfigList()">
-        <button id="hero-music-btn" class="em-icon-btn" title="音乐" onclick="toggleHeroMusic()">🎵</button>
-        <button class="em-icon-btn em-icon-confirm" title="${t('em.confirm')||'确认'}" onclick="confirmHeroConfig()">✓</button>
-        <button class="em-icon-btn" title="${t('btn.cancel')}" onclick="closeHeroConfig()">✕</button>
-      </div>
-      <div class="em-body">
-        <div class="em-left">${leftHtml}</div>
-        <div class="em-right">
-          <div class="em-panel-title">精英详情</div>
-          <div class="em-detail" id="hero-right" style="flex:1;min-height:60px"></div>
-        </div>
-      </div>
-      <div style="display:block;min-height:180px;background:#f3f4f6;padding:12px;border-radius:12px;margin-top:12px">
-        <div id="hero-list" style="display:flex;gap:8px;overflow-x:auto;min-height:140px"></div>
-      </div>
-    </div>`;
-
-  document.getElementById('modalMask').style.display='flex';
-  renderHeroConfigList();
-}
-
-async function renderHeroConfigList(){
-  const box=document.getElementById('hero-list');
-  if(!box)return;
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(heroConfigTeamId));
-  if(!team){box.innerHTML='';return;}
-  const allJin=await fetchJinZhu();
-  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
-  const sourceText=enterpriseMatchSourceText(team,linkedJin);
-
-  const q=(document.getElementById('hero-q')||{}).value||'';
-  let list=(heroConfigCache||[]).filter(h=>{
-    const name=heroDisplayName(h)||'';
-    const intro=heroDisplayIntro(h)||'';
-    const skill=heroDisplaySkillTitle(h)||'';
-    const blob=(name+' '+intro+' '+skill).toLowerCase();
-    return !q||blob.includes(q.trim().toLowerCase());
-  });
-
-  list=list.map(h=>{
-    const score=textMatchCn(sourceText,heroMatchText(h));
-    return {...h,_score:score};
-  }).sort((a,b)=>b._score-a._score||Number(b.id||0)-Number(a.id||0));
-
-  if(!list.length){
-    box.innerHTML=`<div style="padding:20px;opacity:.6;text-align:center">${t('tip.noData')}</div>`;
-    return;
-  }
-
-  box.innerHTML=list.slice(0,40).map(h=>{
-    const name=heroDisplayName(h)||('- #'+h.id);
-    const sub=heroDisplaySkillTitle(h)||heroDisplayIntro(h)||'';
-    return `<div onclick="selectHeroConfig(${h.id})">
-      <div style="font-weight:700;font-size:14px">${escapeHtml(name)}</div>
-      <div style="font-size:12px;color:#b45309;margin:4px 0">匹配度 ${h._score}</div>
-      <div style="font-size:12px;opacity:.75">${escapeHtml(String(sub).slice(0,32))}</div>
-    </div>`;
-  }).join('');
-
-  if(heroConfigSelectedId!=null) selectHeroConfig(heroConfigSelectedId);
-}
-
-async function selectHeroConfig(id){
-  heroConfigSelectedId=id;
-  document.querySelectorAll('#hero-list .si-card').forEach(el=>{
-    el.classList.toggle('active', el.getAttribute('onclick')===`selectHeroConfig(${id})`);
-  });
-  const right=document.getElementById('hero-right');
-  if(!right)return;
-  const h=(heroConfigCache||[]).find(x=>Number(x.id)===Number(id));
-  if(!h){right.innerHTML='';return;}
-
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(heroConfigTeamId));
-  const allJin=await fetchJinZhu();
-  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
-  const sourceText=enterpriseMatchSourceText(team,linkedJin);
-  const score=textMatchCn(sourceText,heroMatchText(h));
-
-  const name=heroDisplayName(h)||'-';
-  const skill=heroDisplaySkillTitle(h)||'';
-  const intro=heroDisplayIntro(h)||'';
-
-  right.innerHTML=`
-    <div class="jz-name-line">${escapeHtml(name)} <span class="em-score">匹配度 ${score}</span></div>
-    ${skill?`<div style="margin:4px 0;opacity:.9">${escapeHtml(skill)}</div>`:''}
-    ${intro?`<div style="margin:4px 0;opacity:.85"><b>简介：</b>${escapeHtml(intro)}</div>`:''}
-    <div style="margin:4px 0;font-size:12px">⚡${Number(h.power)||0}</div>
-  `;
-}
-
-
-async function confirmHeroConfig(){
-  const user=getUser();
-  if(!user)return alert(t('tip.loginFirst'));
-  const hid=heroConfigSelectedId;
-  if(hid==null)return alert('请先选择一位精英');
-  const h=(heroConfigCache||[]).find(x=>Number(x.id)===Number(hid));
-  if(!h)return;
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(heroConfigTeamId));
-  if(!team)return;
-  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
-
-  let members=Array.isArray(team.members)?[...team.members]:[];
-  if(isAlreadyInTeam(members,h.id)){
-    alert(t('tip.alreadyIn'));
-    closeHeroConfig();
-    return;
-  }
-  members.push({
-    id:h.id,
-    type:'hero',
-    name:heroDisplayName(h)||String(h.id),
-    power:Number(h.power)||0
-  });
-  const{error}=await sb.from('team').update({members}).eq('id',team.id);
-  if(error)return alert(error.message);
-  closeHeroConfig();
-  alert('已拉入团队');
-  renderFocus();
-  renderTeam();
-}
-
-function closeHeroConfig(){
-  if(typeof heroAudio!=='undefined'&&heroAudio){
-    heroAudio.pause();
-    heroAudio.currentTime=0;
-  }
-  const btn=document.getElementById('hero-music-btn');
-  if(btn)btn.classList.remove('playing');
-  closeModal();
-}
-
-let heroAudio=null;
-function toggleHeroMusic(){
-  if(!heroAudio){
-    heroAudio=new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
-    heroAudio.loop=true;
-    heroAudio.volume=0.3;
-  }
-  const btn=document.getElementById('hero-music-btn');
-  if(heroAudio.paused){
-    heroAudio.play().catch(()=>{});
-    if(btn)btn.classList.add('playing');
-  }else{
-    heroAudio.pause();
-    if(btn)btn.classList.remove('playing');
-  }
-}
-
-//End2 2026/11/11
 function goQgenPage(p){qgenPage=p;renderQgen();}
 function openAddQgen(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingQgenId=null;qgenDraftSections=[{id:uid(),title:mergeI18n(null,currentLang,'S1'),questions:[{id:uid(),type:'textarea',label:mergeI18n(null,currentLang,'Q1'),required:true,options:[]}]}];showQgenForm(null);}
 async function editQgen(id){const item=(await fetchQgen()).find(x=>x.id===id);if(!item)return;editingQgenId=id;qgenDraftSections=normalizeSections(item.sections);showQgenForm(item);}
