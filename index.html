@@ -283,6 +283,85 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .io-chip.on{background:#fbbf24;border-color:#f59e0b;color:#0f172a;font-weight:600}
 .tag-io{background:#ecfdf5;color:#047857;margin:2px}
 .tag-io-out{background:#eff6ff;color:#1d4ed8;margin:2px}
+/* ===== 企业相亲 218E 风格 ===== */
+.em-modal{background:#0b1020;color:#e2e8f0;border:none;padding:0;overflow:hidden;max-width:1100px}
+.em-modal .em-inner{padding:16px 20px 20px;min-height:78vh;display:flex;flex-direction:column;gap:12px}
+
+.em-theme-blue{
+  --em-bg:linear-gradient(160deg,#0a0e27 0%,#1e1b4b 50%,#0f172a 100%);
+  --em-accent:#60a5fa;
+  --em-gold:#fbbf24;
+  --em-panel:rgba(15,23,42,.72);
+  --em-border:rgba(96,165,250,.45);
+  --em-text:#e2e8f0;
+  --em-glow:rgba(96,165,250,.25);
+}
+.em-theme-gold{
+  --em-bg:linear-gradient(160deg,#0c0a1a 0%,#1e1b4b 40%,#111827 100%);
+  --em-accent:#fbbf24;
+  --em-gold:#fde68a;
+  --em-panel:rgba(30,27,75,.75);
+  --em-border:rgba(251,191,36,.55);
+  --em-text:#fef3c7;
+  --em-glow:rgba(251,191,36,.3);
+}
+.em-theme-purple{
+  --em-bg:linear-gradient(160deg,#1e0a2e 0%,#3b0764 45%,#1e1b4b 100%);
+  --em-accent:#c084fc;
+  --em-gold:#f0abfc;
+  --em-panel:rgba(88,28,135,.6);
+  --em-border:rgba(192,132,252,.5);
+  --em-text:#f3e8ff;
+  --em-glow:rgba(192,132,252,.3);
+}
+
+.em-modal{background:var(--em-bg);color:var(--em-text);box-shadow:0 0 40px var(--em-glow)}
+.em-header{text-align:center;padding:8px 0 10px;border-bottom:1px solid var(--em-border);position:relative}
+.em-header h2{font-size:30px;font-weight:800;margin:0;background:linear-gradient(90deg,var(--em-gold),#fff,var(--em-accent));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px}
+.em-header .em-sub{font-size:13px;opacity:.9;margin-top:4px;letter-spacing:2px}
+
+.em-style-switch{position:absolute;top:8px;right:0;display:flex;gap:6px}
+.em-style-switch button{width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer;font-size:14px;background:rgba(0,0,0,.3)}
+.em-style-switch button.active{border-color:#fff;box-shadow:0 0 8px var(--em-accent)}
+
+.em-body{display:grid;grid-template-columns:280px 1fr;gap:14px;flex:1;min-height:0}
+@media (max-width:800px){.em-body{grid-template-columns:1fr}}
+
+.em-left,.em-right{background:var(--em-panel);border:1px solid var(--em-border);border-radius:16px;padding:14px;backdrop-filter:blur(10px);overflow:hidden;display:flex;flex-direction:column}
+.em-left h4,.em-right h4{margin:0 0 10px;font-size:14px;color:var(--em-gold)}
+
+.em-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.em-toolbar .em-search{flex:1;min-width:140px;padding:9px 14px;border-radius:999px;border:1px solid var(--em-border);background:rgba(0,0,0,.3);color:inherit;font-size:14px}
+.em-toolbar .em-search::placeholder{opacity:.55}
+.em-toolbar .btn-cancel{padding:8px 16px;border-radius:999px;border:1px solid var(--em-border);background:transparent;color:inherit;cursor:pointer;font-size:13px}
+.em-toolbar .btn-confirm{padding:8px 20px;border-radius:999px;background:linear-gradient(135deg,var(--em-gold),var(--em-accent));color:#0f172a;font-weight:700;border:none;cursor:pointer;font-size:13px}
+.em-toolbar .btn-music{width:36px;height:36px;border-radius:50%;border:1px solid var(--em-border);background:rgba(0,0,0,.35);color:var(--em-gold);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.em-toolbar .btn-music.playing{background:var(--em-accent);color:#fff}
+
+.em-scroll{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x mandatory;flex:1;min-height:160px}
+.em-scroll::-webkit-scrollbar{height:6px}
+.em-scroll::-webkit-scrollbar-thumb{background:var(--em-border);border-radius:3px}
+
+.em-card{flex:0 0 200px;scroll-snap-align:start;background:rgba(0,0,0,.25);border:1px solid var(--em-border);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s}
+.em-card:hover,.em-card.active{border-color:var(--em-accent);box-shadow:0 4px 16px var(--em-glow);transform:translateY(-2px)}
+.em-card .em-name{font-weight:700;font-size:14px;margin-bottom:4px}
+.em-card .em-score{font-size:11px;color:var(--em-gold);font-weight:600}
+.em-card .em-sub{font-size:11px;opacity:.75;margin-top:4px;line-height:1.35}
+
+.em-detail{margin-top:10px;font-size:13px;line-height:1.5;max-height:180px;overflow-y:auto}
+.em-detail .jz-name-line{font-size:15px;font-weight:700;margin-bottom:4px}
+
+.em-left .member-chip{
+  background:rgba(0,0,0,.35) !important;
+  border-color:var(--em-border) !important;
+  color:inherit !important;
+}
+.em-left .member-chip img{
+  background:transparent !important;
+}
+.em-left .member-chip small{
+  color:var(--em-gold) !important;
+}
 </style>
 </head>
 <body>
@@ -640,7 +719,19 @@ const i18n={};
 
 /* ===== 中文 ===== */
 i18n.zh={
-  em:{title:'企业相亲中心',leftTitle:'当前显化团队',searchTitle:'搜索金主企业',searchPh:'输入关键词搜索企业…',detailTitle:'企业信息',score:'匹配度',pickHint:'点击左侧列表查看企业',select:'选中并拉入团队',ok:'已拉入团队',linked:'已关联需求'},
+em:{
+  title:'企业相亲中心',
+  leftTitle:'当前显化团队',
+  searchTitle:'搜索金主企业',
+  searchPh:'输入关键词搜索企业…',
+  detailTitle:'企业信息',
+  score:'匹配度',
+  pickHint:'点击卡片查看企业',
+  select:'选中并拉入团队',
+  confirm:'确认',          // ← 加这一行
+  ok:'已拉入团队',
+  linked:'已关联需求'
+},
   brand:'梦想显化器',
   menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
@@ -668,7 +759,7 @@ i18n.zh={
 
 /* ===== English ===== */
 i18n.en={
-  em:{title:'Enterprise Match',leftTitle:'Focus team',searchTitle:'Search enterprises',searchPh:'Search enterprises…',detailTitle:'Enterprise',score:'Match',pickHint:'Select an enterprise from the list',select:'Select & add to team',ok:'Added to team',linked:'Linked demand'},
+  em:{title:'Enterprise Match',leftTitle:'Focus team',searchTitle:'Search enterprises',searchPh:'Search enterprises…',detailTitle:'Enterprise',score:'Match',pickHint:'Select an enterprise from the list',select:'Select & add to team',confirm:'Confirm',ok:'Added to team',linked:'Linked demand'},
   brand:'Dream Manifestor',
   menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 My Team',jinzhu:'💰 Demands',dashi:'🤖 Super SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},
   home:{siTools:'SI Tools',allCats:'All categories'},
@@ -1182,7 +1273,18 @@ function renderUserArea(){const area=document.getElementById('userArea'),user=ge
 function updateButtons(){const user=getUser();const set=(id,show)=>{const el=document.getElementById(id);if(el)el.style.display=show?'inline-block':'none';};set('btn-add-jinzhu',user&&(user.role==='jinzhu'||user.role==='admin'));set('btn-add-dashi',user&&(user.role==='ai'||user.role==='admin'));set('btn-add-hero',user&&(user.role==='yingxiao'||user.role==='admin'));set('btn-add-team',user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'));set('btn-add-qgen',!!user);set('btn-pulse-compose',!!user);set('btn-add-sicase',user&&(user.role==='ai'||user.role==='admin'||user.role==='jinzhu'||user.role==='yingxiao'));}
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
 function openModal(type){const box=document.getElementById('modalBox');box.className='modal';if(type==='login')box.innerHTML=`<h3>${t('form.loginTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="login-phone" placeholder="${t('ph.phone')}"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="login-pwd" placeholder="${t('ph.password')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doLogin()">${t('btn.login')}</button></div>`;else box.innerHTML=`<h3>${t('form.regTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="reg-phone" placeholder="${t('ph.phone')}"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="reg-pwd" placeholder="${t('ph.password')}"></div><div class="form-group"><label>${t('form.pwd2')}</label><input type="password" id="reg-pwd2" placeholder="${t('ph.password')}"></div><div class="form-group"><label>${t('form.roleLabel')}</label><select id="reg-role"><option value="jinzhu">${t('role.jinzhu')}</option><option value="ai">${t('role.ai')}</option><option value="yingxiao">${t('role.yingxiao')}</option></select></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doRegister()">${t('btn.register')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
-function closeModal(){document.getElementById('modalMask').style.display='none';}
+
+function closeModal(){
+  document.getElementById('modalMask').style.display='none';
+  // 停止企业相亲音乐
+  if(typeof emAudio!=='undefined' && emAudio){
+    emAudio.pause();
+    emAudio.currentTime=0;
+    const btn=document.getElementById('em-music-btn');
+    if(btn)btn.classList.remove('playing');
+  }
+}
+
 async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.required'));const{data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert(t('tip.userNotFound'));if(data.blacklisted)return alert(t('tip.blacklisted'));if(data.pwd!==pwd)return alert(t('tip.wrongPwd'));setUser({phone:data.phone,role:data.role});closeModal();switchView('jinzhu');}
 async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert(t('tip.required'));if(pwd!==pwd2)return alert(t('tip.mismatch'));if(pwd.length<4)return alert(t('tip.minPwd'));const{data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert(t('tip.exists'));const{error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('jinzhu');}
 
@@ -1194,13 +1296,15 @@ async function pullIntoTeam(targetId,targetName,targetType,targetPower=0){const 
 let enterpriseMatchTeamId=null;
 let enterpriseMatchSelectedId=null;
 let enterpriseMatchCache=[];
+//let emTheme=localStorage.getItem('emTheme')||'blue';   // ← 这一行
+//let emAudio=null;
 
 function enterpriseMatchDemandText(team,linkedJin){
   let s=(team&&team.demand)||'';
   if(linkedJin)s+=' '+accumulatePains(linkedJin);
   return s;
 }
-
+ 
 async function openEnterpriseMatch(teamId){
   const user=getUser();
   if(!user)return alert(t('tip.loginFirst'));
@@ -1209,39 +1313,56 @@ async function openEnterpriseMatch(teamId){
   const team=teams.find(tm=>Number(tm.id)===Number(teamId));
   if(!team)return;
   if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
   enterpriseMatchTeamId=Number(teamId);
   enterpriseMatchSelectedId=null;
   enterpriseMatchCache=await fetchJinZhu();
   const allJin=enterpriseMatchCache;
   const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
-  const leftHtml=`
-    <div class="card-desc"><b>${escapeHtml(team.name||'')}</b></div>
-    ${team.demand?`<div class="card-desc" style="margin-top:6px"><b>${t('label.demand')}：</b>${escapeHtml(team.demand)}</div>`:''}
-    <div class="member-list" style="margin-top:8px">${(team.members||[]).length?(team.members||[]).map(m=>memberChipHtml(m,false,team.id)).join(''):'—'}</div>
-    ${linkedJin?`<div class="card-desc" style="margin-top:8px"><b>${t('em.linked')}：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
-  `;
-  document.getElementById('modalBox').className='modal xl';
-  document.getElementById('modalBox').innerHTML=`
-    <h3>${t('em.title')}</h3>
-    <div class="match-layout">
-      <div class="match-pane" id="em-left">
-        <h4>${t('em.leftTitle')}</h4>
-        ${leftHtml}
-      </div>
-      <div class="match-pane">
-        <h4>${t('em.searchTitle')}</h4>
-        <input id="em-q" placeholder="${t('em.searchPh')}" oninput="renderEnterpriseMatchList()" style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px">
-        <div class="match-list" id="em-list"></div>
-        <div id="em-right" style="margin-top:12px"></div>
-      </div>
-    </div>
-    <div class="form-actions">
-      <button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button>
-    </div>`;
-  document.getElementById('modalMask').style.display='flex';
-  renderEnterpriseMatchList();
-}
 
+  const theme=localStorage.getItem('emTheme')||'blue';
+  emTheme=theme;
+
+  const leftHtml=`
+    <h4>当前显化团队</h4>
+    <div style="font-weight:700;font-size:15px;margin-bottom:6px">👥 ${escapeHtml(team.name||'')}</div>
+    ${team.demand?`<div style="font-size:12px;opacity:.85;margin-bottom:8px"><b>需求：</b>${escapeHtml(team.demand)}</div>`:''}
+    <div class="member-list" style="margin-top:6px">${(team.members||[]).length?(team.members||[]).map(m=>memberChipHtml(m,false,team.id)).join(''):'<span style="opacity:.6">暂无成员</span>'}</div>
+    ${linkedJin?`<div style="font-size:12px;margin-top:8px;opacity:.85"><b>已关联：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
+  `;
+
+  document.getElementById('modalBox').className='modal xl em-modal em-theme-'+theme;
+  document.getElementById('modalBox').innerHTML=`
+    <div class="em-inner">
+      <div class="em-header">
+        <div class="em-style-switch">
+          <button data-theme="blue" onclick="setEmTheme('blue')" title="蓝科幻">🔵</button>
+          <button data-theme="gold" onclick="setEmTheme('gold')" title="金深蓝">🟡</button>
+          <button data-theme="purple" onclick="setEmTheme('purple')" title="紫奢华">🟣</button>
+        </div>
+        <h2>${t('em.title')||'企业相亲中心'}</h2>
+        <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
+      </div>
+      <div class="em-body">
+        <div class="em-left">${leftHtml}</div>
+        <div class="em-right">
+          <div class="em-toolbar">
+            <input id="em-q" class="em-search" placeholder="${t('em.searchPh')||'搜索企业…'}" oninput="renderEnterpriseMatchList()">
+            <button id="em-music-btn" class="btn-music" onclick="toggleEmMusic()">🎵</button>
+            <button class="btn-confirm" onclick="confirmEnterpriseMatch()">${t('em.confirm')||'确认'}</button>
+            <button class="btn-cancel" onclick="closeModal()">${t('btn.cancel')}</button>
+          </div>
+          <div class="em-scroll" id="em-list"></div>
+          <div class="em-detail" id="em-right"></div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('modalMask').style.display='flex';
+  setEmTheme(theme);
+  renderEnterpriseMatchList();
+} 
+ 
 async function renderEnterpriseMatchList(){
   const box=document.getElementById('em-list');
   if(!box)return;
@@ -1258,55 +1379,81 @@ async function renderEnterpriseMatchList(){
     const score=textMatch(demandText,accumulatePains(j));
     return {...j,_score:score};
   }).sort((a,b)=>b._score-a._score||Number(b.id||0)-Number(a.id||0));
+
   if(!list.length){
-    box.innerHTML=`<div class="match-detail-empty">${t('tip.noData')}</div>`;
+    box.innerHTML=`<div style="padding:20px;opacity:.6;text-align:center">${t('tip.noData')}</div>`;
     const right=document.getElementById('em-right');
-    if(right)right.innerHTML=`<div class="match-detail-empty">${t('em.pickHint')}</div>`;
+    if(right)right.innerHTML='';
     return;
   }
-  box.innerHTML=list.slice(0,80).map(j=>{
+
+  box.innerHTML=list.slice(0,40).map(j=>{
     const active=enterpriseMatchSelectedId!=null&&String(enterpriseMatchSelectedId)===String(j.id);
     const title=jinzhuDisplayTitle(j)||'';
-    return `<div class="match-item ${active?'active':''}" onclick="selectEnterpriseMatch(${j.id})">
-      <div class="em-name">${escapeHtml(jinzhuDisplayName(j)||('- #'+j.id))} <span class="match-score">${t('em.score')} ${j._score}</span></div>
-      <div class="em-sub">${escapeHtml(title).slice(0,60)}</div>
+    return `<div class="em-card ${active?'active':''}" onclick="selectEnterpriseMatch(${j.id})">
+      <div class="em-name">${escapeHtml(jinzhuDisplayName(j)||('- #'+j.id))}</div>
+      <div class="em-score">${t('em.score')} ${j._score}</div>
+      <div class="em-sub">${escapeHtml(title).slice(0,36)}</div>
     </div>`;
   }).join('');
-  if(enterpriseMatchSelectedId!=null)selectEnterpriseMatch(enterpriseMatchSelectedId);
+
+  if(enterpriseMatchSelectedId!=null) selectEnterpriseMatch(enterpriseMatchSelectedId);
   else{
     const right=document.getElementById('em-right');
-    if(right)right.innerHTML=`<div class="match-detail-empty">${t('em.pickHint')}</div>`;
+    if(right)right.innerHTML=`<div style="opacity:.6;text-align:center;padding:12px">${t('em.pickHint')}</div>`;
   }
-}
+} 
 
 async function selectEnterpriseMatch(id){
   enterpriseMatchSelectedId=id;
-  document.querySelectorAll('#em-list .match-item').forEach(el=>{
-    el.classList.toggle('active',el.getAttribute('onclick')===`selectEnterpriseMatch(${id})`);
+  document.querySelectorAll('#em-list .em-card').forEach(el=>{
+    el.classList.toggle('active', el.getAttribute('onclick')===`selectEnterpriseMatch(${id})`);
   });
   const right=document.getElementById('em-right');
   if(!right)return;
   const j=(enterpriseMatchCache||[]).find(x=>Number(x.id)===Number(id));
-  if(!j){right.innerHTML=`<div class="match-detail-empty">${t('tip.noData')}</div>`;return;}
+  if(!j){right.innerHTML='';return;}
   const teams=await fetchTeam();
   const team=teams.find(tm=>Number(tm.id)===Number(enterpriseMatchTeamId));
   const linkedJin=team?(enterpriseMatchCache||[]).find(x=>String(x.id)===String(team.jinzhu_id)):null;
   const score=textMatch(enterpriseMatchDemandText(team,linkedJin),accumulatePains(j));
-  const dtype=jinzhuNormalizeType(j.type);
-  const pieces=jinzhuPains(j);
-  const pieceCls=dtype==='dream'?'piece-line dream':'pain-line';
-  const piecesHtml=pieces.length?`<div class="card-desc"><b>${dtype==='dream'?t('jz.pieces'):t('jz.checklist')}：</b>${pieces.map(p=>`<div class="${pieceCls}"><b>${escapeHtml(p.title||'')}</b>${p.desc?` — ${escapeHtml(p.desc)}`:''}</div>`).join('')}</div>`:'';
   right.innerHTML=`
-    <h4>${t('em.detailTitle')} <span class="match-score">${t('em.score')} ${score}</span></h4>
-    <div class="jz-name-line">${escapeHtml(jinzhuDisplayName(j)||'-')}</div>
-    ${jinzhuDisplayTitle(j)?`<div class="jz-title-line">${escapeHtml(jinzhuDisplayTitle(j))}</div>`:''}
-    ${jinzhuDisplayIntro(j)?`<div class="card-desc"><b>${t('jz.introLabel')}：</b>${escapeHtml(jinzhuDisplayIntro(j))}</div>`:''}
-    ${jinzhuDisplayDetail(j)?`<div class="card-desc"><b>${t('jz.detailLabel')}：</b>${escapeHtml(jinzhuDisplayDetail(j))}</div>`:''}
-    ${piecesHtml}
-    ${renderBizCard(j.card,j.phone)}
-    <div class="form-actions" style="margin-top:12px">
-      <button class="btn btn-success" onclick="confirmEnterpriseMatch()">${t('em.select')}</button>
-    </div>`;
+    <div class="jz-name-line">${escapeHtml(jinzhuDisplayName(j)||'-')} <span class="em-score">${t('em.score')} ${score}</span></div>
+    ${jinzhuDisplayTitle(j)?`<div style="margin:4px 0;opacity:.9">${escapeHtml(jinzhuDisplayTitle(j))}</div>`:''}
+    ${jinzhuDisplayIntro(j)?`<div style="margin:4px 0;opacity:.85"><b>简介：</b>${escapeHtml(jinzhuDisplayIntro(j))}</div>`:''}
+    ${jinzhuDisplayDetail(j)?`<div style="margin:4px 0;opacity:.85"><b>详情：</b>${escapeHtml(jinzhuDisplayDetail(j))}</div>`:''}
+  `;
+}
+ 
+
+let emTheme=localStorage.getItem('emTheme')||'blue';
+let emAudio=null;
+
+function setEmTheme(theme){
+  emTheme=theme;
+  localStorage.setItem('emTheme',theme);
+  const modal=document.querySelector('.em-modal');
+  if(modal){
+    modal.classList.remove('em-theme-blue','em-theme-gold','em-theme-purple');
+    modal.classList.add('em-theme-'+theme);
+  }
+  document.querySelectorAll('.em-style-switch button').forEach(b=>b.classList.toggle('active',b.dataset.theme===theme));
+}
+
+function toggleEmMusic(){
+  if(!emAudio){
+    emAudio=new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
+    emAudio.loop=true;
+    emAudio.volume=0.3;
+  }
+  const btn=document.getElementById('em-music-btn');
+  if(emAudio.paused){
+    emAudio.play().catch(()=>{});
+    if(btn)btn.classList.add('playing');
+  }else{
+    emAudio.pause();
+    if(btn)btn.classList.remove('playing');
+  }
 }
 
 async function confirmEnterpriseMatch(){
