@@ -2457,12 +2457,29 @@ function toggleSiMusic(){
 
 //End
 //End1 2026/11/11
+/* ===== 精英配置中心底部滑动区（修复版） =====
+
+========== 完整代码开始 ==========
+
 /* ===== 精英配置中心底部滑动区 ===== */
 
 let heroConfigTeamId=null;
 let heroConfigSelectedId=null;
 let heroConfigCache=[];
 let heroAudio=null;
+
+/*
+ * 根因修复：页面存在重复 id="hero-list"。
+ * 第一个位于隐藏 .view 中；必须限定在当前精英配置弹窗 #modalBox 内查找。
+ */
+function getHeroListBox(){
+  const modal = document.getElementById('modalBox');
+  if(!modal) return null;
+  return modal.querySelector('.em-results-bottom .em-scroll');
+}
+
+
+let heroSearchRequestId=0;
 
 function heroMatchText(h){
   if(!h)return '';
@@ -2486,34 +2503,75 @@ async function fetchHeroByQ(q){
 }
 
 async function reloadHeroList(q){
-  console.log('reload 收到:', q);
-  heroConfigCache=await fetchHeroByQ(q||'');
-  const box=document.getElementById('hero-list');
-  if(!box){console.log('找不到 #hero-list');return;}
-  console.log('准备渲染', heroConfigCache.length, '条');
+  const requestId = ++heroSearchRequestId;
+  const keyword = (q || '').trim();
+  const box = getHeroListBox();
 
-  const teams=await fetchTeam();
-  const team=teams.find(tm=>Number(tm.id)===Number(heroConfigTeamId));
-  const allJin=await fetchJinZhu();
-  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
-  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+  console.log('[精英搜索] 开始:', keyword, '请求编号:', requestId);
 
-  const html=(heroConfigCache||[]).map(h=>{
-    const name=heroDisplayName(h)||('- #'+h.id);
-    const sub=heroDisplaySkillTitle(h)||heroDisplayIntro(h)||'';
-    const score=textMatchCn(sourceText,heroMatchText(h));
-    return `<div class="em-card" onclick="selectHeroConfig(${h.id})">
-      <div class="em-name">${escapeHtml(String(name).slice(0,16))}</div>
-      <div class="em-score">匹配度 ${score}</div>
-      <div class="em-sub">${escapeHtml(String(sub).slice(0,20))}</div>
-    </div>`;
-  }).join('');
+  if(!box){
+    console.warn('[精英搜索] 找不到 #hero-list');
+    return;
+  }
 
-  box.innerHTML=html||'<div style="padding:20px;opacity:.6">无匹配结果</div>';
-  console.log('已写入 innerHTML, 长度:', box.innerHTML.length);
+  box.style.opacity = '0.55';
+
+  try{
+    const data = await fetchHeroByQ(keyword);
+
+    // 只允许最新一次搜索继续执行
+    if(requestId !== heroSearchRequestId) return;
+
+    const teams = await fetchTeam();
+    if(requestId !== heroSearchRequestId) return;
+
+    const team = teams.find(tm =>
+      Number(tm.id) === Number(heroConfigTeamId)
+    );
+
+    const allJin = await fetchJinZhu();
+    if(requestId !== heroSearchRequestId) return;
+
+    const linkedJin = team
+      ? allJin.find(j => String(j.id) === String(team.jinzhu_id))
+      : null;
+
+    const sourceText = enterpriseMatchSourceText(team, linkedJin);
+
+    const html = data.map(h => {
+      const name = heroDisplayName(h) || ('- #' + h.id);
+      const sub = heroDisplaySkillTitle(h) || heroDisplayIntro(h) || '';
+      const score = textMatchCn(sourceText, heroMatchText(h));
+
+      return `<div class="em-card" onclick="selectHeroConfig(${h.id})">
+        <div class="em-name">${escapeHtml(String(name).slice(0,16))}</div>
+        <div class="em-score">匹配度 ${score}</div>
+        <div class="em-sub">${escapeHtml(String(sub).slice(0,20))}</div>
+      </div>`;
+    }).join('');
+
+    // 再检查一次，防止旧请求覆盖新结果
+    if(requestId !== heroSearchRequestId) return;
+
+    const currentBox = getHeroListBox();
+    if(!currentBox) return;
+
+    // 缓存与画面使用同一批数据，避免选中卡片时数据错位
+    heroConfigCache = data;
+    currentBox.innerHTML = html ||
+      '<div style="padding:20px;opacity:.6">无匹配结果</div>';
+    currentBox.style.opacity = '1';
+
+    console.log('[精英搜索] 更新成功:', keyword, '显示数量:', data.length);
+  }catch(error){
+    if(requestId !== heroSearchRequestId) return;
+    console.error('[精英搜索] 搜索或渲染失败:', error);
+    const currentBox = getHeroListBox();
+    if(currentBox) currentBox.style.opacity = '1';
+  }
 }
-
 async function openHeroConfig(teamId){
+  heroSearchRequestId++; // 让上一个弹窗遗留的搜索失效
   const user=getUser();
   if(!user)return alert(t('tip.loginFirst'));
   const teams=await fetchTeam();
@@ -2575,7 +2633,7 @@ async function openHeroConfig(teamId){
 }
 
 function renderHeroConfigList(){
-  var box=document.getElementById('hero-list');
+  var box=getHeroListBox();
   if(!box)return;
   var q='';
   var inp=document.getElementById('hero-q');
@@ -2627,7 +2685,7 @@ function renderHeroConfigList(){
 
 async function selectHeroConfig(id){
   heroConfigSelectedId=id;
-  document.querySelectorAll('#hero-list .em-card').forEach(el=>{
+  document.querySelectorAll('#modalBox .em-results-bottom .em-card').forEach(el=>{
     el.classList.toggle('active', el.getAttribute('onclick')===`selectHeroConfig(${id})`);
   });
   const right=document.getElementById('hero-right');
@@ -2682,6 +2740,7 @@ async function confirmHeroConfig(){
 }
 
 function closeHeroConfig(){
+  heroSearchRequestId++; // 关闭弹窗时让未完成的搜索失效
   if(heroAudio){heroAudio.pause();heroAudio.currentTime=0;}
   const btn=document.getElementById('hero-music-btn');
   if(btn)btn.classList.remove('playing');
@@ -2703,6 +2762,7 @@ function toggleHeroMusic(){
     if(btn)btn.classList.remove('playing');
   }
 }
+
 
 //End2 2026/11/11
 //问卷配置中心-2026-11/12-228 增加问卷配置中心功能
