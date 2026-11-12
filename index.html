@@ -279,7 +279,6 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .io-chip.on{background:#fbbf24;border-color:#f59e0b;color:#0f172a;font-weight:600}
 .tag-io{background:#ecfdf5;color:#047857;margin:2px}
 .tag-io-out{background:#eff6ff;color:#1d4ed8;margin:2px}
-
 /* ========== 配置中心弹窗骨架 ========== */
 .em-modal{background:#ffffff;color:#111;border:none;padding:0;overflow:hidden;max-width:1100px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
 .em-modal .em-inner{padding:16px 20px 20px;min-height:78vh;display:flex;flex-direction:column;gap:12px;color:#111}
@@ -2470,6 +2469,50 @@ function heroMatchText(h){
   return [heroDisplayName(h),heroDisplayIntro(h),heroDisplaySkillTitle(h)].filter(Boolean).join(' ');
 }
 
+async function fetchHeroByQ(q){
+  console.log('搜索关键词:', q);
+  let query=sb.from('hero').select('*').order('id',{ascending:false}).limit(40);
+  if(q&&q.trim()){
+    const kw='%'+q.trim()+'%';
+    console.log('ilike 条件:', kw);
+    query=query.or(`name.ilike.${kw},intro.ilike.${kw},skill_title.ilike.${kw}`);
+  }else{
+    console.log('无关键词，取最新40条');
+  }
+  const{data,error}=await query;
+  console.log('返回条数:', data?data.length:0, '错误:', error);
+  if(error)return[];
+  return data||[];
+}
+
+async function reloadHeroList(q){
+  console.log('reload 收到:', q);
+  heroConfigCache=await fetchHeroByQ(q||'');
+  const box=document.getElementById('hero-list');
+  if(!box){console.log('找不到 #hero-list');return;}
+  console.log('准备渲染', heroConfigCache.length, '条');
+
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(heroConfigTeamId));
+  const allJin=await fetchJinZhu();
+  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+
+  const html=(heroConfigCache||[]).map(h=>{
+    const name=heroDisplayName(h)||('- #'+h.id);
+    const sub=heroDisplaySkillTitle(h)||heroDisplayIntro(h)||'';
+    const score=textMatchCn(sourceText,heroMatchText(h));
+    return `<div class="em-card" onclick="selectHeroConfig(${h.id})">
+      <div class="em-name">${escapeHtml(String(name).slice(0,16))}</div>
+      <div class="em-score">匹配度 ${score}</div>
+      <div class="em-sub">${escapeHtml(String(sub).slice(0,20))}</div>
+    </div>`;
+  }).join('');
+
+  box.innerHTML=html||'<div style="padding:20px;opacity:.6">无匹配结果</div>';
+  console.log('已写入 innerHTML, 长度:', box.innerHTML.length);
+}
+
 async function openHeroConfig(teamId){
   const user=getUser();
   if(!user)return alert(t('tip.loginFirst'));
@@ -2480,7 +2523,7 @@ async function openHeroConfig(teamId){
 
   heroConfigTeamId=Number(teamId);
   heroConfigSelectedId=null;
-  heroConfigCache=await fetchHero();
+ heroConfigCache=await fetchHeroByQ('');
   const allJin=await fetchJinZhu();
   const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
   const sourceText=enterpriseMatchSourceText(team,linkedJin);
@@ -2511,8 +2554,8 @@ async function openHeroConfig(teamId){
         <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
       </div>
       <div class="em-toolbar-top">
-        <input id="hero-q" class="em-search" placeholder="${t('ph.heroSearch')||'搜索精英…'}" oninput="renderHeroConfigList()">
-        <button id="hero-music-btn" class="em-icon-btn" title="音乐" onclick="toggleHeroMusic()">🎵</button>
+<input id="hero-q" class="em-search" placeholder="搜索精英…" oninput="reloadHeroList(this.value)">
+		<button id="hero-music-btn" class="em-icon-btn" title="音乐" onclick="toggleHeroMusic()">🎵</button>
         <button class="em-icon-btn em-icon-confirm" title="${t('em.confirm')||'确认'}" onclick="confirmHeroConfig()">✓</button>
         <button class="em-icon-btn" title="${t('btn.cancel')}" onclick="closeHeroConfig()">✕</button>
       </div>
@@ -2531,37 +2574,55 @@ async function openHeroConfig(teamId){
   document.getElementById('modalMask').style.display='flex';
 }
 
- function renderHeroConfigList(){
-  const box=document.getElementById('hero-list');
+function renderHeroConfigList(){
+  var box=document.getElementById('hero-list');
   if(!box)return;
-  const q=((document.getElementById('hero-q')||{}).value||'').trim().toLowerCase();
+  var q='';
+  var inp=document.getElementById('hero-q');
+  if(inp)q=(inp.value||'').trim().toLowerCase();
 
-  let list=(heroConfigCache||[]).filter(function(h){
-    if(!q)return true;
+  var sourceText='';
+  try{
+    var teams=window._heroTeams||[];
+    var team=null;
+    for(var i=0;i<teams.length;i++){
+      if(Number(teams[i].id)===Number(heroConfigTeamId)){team=teams[i];break;}
+    }
+    if(team){
+      var linked=null;
+      var allJin=window._heroAllJin||[];
+      for(var j=0;j<allJin.length;j++){
+        if(String(allJin[j].id)===String(team.jinzhu_id)){linked=allJin[j];break;}
+      }
+      sourceText=enterpriseMatchSourceText(team,linked);
+    }
+  }catch(e){}
+
+  var list=heroConfigCache||[];
+  var filtered=[];
+  for(var k=0;k<list.length;k++){
+    var h=list[k];
     var name=heroDisplayName(h)||'';
     var intro=heroDisplayIntro(h)||'';
     var skill=heroDisplaySkillTitle(h)||'';
     var blob=(name+' '+intro+' '+skill).toLowerCase();
-    return blob.indexOf(q)>=0;
-  });
-
-  if(!list.length){
-    box.innerHTML='<div style="padding:20px;opacity:.6">无匹配结果</div>';
-    return;
+    if(!q||blob.indexOf(q)>=0)filtered.push(h);
   }
 
   var html='';
-  for(var i=0;i<Math.min(list.length,40);i++){
-    var h=list[i];
-    var name=heroDisplayName(h)||('- #'+h.id);
-    var sub=heroDisplaySkillTitle(h)||heroDisplayIntro(h)||'';
-    html+='<div class="em-card" onclick="selectHeroConfig('+h.id+')">'+
-      '<div class="em-name">'+escapeHtml(String(name).slice(0,16))+'</div>'+
-      '<div class="em-score">匹配度 '+(h._score||0)+'</div>'+
+  for(var m=0;m<filtered.length&&m<40;m++){
+    var item=filtered[m];
+    var nm=heroDisplayName(item)||('- #'+item.id);
+    var sub=heroDisplaySkillTitle(item)||heroDisplayIntro(item)||'';
+    var score=0;
+    try{score=textMatchCn(sourceText,heroMatchText(item));}catch(e){}
+    html+='<div class="em-card" onclick="selectHeroConfig('+item.id+')">'+
+      '<div class="em-name">'+escapeHtml(String(nm).slice(0,16))+'</div>'+
+      '<div class="em-score">匹配度 '+score+'</div>'+
       '<div class="em-sub">'+escapeHtml(String(sub).slice(0,20))+'</div>'+
       '</div>';
   }
-  box.innerHTML=html;
+  box.innerHTML=html||'<div style="padding:20px;opacity:.6">无匹配结果</div>';
 }
 
 async function selectHeroConfig(id){
