@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>梦想显化器-V218</title>
+<title>梦想显化器-V220</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>𝕏</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -242,6 +242,10 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 @media(min-width:768px){
   .kyb-hero{min-height:600px}
 }
+
+//Begin CSS 2026/11/12
+
+/* ========== 通用基础 ========== */
 .lang-select{padding:6px 8px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;background:#fff;cursor:pointer;max-width:140px}
 .lang-hint{font-size:12px;color:#64748b;background:#f1f5f9;border-radius:8px;padding:8px 10px;margin-bottom:12px}
 .lang-hint b{color:#2563eb}
@@ -266,15 +270,7 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .btn-icon-sm.active-reorg{background:#fef3c7;border-color:#f59e0b}
 .progress-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:13px}
 .progress-box h5{font-size:13px;margin:0 0 8px;color:#0f172a;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
-.progress-box textarea{
-  width:100%;
-  min-height:176px;  /* 约一倍 */
-  padding:8px 10px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  font-size:13px;
-  resize:vertical;
-}
+.progress-box textarea{width:100%;min-height:176px;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;resize:vertical}
 .progress-box .progress-view{white-space:pre-wrap;word-break:break-word;color:#334155;line-height:1.55;min-height:1.5em}
 .io-config-box{border:1px solid #fde68a;background:#fffbeb;border-radius:12px;padding:12px 14px;margin:14px 0}
 .io-config-box .io-head{font-size:13px;font-weight:700;color:#92400e;margin-bottom:10px;display:flex;align-items:center;gap:6px}
@@ -283,250 +279,57 @@ html[lang="ar"] .fab-menu,html[dir="rtl"] .fab-menu{right:auto;left:16px}
 .io-chip.on{background:#fbbf24;border-color:#f59e0b;color:#0f172a;font-weight:600}
 .tag-io{background:#ecfdf5;color:#047857;margin:2px}
 .tag-io-out{background:#eff6ff;color:#1d4ed8;margin:2px}
-/* ===== 企业相亲 218E 风格 ===== */
-.em-modal{background:#0b1020;color:#e2e8f0;border:none;padding:0;overflow:hidden;max-width:1100px}
-.em-modal .em-inner{padding:16px 20px 20px;min-height:78vh;display:flex;flex-direction:column;gap:12px}
 
-.em-theme-blue{
-  --em-bg:linear-gradient(160deg,#0a0e27 0%,#1e1b4b 50%,#0f172a 100%);
-  --em-accent:#60a5fa;
-  --em-gold:#fbbf24;
-  --em-panel:rgba(15,23,42,.72);
-  --em-border:rgba(96,165,250,.45);
-  --em-text:#e2e8f0;
-  --em-glow:rgba(96,165,250,.25);
-}
-.em-theme-gold{
-  --em-bg:linear-gradient(160deg,#0c0a1a 0%,#1e1b4b 40%,#111827 100%);
-  --em-accent:#fbbf24;
-  --em-gold:#fde68a;
-  --em-panel:rgba(30,27,75,.75);
-  --em-border:rgba(251,191,36,.55);
-  --em-text:#fef3c7;
-  --em-glow:rgba(251,191,36,.3);
-}
-.em-theme-purple{
-  --em-bg:linear-gradient(160deg,#1e0a2e 0%,#3b0764 45%,#1e1b4b 100%);
-  --em-accent:#c084fc;
-  --em-gold:#f0abfc;
-  --em-panel:rgba(88,28,135,.6);
-  --em-border:rgba(192,132,252,.5);
-  --em-text:#f3e8ff;
-  --em-glow:rgba(192,132,252,.3);
-}
-
-.em-modal{background:var(--em-bg);color:var(--em-text);box-shadow:0 0 40px var(--em-glow)}
-.em-header{text-align:center;padding:8px 0 10px;border-bottom:1px solid var(--em-border);position:relative}
-.em-header h2{font-size:30px;font-weight:800;margin:0;background:linear-gradient(90deg,var(--em-gold),#fff,var(--em-accent));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px}
-.em-header .em-sub{font-size:13px;opacity:.9;margin-top:4px;letter-spacing:2px}
-
-.em-style-switch{position:absolute;top:8px;right:0;display:flex;gap:6px}
-.em-style-switch button{width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer;font-size:14px;background:rgba(0,0,0,.3)}
-.em-style-switch button.active{border-color:#fff;box-shadow:0 0 8px var(--em-accent)}
-
+/* ========== 配置中心弹窗骨架 ========== */
+.em-modal{background:#ffffff;color:#111;border:none;padding:0;overflow:hidden;max-width:1100px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.em-modal .em-inner{padding:16px 20px 20px;min-height:78vh;display:flex;flex-direction:column;gap:12px;color:#111}
+.em-header{text-align:center;padding:8px 0 10px;border-bottom:1px solid #e5e7eb}
+.em-header h2{font-size:30px;font-weight:800;margin:0;color:#d97706;letter-spacing:1px}
+.em-header .em-sub{font-size:13px;color:#d97706;margin-top:4px;letter-spacing:2px}
 .em-body{display:grid;grid-template-columns:280px 1fr;gap:14px;flex:1;min-height:0}
 @media (max-width:800px){.em-body{grid-template-columns:1fr}}
-
-.em-left,.em-right{background:var(--em-panel);border:1px solid var(--em-border);border-radius:16px;padding:14px;backdrop-filter:blur(10px);overflow:hidden;display:flex;flex-direction:column}
-.em-left h4,.em-right h4{margin:0 0 10px;font-size:14px;color:var(--em-gold)}
-
-.em-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.em-toolbar .em-search{flex:1;min-width:140px;padding:9px 14px;border-radius:999px;border:1px solid var(--em-border);background:rgba(0,0,0,.3);color:inherit;font-size:14px}
-.em-toolbar .em-search::placeholder{opacity:.55}
-.em-toolbar .btn-cancel{padding:8px 16px;border-radius:999px;border:1px solid var(--em-border);background:transparent;color:inherit;cursor:pointer;font-size:13px}
-.em-toolbar .btn-confirm{padding:8px 20px;border-radius:999px;background:linear-gradient(135deg,var(--em-gold),var(--em-accent));color:#0f172a;font-weight:700;border:none;cursor:pointer;font-size:13px}
-.em-toolbar .btn-music{width:36px;height:36px;border-radius:50%;border:1px solid var(--em-border);background:rgba(0,0,0,.35);color:var(--em-gold);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.em-toolbar .btn-music.playing{background:var(--em-accent);color:#fff}
-
-.em-scroll{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x mandatory;flex:1;min-height:160px}
-.em-scroll::-webkit-scrollbar{height:6px}
-.em-scroll::-webkit-scrollbar-thumb{background:var(--em-border);border-radius:3px}
-
-.em-card{flex:0 0 200px;scroll-snap-align:start;background:rgba(0,0,0,.25);border:1px solid var(--em-border);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s}
-.em-card:hover,.em-card.active{border-color:var(--em-accent);box-shadow:0 4px 16px var(--em-glow);transform:translateY(-2px)}
-.em-card .em-name{font-weight:700;font-size:14px;margin-bottom:4px}
-.em-card .em-score{font-size:11px;color:var(--em-gold);font-weight:600}
-.em-card .em-sub{font-size:11px;opacity:.75;margin-top:4px;line-height:1.35}
-
-.em-detail{margin-top:10px;font-size:13px;line-height:1.5;max-height:180px;overflow-y:auto}
-.em-detail .jz-name-line{font-size:15px;font-weight:700;margin-bottom:4px}
-
-.em-left .member-chip{
-  background:rgba(0,0,0,.35) !important;
-  border-color:var(--em-border) !important;
-  color:inherit !important;
-}
-.em-left .member-chip img{
-  background:transparent !important;
-}
-.em-left .member-chip small{
-  color:var(--em-gold) !important;
-}
-.em-toolbar-top{display:flex;align-items:center;gap:8px;margin:10px 0 6px;flex-wrap:wrap}
-.em-toolbar-top .em-search{flex:1;min-width:140px;padding:9px 14px;border-radius:999px;border:1px solid var(--em-border);background:rgba(0,0,0,.3);color:inherit;font-size:14px}
-.em-style-row{display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end}
-.em-style-row button{width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer;font-size:14px;background:rgba(0,0,0,.3)}
-.em-style-row button.active{border-color:#fff;box-shadow:0 0 8px var(--em-accent)}
-
-.em-panel-title{font-weight:700;font-size:15px;color:var(--em-gold);margin:0 0 8px}
-
-.em-results-bottom{margin-top:auto;padding-top:8px}
-.em-scroll{max-height:220px}
-
-.em-url{font-size:12px;margin:6px 0;word-break:break-all}
-.em-url a{color:var(--em-accent);text-decoration:underline}
-/* 218J 纯白主题基础 */
-.em-modal{
-  background:#ffffff !important;
-  color:#111111 !important;
-  box-shadow:0 4px 24px rgba(0,0,0,.08);
-}
-.em-modal .em-inner{color:#111}
-
-.em-header h2{
-  background:none !important;
-  -webkit-background-clip:unset !important;
-  background-clip:unset !important;
-  color:#d97706 !important; /* 金色 */
-  font-weight:800;
-}
-.em-header .em-sub{
-  color:#d97706 !important;
-  opacity:1;
-}
-
-.em-panel-title{color:#b45309 !important;}
-.em-score{color:#b45309 !important;}
-
-.em-toolbar-top{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  margin:10px 0 8px;
-  flex-wrap:wrap;
-}
-.em-toolbar-top .em-search{
-  width:25% !important;
-  min-width:100px;
-  max-width:180px;
-  flex:none !important;
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid #e5e7eb;
-  background:#f9fafb;
-  color:#111;
-  font-size:13px;
-}
-.em-toolbar-top .btn-cancel,
-.em-toolbar-top .btn-confirm,
-.em-toolbar-top .btn-music{
-  border:1px solid #e5e7eb;
-  background:#fff;
-  color:#111;
-}
-.em-toolbar-top .btn-confirm{
-  background:linear-gradient(135deg,#fbbf24,#f59e0b);
-  color:#111;
-  font-weight:700;
-  border:none;
-}
-.em-toolbar-top .btn-music.playing{
-  background:#fbbf24;
-  color:#111;
-}
-
-/* 风格按钮美化，放在取消旁边 */
-.em-style-row{
-  display:inline-flex;
-  gap:6px;
-  margin:0;
-  justify-content:flex-start;
-}
-.em-style-row button{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  border:2px solid #e5e7eb;
-  cursor:pointer;
-  font-size:13px;
-  background:#fff;
-  box-shadow:0 1px 3px rgba(0,0,0,.06);
-  transition:all .15s;
-}
-.em-style-row button:hover{transform:scale(1.08)}
-.em-style-row button.active{
-  border-color:#d97706;
-  box-shadow:0 0 0 2px #fde68a;
-}
-
-/* 滚动区可用但滚动条不可见 */
-.em-scroll{
-  overflow-x:auto;
-  -ms-overflow-style:none;  /* IE/Edge */
-  scrollbar-width:none;     /* Firefox */
-}
-.em-scroll::-webkit-scrollbar{display:none} /* Chrome/Safari */
-
-.em-left,.em-right{
-  background:#fafafa;
-  border:1px solid #e5e7eb;
-  color:#111;
-}
-.em-card{
-  background:#fff;
-  border:1px solid #e5e7eb;
-  color:#111;
-}
-.em-card.active{
-  border-color:#f59e0b;
-  box-shadow:0 2px 8px rgba(245,158,11,.2);
-}
-.em-url a{color:#2563eb}
-.em-toolbar-top{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  margin:10px 0 12px;
-  flex-wrap:wrap;
-}
-.em-toolbar-top .em-search{
-  width:28% !important;
-  min-width:90px;
-  max-width:160px;
-  flex:none !important;
-}
-.em-icon-btn{
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  border:1px solid #e5e7eb;
-  background:#fff;
-  color:#111;
-  font-size:16px;
-  cursor:pointer;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-}
+.em-left,.em-right{background:#fafafa;border:1px solid #e5e7eb;border-radius:16px;padding:14px;overflow:hidden;display:flex;flex-direction:column;color:#111}
+.em-panel-title{font-weight:700;font-size:15px;color:#b45309;margin:0 0 8px}
+.em-toolbar-top{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0 12px;flex-wrap:wrap}
+.em-toolbar-top .em-search{width:28%;min-width:90px;max-width:160px;padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#f9fafb;color:#111;font-size:13px}
+.em-icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;color:#111;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
 .em-icon-btn:hover{background:#f3f4f6}
 .em-icon-btn.playing{background:#fde68a;border-color:#f59e0b}
 .em-icon-confirm{background:linear-gradient(135deg,#fbbf24,#f59e0b);border:none;font-weight:700}
-.em-case-chip{
-  display:inline-block;
-  margin:3px 4px 3px 0;
-  padding:3px 8px;
-  background:#fffbeb;
-  border:1px solid #fde68a;
-  border-radius:999px;
-  font-size:12px;
-  color:#92400e;
-  cursor:pointer;
-}
+.em-results-bottom{margin-top:12px;padding:8px 0;min-height:140px}
+.em-results-bottom > div{display:flex;flex-direction:row;flex-wrap:nowrap;gap:10px;overflow-x:auto;min-height:120px;padding:4px 0}
+.em-url{font-size:12px;margin:6px 0;word-break:break-all}
+.em-url a{color:#2563eb;text-decoration:underline}
+.em-case-chip{display:inline-block;margin:3px 4px 3px 0;padding:3px 8px;background:#fffbeb;border:1px solid #fde68a;border-radius:999px;font-size:12px;color:#92400e;cursor:pointer}
 .em-case-chip:hover{background:#fef3c7}
+.em-score{color:#b45309}
 
-/* ↓↓↓ 底部滑动区完整 CSS（点工具栏「复制/查看 CSS」可取用）↓↓↓ */
+/* ========== 底部横向卡片（各配置中心） ========== */
+.em-card,.si-card,.hero-cfg-card,.qgen-cfg-card,.case-cfg-card{
+  flex:0 0 180px;
+  width:180px;
+  min-height:100px;
+  background:#FFFDF8;
+  border:1px solid #E6E8EC;
+  border-radius:12px;
+  padding:10px;
+  color:#111;
+  box-sizing:border-box;
+  cursor:pointer;
+  transition:.15s;
+}
+.em-card:hover,.si-card:hover,.hero-cfg-card:hover,.qgen-cfg-card:hover,.case-cfg-card:hover{
+  background:#FFF9EE;
+  border-color:#F3C46A;
+  transform:translateY(-2px);
+}
+.em-card.active,.si-card.active,.hero-cfg-card.active,.qgen-cfg-card.active,.case-cfg-card.active{
+  background:#FFF7E8;
+  border:1.5px solid #F5A623;
+}
+.si-card .si-name{font-weight:700;font-size:14px}
+.si-card .si-score{font-size:11px;color:#b45309}
+//End CSS 2026/11/12
 
 </style>
 </head>
@@ -899,6 +702,10 @@ em:{
   ok:'已拉入团队',
   linked:'已关联需求'
 },
+siConfig:{title:'SI配置中心'},
+heroConfig:{title:'精英配置中心'},
+qgenConfig:{title:'问卷配置中心'},
+caseConfig:{title:'SI成功场景配置中心'},
   brand:'梦想显化器',
   menu:{home:'🏠 首页',kybalion:'📖 宇宙法则指引',focus:'🎯 当前显化中心',team:'👥 我的超级团队',jinzhu:'💰 金主需求中心',dashi:'🤖 超级智能中心',sicase:'✨ SI 成功场景',hero:'⭐ 超级精英中心',qgen:'📋 问卷生成中心',diagnosis:'🔎 需求诊断中心',inbox:'⚡ 脉冲互动中心',coop:'🤝 商务合作',categories:'🗂 大分类小分类',coopList:'🏢 商务合作中心',users:'👤 用户管理'},
   home:{siTools:'超级智能工具',allCats:'全部工具大分类'},
@@ -927,6 +734,10 @@ em:{
 /* ===== English ===== */
 i18n.en={
   em:{title:'Enterprise Match',leftTitle:'Focus team',searchTitle:'Search enterprises',searchPh:'Search enterprises…',detailTitle:'Enterprise',score:'Match',pickHint:'Select an enterprise from the list',select:'Select & add to team',confirm:'Confirm', score:'score',ok:'Added to team',linked:'Linked demand'},
+ siConfig:{title:'SI Config Center'}, 
+ heroConfig:{title:'Elite Config Center'},
+ qgenConfig:{title:'Survey Config Center'},
+caseConfig:{title:'SI Case Config Center'},
   brand:'Dream Manifestor',
   menu:{home:'🏠 Home',kybalion:'📖 Cosmic Laws',focus:'🎯 Focus',team:'👥 My Team',jinzhu:'💰 Demands',dashi:'🤖 Super SI',sicase:'✨ SI Success',hero:'⭐ Elites',qgen:'📋 Surveys',diagnosis:'🔎 Diagnosis',inbox:'⚡ Pulse',coop:'🤝 Coop',categories:'🗂 Categories',coopList:'🏢 Coop Center',users:'👤 Users'},
   home:{siTools:'SI Tools',allCats:'All categories'},
@@ -1857,6 +1668,10 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds,opts){
       <span class="tag tag-power">⚡${sum}</span>
       ${user&&!opts.hideSetFocus?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('btn.setFocus'))}" onclick="setPriorityTeam(${team.id})">🎯</button>`:''}
       ${opts.showEnterpriseMatch&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('em.title'))}" onclick="openEnterpriseMatch(${team.id})">🏢</button>`:''}
+      ${opts.showSiConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('siConfig.title'))}" onclick="openSiConfig(${team.id})">🤖</button>`:''}
+      ${opts.showQgenConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('qgenConfig.title'))}" onclick="openQgenConfig(${team.id})">📝</button>`:''}
+		${opts.showHeroConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('heroConfig.title'))}" onclick="openHeroConfig(${team.id})">⭐</button>`:''}
+		${opts.showCaseConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('caseConfig.title'))}" onclick="openCaseConfig(${team.id})">🏆</button>`:''}
       ${isOwner?`<button type="button" class="btn-icon-sm ${showKick?'active-reorg':''}" title="${escapeAttr(tipKick)}" onclick="toggleTeamKick(${team.id})">🔀</button>`:''}
       <button type="button" class="btn-icon-sm ${showCard?'active-reorg':''}" title="${escapeAttr(tipCard)}" onclick="toggleTeamCard(${team.id})">📇</button>
       ${isOwner?`<button type="button" class="btn-icon-sm ${showCase?'active-reorg':''}" title="${escapeAttr(tipCase)}" onclick="toggleTeamCaseKick(${team.id})">✨</button>`:''}
@@ -2247,8 +2062,16 @@ async function renderFocus(){
   let heroIds=new Set(),dashiIds=new Set();
   (await fetchHero()).filter(h=>String(h.phone)===String(user.phone)).forEach(h=>heroIds.add(String(h.id)));
   (await fetchDaShi()).filter(d=>String(d.phone)===String(user.phone)).forEach(d=>dashiIds.add(String(d.id)));
-  box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds,{hideSetFocus:true,showEnterpriseMatch:true});
+  box.innerHTML=teamBlockHtml(tm,linkedJin,user,heroIds,dashiIds,{
+    hideSetFocus:true,
+    showEnterpriseMatch:true,
+    showSiConfig:true,
+    showHeroConfig:true,
+	showQgenConfig:true,
+    showCaseConfig:true
+  });
 }
+
 
 async function toggleHomeCats(){homeCatsOpen=!homeCatsOpen;const maj=document.getElementById('home-major-tags'),min=document.getElementById('home-minor-tags');if(maj)maj.style.display=homeCatsOpen?'flex':'none';if(min)min.style.display=homeCatsOpen?'flex':'none';if(homeCatsOpen)await renderHomeCats();}
 
@@ -2445,7 +2268,760 @@ async function renderQgen(){
   }).join(''):`<div class="empty-tip">${t('tip.noData')}</div>`;
   renderPager('qgen-pager',pg.page,pg.pages,'goQgenPage');
 }
+//Start 2026/11/11
+let siConfigTeamId=null;
+let siConfigSelectedId=null;
+let siConfigCache=[];
 
+function siMatchText(d){
+  if(!d)return '';
+  return [
+    dashiDisplayName(d),
+    dashiDisplayIntro(d),
+    dashiDisplayMotto(d),
+    (d.skills||[]).map(s=>tl(s.title||s.name,'')+' '+(s.desc||'')).join(' ')
+  ].filter(Boolean).join(' ');
+}
+
+async function openSiConfig(teamId){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  siConfigTeamId=Number(teamId);
+  siConfigSelectedId=null;
+  siConfigCache=await fetchDaShi();
+  const allJin=await fetchJinZhu();
+  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
+
+  const leftHtml=`
+    <div class="em-panel-title">当前显化团队</div>
+    <div style="font-weight:700;font-size:15px;margin-bottom:6px">👥 ${escapeHtml(team.name||'')}</div>
+    ${team.demand?`<div style="font-size:12px;opacity:.85;margin-bottom:6px"><b>需求：</b>${escapeHtml(team.demand)}</div>`:''}
+    ${linkedJin?`<div style="font-size:12px;margin-top:6px;opacity:.85"><b>已关联：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
+  `;
+
+  document.getElementById('modalBox').className='modal xl em-modal';
+  document.getElementById('modalBox').innerHTML=`
+    <div class="em-inner">
+      <div class="em-header">
+        <h2>SI 配置中心</h2>
+        <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
+      </div>
+      <div class="em-toolbar-top">
+        <input id="si-q" class="em-search" placeholder="搜索 SI 工具…" oninput="renderSiConfigList()">
+        <button id="si-music-btn" class="em-icon-btn" title="音乐" onclick="toggleSiMusic()">🎵</button>
+        <button class="em-icon-btn em-icon-confirm" title="确认" onclick="confirmSiConfig()">✓</button>
+        <button class="em-icon-btn" title="取消" onclick="closeSiConfig()">✕</button>
+      </div>
+      <div class="em-body">
+        <div class="em-left">${leftHtml}</div>
+        <div class="em-right">
+          <div class="em-panel-title">SI 详情</div>
+          <div class="em-detail" id="si-right" style="flex:1;min-height:60px"></div>
+        </div>
+      </div>
+      <div class="em-results-bottom">
+        <div class="em-scroll" id="si-list"></div>
+      </div>
+    </div>`;
+
+  document.getElementById('modalMask').style.display='flex';
+  renderSiConfigList();
+}
+
+async function renderSiConfigList(){
+  const box=document.getElementById('si-list');
+  if(!box)return;
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(siConfigTeamId));
+  if(!team){box.innerHTML='';return;}
+  const allJin=await fetchJinZhu();
+  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+
+  const q=(document.getElementById('si-q')||{}).value||'';
+  let list=siConfigCache.filter(d=>{
+    const blob=(dashiDisplayName(d)+' '+dashiDisplayIntro(d)+' '+(d.major_category||'')+' '+(d.minor_category||'')).toLowerCase();
+    return !q||blob.includes(q.trim().toLowerCase());
+  });
+
+  list=list.map(d=>{
+    const score=textMatchCn(sourceText,siMatchText(d));
+    return {...d,_score:score};
+  }).sort((a,b)=>b._score-a._score||Number(b.id||0)-Number(a.id||0));
+
+  if(!list.length){
+    box.innerHTML=`<div style="padding:20px;opacity:.6;text-align:center">暂无数据</div>`;
+    return;
+  }
+
+  box.innerHTML=list.slice(0,40).map(d=>{
+    const active=siConfigSelectedId!=null&&String(siConfigSelectedId)===String(d.id);
+    return `<div class="si-card ${active?'active':''}" onclick="selectSiConfig(${d.id})">
+      <div class="si-name">${escapeHtml(dashiDisplayName(d)||('- #'+d.id))}</div>
+      <div class="si-score">匹配度 ${d._score}</div>
+      <div class="em-sub">${escapeHtml(dashiDisplayIntro(d)||'').slice(0,36)}</div>
+    </div>`;
+  }).join('');
+
+  if(siConfigSelectedId!=null) selectSiConfig(siConfigSelectedId);
+}
+
+async function selectSiConfig(id){
+  siConfigSelectedId=id;
+  document.querySelectorAll('#si-list .si-card').forEach(el=>{
+    el.classList.toggle('active', el.getAttribute('onclick')===`selectSiConfig(${id})`);
+  });
+  const right=document.getElementById('si-right');
+  if(!right)return;
+  const d=(siConfigCache||[]).find(x=>Number(x.id)===Number(id));
+  if(!d){right.innerHTML='';return;}
+
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(siConfigTeamId));
+  const allJin=await fetchJinZhu();
+  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+  const score=textMatchCn(sourceText,siMatchText(d));
+
+  right.innerHTML=`
+    <div class="jz-name-line">${escapeHtml(dashiDisplayName(d)||'-')} <span class="em-score">匹配度 ${score}</span></div>
+    ${dashiDisplayIntro(d)?`<div style="margin:4px 0;opacity:.85"><b>简介：</b>${escapeHtml(dashiDisplayIntro(d))}</div>`:''}
+    ${dashiDisplayMotto(d)?`<div style="margin:4px 0;opacity:.85"><b>座右铭：</b>${escapeHtml(dashiDisplayMotto(d))}</div>`:''}
+    <div style="margin:4px 0;font-size:12px">⚡${Number(d.power)||0} ${d.major_category?` · ${escapeHtml(d.major_category)}`:''}</div>
+    ${d.tool_url?`<div class="em-url"><a href="${escapeAttr(normalizeExternalUrl(d.tool_url))}" target="_blank" rel="noopener">${escapeHtml(d.tool_url)}</a></div>`:''}
+  `;
+}
+
+async function confirmSiConfig(){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const did=siConfigSelectedId;
+  if(did==null)return alert('请先选择一个 SI');
+  const d=(siConfigCache||[]).find(x=>Number(x.id)===Number(did));
+  if(!d)return;
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(siConfigTeamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  let members=Array.isArray(team.members)?[...team.members]:[];
+  if(isAlreadyInTeam(members,d.id)){
+    alert(t('tip.alreadyIn'));
+    closeSiConfig();
+    return;
+  }
+  members.push({
+    id:d.id,
+    type:'dashi',
+    name:dashiDisplayName(d)||String(d.id),
+    power:Number(d.power)||0
+  });
+  const{error}=await sb.from('team').update({members}).eq('id',team.id);
+  if(error)return alert(error.message);
+  closeSiConfig();
+  alert('已拉入团队');
+  renderFocus();
+  renderTeam();
+}
+
+function closeSiConfig(){
+  if(typeof siAudio!=='undefined'&&siAudio){
+    siAudio.pause();
+    siAudio.currentTime=0;
+  }
+  const btn=document.getElementById('si-music-btn');
+  if(btn)btn.classList.remove('playing');
+  closeModal();
+}
+
+let siAudio=null;
+function toggleSiMusic(){
+  if(!siAudio){
+    siAudio=new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
+    siAudio.loop=true;
+    siAudio.volume=0.3;
+  }
+  const btn=document.getElementById('si-music-btn');
+  if(siAudio.paused){
+    siAudio.play().catch(()=>{});
+    if(btn)btn.classList.add('playing');
+  }else{
+    siAudio.pause();
+    if(btn)btn.classList.remove('playing');
+  }
+}
+
+//End
+//End1 2026/11/11
+/* ===== 精英配置中心底部滑动区 ===== */
+
+let heroConfigTeamId=null;
+let heroConfigSelectedId=null;
+let heroConfigCache=[];
+let heroAudio=null;
+
+function heroMatchText(h){
+  if(!h)return '';
+  return [heroDisplayName(h),heroDisplayIntro(h),heroDisplaySkillTitle(h)].filter(Boolean).join(' ');
+}
+
+async function openHeroConfig(teamId){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  heroConfigTeamId=Number(teamId);
+  heroConfigSelectedId=null;
+  heroConfigCache=await fetchHero();
+  const allJin=await fetchJinZhu();
+  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+
+  const leftHtml=`
+    <div class="em-panel-title">当前显化团队</div>
+    <div style="font-weight:700;font-size:15px;margin-bottom:6px">👥 ${escapeHtml(team.name||'')}</div>
+    ${team.demand?`<div style="font-size:12px;opacity:.85;margin-bottom:6px"><b>需求：</b>${escapeHtml(team.demand)}</div>`:''}
+    ${linkedJin?`<div style="font-size:12px;margin-top:6px;opacity:.85"><b>已关联：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
+  `;
+
+  const cardsHtml=(heroConfigCache||[]).slice(0,40).map(h=>{
+    const name=heroDisplayName(h)||('- #'+h.id);
+    const sub=heroDisplaySkillTitle(h)||heroDisplayIntro(h)||'';
+    const score=textMatchCn(sourceText,heroMatchText(h));
+    return `<div class="em-card" onclick="selectHeroConfig(${h.id})">
+      <div class="em-name">${escapeHtml(String(name).slice(0,16))}</div>
+      <div class="em-score">匹配度 ${score}</div>
+      <div class="em-sub">${escapeHtml(String(sub).slice(0,20))}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('modalBox').className='modal xl em-modal';
+  document.getElementById('modalBox').innerHTML=`
+    <div class="em-inner">
+      <div class="em-header">
+        <h2>${t('heroConfig.title')||'精英配置中心'}</h2>
+        <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
+      </div>
+      <div class="em-toolbar-top">
+        <input id="hero-q" class="em-search" placeholder="${t('ph.heroSearch')||'搜索精英…'}" oninput="renderHeroConfigList()">
+        <button id="hero-music-btn" class="em-icon-btn" title="音乐" onclick="toggleHeroMusic()">🎵</button>
+        <button class="em-icon-btn em-icon-confirm" title="${t('em.confirm')||'确认'}" onclick="confirmHeroConfig()">✓</button>
+        <button class="em-icon-btn" title="${t('btn.cancel')}" onclick="closeHeroConfig()">✕</button>
+      </div>
+      <div class="em-body">
+        <div class="em-left">${leftHtml}</div>
+        <div class="em-right">
+          <div class="em-panel-title">精英详情</div>
+          <div class="em-detail" id="hero-right" style="flex:1;min-height:60px"></div>
+        </div>
+      </div>
+      <div class="em-results-bottom">
+        <div class="em-scroll" id="hero-list">${cardsHtml}</div>
+      </div>
+    </div>`;
+
+  document.getElementById('modalMask').style.display='flex';
+}
+
+ function renderHeroConfigList(){
+  const box=document.getElementById('hero-list');
+  if(!box)return;
+  const q=((document.getElementById('hero-q')||{}).value||'').trim().toLowerCase();
+
+  let list=(heroConfigCache||[]).filter(function(h){
+    if(!q)return true;
+    var name=heroDisplayName(h)||'';
+    var intro=heroDisplayIntro(h)||'';
+    var skill=heroDisplaySkillTitle(h)||'';
+    var blob=(name+' '+intro+' '+skill).toLowerCase();
+    return blob.indexOf(q)>=0;
+  });
+
+  if(!list.length){
+    box.innerHTML='<div style="padding:20px;opacity:.6">无匹配结果</div>';
+    return;
+  }
+
+  var html='';
+  for(var i=0;i<Math.min(list.length,40);i++){
+    var h=list[i];
+    var name=heroDisplayName(h)||('- #'+h.id);
+    var sub=heroDisplaySkillTitle(h)||heroDisplayIntro(h)||'';
+    html+='<div class="em-card" onclick="selectHeroConfig('+h.id+')">'+
+      '<div class="em-name">'+escapeHtml(String(name).slice(0,16))+'</div>'+
+      '<div class="em-score">匹配度 '+(h._score||0)+'</div>'+
+      '<div class="em-sub">'+escapeHtml(String(sub).slice(0,20))+'</div>'+
+      '</div>';
+  }
+  box.innerHTML=html;
+}
+
+async function selectHeroConfig(id){
+  heroConfigSelectedId=id;
+  document.querySelectorAll('#hero-list .em-card').forEach(el=>{
+    el.classList.toggle('active', el.getAttribute('onclick')===`selectHeroConfig(${id})`);
+  });
+  const right=document.getElementById('hero-right');
+  if(!right)return;
+  const h=(heroConfigCache||[]).find(x=>Number(x.id)===Number(id));
+  if(!h){right.innerHTML='';return;}
+
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(heroConfigTeamId));
+  const allJin=await fetchJinZhu();
+  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+  const score=textMatchCn(sourceText,heroMatchText(h));
+
+  const name=heroDisplayName(h)||'-';
+  const skill=heroDisplaySkillTitle(h)||'';
+  const intro=heroDisplayIntro(h)||'';
+
+  right.innerHTML=`
+    <div class="jz-name-line">${escapeHtml(name)} <span class="em-score">匹配度 ${score}</span></div>
+    ${skill?`<div style="margin:4px 0;opacity:.9">${escapeHtml(skill)}</div>`:''}
+    ${intro?`<div style="margin:4px 0;opacity:.85"><b>简介：</b>${escapeHtml(intro)}</div>`:''}
+    <div style="margin:4px 0;font-size:12px">⚡${Number(h.power)||0}</div>
+  `;
+}
+
+async function confirmHeroConfig(){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const hid=heroConfigSelectedId;
+  if(hid==null)return alert('请先选择一位精英');
+  const h=(heroConfigCache||[]).find(x=>Number(x.id)===Number(hid));
+  if(!h)return;
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(heroConfigTeamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  let members=Array.isArray(team.members)?[...team.members]:[];
+  if(isAlreadyInTeam(members,h.id)){
+    alert(t('tip.alreadyIn'));
+    closeHeroConfig();
+    return;
+  }
+  members.push({id:h.id,type:'hero',name:heroDisplayName(h)||String(h.id),power:Number(h.power)||0});
+  const{error}=await sb.from('team').update({members}).eq('id',team.id);
+  if(error)return alert(error.message);
+  closeHeroConfig();
+  alert('已拉入团队');
+  renderFocus();
+  renderTeam();
+}
+
+function closeHeroConfig(){
+  if(heroAudio){heroAudio.pause();heroAudio.currentTime=0;}
+  const btn=document.getElementById('hero-music-btn');
+  if(btn)btn.classList.remove('playing');
+  closeModal();
+}
+
+function toggleHeroMusic(){
+  if(!heroAudio){
+    heroAudio=new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
+    heroAudio.loop=true;
+    heroAudio.volume=0.3;
+  }
+  const btn=document.getElementById('hero-music-btn');
+  if(heroAudio.paused){
+    heroAudio.play().catch(()=>{});
+    if(btn)btn.classList.add('playing');
+  }else{
+    heroAudio.pause();
+    if(btn)btn.classList.remove('playing');
+  }
+}
+
+//End2 2026/11/11
+//问卷配置中心-2026-11/12-228 增加问卷配置中心功能
+let qgenConfigTeamId=null;
+let qgenConfigSelectedId=null;
+let qgenConfigCache=[];
+let qgenAudio=null;
+
+function qgenMatchText(tpl){
+  if(!tpl)return '';
+  return [
+    qgenDisplayName(tpl),
+    qgenDisplayDesc(tpl),
+    qgenDisplayIndustry(tpl)
+  ].filter(Boolean).join(' ');
+}
+
+async function openQgenConfig(teamId){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  qgenConfigTeamId=Number(teamId);
+  qgenConfigSelectedId=null;
+  qgenConfigCache=await fetchQgen();
+  const allJin=await fetchJinZhu();
+  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
+
+  const leftHtml=`
+    <div class="em-panel-title">当前显化团队</div>
+    <div style="font-weight:700;font-size:15px;margin-bottom:6px">👥 ${escapeHtml(team.name||'')}</div>
+    ${team.demand?`<div style="font-size:12px;opacity:.85;margin-bottom:6px"><b>需求：</b>${escapeHtml(team.demand)}</div>`:''}
+    ${linkedJin?`<div style="font-size:12px;margin-top:6px;opacity:.85"><b>已关联：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
+  `;
+
+  document.getElementById('modalBox').className='modal xl em-modal';
+  document.getElementById('modalBox').innerHTML=`
+    <div class="em-inner">
+      <div class="em-header">
+        <h2>${t('qgenConfig.title')||'问卷配置中心'}</h2>
+        <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
+      </div>
+      <div class="em-toolbar-top">
+        <input id="qgen-cfg-q" class="em-search" placeholder="${t('ph.surveySearch')||'搜索问卷…'}" oninput="renderQgenConfigList()">
+        <button id="qgen-music-btn" class="em-icon-btn" title="音乐" onclick="toggleQgenMusic()">🎵</button>
+        <button class="em-icon-btn em-icon-confirm" title="${t('em.confirm')||'确认'}" onclick="confirmQgenConfig()">✓</button>
+        <button class="em-icon-btn" title="${t('btn.cancel')}" onclick="closeQgenConfig()">✕</button>
+      </div>
+      <div class="em-body">
+        <div class="em-left">${leftHtml}</div>
+        <div class="em-right">
+          <div class="em-panel-title">问卷详情</div>
+          <div class="em-detail" id="qgen-cfg-right" style="flex:1;min-height:60px"></div>
+        </div>
+      </div>
+      <div class="em-results-bottom">
+        <div id="qgen-cfg-list"></div>
+      </div>
+    </div>`;
+
+  document.getElementById('modalMask').style.display='flex';
+  renderQgenConfigList();
+}
+
+async function renderQgenConfigList(){
+  const box=document.getElementById('qgen-cfg-list');
+  if(!box)return;
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(qgenConfigTeamId));
+  if(!team){box.innerHTML='';return;}
+  const allJin=await fetchJinZhu();
+  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+
+  const q=(document.getElementById('qgen-cfg-q')||{}).value||'';
+  let list=(qgenConfigCache||[]).filter(tpl=>{
+    const name=qgenDisplayName(tpl)||'';
+    const desc=qgenDisplayDesc(tpl)||'';
+    const ind=qgenDisplayIndustry(tpl)||'';
+    const blob=(name+' '+desc+' '+ind).toLowerCase();
+    return !q||blob.includes(q.trim().toLowerCase());
+  });
+
+  list=list.map(tpl=>{
+    const score=textMatchCn(sourceText,qgenMatchText(tpl));
+    return {...tpl,_score:score};
+  }).sort((a,b)=>b._score-a._score||Number(b.id||0)-Number(a.id||0));
+
+  if(!list.length){
+    box.innerHTML=`<div style="padding:20px;opacity:.6;text-align:center">${t('tip.noData')}</div>`;
+    return;
+  }
+
+  box.innerHTML=list.slice(0,40).map(tpl=>{
+    const active=qgenConfigSelectedId!=null&&String(qgenConfigSelectedId)===String(tpl.id);
+    const name=qgenDisplayName(tpl)||('- #'+tpl.id);
+    const sub=qgenDisplayIndustry(tpl)||qgenDisplayDesc(tpl)||'';
+    return `<div class="qgen-cfg-card ${active?'active':''}" onclick="selectQgenConfig(${tpl.id})">
+      <div style="font-weight:700;font-size:14px">${escapeHtml(name)}</div>
+      <div style="font-size:12px;color:#b45309;margin:4px 0">匹配度 ${tpl._score}</div>
+      <div style="font-size:12px;opacity:.75">${escapeHtml(String(sub).slice(0,32))}</div>
+    </div>`;
+  }).join('');
+
+  if(qgenConfigSelectedId!=null) selectQgenConfig(qgenConfigSelectedId);
+}
+
+async function selectQgenConfig(id){
+  qgenConfigSelectedId=id;
+  document.querySelectorAll('#qgen-cfg-list .qgen-cfg-card').forEach(el=>{
+    el.classList.toggle('active', el.getAttribute('onclick')===`selectQgenConfig(${id})`);
+  });
+  const right=document.getElementById('qgen-cfg-right');
+  if(!right)return;
+  const tpl=(qgenConfigCache||[]).find(x=>Number(x.id)===Number(id));
+  if(!tpl){right.innerHTML='';return;}
+
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(qgenConfigTeamId));
+  const allJin=await fetchJinZhu();
+  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+  const score=textMatchCn(sourceText,qgenMatchText(tpl));
+
+  const name=qgenDisplayName(tpl)||'-';
+  const desc=qgenDisplayDesc(tpl)||'';
+  const ind=qgenDisplayIndustry(tpl)||'';
+
+  right.innerHTML=`
+    <div class="jz-name-line">${escapeHtml(name)} <span class="em-score">匹配度 ${score}</span></div>
+    ${ind?`<div style="margin:4px 0;opacity:.9">${escapeHtml(ind)}</div>`:''}
+    ${desc?`<div style="margin:4px 0;opacity:.85"><b>说明：</b>${escapeHtml(desc)}</div>`:''}
+  `;
+}
+
+async function confirmQgenConfig(){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const qid=qgenConfigSelectedId;
+  if(qid==null)return alert('请先选择一份问卷');
+  const tpl=(qgenConfigCache||[]).find(x=>Number(x.id)===Number(qid));
+  if(!tpl)return;
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(qgenConfigTeamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  let list=Array.isArray(team.bundled_surveys)?[...team.bundled_surveys]:[];
+  if(list.some(x=>Number(x.id)===Number(tpl.id))){
+    alert(t('tip.pullSurveyDup')||'该问卷已在团队中');
+    closeQgenConfig();
+    return;
+  }
+  list.push({id:tpl.id,name:qgenDisplayName(tpl)||String(tpl.id)});
+  const{error}=await sb.from('team').update({bundled_surveys:list}).eq('id',team.id);
+  if(error)return alert(error.message);
+  closeQgenConfig();
+  alert('已拉入团队');
+  renderFocus();
+  renderTeam();
+}
+
+function closeQgenConfig(){
+  if(qgenAudio){
+    qgenAudio.pause();
+    qgenAudio.currentTime=0;
+  }
+  const btn=document.getElementById('qgen-music-btn');
+  if(btn)btn.classList.remove('playing');
+  closeModal();
+}
+
+function toggleQgenMusic(){
+  if(!qgenAudio){
+    qgenAudio=new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
+    qgenAudio.loop=true;
+    qgenAudio.volume=0.3;
+  }
+  const btn=document.getElementById('qgen-music-btn');
+  if(qgenAudio.paused){
+    qgenAudio.play().catch(()=>{});
+    if(btn)btn.classList.add('playing');
+  }else{
+    qgenAudio.pause();
+    if(btn)btn.classList.remove('playing');
+  }
+}
+
+//end3 2026/11/12
+//成功场景配置中心-2026/11/12-229
+let caseConfigTeamId=null;
+let caseConfigSelectedId=null;
+let caseConfigCache=[];
+let caseAudio=null;
+
+function caseMatchText(c){
+  if(!c)return '';
+  return [
+    caseDisplayTitle(c),
+    caseDisplayContent(c),
+    caseDisplayValue(c)
+  ].filter(Boolean).join(' ');
+}
+
+async function openCaseConfig(teamId){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(teamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  caseConfigTeamId=Number(teamId);
+  caseConfigSelectedId=null;
+  caseConfigCache=await fetchSiCases();
+  const allJin=await fetchJinZhu();
+  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
+
+  const leftHtml=`
+    <div class="em-panel-title">当前显化团队</div>
+    <div style="font-weight:700;font-size:15px;margin-bottom:6px">👥 ${escapeHtml(team.name||'')}</div>
+    ${team.demand?`<div style="font-size:12px;opacity:.85;margin-bottom:6px"><b>需求：</b>${escapeHtml(team.demand)}</div>`:''}
+    ${linkedJin?`<div style="font-size:12px;margin-top:6px;opacity:.85"><b>已关联：</b>${escapeHtml(jinzhuDisplayName(linkedJin)||linkedJin.id)}</div>`:''}
+  `;
+
+  document.getElementById('modalBox').className='modal xl em-modal';
+  document.getElementById('modalBox').innerHTML=`
+    <div class="em-inner">
+      <div class="em-header">
+        <h2>${t('caseConfig.title')||'SI成功场景配置中心'}</h2>
+        <div class="em-sub">连接未来 · 共创价值 · 成就梦想</div>
+      </div>
+      <div class="em-toolbar-top">
+        <input id="case-cfg-q" class="em-search" placeholder="${t('ph.caseSearch')||'搜索场景…'}" oninput="renderCaseConfigList()">
+        <button id="case-music-btn" class="em-icon-btn" title="音乐" onclick="toggleCaseMusic()">🎵</button>
+        <button class="em-icon-btn em-icon-confirm" title="${t('em.confirm')||'确认'}" onclick="confirmCaseConfig()">✓</button>
+        <button class="em-icon-btn" title="${t('btn.cancel')}" onclick="closeCaseConfig()">✕</button>
+      </div>
+      <div class="em-body">
+        <div class="em-left">${leftHtml}</div>
+        <div class="em-right">
+          <div class="em-panel-title">场景详情</div>
+          <div class="em-detail" id="case-cfg-right" style="flex:1;min-height:60px"></div>
+        </div>
+      </div>
+      <div class="em-results-bottom">
+        <div id="case-cfg-list"></div>
+      </div>
+    </div>`;
+
+  document.getElementById('modalMask').style.display='flex';
+  renderCaseConfigList();
+}
+
+async function renderCaseConfigList(){
+  const box=document.getElementById('case-cfg-list');
+  if(!box)return;
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(caseConfigTeamId));
+  if(!team){box.innerHTML='';return;}
+  const allJin=await fetchJinZhu();
+  const linkedJin=allJin.find(j=>String(j.id)===String(team.jinzhu_id));
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+
+  const q=(document.getElementById('case-cfg-q')||{}).value||'';
+  let list=(caseConfigCache||[]).filter(c=>{
+    const title=caseDisplayTitle(c)||'';
+    const content=caseDisplayContent(c)||'';
+    const blob=(title+' '+content).toLowerCase();
+    return !q||blob.includes(q.trim().toLowerCase());
+  });
+
+  list=list.map(c=>{
+    const score=textMatchCn(sourceText,caseMatchText(c));
+    return {...c,_score:score};
+  }).sort((a,b)=>b._score-a._score||Number(b.id||0)-Number(a.id||0));
+
+  if(!list.length){
+    box.innerHTML=`<div style="padding:20px;opacity:.6;text-align:center">${t('tip.noData')}</div>`;
+    return;
+  }
+
+  box.innerHTML=list.slice(0,40).map(c=>{
+    const active=caseConfigSelectedId!=null&&String(caseConfigSelectedId)===String(c.id);
+    const title=caseDisplayTitle(c)||('- #'+c.id);
+    const sub=caseDisplayValue(c)||caseDisplayContent(c)||'';
+    return `<div class="case-cfg-card ${active?'active':''}" onclick="selectCaseConfig(${c.id})">
+      <div style="font-weight:700;font-size:14px">${escapeHtml(title)}</div>
+      <div style="font-size:12px;color:#b45309;margin:4px 0">匹配度 ${c._score}</div>
+      <div style="font-size:12px;opacity:.75">${escapeHtml(String(sub).slice(0,32))}</div>
+    </div>`;
+  }).join('');
+
+  if(caseConfigSelectedId!=null) selectCaseConfig(caseConfigSelectedId);
+}
+
+async function selectCaseConfig(id){
+  caseConfigSelectedId=id;
+  document.querySelectorAll('#case-cfg-list .case-cfg-card').forEach(el=>{
+    el.classList.toggle('active', el.getAttribute('onclick')===`selectCaseConfig(${id})`);
+  });
+  const right=document.getElementById('case-cfg-right');
+  if(!right)return;
+  const c=(caseConfigCache||[]).find(x=>Number(x.id)===Number(id));
+  if(!c){right.innerHTML='';return;}
+
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(caseConfigTeamId));
+  const allJin=await fetchJinZhu();
+  const linkedJin=team?allJin.find(j=>String(j.id)===String(team.jinzhu_id)):null;
+  const sourceText=enterpriseMatchSourceText(team,linkedJin);
+  const score=textMatchCn(sourceText,caseMatchText(c));
+
+  const title=caseDisplayTitle(c)||'-';
+  const content=caseDisplayContent(c)||'';
+  const value=caseDisplayValue(c)||'';
+
+  right.innerHTML=`
+    <div class="jz-name-line">${escapeHtml(title)} <span class="em-score">匹配度 ${score}</span></div>
+    ${value?`<div style="margin:4px 0;opacity:.9"><b>价值：</b>${escapeHtml(value)}</div>`:''}
+    ${content?`<div style="margin:4px 0;opacity:.85"><b>内容：</b>${escapeHtml(content.slice(0,200))}${content.length>200?'…':''}</div>`:''}
+  `;
+}
+
+async function confirmCaseConfig(){
+  const user=getUser();
+  if(!user)return alert(t('tip.loginFirst'));
+  const cid=caseConfigSelectedId;
+  if(cid==null)return alert('请先选择一个场景');
+  const c=(caseConfigCache||[]).find(x=>Number(x.id)===Number(cid));
+  if(!c)return;
+  const teams=await fetchTeam();
+  const team=teams.find(tm=>Number(tm.id)===Number(caseConfigTeamId));
+  if(!team)return;
+  if(!(String(team.phone)===String(user.phone)||isAdmin()))return alert(t('tip.noPermission'));
+
+  let list=Array.isArray(team.bundled_cases)?[...team.bundled_cases]:[];
+  if(list.some(x=>Number(x.id)===Number(c.id))){
+    alert('该场景已在团队中');
+    closeCaseConfig();
+    return;
+  }
+  list.push({id:c.id,title:caseDisplayTitle(c)||String(c.id)});
+  const{error}=await sb.from('team').update({bundled_cases:list}).eq('id',team.id);
+  if(error)return alert(error.message);
+  closeCaseConfig();
+  alert('已拉入团队');
+  renderFocus();
+  renderTeam();
+}
+
+function closeCaseConfig(){
+  if(caseAudio){
+    caseAudio.pause();
+    caseAudio.currentTime=0;
+  }
+  const btn=document.getElementById('case-music-btn');
+  if(btn)btn.classList.remove('playing');
+  closeModal();
+}
+
+function toggleCaseMusic(){
+  if(!caseAudio){
+    caseAudio=new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
+    caseAudio.loop=true;
+    caseAudio.volume=0.3;
+  }
+  const btn=document.getElementById('case-music-btn');
+  if(caseAudio.paused){
+    caseAudio.play().catch(()=>{});
+    if(btn)btn.classList.add('playing');
+  }else{
+    caseAudio.pause();
+    if(btn)btn.classList.remove('playing');
+  }
+}
+//end4 2026/11/12
 function goQgenPage(p){qgenPage=p;renderQgen();}
 function openAddQgen(){const user=getUser();if(!user)return alert(t('tip.loginFirst'));editingQgenId=null;qgenDraftSections=[{id:uid(),title:mergeI18n(null,currentLang,'S1'),questions:[{id:uid(),type:'textarea',label:mergeI18n(null,currentLang,'Q1'),required:true,options:[]}]}];showQgenForm(null);}
 async function editQgen(id){const item=(await fetchQgen()).find(x=>x.id===id);if(!item)return;editingQgenId=id;qgenDraftSections=normalizeSections(item.sections);showQgenForm(item);}
