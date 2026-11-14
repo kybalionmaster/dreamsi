@@ -1145,7 +1145,148 @@ function goMemberProfile(type,id){
   else if(type==='hero'){focusHeroId=id;focusDashiId=null;focusJinZhuId=null;switchView('hero');}
   else if(type==='jinzhu'){focusJinZhuId=id;focusDashiId=null;focusHeroId=null;switchView('jinzhu');}
 } 
- 
+
+async function showMemberDetail(teamId, type, memberId){
+  const user=getUser();
+  if(!user){alert(t('tip.loginFirst'));return;}
+
+function renderCard(card){
+  if(!card) return '';
+
+  var c = card;
+
+  if(typeof card === 'string'){
+    try {
+      c = JSON.parse(card);
+    } catch(e) {
+      return '';
+    }
+  }
+
+  if(typeof c !== 'object' || Array.isArray(c)) return '';
+
+  var html = `
+    <div class="biz-card" style="
+      display:block !important;
+      width:100%;
+      box-sizing:border-box;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:16px;
+      background:#fff;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.8;
+    ">
+
+      <div style="
+        display:flex !important;
+        flex-direction:row !important;
+        flex-wrap:wrap;
+        align-items:center;
+        gap:8px;
+        margin-bottom:12px;
+        font-size:16px;
+        font-weight:700;
+        color:#172033;
+      ">
+        ${c.person ? `<span>${escapeHtml(c.person)}</span>` : ''}
+        ${c.title ? `<span>${escapeHtml(c.title)}</span>` : ''}
+      </div>
+
+      <div style="
+        display:block !important;
+        width:100%;
+        font-size:13px;
+        line-height:1.9;
+        color:#253047;
+      ">
+        ${c.phone ? `<div style="display:block !important;">电话: ${escapeHtml(c.phone)}</div>` : ''}
+        ${c.email ? `<div style="display:block !important;">邮箱: ${escapeHtml(c.email)}</div>` : ''}
+        ${c.wechat ? `<div style="display:block !important;">微信: ${escapeHtml(c.wechat)}</div>` : ''}
+        ${c.whatsapp ? `<div style="display:block !important;">WhatsApp: ${escapeHtml(c.whatsapp)}</div>` : ''}
+        ${c.website ? `
+          <div style="display:block !important;word-break:break-all;">
+            网址:
+            <a href="${escapeAttr(c.website)}"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="color:#2563eb;text-decoration:underline">
+              ${escapeHtml(c.website)}
+            </a>
+          </div>` : ''}
+      </div>
+
+    </div>
+  `;
+
+  return html;
+}
+
+
+  let title='成员详情';
+  let body='';
+
+  if(type==='jinzhu'){
+    const list=await fetchJinZhu();
+    const j=list.find(function(x){return Number(x.id)===Number(memberId);});
+    if(!j){alert('未找到金主');return;}
+    title=jinzhuDisplayName(j)||'金主';
+    const publisher=j.phone||j.publisher||'-';
+    const time=j.created_at?new Date(j.created_at).toLocaleString():'-';
+    body='<div class="member-detail-card">'+
+      '<div class="md-title">'+escapeHtml(title)+'</div>'+
+      (j.intro?'<div class="md-row"><b>简介</b><div>'+escapeHtml(j.intro)+'</div></div>':'')+
+      (j.demand?'<div class="md-row"><b>需求</b><div>'+escapeHtml(j.demand)+'</div></div>':'')+
+      (j.url?'<div class="md-row"><b>网址</b><div><a href="'+escapeAttr(j.url)+'" target="_blank">'+escapeHtml(j.url)+'</a></div></div>':'')+
+      '<div class="md-row"><b>发布者</b><div>'+escapeHtml(publisher)+'</div></div>'+
+      '<div class="md-row"><b>发布时间</b><div>'+escapeHtml(time)+'</div></div>'+
+      renderCard(j.card)+
+      '</div>';
+  }else if(type==='hero'){
+    const list=await fetchHero();
+    const h=list.find(function(x){return Number(x.id)===Number(memberId);});
+    if(!h){alert('未找到精英');return;}
+    title=heroDisplayName(h)||'精英';
+    const skill=heroDisplaySkillTitle(h)||'';
+    const intro=heroDisplayIntro(h)||'';
+    body='<div class="member-detail-card">'+
+      '<div class="md-title">'+escapeHtml(title)+'</div>'+
+      (skill?'<div class="md-row"><b>技能</b><div>'+escapeHtml(skill)+'</div></div>':'')+
+      (intro?'<div class="md-row"><b>简介</b><div>'+escapeHtml(intro)+'</div></div>':'')+
+      '<div class="md-row"><b>能量</b><div>⚡'+(Number(h.power)||0)+'</div></div>'+
+      renderCard(h.card)+
+      '</div>';
+  }else if(type==='dashi'||type==='ai'){
+    const list=await fetchDaShi();
+    const d=list.find(function(x){return Number(x.id)===Number(memberId);});
+    if(!d){alert('未找到工具');return;}
+    title=dashiDisplayName(d)||'AI Tool';
+    const intro=dashiDisplayIntro(d)||'';
+    const toolUrl=d.tool_url||'';
+    body='<div class="member-detail-card">'+
+      '<div class="md-title">'+escapeHtml(title)+'</div>'+
+      (intro?'<div class="md-row"><b>简介</b><div>'+escapeHtml(intro)+'</div></div>':'')+
+      (toolUrl?'<div class="md-row"><b>工具网址</b><div><a href="'+escapeAttr(toolUrl)+'" target="_blank">'+escapeHtml(toolUrl)+'</a></div></div>':'')+
+      (toolUrl?'<div style="margin-top:10px"><a class="btn" href="'+escapeAttr(toolUrl)+'" target="_blank" style="display:inline-block;padding:8px 16px;background:#f59e0b;color:#111;border-radius:8px;font-weight:600">Visit</a></div>':'')+
+      (d.major_category?'<div class="md-row"><b>分类</b><div>'+escapeHtml(d.major_category+(d.minor_category?' / '+d.minor_category:''))+'</div></div>':'')+
+      '</div>';
+  }else{
+    body='<div>未知成员类型</div>';
+  }
+
+  document.getElementById('modalBox').className='modal';
+  document.getElementById('modalBox').innerHTML=
+    '<div style="padding:0;max-width:520px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #e5e7eb">'+
+        '<h3 style="margin:0;font-size:17px;color:#b45309">'+escapeHtml(title)+'</h3>'+
+        '<button type="button" class="btn-icon-sm" onclick="closeModal()">✕</button>'+
+      '</div>'+
+      '<div style="padding:16px 18px">'+body+'</div>'+
+    '</div>';
+  document.getElementById('modalMask').style.display='flex';
+}
+
 function memberChipHtml(m,isOwner,teamId){
   if(!m)return '';
   let type=(m.type||'member')+'';
@@ -1154,10 +1295,14 @@ function memberChipHtml(m,isOwner,teamId){
   if(type==='enterprise')type='jinzhu';
   const isDashi=type==='dashi',isHero=type==='hero',isJz=type==='jinzhu';
   const safeId=escapeAttr(String(m.id));
-  const onClick=isDashi?`goMemberProfile('dashi','${safeId}')`:(isHero?`goMemberProfile('hero','${safeId}')`:(isJz?`goMemberProfile('jinzhu','${safeId}')`:''));
   const typeTag=isDashi?'SI':(isHero?'Elite':(isJz?'企':'M'));
-  const av=memberAvatarUrl(Object.assign({},m,{type}));
-  return `<span class="member-chip"><img src="${av}" ${isDashi||isHero||isJz?`onclick="${onClick}" style="cursor:pointer"`:''} onerror="this.src='${DEFAULT_AVATAR}'"><span>${escapeHtml(m.name||m.id||'')}<small style="opacity:.75">(${typeTag})</small></span><span class="power-icon">⚡${Number(m.power)||0}</span>${isOwner?`<button class="member-x" onclick="kickMember(${teamId},'${safeId}')">×</button>`:''}</span>`;
+  const av=memberAvatarUrl(Object.assign({},m,{type}))||DEFAULT_AVATAR;
+  return `<span class="member-chip" title="${escapeAttr(m.name||'')}">
+    <img src="${escapeAttr(av)}" alt="" style="cursor:pointer" onclick="showMemberDetail(${teamId},'${type}',${m.id})" onerror="this.src='${DEFAULT_AVATAR}'">
+    <span>${escapeHtml(m.name||m.id||'')}<small style="opacity:.75">(${typeTag})</small></span>
+    <span class="power-icon">⚡${Number(m.power)||0}</span>
+    ${isOwner?`<button class="member-x" onclick="kickMember(${teamId},'${safeId}')">×</button>`:''}
+  </span>`;
 }
 
 function isAlreadyInTeam(members,id){return !!(members&&members.some(m=>String(m.id)===String(id)));}
