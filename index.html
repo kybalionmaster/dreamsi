@@ -1816,6 +1816,14 @@ function teamBlockHtml(team,j,user,heroIds,dashiIds,opts){
       ${opts.showQgenConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('qgenConfig.title'))}" onclick="openQgenConfig(${team.id})">📝</button>`:''}
 		${opts.showHeroConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('heroConfig.title'))}" onclick="openHeroConfig(${team.id})">⭐</button>`:''}
 		${opts.showCaseConfig&&isOwner?`<button type="button" class="btn-icon-sm" title="${escapeAttr(t('caseConfig.title'))}" onclick="openCaseConfig(${team.id})">🏆</button>`:''}
+${isOwner?`
+<button type="button"
+  class="btn-icon-sm"
+  title="每日自动获客"
+  onclick="openDailyLeadModal(${Number(team.id)})">
+  🔍
+</button>
+`:''}
       ${isOwner?`<button type="button" class="btn-icon-sm ${showKick?'active-reorg':''}" title="${escapeAttr(tipKick)}" onclick="toggleTeamKick(${team.id})">🔀</button>`:''}
       <button type="button" class="btn-icon-sm ${showCard?'active-reorg':''}" title="${escapeAttr(tipCard)}" onclick="toggleTeamCard(${team.id})">📇</button>
       ${isOwner?`<button type="button" class="btn-icon-sm ${showCase?'active-reorg':''}" title="${escapeAttr(tipCase)}" onclick="toggleTeamCaseKick(${team.id})">✨</button>`:''}
@@ -1874,6 +1882,353 @@ async function saveTeam(){
   renderJinZhu();
   alert(t('tip.saved'));
 }
+
+
+/* ==========================================
+   梦想显化器 · 每日自动获客
+   ========================================== */
+
+async function openDailyLeadModal(teamId){
+
+  const modal = document.getElementById('modalBox');
+  const mask = document.getElementById('modalMask');
+
+  modal.className = 'modal';
+
+  modal.innerHTML = `
+    <div style="padding:0;max-width:680px;width:100%">
+      <div style="
+        display:flex;justify-content:space-between;
+        align-items:center;padding:16px 20px;
+        border-bottom:1px solid #e5e7eb">
+        <h3 style="margin:0;color:#b45309;font-size:18px">
+          🎯 每日自动获客
+        </h3>
+        <button class="btn-icon-sm"
+          onclick="closeModal()">✕</button>
+      </div>
+
+      <div style="padding:20px">
+        <div id="dailyLeadContent">
+          <div style="text-align:center;padding:40px">
+            ⏳ 正在获取今日客户数据...
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  mask.style.display = 'flex';
+
+  try {
+
+    const res = await fetch(
+      '/api/daily-leads?team_id='+
+      encodeURIComponent(teamId),
+      {credentials:'same-origin'}
+    );
+
+    if(!res.ok) throw new Error('获取客户数据失败');
+
+    const data = await res.json();
+
+    window.dailyLeadCurrent = {
+      teamId: teamId,
+      date: data.date
+    };
+
+    renderDailyLeadContent(data);
+
+  }catch(e){
+
+    document.getElementById('dailyLeadContent').innerHTML = `
+      <div style="text-align:center;padding:30px;color:#dc2626">
+        获取数据失败：${escapeHtml(e.message)}
+        <button class="btn" onclick="openDailyLeadModal(${Number(teamId)})">
+          重新加载
+        </button>
+      </div>
+    `;
+  }
+}
+
+
+/* 渲染每日客户数据 */
+
+function renderDailyLeadContent(data){
+
+  const el = document.getElementById('dailyLeadContent');
+  if(!el) return;
+
+  const stats = data.stats || {};
+  const leads = Array.isArray(data.preview) ? data.preview : [];
+
+  const unlocked = data.unlocked === true;
+
+  const statCard = (number,label,color) => `
+    <div style="
+      background:#f8fafc;border:1px solid #e5e7eb;
+      border-radius:12px;padding:14px;text-align:center">
+      <div style="font-size:25px;font-weight:800;color:${color}">
+        ${Number(number)||0}
+      </div>
+      <div style="font-size:12px;color:#64748b">${label}</div>
+    </div>
+  `;
+
+  let rows = '';
+
+  leads.forEach((item,i)=>{
+
+    rows += `
+      <tr>
+        <td style="padding:10px;border-bottom:1px solid #eee">
+          ${i+1}
+        </td>
+        <td style="padding:10px;border-bottom:1px solid #eee">
+          ${escapeHtml(item.name||'-')}
+        </td>
+        <td style="padding:10px;border-bottom:1px solid #eee">
+          ${escapeHtml(item.industry||'-')}
+        </td>
+        <td style="padding:10px;border-bottom:1px solid #eee">
+          ${Number(item.match_score)||0}%
+        </td>
+      </tr>
+    `;
+  });
+
+  el.innerHTML = `
+    <div style="margin-bottom:16px">
+      <div style="font-size:13px;color:#64748b">
+        ${escapeHtml(data.date||'今日')}
+      </div>
+      <h2 style="margin:6px 0;font-size:20px">
+        今天，为你发现了这些客户
+      </h2>
+      <div style="font-size:13px;color:#64748b">
+        ${escapeHtml(data.description||'AI自动搜索与筛选的潜在客户')}
+      </div>
+    </div>
+
+    <div style="
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:10px;margin-bottom:20px">
+      ${statCard(stats.total,'发现客户','#2563eb')}
+      ${statCard(stats.matched,'精准匹配','#16a34a')}
+      ${statCard(stats.top,'重点推荐','#d97706')}
+    </div>
+
+    <div style="
+      border:1px solid #e5e7eb;border-radius:12px;
+      overflow:hidden;margin-bottom:18px">
+      <div style="padding:13px;font-weight:700;background:#f8fafc">
+        📋 今日客户名单
+      </div>
+
+      <div style="overflow-x:auto">
+        <table style="
+          width:100%;border-collapse:collapse;
+          font-size:13px;white-space:nowrap">
+          <thead>
+            <tr style="background:#fafafa;text-align:left">
+              <th style="padding:10px">#</th>
+              <th style="padding:10px">企业名称</th>
+              <th style="padding:10px">行业</th>
+              <th style="padding:10px">匹配度</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows || `
+              <tr><td colspan="4" style="padding:20px;text-align:center">
+                暂无客户数据
+              </td></tr>
+            `}
+          </tbody>
+        </table>
+      </div>
+
+      ${!unlocked ? `
+        <div style="
+          padding:14px;background:#fffbeb;
+          color:#92400e;font-size:13px;text-align:center">
+          🔒 完整客户联系方式及详细名单需要购买或订阅
+        </div>
+      `:''}
+    </div>
+
+    <div style="
+      border:1px solid #e5e7eb;border-radius:12px;
+      padding:15px;margin-bottom:16px">
+      <div style="font-weight:700;margin-bottom:5px">
+        📊 今日获客名单.xlsx
+      </div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:14px">
+        包含企业名称、网址、电话、地址、联系人、
+        职位、企业介绍等已采集字段
+      </div>
+
+      <button type="button"
+        class="btn"
+        style="width:100%;background:#15803d;color:white"
+        ${!unlocked?'disabled':''}
+        onclick="downloadDailyLeads()">
+        ⬇ 下载今日 Excel 名单
+      </button>
+    </div>
+
+    <div style="
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:12px">
+
+      <div style="
+        border:1px solid #e5e7eb;border-radius:12px;padding:14px">
+        <div style="font-weight:700">🛒 单次购买</div>
+        <div style="font-size:21px;color:#b45309;font-weight:800;margin:8px 0">
+          ${escapeHtml(String(data.single_price||'咨询'))}
+        </div>
+        <div style="font-size:12px;color:#64748b;margin-bottom:12px">
+          购买当天完整客户名单
+        </div>
+        <button class="btn" style="width:100%"
+          onclick="purchaseDailyLeads()">
+          立即购买
+        </button>
+      </div>
+
+      <div style="
+        border:1px solid #e5e7eb;border-radius:12px;padding:14px">
+        <div style="font-weight:700">📅 每日订阅</div>
+        <div style="font-size:21px;color:#15803d;font-weight:800;margin:8px 0">
+          ${escapeHtml(String(data.monthly_price||'咨询'))}
+        </div>
+        <div style="font-size:12px;color:#64748b;margin-bottom:12px">
+          每日持续获取新客户
+        </div>
+        <button class="btn" style="
+          width:100%;background:#15803d;color:white"
+          onclick="subscribeDailyLeads()">
+          开通订阅
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+
+/* 单次购买 */
+
+async function purchaseDailyLeads(){
+
+  const x = window.dailyLeadCurrent;
+  if(!x) return;
+
+  await startDailyLeadOrder('single',x);
+}
+
+
+/* 包月订阅 */
+
+async function subscribeDailyLeads(){
+
+  const x = window.dailyLeadCurrent;
+  if(!x) return;
+
+  await startDailyLeadOrder('monthly',x);
+}
+
+
+/* 创建订单，由后端处理支付 */
+
+async function startDailyLeadOrder(plan,x){
+
+  try{
+
+    const res = await fetch('/api/daily-leads/order',{
+      method:'POST',
+      credentials:'same-origin',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        team_id:x.teamId,
+        date:x.date,
+        plan:plan
+      })
+    });
+
+    const result = await res.json();
+
+    if(!res.ok) throw new Error(result.message||'订单创建失败');
+
+    if(result.payment_url){
+      window.open(result.payment_url,'_blank');
+    }else if(result.order_id){
+      alert('订单已创建，请完成支付。');
+    }else{
+      throw new Error('未获得有效订单信息');
+    }
+
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+
+/* 下载当日 Excel */
+
+async function downloadDailyLeads(){
+
+  const x = window.dailyLeadCurrent;
+  if(!x) return;
+
+  try{
+
+    const url =
+      '/api/daily-leads/download?team_id='+
+      encodeURIComponent(x.teamId)+
+      '&date='+encodeURIComponent(x.date);
+
+    const res = await fetch(url,{
+      credentials:'same-origin'
+    });
+
+    if(!res.ok){
+
+      let msg='下载失败或尚未获得下载权限';
+
+      try{
+        const err=await res.json();
+        msg=err.message||msg;
+      }catch(e){}
+
+      throw new Error(msg);
+    }
+
+    const blob = await res.blob();
+
+    if(blob.type==='application/json'){
+      const err=JSON.parse(await blob.text());
+      throw new Error(err.message||'下载失败');
+    }
+
+    const objectUrl=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+
+    a.href=objectUrl;
+    a.download='每日获客名单_'+x.date+'.xlsx';
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    setTimeout(()=>URL.revokeObjectURL(objectUrl),30000);
+
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+
+
 async function renderJinZhu(){
   const user=getUser();const box=document.getElementById('jinzhu-list');if(!box)return;
   let list=await fetchJinZhu();const teams=await fetchTeam();let emptyMsg='';
