@@ -701,6 +701,30 @@ em:{
   ok:'已拉入团队',
   linked:'已关联需求'
 },
+login:{
+  title:'登录',
+  phone:'手机号',
+  pwd:'密码',
+  submit:'登录',
+  toReg:'没有账号？去注册',
+  success:'登录成功',
+  fail:'手机号或密码错误'
+},
+reg:{
+  title:'注册',
+  phone:'手机号',
+  pwd:'密码',
+  role:'角色',
+  submit:'注册',
+  toLogin:'已有账号？去登录',
+  success:'注册成功',
+  fail:'注册失败'
+},
+logout:'退出',
+tip:{
+  loginFirst:'请先登录',
+  logoutOk:'已退出'
+},
 siConfig:{title:'SI配置中心'},
 heroConfig:{title:'精英配置中心'},
 qgenConfig:{title:'问卷配置中心'},
@@ -733,6 +757,30 @@ caseConfig:{title:'SI成功场景配置中心'},
 /* ===== English ===== */
 i18n.en={
   em:{title:'Enterprise Match',leftTitle:'Focus team',searchTitle:'Search enterprises',searchPh:'Search enterprises…',detailTitle:'Enterprise',score:'Match',pickHint:'Select an enterprise from the list',select:'Select & add to team',confirm:'Confirm', score:'score',ok:'Added to team',linked:'Linked demand'},
+ login:{
+  title:'Login',
+  phone:'Phone',
+  pwd:'Password',
+  submit:'Login',
+  toReg:'No account? Register',
+  success:'Logged in',
+  fail:'Wrong phone or password'
+},
+reg:{
+  title:'Register',
+  phone:'Phone',
+  pwd:'Password',
+  role:'Role',
+  submit:'Register',
+  toLogin:'Have an account? Login',
+  success:'Registered',
+  fail:'Registration failed'
+},
+logout:'Logout',
+tip:{
+  loginFirst:'Please login first',
+  logoutOk:'Logged out'
+},
  siConfig:{title:'SI Config Center'}, 
  heroConfig:{title:'Elite Config Center'},
  qgenConfig:{title:'Survey Config Center'},
@@ -921,6 +969,7 @@ function setLanguage(lang){
   applyStaticI18n();
   applyKybPoster();
   renderAll();
+  renderUserArea();
 }
 
 let matchContext=null,editingJinZhuId=null,editingDaShiId=null,editingHeroId=null,editingTeamId=null,editingQgenId=null,editingCategoryId=null,editingSiCaseId=null;
@@ -1408,9 +1457,13 @@ async function fetchSiCases(){const{data,error}=await sb.from('si_cases').select
 function goCaishen(dashiId){fetchDaShi().then(list=>{const d=list.find(x=>x.id===dashiId);if(!d)return;matchContext={type:'dashi',id:d.id,name:dashiDisplayName(d),text:accumulateTools(d)};switchView('jinzhu');});}
 function clearMatchContext(){matchContext=null;renderJinZhu();renderDaShi();}
 function switchView(view){document.querySelectorAll('.menu-item').forEach(i=>i.classList.toggle('active',i.dataset.view===view));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const el=document.getElementById('view-'+view);if(el)el.classList.add('active');toggleSidebar(false);if(view!=='dashi')focusDashiId=null;if(view!=='hero')focusHeroId=null;if(view!=='jinzhu')focusJinZhuId=null;const map={home:renderHome,focus:renderFocus,jinzhu:renderJinZhu,dashi:renderDaShi,sicase:renderSiCase,hero:renderHero,team:renderTeam,diagnosis:renderDiagnosis,qgen:renderQgen,inbox:renderInbox,users:renderUsers,'coop-list':renderCoopList,categories:renderCategories,coop:renderCoopFormPage};if(map[view])map[view]();}
-function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">${t('btn.login')}</button><button class="btn btn-primary" onclick="openModal('register')">${t('btn.register')}</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||''}">${t('role.'+user.role)||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;}
+
+function renderUserArea(){const area=document.getElementById('userArea'),user=getUser();
+if(!user)area.innerHTML=`<button class="btn btn-outline" onclick="openModal('login')">${t('btn.login')}</button><button class="btn btn-primary" onclick="openModal('register')">${t('btn.register')}</button>`;else area.innerHTML=`<div class="user-info"><span class="role-badge ${ROLE_CLS[user.role]||''}">${t('role.'+user.role)||user.role}</span><span>${user.phone}</span><button class="btn btn-outline" onclick="setUser(null)">${t('btn.logout')}</button></div>`;}
 function updateButtons(){const user=getUser();const set=(id,show)=>{const el=document.getElementById(id);if(el)el.style.display=show?'inline-block':'none';};set('btn-add-jinzhu',user&&(user.role==='jinzhu'||user.role==='admin'));set('btn-add-dashi',user&&(user.role==='ai'||user.role==='admin'));set('btn-add-hero',user&&(user.role==='yingxiao'||user.role==='admin'));set('btn-add-team',user&&(user.role==='jinzhu'||user.role==='admin'||user.role==='yingxiao'));set('btn-add-qgen',!!user);set('btn-pulse-compose',!!user);set('btn-add-sicase',user&&(user.role==='ai'||user.role==='admin'||user.role==='jinzhu'||user.role==='yingxiao'));}
 function updateAdminMenus(){document.querySelectorAll('.menu-item.admin-only').forEach(el=>el.style.display=isAdmin()?'flex':'none');}
+
+
 function openModal(type){const box=document.getElementById('modalBox');box.className='modal';if(type==='login')box.innerHTML=`<h3>${t('form.loginTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="login-phone" placeholder="${t('ph.phone')}"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="login-pwd" placeholder="${t('ph.password')}"></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doLogin()">${t('btn.login')}</button></div>`;else box.innerHTML=`<h3>${t('form.regTitle')}</h3><div class="form-group"><label>${t('users.phone')} *</label><input id="reg-phone" placeholder="${t('ph.phone')}"></div><div class="form-group"><label>${t('form.pwd')}</label><input type="password" id="reg-pwd" placeholder="${t('ph.password')}"></div><div class="form-group"><label>${t('form.pwd2')}</label><input type="password" id="reg-pwd2" placeholder="${t('ph.password')}"></div><div class="form-group"><label>${t('form.roleLabel')}</label><select id="reg-role"><option value="jinzhu">${t('role.jinzhu')}</option><option value="ai">${t('role.ai')}</option><option value="yingxiao">${t('role.yingxiao')}</option></select></div><div class="form-actions"><button class="btn btn-outline" onclick="closeModal()">${t('btn.cancel')}</button><button class="btn btn-primary" onclick="doRegister()">${t('btn.register')}</button></div>`;document.getElementById('modalMask').style.display='flex';}
 
 function closeModal(){
@@ -1426,6 +1479,7 @@ function closeModal(){
 
 async function doLogin(){const phone=(document.getElementById('login-phone').value||'').trim(),pwd=(document.getElementById('login-pwd').value||'').trim();if(!phone||!pwd)return alert(t('tip.required'));const{data,error}=await sb.from('app_users').select('*').eq('phone',phone).maybeSingle();if(error)return alert(error.message);if(!data)return alert(t('tip.userNotFound'));if(data.blacklisted)return alert(t('tip.blacklisted'));if(data.pwd!==pwd)return alert(t('tip.wrongPwd'));setUser({phone:data.phone,role:data.role});closeModal();switchView('jinzhu');}
 async function doRegister(){const phone=(document.getElementById('reg-phone').value||'').trim(),pwd=(document.getElementById('reg-pwd').value||'').trim(),pwd2=(document.getElementById('reg-pwd2').value||'').trim(),role=document.getElementById('reg-role').value;if(!phone||!pwd)return alert(t('tip.required'));if(pwd!==pwd2)return alert(t('tip.mismatch'));if(pwd.length<4)return alert(t('tip.minPwd'));const{data:exist}=await sb.from('app_users').select('phone').eq('phone',phone).maybeSingle();if(exist)return alert(t('tip.exists'));const{error}=await sb.from('app_users').insert({phone,role,pwd,blacklisted:false});if(error)return alert(error.message);setUser({phone,role});closeModal();switchView('jinzhu');}
+
 
 function normalizeCard(card,fallbackPhone){const c=card&&typeof card==='object'?card:{};return{person:(c.person||'').trim(),title:(c.title||'').trim(),phone:(c.phone||fallbackPhone||'').trim(),email:(c.email||'').trim(),wechat:(c.wechat||'').trim(),whatsapp:(c.whatsapp||'').trim(),website:(c.website||'').trim(),qr:(c.qr||'').trim()};}
 function renderBizCard(card,fallbackPhone){const c=normalizeCard(card,fallbackPhone);if(!c.person&&!c.phone&&!c.wechat&&!c.email&&!c.whatsapp&&!c.website&&!c.qr)return '';const site=c.website;let siteHtml='—';if(site){const href=normalizeExternalUrl(site);siteHtml=`<a href="${href.replace(/"/g,'&quot;')}" target="_blank" rel="noopener">${escapeHtml(site)}</a>`;}const qrSrc=c.qr||(c.wechat?('https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(c.wechat)):'');return`<div class="biz-card"><div class="biz-info"><div class="biz-name">${escapeHtml(c.person||'—')}${c.title?` · ${escapeHtml(c.title)}`:''}</div><div class="biz-row"><span class="k">${t('label.phone')}</span><span>${escapeHtml(c.phone||'—')}</span></div><div class="biz-row"><span class="k">${t('label.email')}</span><span>${escapeHtml(c.email||'—')}</span></div><div class="biz-row"><span class="k">${t('label.wechat')}</span><span>${escapeHtml(c.wechat||'—')}</span></div><div class="biz-row"><span class="k">${t('label.whatsapp')}</span><span>${escapeHtml(c.whatsapp||'—')}</span></div><div class="biz-row"><span class="k">${t('label.website')}</span><span>${siteHtml}</span></div></div>${qrSrc?`<div class="qr-box"><img src="${escapeAttr(qrSrc)}" alt="QR" onerror="this.style.display='none'"></div>`:''}</div>`;}
