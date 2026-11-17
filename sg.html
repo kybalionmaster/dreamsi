@@ -1300,8 +1300,8 @@ function doAssign(){
 }
 function addBuyer(){
   openModal('添加名单买家','买家用于接收分配，可按行业 / 地址做自动匹配',`
-    <div class="fgrid"><div class="fitem full"><label>买家名称 <span class="req">*</span></label><input id="b_name" placeholder="如：深圳悦航获客有限公司"></div>
-    <div class="fitem"><label>擅长行业（自动匹配用）</label><input id="b_industry" placeholder="如：教育培训"></div>
+    <div class="fgrid"><div class="fitem full"><label>买家名称 <span class="req">*</span></label><input id="b_name" placeholder="如：深圳兑换联盟有限公司"></div>
+    <div class="fitem"><label>擅长行业（自动匹配用）</label><input id="b_industry" placeholder="如：企业增长"></div>
     <div class="fitem"><label>覆盖地址（自动匹配用）</label><input id="b_region" placeholder="如：南山"></div></div>
     <div class="infobox">「按行业标签匹配」会用买家擅长行业去包含匹配线索行业；「按地址优先 + 轮询」会用覆盖地址匹配，未命中的线索再轮询分配。</div>`,
     foot('','<button class="mbtn" data-act="closeModal">取消</button><button class="mbtn p" data-act="saveBuyer">保存买家</button>'),'small');
