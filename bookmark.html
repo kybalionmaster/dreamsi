@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>收藏夹 · Excel 双向转换器</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#17243a;--muted:#718096;--line:#e4eaf2;--blue:#2864dc;--blue2:#eaf1ff;--green:#16845b;--red:#c33d4d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Microsoft YaHei",sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#142b54,#2864dc);color:#fff;padding:30px max(22px,calc((100% - 1100px)/2))}
+header h1{margin:0 0 8px;font-size:25px}header p{margin:0;color:#dce7ff;font-size:14px}
+main{max-width:1100px;margin:26px auto;padding:0 18px 50px}
+.tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px 20px;cursor:pointer;font-weight:700;color:#53627a}.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px;margin-bottom:16px;box-shadow:0 5px 20px #20385d08}
+h2{font-size:18px;margin:0 0 8px}.desc{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 18px}
+.drop{border:2px dashed #b9c9e3;background:#f8faff;border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer}.drop.drag{background:#eaf1ff;border-color:var(--blue)}.drop strong{display:block;margin-bottom:7px}.drop small{color:var(--muted)}
+input[type=file]{display:none}.btn{border:0;border-radius:9px;background:var(--blue);color:#fff;padding:11px 17px;font-weight:700;cursor:pointer}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.secondary{background:#edf2fa;color:#33445e}.btn.green{background:var(--green)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.status{font-size:13px;color:var(--muted);margin-top:12px;min-height:20px}.status.ok{color:var(--green)}.status.err{color:var(--red)}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.stat{background:#f7f9fd;border-radius:10px;padding:13px}.stat b{display:block;font-size:21px}.stat span{font-size:12px;color:var(--muted)}
+label{font-size:13px;color:#52617a;display:block;margin-bottom:6px}select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.preview{overflow:auto;max-height:340px;border:1px solid var(--line);border-radius:9px;margin-top:14px}table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}th{background:#f4f7fc;position:sticky;top:0}td.url{color:#2864dc;max-width:300px;overflow:hidden;text-overflow:ellipsis}
+.note{background:#fff9e9;border:1px solid #f3e3b5;padding:12px 14px;border-radius:9px;color:#79632b;font-size:12px;line-height:1.7}
+footer{text-align:center;color:#94a0b3;font-size:12px;padding:8px}
+@media(max-width:650px){.row{grid-template-columns:repeat(2,1fr)}header{padding:24px 18px}.card{padding:17px}}
+</style>
+</head>
+<body>
+<header><h1>收藏夹 · Excel 双向转换器</h1><p>把 AI 工具清单变成浏览器收藏夹，也可以把收藏夹重新整理成 Excel。</p></header>
+<main>
+<div class="tabs">
+<button class="tab active" data-tab="tohtml">Excel → 收藏夹 HTML</button>
+<button class="tab" data-tab="toexcel">收藏夹 HTML → Excel</button>
+</div>
+
+<section class="panel active" id="tohtml">
+<div class="card">
+<h2>① 导入 Excel 文件</h2>
+<p class="desc">支持 .xlsx、.xls。系统会读取第一个工作表，并尝试自动识别大分类、小分类、名称和网址列。</p>
+<label class="drop" id="excelDrop"><strong>点击选择或将 Excel 文件拖到这里</strong><small>支持 .xlsx / .xls</small><input type="file" id="excelFile" accept=".xlsx,.xls"></label>
+<div id="excelStatus" class="status">尚未选择文件</div>
+<div id="excelMapping" class="row" style="display:none">
+<div><label>大分类列</label><select id="colMajor"></select></div>
+<div><label>小分类列</label><select id="colMinor"></select></div>
+<div><label>名称列</label><select id="colName"></select></div>
+<div><label>网址列</label><select id="colUrl"></select></div>
+</div>
+<div class="actions"><button class="btn green" id="makeHtml" disabled>生成收藏夹 HTML</button></div>
+</div>
+<div class="card">
+<h2>② 转换结果</h2><p class="desc">生成的文件可直接导入 Chrome 或 Edge 收藏夹。文件夹层级为：书签栏 → 大分类 → 小分类 → 收藏项目。</p>
+<div class="row"><div class="stat"><b id="htmlCount">0</b><span>收藏网址</span></div><div class="stat"><b id="majorCount">0</b><span>大分类</span></div><div class="stat"><b id="minorCount">0</b><span>小分类</span></div><div class="stat"><b id="invalidCount">0</b><span>跳过的无效网址</span></div></div>
+<div class="actions"><button class="btn" id="downloadHtml" disabled>下载收藏夹 HTML</button></div>
+<div id="htmlResult" class="status"></div>
+</div>
+</section>
+
+<section class="panel" id="toexcel">
+<div class="card">
+<h2>① 导入浏览器收藏夹 HTML</h2>
+<p class="desc">支持 Chrome、Edge 导出的书签 HTML 文件，自动读取多级文件夹、网址和收藏名称。</p>
+<label class="drop" id="bookmarkDrop"><strong>点击选择或将收藏夹 HTML 拖到这里</strong><small>通常文件名为 Bookmarks、收藏夹或 bookmarks.html</small><input type="file" id="bookmarkFile" accept=".html,.htm,text/html"></label>
+<div id="bookmarkStatus" class="status">尚未选择文件</div>
+<div class="row" id="bookmarkStats" style="display:none"><div class="stat"><b id="bookmarkCount">0</b><span>收藏网址</span></div><div class="stat"><b id="folderCount">0</b><span>文件夹</span></div><div class="stat"><b id="bookmarkInvalid">0</b><span>无效项目</span></div><div class="stat"><b id="depthCount">0</b><span>最大文件夹层级</span></div></div>
+<div class="actions"><button class="btn green" id="makeExcel" disabled>生成 Excel</button></div>
+</div>
+<div class="card">
+<h2>② 转换结果</h2><p class="desc">输出列：大分类、小分类、名称、网址。文件夹不足两级时，缺失的分类将留空；更深层级会合并到小分类中，避免丢失路径信息。</p>
+<div class="preview" id="bookmarkPreview" style="display:none"><table><thead><tr><th>大分类</th><th>小分类</th><th>名称</th><th>网址</th></tr></thead><tbody id="bookmarkRows"></tbody></table></div>
+<div class="actions"><button class="btn" id="downloadExcel" disabled>下载 Excel 文件</button></div>
+<div id="excelResult" class="status"></div>
+</div>
+</section>
+<div class="note">使用说明：本工具在浏览器本地处理文件，不会把文件上传到服务器。Excel 读写依赖 SheetJS 在线脚本，首次使用需要联网加载。导出的 HTML 是标准 Netscape Bookmark 格式，可通过浏览器的“导入书签/收藏夹”功能导入。</div>
+<footer>本地文件转换 · 不上传数据</footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+let excelRows=[],excelHeaders=[],bookmarkRows=[],htmlBlob=null,excelBlob=null;
+function status(id,msg,type=''){const e=$(id);e.textContent=msg;e.className='status '+type}
+function setupDrop(zoneId,inputId,handler){
+ const z=$(zoneId),f=$(inputId);z.addEventListener('click',()=>f.click());
+ f.addEventListener('change',()=>{if(f.files[0])handler(f.files[0])});
+ ['dragenter','dragover'].forEach(ev=>z.addEventListener(ev,e=>{e.preventDefault();z.classList.add('drag')}));
+ ['dragleave','drop'].forEach(ev=>z.addEventListener(ev,e=>{e.preventDefault();z.classList.remove('drag')}));
+ z.addEventListener('drop',e=>{const file=e.dataTransfer.files[0];if(file)handler(file)});
+}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))});
+function normalizeUrl(v){let s=String(v??'').trim();if(!s)return '';if(!/^https?:\/\//i.test(s)&&!/^ftp:\/\//i.test(s))s='https://'+s;try{let u=new URL(s);return ['http:','https:','ftp:'].includes(u.protocol)?u.href:''}catch{return ''}}
+function guess(headers,terms,fallback){let i=headers.findIndex(h=>terms.some(t=>String(h).toLowerCase().includes(t)));return i>=0?i:fallback}
+function fillSelect(id,selected){$(id).innerHTML=excelHeaders.map((h,i)=>`<option value="${i}" ${i===selected?'selected':''}>${escapeHtml(h||('列'+(i+1)))}</option>`).join('')}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function loadExcel(file){
+ try{
+ if(!window.XLSX)throw Error('Excel 读写组件未加载，请检查网络后刷新页面。');
+ const buf=await file.arrayBuffer(),wb=XLSX.read(buf,{type:'array'}),ws=wb.Sheets[wb.SheetNames[0]],data=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+ if(data.length<2)throw Error('Excel 中没有可转换的数据行。');
+ excelHeaders=data[0].map((x,i)=>String(x||`列${i+1}`).trim());
+ excelRows=data.slice(1).filter(r=>r.some(v=>String(v).trim()!==''));
+ fillSelect('colMajor',guess(excelHeaders,['大分类','主分类','分类'],0));
+ fillSelect('colMinor',guess(excelHeaders,['小分类','子分类'],1));
+ fillSelect('colName',guess(excelHeaders,['ai名称','名称','标题','name','title'],2));
+ fillSelect('colUrl',guess(excelHeaders,['网址','链接','url','website','链接地址'],3));
+ $('excelMapping').style.display='grid';$('makeHtml').disabled=false;
+ status('excelStatus',`已读取：${file.name}，${excelRows.length} 条数据，工作表：${wb.SheetNames[0]}`,'ok');
+ }catch(e){status('excelStatus',e.message,'err');$('makeHtml').disabled=true}
+}
+setupDrop('excelDrop','excelFile',loadExcel);
+function buildBookmarkHtml(rows){
+ const tree=new Map();
+ rows.forEach(r=>{const a=r.major||'未分类',b=r.minor||'未分类';if(!tree.has(a))tree.set(a,new Map());if(!tree.get(a).has(b))tree.get(a).set(b,[]);tree.get(a).get(b).push(r)});
+ const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+ let out='<!DOCTYPE NETSCAPE-Bookmark-file-1>\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n<TITLE>Bookmarks</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n<DT><H3 PERSONAL_TOOLBAR_FOLDER="true">书签栏</H3>\n<DL><p>\n';
+ for(const [a,subs] of tree){out+=`<DT><H3>${esc(a)}</H3>\n<DL><p>\n`;for(const [b,items] of subs){out+=`<DT><H3>${esc(b)}</H3>\n<DL><p>\n`;for(const r of items)out+=`<DT><A HREF="${esc(r.url)}">${esc(r.name||r.url)}</A>\n`;out+='</DL><p>\n'}out+='</DL><p>\n'}
+ return out+'</DL><p>\n</DL><p>\n';
+}
+$('makeHtml').onclick=()=>{
+ let good=[],bad=0;for(const r of excelRows){const url=normalizeUrl(r[+$('colUrl').value]);if(!url){bad++;continue}good.push({major:String(r[+$('colMajor').value]||'未分类').trim(),minor:String(r[+$('colMinor').value]||'未分类').trim(),name:String(r[+$('colName').value]||url).trim(),url})}
+ htmlBlob=new Blob([buildBookmarkHtml(good)],{type:'text/html;charset=utf-8'});
+ $('htmlCount').textContent=good.length;$('majorCount').textContent=new Set(good.map(x=>x.major)).size;$('minorCount').textContent=new Set(good.map(x=>x.major+'|'+x.minor)).size;$('invalidCount').textContent=bad;
+ $('downloadHtml').disabled=!good.length;status('htmlResult',`转换完成：${good.length} 个收藏网址，跳过 ${bad} 条无效网址。`,'ok');
+};
+$('downloadHtml').onclick=()=>download(htmlBlob,'浏览器收藏夹.html');
+function download(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function parseBookmarks(source){
+ const doc=new DOMParser().parseFromString(source,'text/html'),root=doc.querySelector('dl');let rows=[],folders=0,maxDepth=0,bad=0;
+ function walk(dl,path,depth){
+  maxDepth=Math.max(maxDepth,depth);
+  const kids=Array.from(dl.children);
+  for(let i=0;i<kids.length;i++){
+   const el=kids[i];if(el.tagName!=='DT')continue;
+   const h=Array.from(el.children).find(x=>x.tagName==='H3'),a=Array.from(el.children).find(x=>x.tagName==='A');
+   if(h){
+    folders++;
+    let next=Array.from(el.children).find(x=>x.tagName==='DL');
+    if(!next) next=kids.slice(i+1).find(x=>x.tagName==='DL');
+    if(next){walk(next,[...path,h.textContent.trim()],depth+1);if(kids.includes(next))i=kids.indexOf(next)}
+   }else if(a){
+    const url=normalizeUrl(a.getAttribute('href'));if(!url){bad++;continue}
+    const p=path.filter(x=>x&&x!=='书签栏'&&x!=='Bookmarks');
+    rows.push({major:p[0]||'',minor:p.slice(1).join(' / '),name:a.textContent.trim()||url,url});
+   }
+  }
+ }
+ if(root)walk(root,[],0);
+ return {rows,folders,bad,maxDepth};
+}
+async function loadBookmarks(file){
+ try{
+ const source=await file.text(),parsed=parseBookmarks(source);bookmarkRows=parsed.rows;
+ $('bookmarkStats').style.display='grid';$('bookmarkCount').textContent=parsed.rows.length;$('folderCount').textContent=parsed.folders;$('bookmarkInvalid').textContent=parsed.bad;$('depthCount').textContent=Math.max(0,parsed.maxDepth-1);
+ $('bookmarkRows').innerHTML=parsed.rows.slice(0,100).map(r=>`<tr><td>${escapeHtml(r.major)}</td><td>${escapeHtml(r.minor)}</td><td>${escapeHtml(r.name)}</td><td class="url">${escapeHtml(r.url)}</td></tr>`).join('');
+ $('bookmarkPreview').style.display='block';$('makeExcel').disabled=!parsed.rows.length;
+ status('bookmarkStatus',`已读取：${file.name}，发现 ${parsed.rows.length} 个网址、${parsed.folders} 个文件夹。${parsed.rows.length>100?'预览仅显示前100条。':''}`,'ok');
+ }catch(e){status('bookmarkStatus','读取失败：'+e.message,'err')}
+}
+setupDrop('bookmarkDrop','bookmarkFile',loadBookmarks);
+$('makeExcel').onclick=()=>{
+ if(!window.XLSX){status('excelResult','Excel 组件未加载，请联网刷新页面。','err');return}
+ const data=[['大分类','小分类','名称','网址'],...bookmarkRows.map(r=>[r.major,r.minor,r.name,r.url])];
+ const ws=XLSX.utils.aoa_to_sheet(data);ws['!cols']=[{wch:20},{wch:28},{wch:42},{wch:55}];
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'收藏夹');
+ const bytes=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+ excelBlob=new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+ $('downloadExcel').disabled=false;status('excelResult',`Excel 已生成，共 ${bookmarkRows.length} 条收藏网址。`,'ok');
+};
+$('downloadExcel').onclick=()=>download(excelBlob,'收藏夹转换结果.xlsx');
+</script>
+</body></html>
