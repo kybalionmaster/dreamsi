@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>图片转 PNG</title>
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#eef1f4;--panel:#ffffff;--ink:#16202b;--mute:#5d6b7a;--line:#d3dae1;--accent:#1d5fd1;--accent-ink:#ffffff;--ok:#16794a;--err:#b3261e;
+  --chk1:#e4e8ec;--chk2:#f6f8fa;color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#10161d;--panel:#18212b;--ink:#e8edf2;--mute:#95a3b2;--line:#2b3846;--accent:#6aa0ff;--accent-ink:#0b1626;--ok:#58c78e;--err:#ff8a80;--chk1:#222d39;--chk2:#1b2530;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#10161d;--panel:#18212b;--ink:#e8edf2;--mute:#95a3b2;--line:#2b3846;--accent:#6aa0ff;--accent-ink:#0b1626;--ok:#58c78e;--err:#ff8a80;--chk1:#222d39;--chk2:#1b2530;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif}
+main{max-width:920px;margin:0 auto;padding:28px 20px 56px}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:.02em}
+.sub{color:var(--mute);margin:0 0 22px}
+#drop{border:2px dashed var(--line);background:var(--panel);border-radius:14px;padding:38px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+#drop.over,#drop:focus-visible{border-color:var(--accent);outline:none;background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
+#drop b{font-size:17px}
+#drop p{margin:6px 0 0;color:var(--mute);font-size:13px}
+.bar{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin:18px 0;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.bar label{display:flex;align-items:center;gap:8px;font-size:14px}
+.bar select,.bar input[type=number]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 8px}
+.bar input[type=number]{width:84px}
+.sp{flex:1}
+button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:7px 14px}
+button:hover{border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+button:disabled{opacity:.45;cursor:not-allowed}
+#list{display:grid;gap:12px}
+.item{display:grid;grid-template-columns:84px 1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px}
+.thumb{width:84px;height:84px;border-radius:8px;background:conic-gradient(var(--chk1) 25%,var(--chk2) 0 50%,var(--chk1) 0 75%,var(--chk2) 0) 0 0/16px 16px;display:grid;place-items:center;overflow:hidden}
+.thumb img{max-width:100%;max-height:100%;display:block}
+.name{font-weight:600;word-break:break-all}
+.meta{color:var(--mute);font-size:13px}
+.st-ok{color:var(--ok)}.st-err{color:var(--err)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.empty{text-align:center;color:var(--mute);padding:26px 0}
+.note{margin-top:22px;color:var(--mute);font-size:13px}
+@media (max-width:560px){.item{grid-template-columns:64px 1fr}.thumb{width:64px;height:64px}.acts{grid-column:1/-1;justify-content:flex-start}}
+</style>
+</head>
+<body>
+<main>
+  <h1>图片转 PNG</h1>
+  <p class="sub">支持 AVIF、JPG、WebP、GIF、BMP、SVG 等格式。所有转换都在你的浏览器本地完成，图片不会上传。</p>
+
+  <div id="drop" tabindex="0" role="button" aria-label="选择或拖入图片">
+    <b>拖入图片，或点击选择文件</b>
+    <p>可一次选择多张</p>
+    <input id="file" type="file" accept="image/*,.avif,.webp,.bmp,.gif,.svg,.ico,.tif,.tiff" multiple hidden>
+  </div>
+
+  <div class="bar">
+    <label>缩放
+      <select id="scale">
+        <option value="1">原始尺寸</option>
+        <option value="0.5">50%</option>
+        <option value="2">200%</option>
+        <option value="max">限制最长边</option>
+      </select>
+    </label>
+    <label id="maxWrap" hidden>最长边 <input id="maxPx" type="number" min="16" max="16384" value="1920"> px</label>
+    <label><input id="keepTransp" type="checkbox" checked> 保留透明背景</label>
+    <label id="bgWrap" hidden>背景色 <input id="bg" type="color" value="#ffffff"></label>
+    <span class="sp"></span>
+    <button id="zipBtn" disabled>全部打包下载</button>
+    <button id="clearBtn" disabled>清空</button>
+  </div>
+
+  <div id="list"><div class="empty" id="empty">还没有图片。选择文件后会自动转换。</div></div>
+
+  <p class="note">提示：能否读取 AVIF 取决于浏览器（Chrome、Edge、Firefox、Safari 16.4 及以上均支持）。浏览器不支持的格式（如 HEIC）会显示转换失败。</p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(function(){
+  var items=[], uid=0;
+  var $=function(id){return document.getElementById(id)};
+  var drop=$('drop'), file=$('file'), list=$('list');
+
+  function fmtSize(n){return n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(2)+' MB'}
+  function baseName(n){var i=n.lastIndexOf('.');return i>0?n.slice(0,i):n}
+
+  drop.addEventListener('click',function(){file.click()});
+  drop.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();file.click()}});
+  ['dragenter','dragover'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add('over')})});
+  ['dragleave','drop'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.remove('over')})});
+  drop.addEventListener('drop',function(e){add(e.dataTransfer.files)});
+  file.addEventListener('change',function(){add(file.files);file.value=''});
+  document.addEventListener('paste',function(e){
+    var fs=[].filter.call(e.clipboardData.files||[],function(f){return f.type.indexOf('image')===0});
+    if(fs.length)add(fs);
+  });
+
+  $('scale').addEventListener('change',function(){$('maxWrap').hidden=$('scale').value!=='max';reconvertAll()});
+  $('maxPx').addEventListener('change',reconvertAll);
+  $('keepTransp').addEventListener('change',function(){$('bgWrap').hidden=$('keepTransp').checked;reconvertAll()});
+  $('bg').addEventListener('change',reconvertAll);
+  $('clearBtn').addEventListener('click',function(){items.forEach(function(it){if(it.url)URL.revokeObjectURL(it.url)});items=[];render()});
+  $('zipBtn').addEventListener('click',zipAll);
+
+  function add(fl){
+    [].forEach.call(fl,function(f){
+      var it={id:++uid,file:f,status:'wait',url:null,blob:null,w:0,h:0,msg:''};
+      items.push(it);convert(it);
+    });
+    render();
+  }
+
+  function loadBitmap(f){
+    if(window.createImageBitmap){
+      return createImageBitmap(f).catch(function(){return loadImg(f)});
+    }
+    return loadImg(f);
+  }
+  function loadImg(f){
+    return new Promise(function(res,rej){
+      var u=URL.createObjectURL(f),im=new Image();
+      im.onload=function(){URL.revokeObjectURL(u);res(im)};
+      im.onerror=function(){URL.revokeObjectURL(u);rej(new Error('无法解码'))};
+      im.src=u;
+    });
+  }
+
+  function convert(it){
+    it.status='work';it.msg='转换中…';render();
+    loadBitmap(it.file).then(function(src){
+      var sw=src.naturalWidth||src.width, sh=src.naturalHeight||src.height;
+      if(!sw||!sh)throw new Error('尺寸无效');
+      var s=$('scale').value,k=1;
+      if(s==='max'){var m=Math.max(16,parseInt($('maxPx').value)||1920);k=Math.min(1,m/Math.max(sw,sh))}
+      else k=parseFloat(s)||1;
+      var w=Math.max(1,Math.round(sw*k)),h=Math.max(1,Math.round(sh*k));
+      if(w*h>268435456)throw new Error('图片过大，请缩小后再试');
+      var c=document.createElement('canvas');c.width=w;c.height=h;
+      var x=c.getContext('2d');
+      if(!$('keepTransp').checked){x.fillStyle=$('bg').value;x.fillRect(0,0,w,h)}
+      x.imageSmoothingQuality='high';
+      x.drawImage(src,0,0,w,h);
+      if(src.close)src.close();
+      return new Promise(function(res,rej){
+        c.toBlob(function(b){b?res({b:b,w:w,h:h}):rej(new Error('PNG 编码失败'))},'image/png');
+      });
+    }).then(function(r){
+      if(it.url)URL.revokeObjectURL(it.url);
+      it.blob=r.b;it.w=r.w;it.h=r.h;it.url=URL.createObjectURL(r.b);
+      it.status='ok';it.msg='';render();
+    }).catch(function(e){
+      it.status='err';it.msg='转换失败：'+(e&&e.message?e.message:'浏览器不支持此格式');render();
+    });
+  }
+
+  function reconvertAll(){items.forEach(convert)}
+
+  function dl(it){
+    var a=document.createElement('a');a.href=it.url;a.download=baseName(it.file.name)+'.png';
+    document.body.appendChild(a);a.click();a.remove();
+  }
+
+  function uniqueNames(arr){
+    var seen={};
+    return arr.map(function(it){
+      var n=baseName(it.file.name),key=n.toLowerCase(),c=seen[key]=(seen[key]||0)+1;
+      return (c>1?n+'-'+c:n)+'.png';
+    });
+  }
+
+  function zipAll(){
+    var ok=items.filter(function(i){return i.status==='ok'});
+    if(!ok.length)return;
+    if(!window.JSZip){ok.forEach(dl);return}
+    var z=new JSZip(),names=uniqueNames(ok);
+    ok.forEach(function(it,i){z.file(names[i],it.blob)});
+    z.generateAsync({type:'blob'}).then(function(b){
+      var u=URL.createObjectURL(b),a=document.createElement('a');
+      a.href=u;a.download='png-images.zip';document.body.appendChild(a);a.click();a.remove();
+      setTimeout(function(){URL.revokeObjectURL(u)},4000);
+    });
+  }
+
+  function render(){
+    list.innerHTML='';
+    $('clearBtn').disabled=!items.length;
+    $('zipBtn').disabled=!items.some(function(i){return i.status==='ok'});
+    if(!items.length){
+      var d=document.createElement('div');d.className='empty';d.textContent='还没有图片。选择文件后会自动转换。';list.appendChild(d);return;
+    }
+    items.forEach(function(it){
+      var row=document.createElement('div');row.className='item';
+      var th=document.createElement('div');th.className='thumb';
+      if(it.url){var im=document.createElement('img');im.src=it.url;im.alt='';th.appendChild(im)}
+      var info=document.createElement('div');
+      var nm=document.createElement('div');nm.className='name';nm.textContent=baseName(it.file.name)+'.png';
+      var mt=document.createElement('div');mt.className='meta';
+      if(it.status==='ok'){
+        mt.innerHTML='';
+        var t=document.createElement('span');t.className='st-ok';t.textContent='已转换';
+        mt.appendChild(t);
+        mt.appendChild(document.createTextNode('  '+it.w+' × '+it.h+' · '+fmtSize(it.file.size)+' → '+fmtSize(it.blob.size)));
+      }else if(it.status==='err'){mt.className='meta st-err';mt.textContent=it.msg}
+      else mt.textContent=it.msg||'等待中…';
+      info.appendChild(nm);info.appendChild(mt);
+      var ac=document.createElement('div');ac.className='acts';
+      var b1=document.createElement('button');b1.className='primary';b1.textContent='下载 PNG';b1.disabled=it.status!=='ok';
+      b1.onclick=function(){dl(it)};
+      var b2=document.createElement('button');b2.textContent='移除';
+      b2.onclick=function(){if(it.url)URL.revokeObjectURL(it.url);items=items.filter(function(x){return x!==it});render()};
+      ac.appendChild(b1);ac.appendChild(b2);
+      row.appendChild(th);row.appendChild(info);row.appendChild(ac);
+      list.appendChild(row);
+    });
+  }
+})();
+</script>
+</body>
+</html>
